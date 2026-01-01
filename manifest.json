@@ -1,12 +1,12 @@
 {
   "id": "i9Wm1ZcpMLQYII4MFhamalcjqYGZF7Wy",
-  "name": "ROBLOX Early 2011: Rovloo Edition",
+  "name": "Early 2011 ROBLOX: Rovloo Edition",
   "description": "Faithful recreation of the early 2011 Roblox website",
   "version": "1.3.0",
   "author": "Rovloo",
   "entry": "index.html",
   "era": "2011",
-  "featured": true,
+   "preview": "https://raw.githubusercontent.com/shpeelock/rovloo-2011/refs/heads/main/preview.png",
   "supports": {
     "seasonal": ["default", "halloween", "thanksgiving", "christmas"]
   }
