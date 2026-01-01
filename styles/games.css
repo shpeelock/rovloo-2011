@@ -1,0 +1,403 @@
+.games-page {
+  padding: 0;
+}
+
+.games-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.games-header h1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.games-filters {
+  display: flex;
+  gap: 10px;
+}
+
+.games-filters select {
+  padding: 5px 10px;
+  border: 1px solid #aaa;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  background: #fff;
+}
+
+.games-grid {
+  min-height: 300px;
+}
+
+.games-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.game-item {
+  background: #fff;
+  border: 1px solid #aaa;
+  padding: 8px;
+}
+
+.game-thumbnail {
+  width: 100%;
+  height: 120px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+}
+
+.game-thumbnail img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.game-info h4 {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.game-visits {
+  font-size: 10px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.games-placeholder {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.games-placeholder ul {
+  margin: 10px 0 10px 20px;
+  list-style: disc;
+}
+
+.games-placeholder li {
+  margin: 5px 0;
+  color: #666;
+}
+
+.game-search,
+.game-launch {
+  margin: 15px 0;
+  padding: 12px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+}
+
+.game-search h4,
+.game-launch h4 {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+}
+
+.game-search input,
+.game-launch input {
+  padding: 6px 10px;
+  border: 1px solid #aaa;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  width: 180px;
+  margin-right: 8px;
+}
+
+.home-welcome,
+.home-dashboard {
+  padding: 0;
+}
+
+.home-dashboard {
+  display: flex;
+  gap: 15px;
+}
+
+.home-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.home-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.welcome-content {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.welcome-content h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.welcome-content p {
+  margin-bottom: 10px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.welcome-actions {
+  margin-top: 25px;
+}
+
+.user-card .standard-box-content {
+  text-align: center;
+  padding: 15px;
+}
+
+.user-avatar {
+  width: 150px;
+  height: 200px;
+  margin: 0 auto 12px;
+  background: #f5f5f5;
+  border: 1px solid #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.user-avatar .loading {
+  padding: 10px;
+  font-size: 10px;
+}
+
+.user-info h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.user-info p {
+  font-size: 11px;
+  color: #666;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.friend-item:last-child {
+  border-bottom: none;
+}
+
+.friend-item:hover {
+  background: #f5f5f5;
+}
+
+.friend-avatar {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  border: 1px solid #aaa;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.friend-avatar img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.friend-name {
+  font-size: 11px;
+  color: #333;
+}
+
+.games-preview {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.games-preview p {
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 10px;
+}
+
+#GamesPagination a {
+  display: inline-block;
+  line-height: 0;
+  cursor: pointer;
+}
+
+#GamesPagination a img {
+  border: none;
+  vertical-align: middle;
+  display: block;
+}
+
+#GamesPagination a:hover {
+  text-decoration: none;
+}
+
+#GamesList {
+  overflow: visible !important;
+  width: 100% !important;
+}
+
+.GamesGrid {
+  overflow: visible !important;
+  padding: 5px !important;
+  width: 100% !important;
+}
+
+.GameItem {
+  float: left !important;
+  width: 170px !important;
+  margin: 0 5px 5px 0 !important;
+  position: relative !important;
+  background: #fff !important;
+  border: 1px solid #999 !important;
+  font-family: Verdana, Arial, sans-serif !important;
+  font-size: 11px !important;
+  box-sizing: content-box !important;
+  display: block !important;
+}
+
+.GameItem .AlwaysShown {
+  padding: 5px !important;
+  display: block !important;
+  position: relative !important;
+}
+
+.GameItem .HoverShown {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  color: #fff !important;
+  padding: 10px !important;
+  display: none !important;
+  z-index: 10 !important;
+}
+
+.GameItem:hover .HoverShown {
+  display: block !important;
+}
+
+.GameItem .GameThumbnail {
+  width: 160px;
+  height: 100px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  margin: 0 0 5px 0;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.GameItem .GameThumbnail a {
+  display: block;
+  line-height: 0;
+}
+
+.GameItem .GameThumbnail img {
+  width: 160px !important;
+  height: 100px !important;
+  object-fit: cover;
+  border: none;
+  display: block;
+}
+
+.GameItem .GameName {
+  font-weight: bold;
+  font-size: 11px;
+  margin-bottom: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.GameItem .GameName a {
+  color: #00f;
+  text-decoration: none;
+}
+
+.GameItem .GameName a:hover {
+  text-decoration: underline;
+}
+
+.GameItem .PlayerCount {
+  color: #FF0000;
+  float: left;
+  margin-top: -2px;
+  font-size: 12px;
+}
+
+.GameItem .GenreIcons {
+  float: right;
+  margin-bottom: 3px;
+}
+
+.GameItem .GenreIcons img {
+  border: none;
+  width: 12px;
+  height: 12px;
+  margin-left: 2px;
+}
+
+.GameItem .CreatorName {
+  clear: both;
+  font-size: 11px;
+  color: #666;
+}
+
+.GameItem .CreatorName a {
+  color: #00f;
+  text-decoration: none;
+}
+
+.GameItem .CreatorName a:hover {
+  text-decoration: underline;
+}
+
+.GameItem .HoverShown .StatsPlayed,
+.GameItem .HoverShown .StatsFavorited,
+.GameItem .HoverShown .StatsUpdated {
+  margin-bottom: 8px;
+  font-size: 11px;
+}

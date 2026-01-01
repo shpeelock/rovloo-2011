@@ -1,0 +1,200 @@
+.Navigation {
+  clear: both;
+  background-color: #6e99c9;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  font-weight: normal;
+  line-height: 2em;
+  text-decoration: none;
+}
+
+.Navigation a {
+  text-decoration: none;
+}
+
+.Navigation a:hover {
+  text-decoration: none;
+}
+
+#MainNav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#MainNav li {
+  float: left;
+  position: relative;
+}
+
+#MainNav li a {
+  display: block;
+  padding: 0 12px;
+  color: #fff;
+  font-size: 12px;
+  line-height: 2em;
+}
+
+#MainNav li a h2 {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  display: inline;
+}
+
+#MainNav li a:hover {
+  text-decoration: underline;
+}
+
+.gamesLink {
+  display: flex;
+  align-items: center;
+}
+
+.nav-arrow {
+  padding: 0 2px;
+  cursor: pointer;
+  border: none;
+  background: url('../assets/ui/topNav_arrow_white.png') no-repeat;
+  height: 6px;
+  width: 10px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.dropdownnavcontainer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1023;
+  display: none;
+  background: #fff;
+  border: 1px solid #6e99c9;
+}
+
+.dropdownmainnav {
+  float: left;
+  padding: 5px;
+  z-index: 1023;
+}
+
+.dropdownmainnav.genres {
+  width: 280px;
+}
+
+.dropdownmainnav.sorts {
+  width: 145px;
+  border-left: 1px solid #ddd;
+}
+
+.genre-item {
+  float: left;
+  width: 50%;
+  text-align: left;
+  padding: 3px 0;
+  cursor: pointer;
+}
+
+.genre-item:hover {
+  background: #6e99c9;
+}
+
+.genre-item:hover a {
+  color: #fff;
+}
+
+.genre-item img {
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.genre-item a {
+  padding: 0;
+  margin: 0 2px 0 0;
+  border: none;
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+.sort-item {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.sort-item:hover {
+  background: #6e99c9;
+}
+
+.sort-item:hover a {
+  color: #fff;
+}
+
+.sort-item a {
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+.icons.rss_icon {
+  background: url('../assets/ui/topNav_rss.png') no-repeat;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+}
+
+.Navigation::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+#MainNav::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+#SubNav {
+  background-color: #393939;
+  height: 22px;
+  line-height: 22px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  padding: 0 10px;
+}
+
+#SubNav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#SubNav ul li {
+  display: inline-block;
+}
+
+#SubNav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0 7px;
+  display: block;
+  border-right: 1px solid #555;
+}
+
+#SubNav ul li:last-child a {
+  border-right: none;
+}
+
+#SubNav ul li a:hover {
+  text-decoration: underline;
+}
+
+#SubNav ul li.active a {
+  font-weight: bold;
+  color: #fff;
+}

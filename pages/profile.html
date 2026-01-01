@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" id="www-roblox-com">
+<head>
+    <title>User Profile - ROBLOX</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/Base/CSS/AllCSS.ashx-v-20110725qrwef-t-RBX2.css"/>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="../images/favicon.ico"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="metadescription" name="description" content="View user profile on ROBLOX."/>
+    <link rel="stylesheet" type="text/css" href="../styles/titlebar.css"/>
+    <link rel="stylesheet" type="text/css" href="../styles/overrides.css"/>
+</head>
+<body>
+
+    <div id="titlebar">
+        <div class="titlebar-drag">
+            <span class="titlebar-title">ROBLOX</span>
+        </div>
+        <div class="titlebar-controls">
+            <button id="btn-minimize" class="titlebar-btn">─</button>
+            <button id="btn-maximize" class="titlebar-btn">□</button>
+            <button id="btn-close" class="titlebar-btn btn-close">✕</button>
+        </div>
+    </div>
+
+    <div id="MasterContainer">
+        <div id="Container">
+            <div id="HeaderContainer">
+                <div id="AdvertisingLeaderboard"></div>
+                <div id="Header">
+                    <div id="Banner">
+                        <div id="Options">
+                            <div id="Authentication">
+                                <span id="AuthenticationBannerSpan">
+                                    <a href="#login">Login</a>
+                                </span>
+                            </div>
+                            <div id="Settings"></div>
+                        </div>
+                        <a id="Logo" href="#home" style="cursor: pointer; border: none;"></a>
+                        <div style="float: right; width: 203px;">
+                            <a class="SignUpAndPlay" href="#signup" style="display:inline-block;height:40px;width:210px;cursor:pointer;">
+                                <img src="../images/Holiday3Button.png" border="0" alt="Sign Up"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="Navigation">
+                        <ul id="MainMenu">
+                            <li><a href="#home">My ROBLOX</a></li>
+                            <li class="gamesLink"><a id="hlGames" href="#games" title="Games">Games</a></li>
+                            <li><a href="#catalog" title="Catalog">Catalog</a></li>
+                            <li><a href="#people" title="People">People</a></li>
+                            <li><a href="#bc" title="Builders Club">Builders Club</a></li>
+                            <li><a href="#forum" title="Forum">Forum</a></li>
+                            <li><a href="#help" title="Help">Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Body">
+
+                <div id="ProfileLoading" style="text-align: center; padding: 60px;">
+                    <img src="../images/spinners/spinner100x100.gif" alt="Loading..." style="width:32px;height:32px;"/>
+                    <p>Loading profile...</p>
+                </div>
+
+                <div id="ProfileError" style="display: none; text-align: center; padding: 60px; color: #990000;">
+                    <p>Failed to load user profile.</p>
+                </div>
+
+                <div class="MyRobloxContainer" id="ProfileContent" style="display: none;">
+                    <div style="clear: both; margin: 0; padding: 0;"></div>
+
+                    <div class="Column1d">
+                        <div class="StandardBoxHeader">
+                            <span id="ProfileHeader">User's Profile</span>
+                        </div>
+                        <div class="StandardBox" style="position: relative">
+                            <div style="width: 100%">
+
+                                <div id="onlineStatusRow">
+                                    <div style="text-align: center;">
+                                        <span id="UserOnlineStatus" class="UserOfflineMessage">[ Offline ]</span>
+                                    </div>
+                                </div>
+
+                                <div style="margin-bottom: 10px;">
+                                    <span style="font-size: 13px;">
+                                        <a id="UserProfileURL" href="#">http://www.roblox.com/User.aspx?ID=0</a>
+                                    </span>
+                                </div>
+
+                                <a id="AvatarImageLink" title="User" style="display:inline-block;height:200px;width:150px;position:relative;">
+                                    <img id="AvatarImage" src="../images/guest.png" border="0" alt="User Avatar" style="height:200px;width:150px;"/>
+                                </a>
+                                <br/>
+
+                                <div id="BCBadge" style="display: none; margin: 5px 0;">
+                                    <img id="BCBadgeImage" src="../images/Badges/BC-75x75.png" alt="Builders Club" style="height:30px;"/>
+                                </div>
+
+                                <br/>
+                                <div class="UserBlurb" style="overflow-y: auto; max-height: 450px;">
+                                    <span id="UserBlurb">No description available.</span>
+                                </div>
+
+                                <span style="font-weight:bold; font-size:13px;">
+                                    <a id="SendMessageLink" style="display:none;" href="#">Send Message</a>&nbsp;&nbsp;
+                                    <a id="AddFriendLink" style="display:none;" href="#">Add Friend</a>&nbsp;&nbsp;
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="StandardTabWhite"><span>Roblox Badges</span></div>
+                        <div class="StandardBoxWhite">
+                            <div id="RobloxBadges" style="text-align: center; padding: 10px;">
+
+                                <span id="NoBadges" style="color: #666;">No badges to display.</span>
+                            </div>
+                        </div>
+
+                        <div class="StandardTabWhite"><span>Statistics</span></div>
+                        <div class="StandardBoxWhite">
+                            <table class="statsTable" style="width: 100%;">
+                                <tr>
+                                    <td class="statsLabel">
+                                        <acronym title="The number of this user's friends.">Friends</acronym>:
+                                    </td>
+                                    <td class="statsValue">
+                                        <span id="FriendsCount">0</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="statsLabel">
+                                        <acronym title="The number of this user's followers.">Followers</acronym>:
+                                    </td>
+                                    <td class="statsValue">
+                                        <span id="FollowersCount">0</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="statsLabel">
+                                        <acronym title="The number of users this user is following.">Following</acronym>:
+                                    </td>
+                                    <td class="statsValue">
+                                        <span id="FollowingCount">0</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="statsLabel">
+                                        <acronym title="When this user joined ROBLOX.">Join Date</acronym>:
+                                    </td>
+                                    <td class="statsValue">
+                                        <span id="JoinDate">Unknown</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="StandardTabWhite"><span>Friends</span></div>
+                        <div class="StandardBoxWhite" id="FriendsSection">
+                            <div id="FriendsList" style="padding: 10px;">
+
+                                <span id="NoFriends" style="color: #666;">No friends to display.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Column2d" style="overflow: hidden">
+                        <div class="StandardBoxHeader">
+                            <span>Active Places</span>
+                        </div>
+                        <div id="UserPlacesPane" class="StandardBox">
+                            <div id="UserPlaces" style="overflow:visible; padding: 10px;">
+
+                                <div id="NoPlaces" style="color: #666; text-align: center; padding: 20px;">
+                                    This user has no active places.
+                                </div>
+                                <div id="PlacesList">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="StandardBoxHeader" style="margin-top: 15px;">
+                            <span>Favorite Games</span>
+                        </div>
+                        <div class="StandardBox" id="FavoriteGamesPane">
+                            <div id="FavoriteGames" style="padding: 10px;">
+
+                                <div id="NoFavorites" style="color: #666; text-align: center; padding: 20px;">
+                                    This user has no favorite games.
+                                </div>
+                                <div id="FavoritesList">
+
+                                </div>
+                                <div id="FavoritesPagination" style="text-align: left; padding: 10px; display: none;">
+                                    <a id="FavoritesPrevPage" href="#" style="margin-right: 20px; display: none;">
+                                        <img src="images/arrow_36px_left.png" alt="Previous" style="vertical-align: middle;" />
+                                    </a>
+                                    <span id="FavoritesPageInfo">Page 1</span>
+                                    <a id="FavoritesNextPage" href="#" style="margin-left: 20px; display: none;">
+                                        <img src="images/arrow_36px_right.png" alt="Next" style="vertical-align: middle;" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+
+            <div id="Footer">
+                <div class="FooterLinks">
+                    <a href="#help">Help</a> |
+                    <a href="#parents">Parents</a> |
+                    <a href="#terms">Terms</a> |
+                    <a href="#privacy">Privacy</a>
+                </div>
+                <div class="Copyright">
+                    &copy; 2011 ROBLOX Corporation
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/navigation.js"></script>
+    <script src="../scripts/pages/profile.js"></script>
+</body>
+</html>

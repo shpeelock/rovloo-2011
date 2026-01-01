@@ -1,0 +1,383 @@
+#CatalogContainer {
+    font-family: Verdana, Sans-Serif;
+    min-width: 0;
+    position: relative;
+}
+
+#CatalogContainer h2 {
+    font-family: Verdana, Sans-Serif;
+    font-weight: normal;
+    letter-spacing: .1em;
+    line-height: 24px;
+    padding: 0;
+    color: #555;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+#CatalogContainer h2.filters-heading {
+    margin-left: 5px;
+}
+
+#CatalogContainer ul {
+    font-family: Verdana, Sans-Serif;
+    list-style: none;
+    margin: 0 0 20px 0;
+    padding-left: 0;
+}
+
+#CatalogContainer ul li {
+    margin: 5px 0 5px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 20px;
+    font-size: 14px;
+}
+
+#BrowseMode ul li h3 a {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#CatalogContainer .Selected {
+    background: url('../../images/gamesPage_filterArrow.png') no-repeat scroll 0 1px transparent;
+}
+
+#CatalogContainer .Assets {
+    float: left;
+    min-width: 0;
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-left: 0;
+
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    padding-right: 0;
+    position: relative;
+    width: 680px;
+}
+
+.Assets .StandardBoxHeader {
+    width: 660px;
+}
+
+.Assets .StandardBox {
+    width: 660px;
+}
+
+#CatalogContainer .Asset {
+    margin: -1px 0 15px -1px;
+    vertical-align: top;
+    width: 122px;
+}
+
+#CatalogContainer .Asset .AssetThumbnail {
+    border: solid 1px #EEE;
+    height: 110px;
+    text-align: center;
+    width: 110px;
+    background-color: #FFF;
+    position: relative;
+
+    transform: translateZ(0);
+    will-change: opacity;
+    contain: layout style paint;
+}
+
+#CatalogContainer .Asset .AssetThumbnail a img {
+    max-width: 110px;
+    max-height: 110px;
+    width: auto;
+    height: auto;
+
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+}
+
+#CatalogContainer .Asset .AssetThumbnail .limited-badge {
+    position: absolute;
+    top: 97px;
+    left: 0;
+    pointer-events: none;
+}
+
+#CatalogContainer .Asset .AssetThumbnail .limited-badge img {
+    width: auto;
+    height: auto;
+}
+
+#CatalogContainer .Asset .AssetDetails {
+    font-family: Verdana, Sans-Serif;
+    overflow: hidden;
+    padding: 2px 0 6px 0;
+    width: 110px;
+}
+
+#CatalogContainer .AssetName a {
+    font-size: .9em;
+    font-weight: bold;
+    line-height: 1.5em;
+    vertical-align: top;
+}
+
+.AssetsBullet {
+    padding-right: 3px;
+}
+
+#CatalogContainer .Label,
+#CatalogContainer .Detail,
+#CatalogContainer .DetailHighlighted,
+#CatalogContainer .PriceInRobux,
+#CatalogContainer .PriceInTickets {
+    font-size: .8em;
+}
+
+#CatalogContainer .DetailHighlighted {
+    color: Red;
+    font-weight: bold;
+}
+
+#CatalogContainer .PriceInRobux {
+    color: Green;
+    font-weight: bold;
+}
+
+#CatalogContainer .PriceInTickets {
+    color: #fbb117;
+    font-weight: bold;
+}
+
+.HeaderPager {
+    text-align: right;
+    padding: 5px 10px;
+    font-size: 11px;
+    color: #666;
+}
+
+.HeaderPager a {
+    color: #006699;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.HeaderPager a:hover {
+    text-decoration: underline;
+}
+
+.NavigationIndicators {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+#CatalogContainer .Assets .FooterPager {
+    clear: both;
+    margin: 0 12px 0 10px;
+    padding: 2px 0;
+    text-align: center;
+}
+
+#CatalogContainer .Assets .FooterPager .Label {
+    font-size: 1em;
+    vertical-align: middle;
+}
+
+.FooterPager a {
+    color: #00f;
+    text-decoration: none;
+}
+
+.FooterPager a:hover {
+    text-decoration: underline;
+}
+
+#BrowseMode #CategoryList li.selected {
+    background: url('../../images/gamesPage_filterArrow.png') no-repeat scroll 0 1px transparent;
+}
+
+#SortByList li.selected {
+    background: url('../../images/gamesPage_filterArrow.png') no-repeat scroll 0 1px transparent;
+}
+
+#SortByList li h3 a {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#TimeFilterList li.selected {
+    background: url('../../images/gamesPage_filterArrow.png') no-repeat scroll 0 1px transparent;
+}
+
+#TimeFilterList li h3 a {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#TimeFilterSection {
+    margin-bottom: 0;
+}
+
+#TimeFilterSection h2 {
+    font-family: Verdana, Sans-Serif;
+    font-weight: normal;
+    letter-spacing: .1em;
+    line-height: 24px;
+    padding: 0;
+    color: #555;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+#TimeFilterSection ul {
+    font-family: Verdana, Sans-Serif;
+    list-style: none;
+    margin: 0 0 20px 0;
+    padding-left: 0;
+}
+
+#TimeFilterSection ul li {
+    margin: 5px 0 5px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 20px;
+    font-size: 14px;
+}
+
+#ResellersSection {
+    margin-top: 20px;
+    clear: both;
+}
+
+#ResellersSection .StandardBoxHeader {
+    background-color: #006699;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.ResellerItem {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+}
+
+.ResellerItem:last-child {
+    border-bottom: none;
+}
+
+.ResellerItem .SellerInfo {
+    float: left;
+    width: 200px;
+}
+
+.ResellerItem .Price {
+    float: right;
+    font-size: 11px;
+    font-weight: bold;
+    color: Green;
+}
+
+.StandardBoxWhite {
+    position: relative;
+    top: -1px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 8px;
+    color: Black;
+}
+
+.catalog-loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 14px;
+}
+
+.catalog-error {
+    text-align: center;
+    padding: 40px;
+    color: #cc0000;
+    font-size: 14px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 12px;
+}
+
+.catalog-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    min-height: 200px;
+}
+
+.catalog-loading-spinner {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px 25px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #666;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+#CatalogContainer .Assets .StandardBox table {
+    transition: opacity 0.15s ease-out;
+}
+
+#CatalogContainer .Assets .StandardBox {
+    min-height: 400px;
+    position: relative;
+}
+
+#CategoryList li.category-group {
+    padding-left: 20px;
+}
+
+#CategoryList li.category-group > h3 > a.category-toggle {
+    font-weight: normal;
+    font-size: 14px;
+    color: #00f;
+    cursor: pointer;
+}
+
+#CategoryList li.category-group > h3 > a.category-toggle:hover {
+    text-decoration: underline;
+}
+
+#CategoryList .category-subitems {
+    list-style: none;
+    margin: 5px 0 10px 0;
+    padding-left: 0;
+}
+
+#CategoryList .category-subitems li {
+    margin: 3px 0 3px 5px;
+    padding-left: 15px;
+    font-size: 12px;
+}
+
+#CategoryList .category-subitems li h3 a {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+#CategoryList .category-subitems li.selected {
+    background: url('../../images/gamesPage_filterArrow.png') no-repeat scroll 0 1px transparent;
+}
+
+#CategoryList .category-subitems li.disabled a {
+    pointer-events: none;
+    color: #999;
+}

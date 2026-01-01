@@ -1,0 +1,931 @@
+#page-game-detail {
+    text-align: center;
+}
+
+#page-game-detail #ItemContainer {
+    font-family: Verdana, Sans-Serif;
+    font-size: 11px;
+    width: 709px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#game-detail-content .StandardBoxHeader h1 {
+    display: inline;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+#game-detail-content .StandardBoxHeader {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+#page-game-detail #game-fav-star {
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin-right: -7px;
+    width: 21px;
+    height: 20px;
+}
+
+#page-game-detail #Item.StandardBox {
+    background: url('../../images/cssspecific/rbx2/standardBox_01_bkg.png') top repeat-x #fff;
+    border: 1px solid #aaa;
+    padding: 15px;
+    width: 709px;
+    box-sizing: border-box;
+}
+
+#page-game-detail #Details {
+    overflow: hidden;
+    width: 677px;
+}
+
+#page-game-detail #placeContainer {
+    float: left !important;
+    width: 420px !important;
+}
+
+#page-game-detail #Thumbnail_Place {
+    border: solid 1px #eee;
+    padding: 0;
+    text-align: left;
+    height: 230px;
+    width: 420px;
+}
+
+#page-game-detail #Thumbnail_Place img {
+    width: 420px;
+    height: 230px;
+    border: 0;
+}
+
+#page-game-detail #Actions_Place {
+    width: 408px;
+    background-color: #fff;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #eee;
+    border-top: none;
+}
+
+#page-game-detail #Actions_Place a {
+    color: #00f;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#page-game-detail #Actions_Place a:hover {
+    text-decoration: underline;
+}
+
+#page-game-detail #PlayGames {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#page-game-detail #PlayGames .PlaceInfoIcons {
+    margin-bottom: 5px;
+}
+
+#game-detail-content #PlayButton,
+#game-detail-content .MultiplayerVisit {
+    display: inline-block !important;
+    width: 212px !important;
+    height: 54px !important;
+    background: url('../../images/cssspecific/rbx2/btn_play_54h.png') no-repeat 0 0 !important;
+    cursor: pointer !important;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+#game-detail-content #PlayButton:hover,
+#game-detail-content .MultiplayerVisit:hover {
+    background-position: 0 -54px !important;
+}
+
+#page-game-detail #Summary {
+    display: inline !important;
+    float: right !important;
+    padding: 7px !important;
+    width: 235px !important;
+}
+
+#page-game-detail #Summary h3 {
+    font-size: 11px;
+    color: #888;
+    margin: 0 0 5px 0;
+    font-weight: normal;
+}
+
+#page-game-detail #Creator.Creator {
+    margin: 10px 0;
+}
+
+#page-game-detail #Creator .Avatar {
+    display: block;
+    margin-bottom: 5px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+#page-game-detail #Creator .Avatar img {
+    width: 140px;
+    height: 140px;
+    border: 0;
+    margin-left: -20px;
+    margin-top: -15px;
+}
+
+#page-game-detail .item-detail {
+    margin: 8px 0;
+    font-size: 11px;
+    clear: both;
+}
+
+#page-game-detail .item-detail div {
+    line-height: 1.5em;
+}
+
+#page-game-detail .item-detail .label {
+    color: #666;
+}
+
+#page-game-detail .stat-label,
+#game-detail-content .stat-label {
+    color: #777;
+}
+
+#page-game-detail .item-detail a {
+    color: #00f;
+    text-decoration: none;
+}
+
+#page-game-detail .item-detail a:hover {
+    text-decoration: underline;
+}
+
+#page-game-detail .box {
+    margin: 8px 0;
+}
+
+#page-game-detail .box .head {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+#page-game-detail .box .head.label {
+    color: #000;
+}
+
+#page-game-detail .box .body,
+#game-detail-content .box .body {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+#page-game-detail .GamesInfoIcon,
+#page-game-detail .GenreIcon,
+#game-detail-content .GamesInfoIcon,
+#game-detail-content .GenreIcon,
+#game-detail-content #GenreIcon,
+#GenresDiv #GenreIcon,
+#GenresDiv .GenreIcon {
+    vertical-align: middle !important;
+    margin-right: 3px !important;
+    width: 16px !important;
+    height: 16px !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: none !important;
+}
+
+#page-game-detail #GenresDiv a,
+#game-detail-content #GenresDiv a {
+    color: #00f;
+    text-decoration: none;
+}
+
+#page-game-detail #GenresDiv a:hover,
+#game-detail-content #GenresDiv a:hover {
+    text-decoration: underline;
+}
+
+#page-game-detail .Description {
+    font-size: 11px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: Verdana, Sans-Serif;
+    margin: 0;
+}
+
+#page-game-detail .ReportAbuse {
+    margin-top: 10px;
+    font-size: 11px;
+    text-align: right;
+}
+
+#page-game-detail .ReportAbuse a {
+    color: #f99;
+    text-decoration: none;
+}
+
+#page-game-detail .ReportAbuse a:hover {
+    color: #f00;
+    text-decoration: underline;
+}
+
+#page-game-detail .PlaceInfoIcons,
+#game-detail-content .PlaceInfoIcons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#page-game-detail .favorited,
+#page-game-detail .notFavorited,
+#game-detail-content .favorited,
+#game-detail-content .notFavorited,
+#game-detail-content #FavoriteStar {
+    background: url('../../images/cssspecific/rbx2/favoriteStar_20h.png') no-repeat 0 0;
+    width: 21px;
+    height: 20px;
+    display: inline-block;
+}
+
+#page-game-detail .favorited,
+#game-detail-content .favorited {
+    background-position: 0 -20px;
+    filter: none;
+}
+
+#page-game-detail .notFavorited,
+#game-detail-content .notFavorited {
+    background-position: 0 0;
+    filter: brightness(0);
+}
+
+#game-detail-content .VoteContainer,
+#page-game-detail .VoteContainer {
+    display: inline-block;
+    min-width: 105px;
+}
+
+#game-detail-content .VoteBar,
+#page-game-detail .VoteBar,
+#game-detail-content .VoteContainer .VoteBar,
+#page-game-detail .VoteContainer .VoteBar {
+    position: relative;
+    display: flex;
+    height: 5px;
+    margin-bottom: 5px;
+    background: #CE645B;
+    margin: 0 0 5px 0;
+}
+
+#game-detail-content .VoteBarLikes,
+#page-game-detail .VoteBarLikes {
+    background: #52A846;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+#game-detail-content .VoteBarDislikes,
+#page-game-detail .VoteBarDislikes {
+    background: #CE645B;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+#game-detail-content .VoteBarMask,
+#page-game-detail .VoteBarMask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    pointer-events: none;
+    gap: 2px;
+}
+
+#game-detail-content .VoteBarMask .segment,
+#page-game-detail .VoteBarMask .segment {
+    flex: 1;
+    height: 100%;
+    background: transparent;
+}
+
+#game-detail-content .VoteBarMask .segment:not(:last-child),
+#page-game-detail .VoteBarMask .segment:not(:last-child) {
+    border-right: 2px solid #fff;
+}
+
+#game-detail-content .vote-numbers,
+#page-game-detail .vote-numbers {
+    margin: 0;
+    padding: 0;
+}
+
+#game-detail-content .vote-count,
+#page-game-detail .vote-count {
+    font-family: Verdana, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    color: #555;
+}
+
+#game-detail-content .VoteButton,
+#page-game-detail .VoteButton {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url('../../assets/ui/background-position_35.png') no-repeat;
+    cursor: pointer;
+}
+
+#game-detail-content .VoteUp,
+#page-game-detail .VoteUp {
+    background-position: 0 -170px;
+}
+
+#game-detail-content .VoteUp:hover,
+#page-game-detail .VoteUp:hover {
+    background-position: 0 -183px;
+}
+
+#game-detail-content .VoteUp.voted,
+#page-game-detail .VoteUp.voted {
+    background-position: 0 -183px;
+}
+
+#game-detail-content .VoteDown,
+#page-game-detail .VoteDown {
+    background-position: -1px -223px;
+}
+
+#game-detail-content .VoteDown:hover,
+#page-game-detail .VoteDown:hover {
+    background-position: -1px -237px;
+}
+
+#game-detail-content .VoteDown.voted,
+#page-game-detail .VoteDown.voted {
+    background-position: -1px -237px;
+}
+
+#page-game-detail .clear {
+    clear: both;
+}
+
+#page-game-detail .section {
+    margin: 8px 0;
+}
+
+#page-game-detail .StandardTabWhite {
+    background: url('../../images/cssspecific/rbx2/tab_white_26h_t1.png') no-repeat left top;
+    padding: 0 4px;
+    float: none;
+    text-align: left;
+    border: none;
+    margin-top: 10px;
+}
+
+#page-game-detail .StandardTabWhite span {
+    display: block;
+    width: 100%;
+    height: 26px;
+    padding: 5px 5px 0 9px;
+    background: url('../../images/cssspecific/rbx2/tab_white_26h_t2.png') no-repeat right top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: #000;
+    font-weight: normal;
+}
+
+#page-game-detail .StandardBoxWhite {
+    position: relative;
+    top: -1px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 8px;
+    color: Black;
+    min-height: 50px;
+}
+
+#page-game-detail .servers-list {
+    padding: 0;
+}
+
+#page-game-detail .server-row {
+    background: #fff;
+    border-bottom: 1px solid #e3e3e3;
+    padding: 10px;
+    overflow: hidden;
+}
+
+#page-game-detail .server-row:last-child {
+    border-bottom: none;
+}
+
+#page-game-detail .server-row:hover {
+    background: #f9f9f9;
+}
+
+#page-game-detail .server-row .player-avatars {
+    float: left;
+    width: 250px;
+    margin-right: 10px;
+}
+
+#page-game-detail .server-row .player-avatar {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 2px;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    background: #f0f0f0;
+}
+
+#page-game-detail .server-row .player-avatar img {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+#page-game-detail .server-row .player-count-badge {
+    display: inline-block;
+    background: #e3e3e3;
+    border: 1px solid #ccc;
+    padding: 2px 6px;
+    font-size: 10px;
+    color: #666;
+    vertical-align: middle;
+    margin-left: 3px;
+}
+
+#page-game-detail .server-row .server-info {
+    float: left;
+    width: 310px;
+    font-size: 11px;
+    color: #333;
+}
+
+#page-game-detail .server-row .server-players {
+    font-weight: bold;
+    margin-bottom: 3px;
+    color: #000;
+}
+
+#page-game-detail .server-row .server-ping {
+    color: #666;
+    font-size: 10px;
+}
+
+#page-game-detail .server-row .server-ping.good {
+    color: #52A846;
+}
+
+#page-game-detail .server-row .server-ping.medium {
+    color: #FF9800;
+}
+
+#page-game-detail .server-row .server-ping.poor {
+    color: #CE645B;
+}
+
+#page-game-detail .server-row .server-region {
+    color: #0066CC;
+    font-size: 10px;
+    margin-bottom: 2px;
+}
+
+#page-game-detail .server-row .server-region.uncertain {
+    color: #888;
+    font-style: italic;
+}
+
+#page-game-detail .server-row .server-actions {
+    float: right;
+    padding-top: 5px;
+}
+
+#page-game-detail .server-row .JoinServerBtn {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    border-radius: 0;
+    color: #333;
+    font-size: 11px;
+    font-family: Verdana, Sans-Serif;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#page-game-detail .server-row .JoinServerBtn:hover {
+    background: #e0e0e0;
+    border-color: #777;
+}
+
+#page-game-detail #PublicServersPagination button {
+    padding: 4px 10px;
+    cursor: pointer;
+    border: 1px solid #999;
+    background: #f0f0f0;
+    font-size: 11px;
+    font-family: Verdana, Sans-Serif;
+}
+
+#page-game-detail #PublicServersPagination button:hover:not(:disabled) {
+    background: #e0e0e0;
+    border-color: #777;
+}
+
+#page-game-detail #PublicServersPagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#page-game-detail #ServersPageInfo {
+    color: #666;
+    margin: 0 10px;
+    font-family: Verdana, Sans-Serif;
+}
+
+#page-game-detail .ServersTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+#page-game-detail .ServersTable th {
+    background: #f0f0f0;
+    padding: 5px 8px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
+
+#page-game-detail .ServersTable td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+#page-game-detail .ServersTable tr:hover {
+    background: #f9f9f9;
+}
+
+#page-game-detail #BadgesList {
+    padding: 0;
+    text-align: left;
+}
+
+#page-game-detail .badge-row {
+    text-align: left;
+}
+
+#page-game-detail .badge-row:last-child {
+    border-bottom: none;
+}
+
+#page-game-detail .badge-row a:hover {
+    text-decoration: underline;
+}
+
+#page-game-detail .badges-pagination {
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+}
+
+#page-game-detail .badges-pagination a.badge-page-btn:hover {
+    text-decoration: underline;
+}
+
+#page-game-detail .StandardTabGray,
+#game-detail-content .StandardTabGray {
+    position: relative;
+    background: url('../../images/cssspecific/rbx2/tab_white_31h_t1.png') no-repeat left top;
+    background-position: left 0;
+    height: 31px;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    margin: 0;
+    z-index: 0;
+}
+
+#page-game-detail .StandardTabGray span,
+#game-detail-content .StandardTabGray span {
+    background: url('../../images/cssspecific/rbx2/tab_white_31h_t2.png') no-repeat right top;
+    background-position: right 0;
+    height: 25px;
+    padding: 6px 16px 0 8px;
+    margin: 0 0 0 4px;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+}
+
+#page-game-detail .StandardTabGrayActive,
+#game-detail-content .StandardTabGrayActive {
+    position: relative;
+    background: url('../../images/cssspecific/rbx2/tab_white_31h_t1.png') no-repeat left bottom;
+    height: 31px;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    margin: 0;
+    margin-bottom: -1px;
+    z-index: 3;
+}
+
+#page-game-detail .StandardTabGrayActive span,
+#game-detail-content .StandardTabGrayActive span {
+    background: url('../../images/cssspecific/rbx2/tab_white_31h_t2.png') no-repeat right bottom;
+    height: 25px;
+    padding: 6px 16px 0 8px;
+    margin: 0 0 0 4px;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+}
+
+#page-game-detail .StandardBoxGray,
+#game-detail-content .StandardBoxGray {
+    position: relative;
+    top: -1px;
+    padding: 8px;
+    color: Black;
+    min-height: 50px;
+    z-index: 1;
+    border: 1px solid #ccc;
+}
+
+#page-game-detail #RecommendationsList {
+    padding: 5px 0;
+}
+
+#page-game-detail #RecommendationsList table {
+    border-collapse: collapse;
+    width: 600px;
+    margin: 0 auto;
+}
+
+#page-game-detail .PortraitDiv {
+    text-align: center;
+    width: 140px;
+    height: 190px;
+    overflow: hidden;
+}
+
+#page-game-detail .PortraitDiv .AssetThumbnail {
+    height: 110px;
+    width: 110px;
+    margin: 0 auto;
+}
+
+#page-game-detail .PortraitDiv .AssetThumbnail a {
+    display: inline-block;
+    height: 110px;
+    width: 110px;
+    cursor: pointer;
+}
+
+#page-game-detail .PortraitDiv .AssetThumbnail img {
+    max-width: 110px;
+    max-height: 110px;
+}
+
+#page-game-detail .PortraitDiv .AssetDetails {
+    text-align: left;
+    padding: 5px;
+    height: 80px;
+    margin-left: 9px;
+}
+
+#page-game-detail .PortraitDiv .AssetName {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#page-game-detail .PortraitDiv .AssetName a {
+    color: #00f;
+    text-decoration: none;
+}
+
+#page-game-detail .PortraitDiv .AssetName a:hover {
+    text-decoration: underline;
+}
+
+#page-game-detail .PortraitDiv .AssetCreator {
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+#page-game-detail .PortraitDiv .AssetCreator .Label {
+    color: #000;
+    font-weight: bold;
+}
+
+#page-game-detail .StandardTabWhiteActive {
+    background: url('../../assets/ui/tab_white_26h_t1.png') no-repeat left top;
+    padding: 0 4px;
+    float: none;
+    text-align: left;
+    display: inline-block;
+    height: 26px;
+    z-index: 2;
+    position: relative;
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+#page-game-detail .StandardTabWhiteActive span {
+    display: block;
+    width: 100%;
+    height: 26px;
+    padding: 5px 5px 0 9px;
+    background: url('../../assets/ui/tab_white_26h_t2.png') no-repeat right top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000;
+    font-weight: normal;
+}
+
+#page-game-detail #BadgesGamepassesSection .StandardTabWhite {
+    background: url('../../assets/ui/tab_white_26h_t1.png') no-repeat left top;
+    padding: 0 4px;
+    float: none;
+    text-align: left;
+    display: inline-block;
+    height: 26px;
+    z-index: 1;
+    position: relative;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 10px;
+    opacity: 0.7;
+}
+
+#page-game-detail #BadgesGamepassesSection .StandardTabWhite span {
+    display: block;
+    width: 100%;
+    height: 26px;
+    padding: 5px 5px 0 9px;
+    background: url('../../assets/ui/tab_white_26h_t2.png') no-repeat right top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #555;
+    font-weight: normal;
+}
+
+#page-game-detail #BadgesGamepassesSection .StandardBoxWhite {
+    text-align: left;
+}
+
+#page-game-detail #BadgesContent,
+#page-game-detail #GamepassesContent {
+    text-align: left;
+}
+
+#page-game-detail .gamepass-row {
+    text-align: left;
+}
+
+#page-game-detail .gamepass-description {
+    text-align: left !important;
+}
+
+#page-game-detail .gamepass-info {
+    text-align: left !important;
+}
+
+#page-game-detail .private-servers-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+#page-game-detail .private-server-card {
+    background: #fff;
+    border: 1px solid #ccc;
+    width: calc(50% - 5px);
+    box-sizing: border-box;
+}
+
+#page-game-detail .private-server-header {
+    background: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 8px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+#page-game-detail .private-server-name {
+    color: #333;
+}
+
+#page-game-detail .private-server-content {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#page-game-detail .private-server-owner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#page-game-detail .private-server-avatar {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ccc;
+}
+
+#page-game-detail .private-server-owner-info {
+    font-size: 11px;
+}
+
+#page-game-detail .private-server-owner-name {
+    color: #00f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#page-game-detail .private-server-owner-name:hover {
+    text-decoration: underline;
+}
+
+#page-game-detail .private-server-players {
+    color: #666;
+    margin-top: 2px;
+}
+
+#page-game-detail .private-server-actions {
+    text-align: right;
+}
+
+#page-game-detail .JoinPrivateServerBtn {
+    padding: 4px 10px;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    color: #333;
+    font-size: 11px;
+    font-family: Verdana, Sans-Serif;
+    cursor: pointer;
+}
+
+#page-game-detail .JoinPrivateServerBtn:hover {
+    background: #e0e0e0;
+    border-color: #777;
+}
+
+#page-game-detail .private-server-inactive {
+    color: #999;
+    font-size: 11px;
+    font-style: italic;
+}
+
+#page-game-detail #PrivateServersPagination button {
+    padding: 4px 10px;
+    cursor: pointer;
+    border: 1px solid #999;
+    background: #f0f0f0;
+    font-size: 11px;
+    font-family: Verdana, Sans-Serif;
+}
+
+#page-game-detail #PrivateServersPagination button:hover:not(:disabled) {
+    background: #e0e0e0;
+    border-color: #777;
+}
+
+#page-game-detail #PrivateServersPagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#page-game-detail #PrivateServersPageInfo {
+    color: #666;
+    font-family: Verdana, Sans-Serif;
+}

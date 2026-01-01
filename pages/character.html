@@ -1,0 +1,110 @@
+<div id="CharacterContainer">
+
+    <div class="CharacterRow">
+
+        <div class="CharacterColumn CharacterLeft">
+            <div class="StandardBoxHeader"><span>My Character</span></div>
+            <div class="CharacterBox">
+                <div id="AvatarPreview">
+                    <img id="AvatarImage" src="images/spinners/spinner100x100.gif" alt="Your Avatar" />
+                </div>
+                <div id="AvatarTypeSelector">
+                    <span class="AvatarTypeLabel">Avatar Type:</span>
+                    <div class="AvatarTypeButtons">
+                        <button id="R6Button" class="AvatarTypeButton">R6</button>
+                        <button id="R15Button" class="AvatarTypeButton">R15</button>
+                    </div>
+                </div>
+                <div id="AvatarRedraw">
+                    Something wrong with your Avatar? <a href="#" id="RedrawAvatarLink">Click here to re-draw it!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="CharacterColumn CharacterRight">
+            <div class="StandardBoxHeader"><span>My Wardrobe</span></div>
+            <div class="CharacterBox WardrobeBox">
+
+                <div id="WardrobeTabs">
+                    <div class="TabRow">
+                        <a href="#" class="WardrobeTab" data-category="8">Hats</a> |
+                        <a href="#" class="WardrobeTab" data-category="41">Hair</a> |
+                        <a href="#" class="WardrobeTab" data-category="18">Faces</a> |
+                        <a href="#" class="WardrobeTab active" data-category="2">T-Shirts</a> |
+                        <a href="#" class="WardrobeTab" data-category="11">Shirts</a> |
+                        <a href="#" class="WardrobeTab" data-category="12">Pants</a>
+                    </div>
+                    <div class="TabRow">
+                        <a href="#" class="WardrobeTab" data-category="46">Back</a> |
+                        <a href="#" class="WardrobeTab" data-category="45">Front</a> |
+                        <a href="#" class="WardrobeTab" data-category="43">Neck</a> |
+                        <a href="#" class="WardrobeTab" data-category="44">Shoulder</a> |
+                        <a href="#" class="WardrobeTab" data-category="47">Waist</a> |
+                        <a href="#" class="WardrobeTab" data-category="42">Face Accessory</a> |
+                        <a href="#" class="WardrobeTab" data-category="19">Gear</a>
+                    </div>
+                    <div class="TabRow">
+                        <a href="#" class="WardrobeTab" data-category="17">Heads</a> |
+                        <a href="#" class="WardrobeTab" data-category="27">Torsos</a> |
+                        <a href="#" class="WardrobeTab" data-category="29">L Arms</a> |
+                        <a href="#" class="WardrobeTab" data-category="28">R Arms</a> |
+                        <a href="#" class="WardrobeTab" data-category="31">L Legs</a> |
+                        <a href="#" class="WardrobeTab" data-category="30">R Legs</a>
+                    </div>
+                    <div class="TabRow PackagesRow">
+                        <a href="#" class="WardrobeTab" data-category="costumes">Costumes</a> |
+                        <a href="#" class="WardrobeTab" data-category="animations">Animations</a>
+                        <span class="TabSpacer"></span>
+                        <a href="https://www.roblox.com/catalog" target="_blank" class="WardrobeAction">Shop</a> |
+                        <a href="https://www.roblox.com/develop" target="_blank" class="WardrobeAction">Create</a>
+                    </div>
+                </div>
+
+                <div id="WardrobeItems">
+                    <div class="loading">Loading wardrobe...</div>
+                </div>
+
+                <div id="WardrobePagination" class="ItemPagination" style="display: none;">
+                    <a href="#" id="WardrobeFirst">First</a>
+                    <a href="#" id="WardrobePrev">Previous</a>
+                    <span id="WardrobePages"></span>
+                    <a href="#" id="WardrobeNext">Next</a>
+                    <a href="#" id="WardrobeLast">Last</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="CharacterRow">
+
+        <div class="CharacterColumn CharacterLeft">
+            <div class="StandardBoxHeader"><span>Choose Colors</span></div>
+            <div class="CharacterBox ColorsBox">
+                <div class="ColorsInstruction">Click a body part to change its color:</div>
+                <div id="BodyPartSelector">
+
+                    <div class="BodyPart BP-Head" data-part="head" id="BP_Head" title="Head"></div>
+                    <div class="BodyPart BP-LeftArm" data-part="leftArm" id="BP_LeftArm" title="Left Arm"></div>
+                    <div class="BodyPart BP-Torso" data-part="torso" id="BP_Torso" title="Torso"></div>
+                    <div class="BodyPart BP-RightArm" data-part="rightArm" id="BP_RightArm" title="Right Arm"></div>
+                    <div class="BodyPart BP-LeftLeg" data-part="leftLeg" id="BP_LeftLeg" title="Left Leg"></div>
+                    <div class="BodyPart BP-RightLeg" data-part="rightLeg" id="BP_RightLeg" title="Right Leg"></div>
+                </div>
+
+                <div id="ColorPalette" style="display: none;">
+                    <div class="PaletteHeader">Select a color: <span id="ColorPickerContainer"></span></div>
+                    <div id="ColorGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="CharacterColumn CharacterRight">
+            <div class="StandardBoxHeader"><span>Currently Wearing</span></div>
+            <div class="CharacterBox WearingBox">
+                <div id="CurrentlyWearing">
+                    <div class="loading">Loading outfit...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

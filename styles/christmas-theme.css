@@ -1,0 +1,7 @@
+body.christmas-theme {
+  background: url('../assets/backgrounds/c11_background_6.jpg') center 30px repeat-x #0168CD !important;
+}
+
+body.christmas-theme #HeaderContainer {
+  background: url('../assets/backgrounds/c11_headerimg.jpg') no-repeat scroll 0 0 transparent !important;
+}

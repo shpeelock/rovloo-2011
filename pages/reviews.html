@@ -1,0 +1,118 @@
+<div id="reviews-page-content">
+    <div class="reviews-container">
+
+        <div style="display: flex; gap: 2px; margin-bottom: -2px;">
+            <div id="ReviewsTab" class="StandardTabGrayActive" style="cursor: pointer;">
+                <span>Reviews (<span id="totalReviewsCount" class="tab-count">...</span>)</span>
+            </div>
+            <div id="MyReviewsTab" class="StandardTabGray" style="cursor: pointer;">
+                <span>My Reviews</span>
+            </div>
+            <div id="AdminPicksTab" class="StandardTabGray" style="cursor: pointer;">
+                <span>Admin Picks</span>
+            </div>
+        </div>
+
+        <div class="StandardBoxGray">
+
+            <div id="ReviewsContent">
+
+                <div class="browse-controls">
+                    <div class="search-box">
+                        <input type="text" id="reviewSearchInput" placeholder="Search by game name..." class="search-input">
+                        <button id="reviewSearchBtn" class="Button search-btn">Search</button>
+                    </div>
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label>Filter:</label>
+                            <select id="browseReviewFilter" class="filter-select">
+                                <option value="all">All Reviews</option>
+                                <option value="like">Likes Only</option>
+                                <option value="dislike">Dislikes Only</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Sort:</label>
+                            <select id="browseReviewSort" class="filter-select">
+                                <option value="quality">Quality</option>
+                                <optgroup label="By Time">
+                                    <option value="recent">Newest First</option>
+                                    <option value="oldest">Oldest First</option>
+                                </optgroup>
+                                <optgroup label="By Engagement">
+                                    <option value="highest-voted">Highest Voted</option>
+                                    <option value="lowest-voted">Lowest Voted</option>
+                                    <option value="most-replies">Most Replies</option>
+                                    <option value="least-replies">Least Replies</option>
+                                </optgroup>
+                                <optgroup label="By Author">
+                                    <option value="highest-rated-user">Highest Rated User</option>
+                                    <option value="lowest-rated-user">Lowest Rated User</option>
+                                </optgroup>
+                                <optgroup label="By Playtime">
+                                    <option value="most-playtime">Most Playtime</option>
+                                    <option value="least-playtime">Least Playtime</option>
+                                </optgroup>
+                                <optgroup label="By Game">
+                                    <option value="game">Game Name</option>
+                                    <option value="highest_rated">Highest Rated Game</option>
+                                    <option value="lowest_rated">Lowest Rated Game</option>
+                                    <option value="most_visits">Most Visits</option>
+                                    <option value="least_visits">Least Visits</option>
+                                </optgroup>
+                                <optgroup label="Discovery">
+                                    <option value="underrated">Underrated (&lt;1K players)</option>
+                                    <option value="hidden_gems">Hidden Gems (&lt;10K visits)</option>
+                                    <option value="trending">Trending (Rising games)</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="browseReviewsList" class="browse-reviews-list">
+                    <div class="reviews-loading">
+                        <img src="images/spinners/spinner100x100.gif" alt="Loading...">
+                        <p>Loading reviews...</p>
+                    </div>
+                </div>
+
+                <div id="browseReviewsPagination" class="browse-pagination"></div>
+            </div>
+
+            <div id="MyReviewsContent" style="display: none;">
+                <div class="my-reviews-header">
+                    <p style="color: #666; font-size: 11px; margin-bottom: 10px;">
+                        Your reviews across all games on Rovloo.
+                    </p>
+                </div>
+
+                <div id="myReviewsList" class="browse-reviews-list">
+                    <div class="reviews-loading">
+                        <img src="images/spinners/spinner100x100.gif" alt="Loading...">
+                        <p>Loading your reviews...</p>
+                    </div>
+                </div>
+
+                <div id="myReviewsPagination" class="browse-pagination"></div>
+            </div>
+
+            <div id="AdminPicksContent" style="display: none;">
+                <div class="admin-picks-header">
+                    <p style="color: #666; font-size: 11px; margin-bottom: 10px;">
+                        Hand-picked reviews by Rovloo administrators showcasing quality community content.
+                    </p>
+                </div>
+
+                <div id="adminPicksList" class="browse-reviews-list">
+                    <div class="reviews-loading">
+                        <img src="images/spinners/spinner100x100.gif" alt="Loading...">
+                        <p>Loading admin picks...</p>
+                    </div>
+                </div>
+
+                <div id="adminPicksPagination" class="browse-pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>

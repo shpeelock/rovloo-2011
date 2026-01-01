@@ -1,0 +1,152 @@
+.settings-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.settings-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.settings-header h1 {
+    margin: 0 0 10px 0;
+    color: #495057;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.settings-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.setting-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.setting-section h3 {
+    margin: 0 0 10px 0;
+    color: #495057;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.setting-section .setting-description {
+    margin: 0 0 20px 0;
+    color: #6c757d;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.setting-item {
+    margin: 15px 0;
+}
+
+.setting-item label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #495057;
+    cursor: pointer;
+}
+
+.setting-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #007bff;
+}
+
+#Header {
+    background: #343a40;
+    color: white;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.nav-link {
+    color: #adb5bd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    .settings-page {
+        background: #1a202c;
+        color: #e2e8f0;
+    }
+
+    .settings-header {
+        border-color: #4a5568;
+    }
+
+    .settings-header h1 {
+        color: #e2e8f0;
+    }
+
+    .settings-header p {
+        color: #a0aec0;
+    }
+
+    .setting-section {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+
+    .setting-section h3 {
+        color: #e2e8f0;
+    }
+
+    .setting-section .setting-description {
+        color: #a0aec0;
+    }
+
+    .setting-item label {
+        color: #e2e8f0;
+    }
+}

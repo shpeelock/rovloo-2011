@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" id="www-roblox-com">
+<head>
+    <meta charset="UTF-8">
+    <title>Rōvloo</title>
+
+    <link rel="stylesheet" type="text/css" href="CSS/Base/CSS/AllCSS.ashx-v-20110725qrwef-t-RBX2.css"/>
+
+    <link rel="stylesheet" type="text/css" href="styles/titlebar.css"/>
+
+    <link rel="stylesheet" type="text/css" href="styles/pages/games.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/pages/inbox.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/pages/groups.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/pages/catalog.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/pages/catalog-item.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/pages/game-detail.css"/>
+
+    <link rel="stylesheet" type="text/css" href="styles/components/reviews.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/components/blacklist-menu.css"/>
+
+    <link rel="stylesheet" type="text/css" href="styles/pages/reviews.css"/>
+
+    <link rel="stylesheet" type="text/css" href="styles/overrides.css"/>
+
+    <link rel="stylesheet" type="text/css" href="styles/obc-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/rovloo-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/halloween-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/thanksgiving-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/christmas-theme.css"/>
+</head>
+<body>
+
+    <div id="titlebar">
+        <div class="titlebar-drag">
+            <img src="../../graphics/icon48.png" alt="" class="titlebar-icon">
+            <span class="titlebar-title">Rōvloo</span>
+        </div>
+        <div class="titlebar-controls">
+            <button id="btn-minimize" class="titlebar-btn" title="Minimize">&#xE921;</button>
+            <button id="btn-maximize" class="titlebar-btn" title="Maximize">&#xE922;</button>
+            <button id="btn-close" class="titlebar-btn btn-close" title="Close">&#xE8BB;</button>
+        </div>
+    </div>
+
+    <div id="MasterContainer">
+        <div id="Container">
+            <div id="HeaderContainer">
+                <div id="Header">
+                    <div id="Banner">
+                        <div id="Options">
+                            <div id="Authentication">
+                                <span id="AuthenticationBannerSpan">
+                                    <a href="#" id="LoginLink">Login</a>
+                                </span>
+                            </div>
+                            <div id="Settings"></div>
+                        </div>
+                        <a id="Logo" href="#" style="cursor: pointer; border: none;"></a>
+                        <div id="header-stats-box" style="position: absolute; right: 0px; top: 17px; display: none;">
+
+                            <div style="background: url('assets/ui/head_bkg_t1.png') no-repeat; background-size: 100% 100%; padding: 5px 10px; border-radius: 3px;">
+                                <table id="header-stats" style="font-size: 12px; border-spacing: 12px 2px;">
+                                    <tr>
+                                        <td><span style="display: inline-block; width: 16px; height: 16px; background: url('assets/ui/2011_background_23.png') no-repeat 0 0; background-size: 16px auto; vertical-align: middle;"></span></td>
+                                        <td><span id="header-messages-count" style="color: #666; font-weight: bold;">0</span></td>
+                                        <td><span style="display: inline-block; width: 16px; height: 16px; background: url('assets/ui/2011_background_23.png') no-repeat 0 -64px; background-size: 16px auto; vertical-align: middle;"></span></td>
+                                        <td><span id="header-friends-count" style="color: #3399ff; font-weight: bold;">0</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="display: inline-block; width: 16px; height: 16px; background: url('assets/ui/2011_background_23.png') no-repeat 0 -32px; background-size: 16px auto; vertical-align: middle;"></span></td>
+                                        <td><span id="header-robux-count" style="color: #00aa00; font-weight: bold;">0</span></td>
+                                        <td><span style="display: inline-block; width: 16px; height: 16px; background: url('assets/ui/2011_background_23.png') no-repeat 0 -96px; background-size: 16px auto; vertical-align: middle;" title="Rovloo Score"></span></td>
+                                        <td><span id="header-rovloo-score" style="color: #cc9900; font-weight: bold;" title="Your Rovloo Score">0</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="signup-button-container" style="float: right; width: 203px;">
+                            <a class="SignUpAndPlay" href="#" style="display:inline-block;height:40px;width:210px;cursor:pointer;">
+                                <img src="images/Holiday3Button.png" border="0" alt="Sign-up and Play!"/>
+                            </a>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        function toggleDropDownNav() {
+                            var dropdown = document.querySelector('.dropdownnavcontainer');
+                            var toggle = document.getElementById('gamesMenuToggle');
+                            if (dropdown.style.display === 'block') {
+                                dropdown.style.display = 'none';
+                                toggle.style.backgroundPosition = '0 0';
+                            } else {
+                                dropdown.style.display = 'block';
+                                toggle.style.backgroundPosition = '0 -6px';
+                            }
+                        }
+                    </script>
+                    <div class="Navigation">
+                        <div class="dropdownnavcontainer">
+                            <div class="dropdownmainnav" style="z-index:1023;">
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="All">
+                                    <img src="images/GenreIconsInverted/Classic.png"/>
+                                    <a href="#" title="All Genres" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">All Genres</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="RPG">
+                                    <img src="images/GenreIconsInverted/Castle.png"/>
+                                    <a href="#" title="RPG" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">RPG</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Action">
+                                    <img src="images/GenreIconsInverted/Ninja.png"/>
+                                    <a href="#" title="Action" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Action</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Adventure">
+                                    <img src="images/GenreIconsInverted/Adventure.png"/>
+                                    <a href="#" title="Adventure" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Adventure</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Shooter">
+                                    <img src="images/GenreIconsInverted/ModernMilitary.png"/>
+                                    <a href="#" title="Shooter" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Shooter</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Sports">
+                                    <img src="images/GenreIconsInverted/Sports.png"/>
+                                    <a href="#" title="Sports" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Sports</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Simulation">
+                                    <img src="images/GenreIconsInverted/LOL.png"/>
+                                    <a href="#" title="Simulation" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Simulation</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Roleplay">
+                                    <img src="images/GenreIconsInverted/City.png"/>
+                                    <a href="#" title="Roleplay" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Roleplay</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Obby">
+                                    <img src="images/GenreIconsInverted/Tutorial.gif"/>
+                                    <a href="#" title="Obby" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Obby</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Survival">
+                                    <img src="images/GenreIconsInverted/Cthulu.png"/>
+                                    <a href="#" title="Survival" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Survival</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Puzzle">
+                                    <img src="images/GenreIconsInverted/SciFi.png"/>
+                                    <a href="#" title="Puzzle" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Puzzle</a>
+                                </div>
+                                <div style="float: left; width: 50%; text-align: left;" data-genre="Strategy">
+                                    <img src="images/GenreIconsInverted/Pirate.png"/>
+                                    <a href="#" title="Strategy" style="padding: 0; margin: 0 2px 0 0; border: none; font-size: 15px;">Strategy</a>
+                                </div>
+                            </div>
+                            <div class="dropdownmainnav" style="width:145px;border-left:0px;z-index:1023">
+                                <div data-sort="MostPopular"><a href="#" style="font-size:15px;"><b>Most Popular</b></a><br/></div>
+                                <div data-sort="search"><a href="#" style="font-size:15px;">Search Games</a></div>
+                            </div>
+                        </div>
+                        <ul id="MainNav">
+                            <li><a href="#" data-page="home"><h2>My ROBLOX</h2></a></li>
+                            <li class="gamesLink"><a href="#" data-page="games" title="Games"><h2>Games</h2></a> <a id="gamesMenuToggle" onclick="toggleDropDownNav();" style="padding:0 2px;cursor:pointer;border:none;background:url(images/topNav_arrow_white.png) no-repeat;height:6px;width:10px;display:inline-block;"></a></li>
+                            <li><a href="#" data-page="catalog" title="Catalog"><h2>Catalog</h2></a></li>
+                            <li><a href="#" data-page="people" title="People"><h2>People</h2></a></li>
+                            <li><a href="#" data-page="reviews" title="Reviews"><h2>Reviews</h2></a></li>
+                            <li style="display: none;"><a href="#" data-page="bc" title="Builders Club"><h2>Builders Club</h2></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="SubNav" style="display: none;">
+                <ul>
+                    <li><a href="#" data-page="myroblox">Home</a></li>
+                    <li style="display: none;"><a href="#" data-page="places">Places</a></li>
+                    <li><a href="#" data-page="inbox">Inbox</a></li>
+                    <li><a href="#" data-page="account">Account</a></li>
+                    <li><a href="#" data-subnav="profile">Profile</a></li>
+                    <li><a href="#" data-subnav="friends">Friends</a></li>
+                    <li><a href="#" data-page="character">Character</a></li>
+                    <li><a href="#" data-page="stuff">Stuff</a></li>
+                    <li style="display: none;"><a href="#" data-page="sets">Sets</a></li>
+                    <li><a href="#" data-page="groups">Groups</a></li>
+                    <li style="display: none;"><a href="#" data-page="money">Money</a></li>
+                    <li style="display: none;"><a href="#" data-page="advertising">Advertising</a></li>
+                    <li style="display: none;"><a href="#" data-page="ambassadors">Ambassadors</a></li>
+                    <li style="display: none;"><a href="#" data-page="share">Share</a></li>
+                </ul>
+            </div>
+
+            <div id="Announcement">
+                <div class="SystemAlert">
+                    <div class="SystemAlertText" style="background-color: orange;">
+                        <div class="Exclamation"></div>
+                        <div id="LabelAnnouncement">Welcome to Rōvloo! Browse games and play with the classic 2011 interface.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Body">
+
+                <div id="page-home" class="page active">
+
+                    <div class="Column1c" style="float: left; margin: 13px 0px 0px;">
+
+                        <div class="ShadowedStandardBox">
+                            <div class="Content" style="min-height: 252px; padding: 8px;">
+                                <div style="display: flex; flex-direction: row; gap: 5px;">
+
+                                    <div style="width: 164px; flex-shrink: 0;">
+                                        <div id="LoginViewContainer">
+                                            <div class="DarkGradientBox" style="height: 246px; text-align: center;">
+                                                <div class="DGB_Header">
+                                                    Member Login
+                                                </div>
+                                                <div class="DGB_Content">
+                                                    <div style="margin-top: 9px; text-align: center;">
+                                                        <a class="DGB_Button" style="padding: 6px 0px 6px 0px; display: block; width: 110px; margin: 0 auto;" onclick="showLoginModal(); return false;" href="#" tabindex="3">Login</a>
+                                                    </div>
+                                                    <div style="margin-bottom: 10px; margin-top: 4px; text-align: center;">
+                                                        <a href="https://www.roblox.com/signup" target="_blank" class="DGB_Button" style="padding: 6px 0px 6px 0px; display: block; width: 110px; margin: 0 auto;" tabindex="5">Register</a>
+                                                    </div>
+                                                    <div style="margin-top: 8px; margin-bottom: 7px; text-align: center; white-space: nowrap;">
+                                                        <a href="https://www.roblox.com/login/forgot-password-or-username" target="_blank" style="color: #FFFFFF; font-weight: bold; font-size: 10px;" tabindex="7">
+                                                            Forgot your password?</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="width: 372px; flex-shrink: 0;">
+                                        <div id="videoPlayerContainer" style="width: 372px; height: 250px; background: #000; border: 1px solid #333; position: relative;">
+                                            <video id="homeVideo" width="372" height="220" style="display: block; background: #000;" onclick="toggleVideoPlay()">
+                                                <source src="videos/home.mp4" type="video/mp4">
+                                            </video>
+
+                                            <div id="videoControls" style="position: absolute; bottom: 0; left: 0; right: 0; height: 30px; background: linear-gradient(to bottom, #444, #222); display: flex; align-items: center; padding: 0 5px; gap: 5px;">
+
+                                                <button id="videoPlayBtn" type="button" onclick="toggleVideoPlay()" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 14px; padding: 2px 6px;" title="Play/Pause">▶</button>
+
+                                                <div id="videoProgressContainer" onclick="seekVideo(event)" style="flex: 1; height: 6px; background: #555; border-radius: 3px; cursor: pointer; position: relative;">
+                                                    <div id="videoProgress" style="height: 100%; background: #6e99c9; border-radius: 3px; width: 0%; pointer-events: none;"></div>
+                                                </div>
+
+                                                <span id="videoTime" style="color: #ccc; font-size: 10px; min-width: 70px; text-align: center;">0:00 / 0:00</span>
+
+                                                <button id="videoMuteBtn" type="button" onclick="toggleVideoMute()" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 12px; padding: 2px 4px;" title="Mute/Unmute">🔊</button>
+                                                <input id="videoVolume" type="range" min="0" max="1" step="0.1" value="1" oninput="setVideoVolume(this.value)" style="width: 50px; cursor: pointer;">
+
+                                                <button id="videoFullscreenBtn" type="button" onclick="toggleVideoFullscreen()" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 12px; padding: 2px 6px;" title="Fullscreen">⛶</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ShadowedStandardBox">
+                            <div class="Content" style="height: 459px; padding: 5px;">
+
+                                <div style="width: 551px; margin-bottom: 5px;">
+                                    <a href="#" data-page="games" style="display: block;">
+                                        <img src="images/SalesPitcher/PlayNow3.png" alt="Play Now!" style="border: none; cursor: pointer; width: 551px; height: auto;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                        <div style="display: none; background: linear-gradient(to bottom, #00b2ff, #0088cc); color: white; padding: 25px; font-size: 20px; font-weight: bold; text-align: center; cursor: pointer;">
+                                            <span style="color: #ff6600;">ROBLOX</span> The FREE online building game.
+                                            <span style="background: linear-gradient(to bottom, #5cb85c, #449d44); padding: 10px 30px; border-radius: 5px; margin-left: 20px;">▶ PLAY NOW</span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div id="FeaturedGameBox" style="border: 2px solid #B6CCE4 !important; background: #fff; position: relative; margin-top: 15px; padding: 0;">
+                                    <div style="border: 2px solid #B6CCE4 !important; position: absolute; top: -12px; left: 30px; background: #fff; padding: 0 5px; z-index: 1;">
+                                        <span style="font-weight: bold; font-size: 12px; color: #000;">Featured Free Game: </span>
+                                        <span id="featuredGameName" style="font-size: 18px; font-weight: bold; color: #000;">Loading...</span>
+                                    </div>
+                                    <div style="padding: 20px 10px 10px 10px;">
+                                        <div style="display: flex;">
+
+                                            <div style="flex-shrink: 0;">
+                                                <a id="featuredGameLink" href="#" style="display: block;">
+                                                    <img id="featuredGameImage" alt="Featured Game" style="width: 420px; height: 230px; object-fit: cover; background: #333; display: block; border: 1px solid #999;">
+                                                </a>
+                                            </div>
+
+                                            <div style="margin-left: 10px; font-size: 10px; width: 110px;">
+                                                <div style="margin-bottom: 7px;">
+                                                    <a id="featuredPlayBtn" href="#" title="Play this free game!">
+                                                        <img src="images/PlayThis_v-2.png" alt="Play This" style="border: none;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                                        <span style="display: none; background: linear-gradient(to bottom, #ccc, #999); color: #333; padding: 8px 15px; font-weight: bold; cursor: pointer; border: 1px solid #666;">Play This</span>
+                                                    </a>
+                                                </div>
+                                                <div>Updated:</div>
+                                                <div id="featuredGameUpdated" style="margin-left: 15px; margin-bottom: 3px; font-weight: bold;">--</div>
+                                                <div>Favorited:</div>
+                                                <div id="featuredGameFavorites" style="margin-left: 15px; margin-bottom: 3px; font-weight: bold;">--</div>
+                                                <div>Visited:</div>
+                                                <div id="featuredGameVisits" style="margin-left: 15px; margin-bottom: 8px; font-weight: bold;">--</div>
+                                                <div style="width: 100px; height: 100px; overflow: hidden;">
+                                                    <a id="featuredCreatorLink" href="#" style="display: block;">
+                                                        <img id="featuredCreatorAvatar" alt="Creator" style="width: 150%; margin-top: -20px; margin-left: -30px;">
+                                                    </a>
+                                                </div>
+                                                <div style="margin-top: 3px; font-size: 10px;">By: <a id="featuredCreatorName" href="#" style="color: #00F;">--</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Column2c">
+
+                        <div class="ShadowedStandardBox">
+                            <div class="Shadow"></div>
+                            <div class="Header"><span>Parents</span></div>
+                            <div class="Content" style="padding: 5px; height: 135px;">
+                                <div>
+                                    <div style="float: left; width: 195px; font-size: 11px;">
+                                        ROBLOX IS a kid-friendly place on the internet where your children can exercise their creativity in a moderated online environment.
+                                    </div>
+                                    <div style="float: right; margin-left: 10px;">
+                                        <img src="images/TrusteVertical.png" height="60" border="0" alt="TRUSTe" onerror="this.style.display='none'"/>
+                                    </div>
+                                </div>
+                                <div style="clear: both; margin-top: 10px;">
+                                    <div style="margin: 2px 0px; float: left; font-size: 10px;">ROBLOX IS NOT affiliated with LEGO, MEGA Brands, or K'Nex.</div>
+                                    <div style="clear: both; margin-top: 8px;">
+                                        <a href="https://www.roblox.com/info/parents" target="_blank" class="Button" style="display: inline-block; width: 60px; padding: 3px 8px; font-size: 10px;">Learn More</a>
+                                        <a href="https://www.roblox.com/info/privacy" target="_blank" class="Button" style="display: inline-block; width: 75px; padding: 3px 8px; font-size: 10px;">Privacy Policy</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ShadowedStandardBox">
+                            <div class="Shadow"></div>
+                            <div class="Header"><span>Roblox Stats</span></div>
+                            <div class="Content" style="height: 103px; padding: 10px;">
+                                <div class="Centered">
+                                    <div id="RandomFactsContainer">
+                                        <div class="RandomFactContainer" style="position: relative;">
+                                            <div class="RandomFactImageContainer">
+                                                <img src="images/RandomFactsIcons/House.png" alt="" style="width: 32px;" onerror="this.style.display='none'"/>
+                                            </div>
+                                            <div class="RandomFactTextContainer" id="randomFact1">
+                                                Loading stats...
+                                            </div>
+                                        </div>
+                                        <div class="RandomFactContainer" style="position: relative; margin-top: 10px;">
+                                            <div class="RandomFactImageContainer">
+                                                <img src="images/RandomFactsIcons/Shield.png" alt="" style="width: 32px;" onerror="this.style.display='none'"/>
+                                            </div>
+                                            <div class="RandomFactTextContainer" id="randomFact2">
+                                                Millions of games to play!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ShadowedStandardBox">
+                            <div class="Shadow"></div>
+                            <div class="Header"><span>Roblox News</span></div>
+                            <div class="Content" style="padding: 10px;">
+                                <div id="RobloxNews" style="font-size: 11px;">
+                                    <div style="margin-bottom: 15px;">
+                                        <div style="background: url(images/BulletPointArrow.png) no-repeat center left; padding-left: 13px; margin-bottom: 4px;">
+                                            <a href="https://blog.roblox.com" target="_blank">Latest Roblox Updates</a>
+                                        </div>
+                                        <div style="background: url(images/BulletPointArrow.png) no-repeat center left; padding-left: 13px; margin-bottom: 4px;">
+                                            <a href="https://devforum.roblox.com" target="_blank">Developer Forum</a>
+                                        </div>
+                                        <div style="background: url(images/BulletPointArrow.png) no-repeat center left; padding-left: 13px; margin-bottom: 4px;">
+                                            <a href="https://create.roblox.com" target="_blank">Create on Roblox</a>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <a class="Button" href="https://blog.roblox.com" target="_blank" style="display: inline-block; width: 50px; padding: 3px;">More...</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="clear: both;"></div>
+                </div>
+
+                <div id="page-games" class="page">
+                    <div id="games-content">
+                        <div class="loading">Loading games...</div>
+                    </div>
+                </div>
+
+                <div id="page-profile" class="page">
+                    <div id="profile-content">
+                        <div class="loading">Loading profile...</div>
+                    </div>
+                </div>
+
+                <div id="page-catalog" class="page">
+                    <div id="catalog-content">
+                        <div class="loading">Loading catalog...</div>
+                    </div>
+                </div>
+
+                <div id="page-bc" class="page">
+                    <div id="bc-content">
+                        <div class="loading">Loading Builders Club...</div>
+                    </div>
+                </div>
+
+                <div id="page-people" class="page">
+                    <div id="people-content">
+                        <div class="loading">Loading people...</div>
+                    </div>
+                </div>
+
+                <div id="page-reviews" class="page">
+                    <div id="reviews-content">
+                        <div class="loading">Loading reviews...</div>
+                    </div>
+                </div>
+
+                <div id="page-friends" class="page">
+                    <div id="friends-content">
+                        <div class="loading">Loading friends...</div>
+                    </div>
+                </div>
+
+                <div id="page-stuff" class="page">
+                    <div id="stuff-content">
+                        <div class="loading">Loading inventory...</div>
+                    </div>
+                </div>
+
+                <div id="page-badge" class="page">
+                    <div id="badge-content">
+                        <div class="loading">Loading badge...</div>
+                    </div>
+                </div>
+
+                <div id="page-gamepass" class="page">
+                    <div id="gamepass-content">
+                        <div class="loading">Loading game pass...</div>
+                    </div>
+                </div>
+
+                <div id="page-catalog-item" class="page">
+                    <div id="catalog-item-content">
+                        <div class="loading">Loading item...</div>
+                    </div>
+                </div>
+
+                <div id="page-game-detail" class="page">
+                    <div id="game-detail-content">
+                        <div class="loading">Loading game...</div>
+                    </div>
+                </div>
+
+                <div id="page-character" class="page">
+                    <div id="character-content">
+                        <div class="loading">Loading character...</div>
+                    </div>
+                </div>
+
+                <div id="page-account" class="page">
+                    <div id="Body" style="width: 938px; margin: 0 auto;">
+                        <div style="width: 600px; margin: 0 auto;">
+                            <div class="StandardBoxHeader"><span>Account Settings</span></div>
+                            <div class="StandardBox" style="padding: 15px;">
+                                <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+                                    <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Select your theme</legend>
+                                    <div style="padding: 5px 0;">
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="radio" name="theme" value="roblox-2.0" id="theme-roblox-2" checked> ROBLOX 2.0
+                                        </label>
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="radio" name="theme" value="outrageous-2.0" id="theme-outrageous-2"> Outrageous 2.0
+                                        </label>
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="radio" name="theme" value="halloween" id="theme-halloween"> Halloween
+                                        </label>
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="radio" name="theme" value="thanksgiving" id="theme-thanksgiving"> Thanksgiving
+                                        </label>
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="radio" name="theme" value="christmas" id="theme-christmas"> Christmas
+                                        </label>
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="radio" name="theme" value="rovloo" id="theme-rovloo"> Rovloo
+                                        </label>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+                                    <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Theme Options</legend>
+                                    <div style="padding: 5px 0;">
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="checkbox" id="conditional-themes-toggle" checked> Enable Conditional Theme Overrides
+                                        </label>
+                                        <div style="font-size: 11px; color: #666; margin-left: 20px; margin-top: 3px;">
+                                            Automatically applies special themes in certain situations (e.g., OBC theme when viewing a premium user's profile).
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+                                    <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Builders Club Display</legend>
+                                    <div style="padding: 5px 0;">
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="checkbox" id="randomize-bc-toggle"> Randomize Builders Club Memberships
+                                        </label>
+                                        <div style="font-size: 11px; color: #666; margin-left: 20px; margin-top: 3px;">
+                                            Instead of showing all Premium users as OBC, randomly assigns BC, TBC, or OBC based on their user ID.
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+                                    <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Performance</legend>
+                                    <div style="padding: 5px 0;">
+                                        <label style="display: block; padding: 3px 0; cursor: pointer;">
+                                            <input type="checkbox" id="gpu-acceleration-toggle"> Enable GPU Acceleration
+                                        </label>
+                                        <div style="font-size: 11px; color: #666; margin-left: 20px; margin-top: 3px;">
+                                            Uses your graphics card for better performance. Disable if you experience display issues or don't have a GPU.
+                                        </div>
+                                        <div id="gpu-restart-notice" style="display: none; font-size: 11px; color: #c00; margin-left: 20px; margin-top: 5px;">
+                                            ⚠️ Restart the app for this change to take effect.
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+                                    <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Hidden Content (Blacklist)</legend>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-size: 11px; color: #666; margin-bottom: 10px;">
+                                            Items you've hidden will not appear in game lists or catalog searches.
+                                        </div>
+                                        <div id="blacklist-summary" style="font-size: 12px; margin-bottom: 10px;">
+                                            Loading...
+                                        </div>
+                                        <button type="button" id="manage-blacklist-btn" class="Button" style="padding: 5px 15px; cursor: pointer;">
+                                            Manage Hidden Content
+                                        </button>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="blacklist-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999;">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 80vh;">
+                            <div class="StandardBoxHeader">
+                                <span style="display: flex; justify-content: space-between; align-items: center;">
+                                    Manage Hidden Content
+                                    <a href="#" id="blacklist-modal-close" style="color: #fff; text-decoration: none; font-weight: bold; font-size: 16px;">✕</a>
+                                </span>
+                            </div>
+                            <div class="StandardBox" style="max-height: calc(80vh - 40px); overflow-y: auto;">
+
+                                <div style="border-bottom: 1px solid #ccc; margin-bottom: 15px;">
+                                    <a href="#" class="blacklist-tab active" data-tab="games" style="display: inline-block; padding: 8px 15px; text-decoration: none; color: #333; border: 1px solid #ccc; border-bottom: none; margin-right: 3px; background: #f0f0f0;">Games</a>
+                                    <a href="#" class="blacklist-tab" data-tab="items" style="display: inline-block; padding: 8px 15px; text-decoration: none; color: #333; border: 1px solid #ccc; border-bottom: none; margin-right: 3px; background: #ddd;">Items</a>
+                                    <a href="#" class="blacklist-tab" data-tab="creators" style="display: inline-block; padding: 8px 15px; text-decoration: none; color: #333; border: 1px solid #ccc; border-bottom: none; background: #ddd;">Creators</a>
+                                </div>
+
+                                <div id="blacklist-tab-games" class="blacklist-tab-content">
+                                    <div id="blacklist-games-list" style="min-height: 100px;"></div>
+                                </div>
+                                <div id="blacklist-tab-items" class="blacklist-tab-content" style="display: none;">
+                                    <div id="blacklist-items-list" style="min-height: 100px;"></div>
+                                </div>
+                                <div id="blacklist-tab-creators" class="blacklist-tab-content" style="display: none;">
+                                    <div id="blacklist-creators-list" style="min-height: 100px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-myroblox" class="page">
+                    <div class="MyRobloxContainer">
+
+                        <div class="Column1c" style="float: left; width: 295px; margin: 13px 5px 0 0;">
+
+                            <div class="StandardBoxHeader">
+                                <span id="myroblox-greeting">Hi, User</span>
+                            </div>
+
+                            <div style="border: 1px solid #999; border-top: none; background: url('assets/ui/standardBox_01_bkg.png') repeat-x top #f8f8f8;">
+
+                                <div style="padding: 15px; text-align: center;">
+                                    <div id="myroblox-avatar" style="width: 200px; height: 200px; margin: 0 auto 15px; position: relative; overflow: hidden;">
+                                        <img src="images/spinners/spinner100x100.gif" alt="Avatar" style="width: 150px; margin-top: -15px; object-fit: contain;"/>
+                                    </div>
+
+                                    <div id="myroblox-stats" style="display: grid; grid-template-columns: auto auto; justify-content: center; column-gap: 30px; padding: 10px; border: 1px solid #ccc; background: #fff; font-size: 14px; font-weight: bold; width: fit-content; margin: 0 auto; margin-top: -30px;">
+                                        <div style="text-align: left; display: flex; align-items: center; gap: 4px;">
+                                            <span style="display: inline-block; width: 20px; height: 20px; background: url('assets/ui/2011_background_23.png') no-repeat 0 0;"></span>
+                                            <span id="myroblox-messages-count" style="color: #666;">0</span>
+                                        </div>
+                                        <div style="text-align: left; display: flex; align-items: center; gap: 4px;">
+                                            <span style="display: inline-block; width: 20px; height: 20px; background: url('assets/ui/2011_background_23.png') no-repeat 0 -80px;"></span>
+                                            <span id="myroblox-friends-count" style="color: #3399ff;">0</span>
+                                        </div>
+                                        <div style="text-align: left; display: flex; align-items: center; gap: 4px;">
+                                            <span style="display: inline-block; width: 20px; height: 20px; background: url('assets/ui/2011_background_23.png') no-repeat 0 -40px;"></span>
+                                            <span id="myroblox-robux-count" style="color: #00aa00;">0</span>
+                                        </div>
+                                        <div style="text-align: left; display: flex; align-items: center; gap: 4px;" title="Your Rovloo Score">
+                                            <span style="display: inline-block; width: 20px; height: 20px; background: url('assets/ui/2011_background_23.png') no-repeat 0 -120px;"></span>
+                                            <span id="myroblox-rovloo-score" style="color: #cc9900;">0</span>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-top: 12px; text-align: center;">
+                                        <div style="display: inline-block; background: #E8E8E8; padding: 5px 30px;">
+                                            <a href="#" id="myroblox-notifications" style="color: #687bd1; text-decoration: none; font-size: 13px; font-weight: bold;">
+                                                <span id="myroblox-notifications-count">0</span> System Notifications
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Column2c" style="float: left; width: 580px; margin-top: 13px;">
+
+                            <div class="StandardBoxHeader">
+                                <span>Recommended For You</span>
+                            </div>
+                            <div class="StandardBox">
+                                <div id="myroblox-recommended-games" style="min-height: 150px;">
+                                    <div style="text-align: center; padding: 20px; color: #666;">Loading recommended games...</div>
+                                </div>
+                            </div>
+
+                            <div class="StandardBoxHeader" style="margin-top: 15px;">
+                                <span>My Feed</span>
+                            </div>
+                            <div class="StandardBox" style="min-height: 100px;">
+                                <div id="myroblox-feed" style="text-align: center; color: #666;">
+                                    Please wait... Roblox is getting your Feed :)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-inbox" class="page">
+                <div class="InboxContainer">
+
+                    <div class="inbox-tabs">
+                        <div class="inbox-tab active" data-tab="inbox">Inbox</div>
+                        <div class="inbox-tab" data-tab="sent">Sent</div>
+                        <div class="inbox-tab" data-tab="archive">Archive</div>
+                        <div class="inbox-tab" data-tab="notifications">Notifications (<span id="inbox-notif-count">0</span>)</div>
+                    </div>
+
+                    <div id="inbox-list-view" class="inbox-content">
+                        <table class="inbox-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="inbox-select-all" title="Select All"></th>
+                                    <th>Subject</th>
+                                    <th>From</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inbox-messages-list">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                                        Loading messages...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="inbox-actions-bar">
+                            <div class="inbox-actions">
+                                <button id="inbox-mark-read-btn">Mark As Read</button>
+                                <button id="inbox-mark-unread-btn">Mark As Unread</button>
+                            </div>
+                            <div class="inbox-pagination" id="inbox-pagination">
+                                <button id="inbox-prev-btn" disabled>&lt; Previous</button>
+                                <span id="inbox-page-info">Page 1 of 1</span>
+                                <button id="inbox-next-btn" disabled>Next &gt;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="inbox-detail-view" class="inbox-content" style="display: none;">
+                        <div class="private-message-box">
+                            <div class="pm-header">Private Message</div>
+                            <div class="pm-content">
+
+                                <div class="pm-sender-col">
+                                    <div class="pm-date" id="pm-date">4/5/2011 2:03:40 PM</div>
+                                    <div class="pm-avatar">
+                                        <img id="pm-avatar-img" src="images/spinners/spinner100x100.gif" alt="Avatar">
+                                    </div>
+                                    <div class="pm-sender-name">
+                                        <a href="#" id="pm-sender-link">builderman</a>
+                                    </div>
+                                    <div class="pm-subject" id="pm-subject">Re: Bug Report</div>
+                                    <div class="pm-report">
+                                        <a href="#" id="pm-report-abuse">Report Abuse</a>
+                                    </div>
+                                </div>
+
+                                <div class="pm-body-col">
+                                    <div class="pm-body" id="pm-body">
+                                        Message content goes here...
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pm-buttons">
+                                <button id="pm-back-btn">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-groups" class="page">
+
+                <div id="groups-search-view">
+                    <div class="groups-search-container">
+
+                        <div class="StandardBoxHeader">
+                            <span>My Groups</span>
+                        </div>
+                        <div class="StandardBox" style="min-height: 80px;">
+                            <div id="my-groups-list" class="my-groups-list">
+                                <div style="color: #666; padding: 10px;">Loading your groups...</div>
+                            </div>
+                        </div>
+
+                        <div class="StandardBoxHeader" style="margin-top: 15px;">
+                            <span>Search Groups</span>
+                        </div>
+                        <div class="StandardBox">
+                            <div class="groups-search-box">
+                                <input type="text" id="groups-search-input" placeholder="Enter group name...">
+                                <button id="groups-search-btn">Search</button>
+                            </div>
+
+                            <div id="groups-search-results">
+                                <table class="groups-results-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;"></th>
+                                            <th>Group</th>
+                                            <th>Description</th>
+                                            <th style="width: 80px; text-align: right;">Members</th>
+                                            <th style="width: 60px; text-align: right;">Public</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="groups-results-body">
+                                        <tr>
+                                            <td colspan="5" style="text-align: center; padding: 20px; color: #666;">
+                                                Search for groups above
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="groups-pagination" id="groups-search-pagination" style="display: none;">
+                                    <a href="#" id="groups-prev-btn" class="disabled">&lt; Previous</a>
+                                    <span id="groups-page-info">Page 1</span>
+                                    <a href="#" id="groups-next-btn">Next &gt;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="GroupsContainer">
+
+                    <div id="group-search-controls" style="display: none;">
+                        <div id="SearchControls" class="StandardBox" style="width: 876px; height: 28px; clear: both; display: block; background-color: #006699;">
+                            <table width="876px" border="0">
+                                <tr>
+                                    <td style="font-family: Verdana, Helvetica, Sans-Serif; font-size: 12pt; color: Black; font-weight: bold; width: 200px; text-align: left;">
+                                        Search Groups:
+                                    </td>
+                                    <td style="width: 660px; text-align: right;">
+                                        <input type="text" id="group-detail-search" style="width: 520px;" maxlength="100" value="Search all groups" onclick="if(this.value=='Search all groups') this.value='';">
+                                        <input type="submit" value="Search" onclick="var v=document.getElementById('group-detail-search').value; if(v && v!='Search all groups') { showGroupsSearch(); searchGroups(v); } return false;">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="group-detail-view" style="display: none;">
+                        <div class="MyRobloxContainer">
+
+                            <div class="Column2b">
+
+                                <div id="description">
+                                    <div class="StandardBoxHeader">
+                                        <span id="group-detail-name">Group Name</span>
+                                    </div>
+                                    <div class="StandardBox">
+                                        <div class="GroupDescriptionThumbnail">
+                                            <a id="group-emblem-link" title="" style="display:inline-block;height:150px;width:150px;cursor:pointer;">
+                                                <img id="group-detail-emblem" src="images/spinners/spinner100x100.gif" alt="Group Emblem" border="0">
+                                            </a>
+                                        </div>
+                                        <div style="height: 100%;">
+                                            <p style="color: #A9A9A9;">Owned By: <a id="group-owner-link" style="color: Purple; font-style: italic;" href="#">Loading...</a></p>
+                                            <p id="group-detail-description">Loading description...</p>
+                                            <div id="group-join-container" style="margin-top: 15px; display: none;">
+                                                <button id="group-join-btn" style="background: #6e99c9; color: #fff; border: none; padding: 8px 16px; cursor: pointer; font-size: 13px; font-weight: bold; border-radius: 3px;">Join Group</button>
+                                                <button id="group-leave-btn" style="background: #dc3545; color: #fff; border: none; padding: 8px 16px; cursor: pointer; font-size: 13px; font-weight: bold; border-radius: 3px; display: none;">Leave Group</button>
+                                            </div>
+
+                                            <div id="group-captcha-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:10000; justify-content:center; align-items:center;">
+                                                <div style="background:#fff; border-radius:8px; padding:20px; max-width:400px; width:90%; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
+                                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                                                        <h3 style="margin:0; color:#333; font-size:16px;">Verification Required</h3>
+                                                        <button id="captcha-close-btn" style="background:none; border:none; font-size:20px; cursor:pointer; color:#666;">&times;</button>
+                                                    </div>
+                                                    <p id="captcha-instruction" style="text-align:center; color:#555; margin-bottom:15px; font-size:13px;">Pick the correct image</p>
+                                                    <div id="captcha-progress" style="text-align:center; color:#888; font-size:11px; margin-bottom:10px;">Wave 1 of 3</div>
+                                                    <div id="captcha-image-container" style="text-align:center; margin-bottom:15px;">
+                                                        <img id="captcha-image" src="" alt="Captcha" style="max-width:100%; border:1px solid #ddd; border-radius:4px;">
+                                                    </div>
+                                                    <div id="captcha-tiles" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:15px;">
+                                                        <button class="captcha-tile" data-tile="0" style="padding:15px; background:#f0f0f0; border:2px solid #ddd; border-radius:4px; cursor:pointer; font-weight:bold; font-size:14px;">1</button>
+                                                        <button class="captcha-tile" data-tile="1" style="padding:15px; background:#f0f0f0; border:2px solid #ddd; border-radius:4px; cursor:pointer; font-weight:bold; font-size:14px;">2</button>
+                                                        <button class="captcha-tile" data-tile="2" style="padding:15px; background:#f0f0f0; border:2px solid #ddd; border-radius:4px; cursor:pointer; font-weight:bold; font-size:14px;">3</button>
+                                                        <button class="captcha-tile" data-tile="3" style="padding:15px; background:#f0f0f0; border:2px solid #ddd; border-radius:4px; cursor:pointer; font-weight:bold; font-size:14px;">4</button>
+                                                        <button class="captcha-tile" data-tile="4" style="padding:15px; background:#f0f0f0; border:2px solid #ddd; border-radius:4px; cursor:pointer; font-weight:bold; font-size:14px;">5</button>
+                                                        <button class="captcha-tile" data-tile="5" style="padding:15px; background:#f0f0f0; border:2px solid #ddd; border-radius:4px; cursor:pointer; font-weight:bold; font-size:14px;">6</button>
+                                                    </div>
+                                                    <div id="captcha-status" style="text-align:center; color:#666; font-size:12px;"></div>
+                                                    <div id="captcha-loading" style="display:none; text-align:center; padding:20px;">
+                                                        <div style="color:#666;">Loading captcha...</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br style="clear: both; height: 1px;">
+                                    </div>
+                                </div>
+
+                                <br style="clear: both;">
+                                <div id="group-status-box" class="StandardBox" style="display: none;">
+                                    <div id="group-status-view">
+                                        <span id="group-status-text" class="StatusTextField"></span>
+                                        <a id="group-status-poster" href="#" style="font-style: italic;"></a>
+                                        <span style="color: #808080; font-size: 8px;"><span id="group-status-date"></span></span>
+                                    </div>
+                                </div>
+
+                                <div id="group-wall-section">
+                                    <div class="StandardBoxHeader"><span>Wall</span></div>
+                                    <div class="StandardBox">
+                                        <table class="Repeater" cellpadding="0" cellspacing="0" id="group-wall-table">
+                                            <tbody id="group-wall-container">
+                                                <tr>
+                                                    <td colspan="2" style="text-align: center; padding: 20px; color: #666;">Loading wall posts...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div id="group-wall-pagination" class="FooterPager" style="text-align: center; padding: 10px; display: none;">
+                                            <a href="javascript:void(0)" id="wall-prev-btn" style="display: none;">&lt;&lt; Previous</a>
+                                            <span id="wall-page-info" style="margin: 0 10px;">Page 1</span>
+                                            <a href="javascript:void(0)" id="wall-next-btn">Next &gt;&gt;</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="Column3b">
+                                <div id="GroupRoleSetsMembersPane">
+                                    <div id="group-members-header" class="StandardBoxHeader" style="width: 176px; float: left; text-align: center; font-size: 14px; vertical-align: middle;">
+                                        <span style="height: 33px; padding-top: 1px;">
+                                            <span id="group-role-name">Members</span> (<span id="group-role-count">0</span>)<br>
+                                            <div style="display: inline; font-size: 12px; color: white;">Rank: <b id="group-role-rank">1</b></div>
+                                        </span>
+                                    </div>
+                                    <div style="overflow: visible; padding: 10px 5px 10px 5px; width: 176px; float: left;" class="StandardBox">
+                                        <div style="float: left; width: 176px;">
+                                            <div id="group-members-grid">
+                                                <div style="color: #666; text-align: center;">Loading members...</div>
+                                            </div>
+                                            <div id="group-members-pagination" class="FooterPager" style="clear: both; text-align: center; margin-bottom: 5px; display: none;">
+                                                <hr>
+                                                <a href="#" id="members-prev-btn" disabled="disabled">First</a>&nbsp;
+                                                <a href="#" id="members-prev-page-btn" disabled="disabled">Previous</a>&nbsp;
+                                                <span id="members-page-info">1</span>&nbsp;
+                                                <a href="#" id="members-next-btn">Next</a>
+                                            </div>
+                                        </div>
+                                        <div style="float: left; width: 176px;" id="group-role-tabs">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br style="clear: both;">
+                            </div>
+
+                            <br style="clear: both;">
+
+                            <div style="margin-top: 15px;">
+                                <button id="group-back-btn" style="padding: 5px 15px; cursor: pointer;">&lt; Back to Groups</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Footer">
+                <div class="FooterNav">
+                    <a href="https://www.roblox.com/info/privacy" target="_blank"><b>Privacy Policy</b></a>
+                    &nbsp;|&nbsp;
+                    <a href="https://www.roblox.com/info/contact" target="_blank">Contact Us</a>
+                    &nbsp;|&nbsp;
+                    <a href="https://corp.roblox.com" target="_blank">About Us</a>
+                    &nbsp;|&nbsp;
+                    <a href="#" data-page="games">Free Games</a>
+                    &nbsp;|&nbsp;
+                    <a href="https://corp.roblox.com/careers" target="_blank">Jobs</a>
+                    &nbsp;|&nbsp;
+                    <a href="#" id="theme-switcher">Switch Theme</a>
+                </div>
+                <div class="FooterNav" style="margin-top: 5px;">
+                    <div class="SEOGenreLinks">
+                        <a href="#" data-genre="Roleplay" title="Town and City Games">Town and City</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="RPG" title="Fantasy Games">Fantasy</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="Strategy" title="Sci-Fi Games">Sci-Fi</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="Action" title="Ninja Games">Ninja</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="Survival" title="Scary Games">Scary</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="Adventure" title="Pirate Games">Pirate</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="Adventure" title="Adventure Games">Adventure</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="Sports" title="Sports Games">Sports</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="Simulation" title="Funny Games">Funny</a>&nbsp;|&nbsp;
+                        <a href="#" data-genre="Shooter" title="War Games">War</a>
+                    </div>
+                </div>
+                <p class="Legalese">
+                    ROBLOX, "Online Building Toy", characters, logos, names, and all related indicia are trademarks of
+                    <a href="https://corp.roblox.com" target="_blank">ROBLOX Corporation</a>.
+                    <br/>
+                    This is a fan-made 2011 themed client. Not officially affiliated with Roblox Corporation.
+                    <br/>
+                    Use of this client signifies your acceptance of the <a href="https://www.roblox.com/info/terms" target="_blank">Terms and Conditions</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal" style="display: none;">
+        <div class="modal-overlay" onclick="hideLoginModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to ROBLOX</h2>
+                <button class="modal-close" onclick="hideLoginModal()">×</button>
+            </div>
+            <div class="modal-body">
+
+                <div id="browserLoginContainer">
+                    <p style="margin-bottom: 15px; font-size: 12px; color: #333;">
+                        Click the button below to securely login with your Roblox account:
+                    </p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button onclick="doBrowserLogin()" id="browserLoginBtn" style="padding: 12px 30px; background: linear-gradient(to bottom, #00b2ff, #0088cc); color: white; border: 1px solid #0077b3; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                            🔐 Login with Roblox
+                        </button>
+                    </div>
+                    <p style="font-size: 11px; color: #666; text-align: center;">
+                        A secure browser window will open for you to login.
+                    </p>
+                </div>
+
+                <div id="loginError" style="color: #cc0000; margin-top: 10px; display: none; font-size: 11px;"></div>
+                <div id="loginSuccess" style="color: #009900; margin-top: 10px; display: none; font-size: 11px;"></div>
+
+                <div style="margin-top: 20px; font-size: 11px; color: #999; border-top: 1px solid #ddd; padding-top: 10px;">
+                    <a href="#" onclick="toggleCookieLogin(); return false;" style="color: #666;">Advanced: Use cookie login</a>
+                </div>
+
+                <div id="cookieLoginContainer" style="display: none; margin-top: 15px;">
+                    <p style="margin-bottom: 10px; color: #666; font-size: 11px;">
+                        Paste your .ROBLOSECURITY cookie from the Roblox website:
+                    </p>
+                    <textarea id="cookieInput" rows="3" placeholder="Paste cookie here..." style="width: 100%; font-family: monospace; font-size: 10px; padding: 5px; border: 1px solid #aaa;"></textarea>
+                    <div style="margin-top: 10px; text-align: right;">
+                        <button class="btn btn-primary" onclick="doCookieLogin()" id="cookieLoginBtn">Login with Cookie</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="hideLoginModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-launch-overlay" style="display: none; position: fixed; top: 30px; left: 0; width: 100%; height: calc(100% - 30px); background: rgba(0, 0, 0, 0.3); z-index: 10000; align-items: center; justify-content: center;">
+        <div id="game-launch-dialog" style="background: #fff; border: 1px solid #888; padding: 20px; text-align: center; box-shadow: 2px 2px 8px rgba(0,0,0,0.3); width: 300px;">
+            <img src="images/ProgressIndicator3.gif" alt="Loading" id="game-launch-spinner" style="display: block; margin: 0 auto 10px auto; width: 32px; height: 32px;"/>
+            <div id="game-launch-status" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #000000; margin-bottom: 15px;">Starting Roblox...</div>
+            <a href="#" id="game-launch-cancel" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #00F; text-decoration: underline; cursor: pointer;">Cancel</a>
+        </div>
+    </div>
+
+    <script src="scripts/performance.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/navigation.js"></script>
+
+    <script src="scripts/utils/playtime.js"></script>
+
+    <script src="scripts/components/reviews.js"></script>
+    <script src="scripts/components/blacklist-menu.js"></script>
+
+    <script src="scripts/pages/home.js" defer></script>
+    <script src="scripts/pages/games.js" defer></script>
+    <script src="scripts/pages/catalog.js" defer></script>
+    <script src="scripts/pages/bc.js" defer></script>
+    <script src="scripts/pages/people.js" defer></script>
+    <script src="scripts/pages/profile.js" defer></script>
+    <script src="scripts/pages/friends.js" defer></script>
+    <script src="scripts/pages/myroblox.js" defer></script>
+    <script src="scripts/pages/inbox.js" defer></script>
+    <script src="scripts/pages/groups.js" defer></script>
+    <script src="scripts/pages/badge.js" defer></script>
+    <script src="scripts/pages/gamepass.js" defer></script>
+    <script src="scripts/pages/catalog-item.js" defer></script>
+    <script src="scripts/pages/character.js" defer></script>
+    <script src="scripts/pages/game-detail.js" defer></script>
+    <script src="scripts/pages/reviews.js" defer></script>
+</body>
+</html>

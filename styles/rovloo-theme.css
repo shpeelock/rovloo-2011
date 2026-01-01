@@ -1,0 +1,187 @@
+body.rovloo-theme {
+  background: url('../images/cssthemes/rovloo/bkg.png') top center repeat-x #000 !important;
+}
+
+body.rovloo-theme #HeaderContainer {
+  background: url('../images/cssthemes/rovloo/head_02.png') center -1px no-repeat !important;
+}
+
+body.rovloo-theme #Header {
+  background: transparent !important;
+}
+
+body.rovloo-theme #Header .Navigation,
+body.rovloo-theme .Navigation,
+body.rovloo-theme #MainNav {
+  background: url('../images/cssthemes/rovloo/topNav_black.png') repeat-x #1a1a1a !important;
+}
+
+body.rovloo-theme #MainNav li a {
+  color: #fff !important;
+}
+
+body.rovloo-theme .Navigation li:hover,
+body.rovloo-theme #MainNav li:hover {
+    background: rgba(248, 204, 75, 0.25) !important;
+}
+
+body.rovloo-theme #SubNav {
+  filter: brightness(1.4) !important;
+}
+
+body.rovloo-theme #SubNav li a {
+  filter: brightness(0.714) !important;
+}
+
+body.rovloo-theme #MasterContainer {
+  background: transparent !important;
+}
+
+body.rovloo-theme #Container {
+  background: transparent !important;
+}
+
+body.rovloo-theme #Body {
+  background: #292929 !important;
+}
+
+body.rovloo-theme #page-profile {
+  background: transparent !important;
+}
+
+body.rovloo-theme .StandardBox,
+body.rovloo-theme .StandardBoxWhite {
+  background-color: #fff !important;
+  border-color: #aaa !important;
+}
+
+body.rovloo-theme .StandardBoxHeader {
+  color: #fff !important;
+}
+
+body.rovloo-theme .StandardBoxHeader span {
+  color: #fff !important;
+}
+
+body.rovloo-theme .MyRobloxContainer {
+  color: #333 !important;
+}
+
+body.rovloo-theme .statsTable td {
+  color: #333 !important;
+}
+
+body.rovloo-theme .statsLabel {
+  color: #666 !important;
+}
+
+body.rovloo-theme .statsValue {
+  color: #333 !important;
+}
+
+body.rovloo-theme .StandardBoxWhite a {
+  color: #00f !important;
+}
+
+body.rovloo-theme .BadgeLabel a {
+  color: #333 !important;
+}
+
+body.rovloo-theme .UserBlurb {
+  color: #333 !important;
+}
+
+body.rovloo-theme #ProfileHeader {
+  color: #fff !important;
+}
+
+body.rovloo-theme #UserProfileURL {
+  color: #06c !important;
+}
+
+body.rovloo-theme .UserOfflineMessage {
+  color: #666 !important;
+}
+
+body.rovloo-theme .UserOnlineMessage {
+  color: green !important;
+}
+
+body.rovloo-theme .AssetDetails {
+  color: #333 !important;
+}
+
+body.rovloo-theme .AssetCreator {
+  color: #666 !important;
+}
+
+body.rovloo-theme .PlaceItem {
+  background-color: #f5f5f5 !important;
+  border-color: #ccc !important;
+}
+
+body.rovloo-theme .PlaceItem .PlaceName a {
+  color: #00f !important;
+}
+
+body.rovloo-theme .PlaceItem .PlaceStats {
+  color: #666 !important;
+}
+
+body.rovloo-theme #NoPlaces,
+body.rovloo-theme #NoFriends,
+body.rovloo-theme #NoFavorites,
+body.rovloo-theme #NoGroups,
+body.rovloo-theme #NoBadges,
+body.rovloo-theme #NoRobloxBadges {
+  color: #666 !important;
+}
+
+body.rovloo-theme #FavoritesPageInfo {
+  color: #333 !important;
+}
+
+body.rovloo-theme #Footer {
+  background-color: #1a1a1a !important;
+  border-top-color: #333 !important;
+}
+
+body.rovloo-theme #Footer,
+body.rovloo-theme #Footer a {
+  color: #888 !important;
+}
+
+body.rovloo-theme #Footer a:hover {
+  color: #aaa !important;
+}
+
+body.rovloo-theme #GamesPageInfo,
+body.rovloo-theme .GamesPageInfo {
+  color: #fff !important;
+}
+
+body.rovloo-theme #page-people .loading,
+body.rovloo-theme #people-content .loading,
+body.rovloo-theme #SearchInitial,
+body.rovloo-theme #SearchInitial p,
+body.rovloo-theme #SearchLoading,
+body.rovloo-theme #SearchLoading p,
+body.rovloo-theme #peopleSearchInitial,
+body.rovloo-theme #peopleSearchInitial p,
+body.rovloo-theme #peopleNoResults,
+body.rovloo-theme .search-initial-text,
+body.rovloo-theme .search-initial-text p {
+  color: #ccc !important;
+}
+
+body.rovloo-theme #page-profile .loading,
+body.rovloo-theme #profile-content .loading,
+body.rovloo-theme #ProfileLoading,
+body.rovloo-theme #ProfileLoading p {
+  color: #ccc !important;
+}
+
+body.rovloo-theme .error-page-title,
+body.rovloo-theme .error-page-message {
+  color: #fff !important;
+}

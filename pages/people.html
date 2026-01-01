@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" id="www-roblox-com">
+<head>
+    <title>Free Games at ROBLOX.com</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/Base/CSS/AllCSS.ashx-v-20110725qrwef-t-RBX2.css"/>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="../images/favicon.ico"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="Free Games and Building Games! A virtual world for kids with user-created castles, cars, spaceships, swords, battles, trucks, zombies and awesome destruction."/>
+    <link rel="stylesheet" type="text/css" href="../styles/titlebar.css"/>
+    <link rel="stylesheet" type="text/css" href="../styles/overrides.css"/>
+</head>
+<body>
+
+    <div id="titlebar">
+        <div class="titlebar-drag">
+            <span class="titlebar-title">ROBLOX</span>
+        </div>
+        <div class="titlebar-controls">
+            <button id="btn-minimize" class="titlebar-btn">─</button>
+            <button id="btn-maximize" class="titlebar-btn">□</button>
+            <button id="btn-close" class="titlebar-btn btn-close">✕</button>
+        </div>
+    </div>
+
+    <div id="MasterContainer">
+        <div id="Container">
+            <div id="HeaderContainer">
+                <div id="AdvertisingLeaderboard"></div>
+                <div id="Header">
+                    <div id="Banner">
+                        <div id="Options">
+                            <div id="Authentication">
+                                <span id="AuthenticationBannerSpan">
+                                    <a href="#login">Login</a>
+                                </span>
+                            </div>
+                            <div id="Settings"></div>
+                        </div>
+                        <a id="Logo" href="#home" style="cursor: pointer; border: none;"></a>
+                        <div style="float: right; width: 203px;">
+                            <a class="SignUpAndPlay" href="#signup" style="display:inline-block;height:40px;width:210px;cursor:pointer;">
+                                <img src="../images/Holiday3Button.png" border="0" alt="Sign Up"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="Navigation">
+                        <ul id="MainMenu">
+                            <li><a href="#home">My ROBLOX</a></li>
+                            <li class="gamesLink"><a id="hlGames" href="#games" title="Games">Games</a></li>
+                            <li><a href="#catalog" title="Catalog">Catalog</a></li>
+                            <li><a href="#people" style="font-weight: bold" title="People"><h1>People</h1></a></li>
+                            <li><a href="#bc" title="Builders Club">Builders Club</a></li>
+                            <li><a href="#forum" title="Forum">Forum</a></li>
+                            <li><a href="#help" title="Help">Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Body">
+                <div id="BrowseContainer" style="font-family: Verdana, Sans-Serif; text-align: left">
+
+                    <div style="width: 876px; height: 28px; clear: both; display: block; background-color: #006699; margin-left: -4px;" class="StandardBox">
+                        <table width="876px" border="0">
+                            <tr>
+                                <td style="font-family: Verdana, Helvetica, Sans-Serif; font-size: 12pt; color: Black; font-weight: bold; text-align: left;">
+                                    Search:
+                                </td>
+                                <td style="text-align: right;">
+                                    <span class="SearchBox">
+                                        <input type="text" maxlength="100" id="SearchTextBox" style="width: 400px;" placeholder="Enter username..."/>
+                                    </span>
+                                    <span class="SearchButton">
+                                        <input type="button" value="Search Users" id="SearchUsersButton"/>
+                                    </span>
+                                    <input type="button" id="SearchGroupsButton" value="Search Groups"/>
+                                    <span class="SearchLinks">
+                                        <sup>&nbsp;|&nbsp;</sup>
+                                        <a href="#" style="color: #FFFFFF" id="SearchTipsLink">
+                                            <sup>Tips</sup>
+                                            <span id="SearchTipsTooltip" style="display:none;">
+                                                Exact Phrase: "red brick"<br/>
+                                                Find ALL Terms: red and brick<br/>
+                                                Find ANY Term: red or brick<br/>
+                                                Wildcard Suffix: tel* (Finds teleport, telamon, etc.)
+                                            </span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="SearchError" id="SearchError" style="display:none; color: red; padding: 10px;"></div>
+
+                    <div style="float:left; min-height:600px; width: 100%;">
+                        <div id="SearchResultsContainer">
+
+                            <div id="SearchInitial" style="text-align: center; padding: 60px;">
+                                <p style="font-size: 14px;">Search for users by entering a username above.</p>
+                            </div>
+
+                            <div id="SearchLoading" style="display: none; text-align: center; padding: 60px;">
+                                <img src="../images/spinners/spinner100x100.gif" alt="Loading..." style="width:32px;height:32px;"/>
+                                <p>Searching...</p>
+                            </div>
+
+                            <div id="SearchResults" style="display: none;">
+                                <div class="StandardBoxHeader" style="margin-top: 10px;">
+                                    <span id="SearchResultsHeader">Search Results</span>
+                                </div>
+                                <div class="StandardBox" id="SearchResultsList" style="padding: 10px;">
+
+                                </div>
+                                <div id="SearchPagination" style="text-align: center; padding: 10px;">
+                                    <a id="SearchPrevPage" href="#" style="margin-right: 20px;">&lt; Previous</a>
+                                    <span id="SearchPageInfo">Page 1</span>
+                                    <a id="SearchNextPage" href="#" style="margin-left: 20px;">Next &gt;</a>
+                                </div>
+                            </div>
+
+                            <div id="SearchNoResults" style="display: none; text-align: center; padding: 60px; color: #666;">
+                                <p style="font-size: 14px;">No users found matching your search.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br style="clear:both"/>
+                </div>
+            </div>
+
+            <div id="Footer">
+                <div class="FooterLinks">
+                    <a href="#help">Help</a> |
+                    <a href="#parents">Parents</a> |
+                    <a href="#terms">Terms</a> |
+                    <a href="#privacy">Privacy</a>
+                </div>
+                <div class="Copyright">
+                    &copy; 2011 ROBLOX Corporation
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/navigation.js"></script>
+    <script src="../scripts/pages/people.js"></script>
+</body>
+</html>

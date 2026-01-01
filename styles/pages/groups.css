@@ -1,0 +1,335 @@
+#page-groups > #groups-search-view {
+  width: 100%;
+  margin: 0;
+}
+
+.groups-search-container {
+  margin: 10px 0;
+  width: 100%;
+}
+
+.groups-search-box {
+  background: #f0f0f0;
+  border: 1px solid #999;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.groups-search-box input[type="text"] {
+  width: 300px;
+  padding: 5px;
+  border: 1px solid #999;
+  font-size: 12px;
+}
+
+.groups-search-box button {
+  padding: 5px 15px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.groups-results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  border: 1px solid #aaa;
+}
+
+.groups-results-table th {
+  background: #6e99c9;
+  color: white;
+  padding: 5px 8px;
+  text-align: left;
+  font-weight: bold;
+  font-family: Verdana;
+}
+
+.groups-results-table td {
+  padding: 8px;
+  vertical-align: top;
+}
+
+.groups-results-table tr:nth-child(even) {
+  background: #f5f5f5;
+}
+
+.groups-results-table tr:hover {
+  background: #e8f0f8;
+}
+
+.group-icon-cell {
+  width: 60px;
+  text-align: center;
+}
+
+.group-icon-cell img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #999;
+}
+
+.group-name-link {
+  color: #00f;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.group-name-link:hover {
+  text-decoration: underline;
+}
+
+#group-detail-view {
+  width: 700px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+#group-detail-view .Column2b {
+  margin-top: 10px;
+  width: 490px;
+  float: left;
+}
+
+#group-detail-view .Column2b .StandardBox {
+  width: 466px;
+}
+
+#group-detail-view .Column2b .StandardBoxHeader {
+  width: 466px;
+}
+
+#group-detail-view .Column3b {
+  margin-top: 10px;
+  float: left;
+}
+
+#SearchControls {
+  margin-bottom: 0;
+}
+
+.GroupDescriptionThumbnail {
+  float: left;
+}
+
+.GroupDescriptionThumbnail a {
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.GroupDescriptionThumbnail img {
+  border: 0;
+}
+
+.StatusTextField {
+  font-weight: normal;
+  font-style: normal;
+}
+
+#group-status-view {
+  padding: 5px;
+}
+
+#group-status-poster {
+  font-style: italic;
+  color: #00f;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+#group-status-poster:hover {
+  text-decoration: underline;
+}
+
+.Repeater {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.Repeater .AlternatingItemTemplateOdd {
+  background-color: #f5f5f5;
+}
+
+.Repeater .AlternatingItemTemplateEven {
+  background-color: #ffffff;
+}
+
+.Repeater .RepeaterImage {
+  width: 55px;
+  vertical-align: top;
+  padding: 5px;
+}
+
+.Repeater .RepeaterImage a {
+  color: #00f;
+  text-decoration: none;
+}
+
+.Repeater .RepeaterImage a:hover {
+  text-decoration: underline;
+}
+
+.Repeater .RepeaterImage img {
+  border: 0;
+  width: 48px;
+  height: 48px;
+}
+
+.Repeater .RepeaterText {
+  vertical-align: top;
+  padding: 5px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 400px;
+}
+
+.GroupMember {
+  text-align: center;
+  overflow: hidden;
+}
+
+.GroupMember .Avatar {
+  display: inline-block;
+}
+
+.GroupMember .Avatar a {
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+  cursor: pointer;
+}
+
+.GroupMember .Avatar img {
+  border: 0;
+}
+
+.GroupMember .Summary {
+  font-size: 10px;
+}
+
+.GroupMember .Name {
+  display: block;
+  max-width: 55px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+.GroupMember .Name a {
+  color: #00f;
+  text-decoration: none;
+}
+
+.GroupMember .Name a:hover {
+  text-decoration: underline;
+}
+
+.RoleSetButton {
+  border: 2px solid #243A4A;
+  padding: 2px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  background-color: Gray;
+  position: relative;
+  z-index: 10;
+  width: 176px;
+  font-size: 12px;
+  display: block;
+}
+
+.SelectedRoleSetButton {
+  border: 2px solid #243A4A;
+  background-color: White;
+  padding: 2px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  width: 176px;
+  font-size: 12px;
+  display: block;
+}
+
+.FooterPager {
+  clear: both;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.FooterPager hr {
+  margin: 5px 0;
+}
+
+.FooterPager a {
+  color: #00f;
+  text-decoration: none;
+}
+
+.FooterPager a:hover {
+  text-decoration: underline;
+}
+
+.FooterPager a[disabled],
+.FooterPager a[disabled="disabled"] {
+  color: #999;
+  cursor: default;
+  text-decoration: none;
+}
+
+.groups-pagination {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.groups-pagination a {
+  color: #00f;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.groups-pagination a:hover {
+  text-decoration: underline;
+}
+
+.groups-pagination a.disabled {
+  color: #999;
+  cursor: default;
+}
+
+.my-groups-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.my-group-item {
+  width: 80px;
+  text-align: center;
+  font-size: 10px;
+  overflow: hidden;
+}
+
+.my-group-icon {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #999;
+  margin: 0 auto 5px;
+}
+
+.my-group-name {
+  color: #00f;
+  text-decoration: none;
+  word-break: break-word;
+  display: block;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my-group-name:hover {
+  text-decoration: underline;
+}

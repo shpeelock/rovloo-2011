@@ -1,0 +1,81 @@
+.blacklist-btn {
+    display: inline-block;
+    color: #666;
+    font-size: 11px;
+    font-family: Verdana, Arial, sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 3px 8px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    border-radius: 2px;
+    margin-left: 10px;
+}
+
+.blacklist-btn:hover {
+    background: #e8e8e8;
+    border-color: #999;
+    color: #333;
+}
+
+.blacklist-btn.blacklisted {
+    color: #c00;
+    border-color: #c00;
+    background: #fff0f0;
+}
+
+.blacklist-btn.blacklisted:hover {
+    background: #ffe0e0;
+}
+
+.blacklist-section {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.blacklist-section .blacklist-label {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.blacklist-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.blacklist-actions .blacklist-btn {
+    margin-left: 0;
+    text-align: center;
+}
+
+.blacklist-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12px;
+    z-index: 10000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+#blacklist-modal > div {
+    width: 500px;
+}
+
+#blacklist-modal .StandardBoxHeader {
+    width: 486px !important;
+    box-sizing: content-box;
+}
+
+#blacklist-modal .StandardBox {
+    width: 498px !important;
+    box-sizing: border-box;
+    border-top: none;
+}

@@ -1,0 +1,136 @@
+<div id="ItemContainer">
+    <div class="StandardBoxHeader" style="width: 709px;">
+        <span><span id="item-fav-star" class="notFavorited"></span> <span id="item-name">Loading...</span></span>
+    </div>
+    <div id="Item" class="StandardBox" style="width: 709px;">
+        <div id="Details">
+
+            <div id="assetContainer" style="float:left; width:420px;">
+                <div id="Thumbnail">
+                    <a id="item-thumbnail-link" title="" onclick="return false" style="display:inline-block;height:420px;width:420px;">
+                        <img id="item-thumbnail" src="images/spinners/spinner100x100.gif" border="0" alt="" style="width:420px;height:420px;"/>
+                    </a>
+                </div>
+                <div id="Actions">
+                </div>
+            </div>
+
+            <div id="Summary" style="float:right; display:inline; width:235px; padding:7px; box-sizing:border-box;">
+                <h3 id="item-type">ROBLOX Hat</h3>
+
+                <div id="item-robux-panel">
+                    <div id="RobuxPurchase">
+                        <div id="PriceInRobux">
+                            <span id="item-price-robux">R$: 0</span>
+                        </div>
+                        <div id="BuyWithRobux">
+                            <a id="buy-robux-btn" class="Button" href="#" onclick="window.showPurchaseConfirmation && window.showPurchaseConfirmation(); return false;">Buy with R$</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="item-tickets-panel" style="display:none;">
+                    <div id="TicketsPurchase">
+                        <div id="PriceInTickets">
+                            <span id="item-price-tickets">Tx: 0</span>
+                        </div>
+                        <div id="BuyWithTickets">
+                            <a class="Button" href="#" onclick="alert('Tickets are no longer supported'); return false;">Buy with Tx</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="item-owned-panel" style="display:none;">
+                    <div style="color: green; font-weight: bold; padding: 5px;">✓ You own this item</div>
+                </div>
+                <div id="item-offsale-panel" style="display:none;">
+                    <div style="color: #cc0000; font-weight: bold; padding: 5px;">This item is not for sale</div>
+                </div>
+                <div class="clear"></div>
+
+                <div id="Creator" class="Creator section">
+                    <div class="Avatar">
+                        <a id="item-creator-avatar-link" class="tooltip-right" title="" href="#">
+                            <img id="item-creator-avatar" src="images/spinners/spinner100x100.gif" border="0" alt=""/>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div>
+                        <span class="label">Creator:</span>
+                        <a id="item-creator-link" href="#">ROBLOX</a>
+                    </div>
+                    <div>
+                        <span class="label">Created:</span>
+                        <span id="item-created">--</span>
+                    </div>
+                    <div id="LastUpdate">
+                        <span class="label">Updated:</span>
+                        <span id="item-updated">--</span>
+                    </div>
+                    <div id="Favorited">
+                        <span class="label">Favorited:</span>
+                        <span id="item-favorites">0 times</span>
+                    </div>
+                    <div id="item-remaining-section" style="display:none;">
+                        <span class="label" style="color:#cc0000;">Remaining:</span>
+                        <span id="item-remaining">0</span>
+                    </div>
+                </div>
+
+                <div class="box section">
+                    <div class="head label">Description:</div>
+                    <pre id="item-description" class="Description body" style="max-height:200px; overflow-x: hidden;">No description available.</pre>
+                </div>
+
+                <div class="ReportAbuse">
+                    <div id="BlacklistSection"></div>
+                    <div class="ReportAbusePanel">
+                        <span class="AbuseButton"><a href="#">Report Abuse</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <div class="StandardTabWhite"><span>Recommendations</span></div>
+            <div class="StandardBoxWhite">
+                <div style="font-size: x-small;">Here are some other items that we think you might like.</div>
+                <div id="item-recommendations"></div>
+            </div>
+        </div>
+
+        <div id="item-resellers-section" style="display:none; margin-top:10px;">
+            <div class="StandardTabGrayActive"><span>Private Sales</span></div>
+            <div class="StandardBoxGray">
+                <div id="item-resellers-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="purchase-modal" onclick="if(event.target === this) closePurchaseModal();" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; cursor:pointer;">
+    <div id="purchase-modal-content" onclick="event.stopPropagation();" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border:2px solid #333; padding:20px; min-width:350px; text-align:center; cursor:default;">
+        <a href="#" onclick="closePurchaseModal(); return false;" style="position:absolute; top:5px; right:10px; font-size:18px; color:#666; text-decoration:none;">&times;</a>
+        <div style="font-size:18px; font-weight:bold; margin-bottom:15px;">Confirm Purchase</div>
+        <div style="margin-bottom:10px;">
+            <img id="purchase-modal-thumbnail" src="images/spinners/spinner100x100.gif" style="width:100px; height:100px; border:1px solid #ccc;">
+        </div>
+        <div id="purchase-modal-name" style="font-weight:bold; margin-bottom:10px;">Item Name</div>
+        <div id="purchase-modal-price" style="color:green; font-size:16px; margin-bottom:15px; font-family: Verdana, Geneva, Tahoma, sans-serif;">R$ 0</div>
+        <div id="purchase-modal-balance" style="font-size:12px; color:#666; margin-bottom:15px; font-family: Verdana, Geneva, Tahoma, sans-serif;">Your balance: R$ 0</div>
+        <div id="purchase-modal-error" style="display:none; color:#cc0000; margin-bottom:10px;"></div>
+        <div id="purchase-modal-success" style="display:none; color:#01a90f; margin-bottom:10px;"></div>
+
+        <div id="purchase-captcha-container" style="display:none; margin:15px 0;">
+            <div style="font-size:12px; color:#666; margin-bottom:10px;">Please complete the verification below:</div>
+            <iframe id="purchase-captcha-iframe" style="width:302px; height:290px; border:none; margin:0 auto; display:block;"></iframe>
+            <div style="font-size:11px; color:#999; margin-top:5px;">Solve the puzzle to continue</div>
+        </div>
+        <div id="purchase-modal-buttons">
+            <button id="purchase-confirm-btn" style="background:#01a90f; color:#fff; border:none; padding:8px 20px; cursor:pointer; margin-right:10px;">Buy Now</button>
+            <button id="purchase-cancel-btn" style="background:#cc0000; color:#fff; border:none; padding:8px 20px; cursor:pointer;">Cancel</button>
+        </div>
+    </div>
+</div>

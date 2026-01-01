@@ -1,0 +1,76 @@
+<div id="page-inbox" class="page">
+    <div class="InboxContainer" style="margin: 13px 5px 0 0;">
+
+        <div class="inbox-tabs">
+            <div class="inbox-tab active" data-tab="inbox">Inbox</div>
+            <div class="inbox-tab" data-tab="sent">Sent</div>
+            <div class="inbox-tab" data-tab="archive">Archive</div>
+            <div class="inbox-tab" data-tab="notifications">Notifications (<span id="inbox-notif-count">0</span>)</div>
+        </div>
+
+        <div id="inbox-list-view" class="inbox-content">
+            <table class="inbox-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25px;"><input type="checkbox" id="inbox-select-all"></th>
+                        <th style="width: 45%;">Subject</th>
+                        <th style="width: 25%;">From</th>
+                        <th style="width: 25%;">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="inbox-messages-list">
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                            Loading messages...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="inbox-pagination" id="inbox-pagination">
+                <button id="inbox-prev-btn" disabled>&lt; Previous</button>
+                <span id="inbox-page-info">Page 1 of 1</span>
+                <button id="inbox-next-btn" disabled>Next &gt;</button>
+            </div>
+
+            <div class="inbox-actions">
+                <button id="inbox-new-message-btn">New Message</button>
+                <button id="inbox-delete-selected-btn">Delete Selected</button>
+                <button id="inbox-archive-selected-btn">Archive Selected</button>
+            </div>
+        </div>
+
+        <div id="inbox-detail-view" class="inbox-content" style="display: none;">
+            <div class="private-message-box">
+                <div class="pm-header">Private Message</div>
+                <div class="pm-content">
+
+                    <div class="pm-sender-col">
+                        <div class="pm-date" id="pm-date">4/5/2011 2:03:40 PM</div>
+                        <div class="pm-avatar">
+                            <img id="pm-avatar-img" src="images/spinners/spinner100x100.gif" alt="Avatar">
+                        </div>
+                        <div class="pm-sender-name">
+                            <a href="#" id="pm-sender-link">builderman</a>
+                        </div>
+                        <div class="pm-subject" id="pm-subject">Re: Bug Report</div>
+                        <div class="pm-report">
+                            <a href="#" id="pm-report-abuse">🛡️ Report Abuse</a>
+                        </div>
+                    </div>
+
+                    <div class="pm-body-col">
+                        <div class="pm-body" id="pm-body">
+                            Message content goes here...
+                        </div>
+                    </div>
+                </div>
+                <div class="pm-buttons">
+                    <button id="pm-reply-btn">Reply</button>
+                    <button id="pm-delete-btn">Delete</button>
+                    <button id="pm-back-btn">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

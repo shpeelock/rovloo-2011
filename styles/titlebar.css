@@ -1,0 +1,73 @@
+#titlebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.titlebar-drag {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  -webkit-app-region: drag;
+}
+
+.titlebar-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.titlebar-title {
+  color: #fff;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+  letter-spacing: 1px;
+}
+
+.titlebar-controls {
+  display: flex;
+  height: 100%;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-btn {
+  width: 46px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: #aaa;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: "Segoe MDL2 Assets", "Segoe UI Symbol", Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titlebar-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.titlebar-btn.btn-close:hover {
+  background: #e81123;
+  color: #fff;
+}
+
+.titlebar-btn:active {
+  background: rgba(255,255,255,0.05);
+  transform: scale(0.95);
+}

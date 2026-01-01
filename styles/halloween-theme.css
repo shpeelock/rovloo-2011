@@ -1,0 +1,23 @@
+body.halloween-theme {
+  background: url('../assets/backgrounds/h11_background_4.jpg') center 30px repeat-x #000 !important;
+}
+
+body.halloween-theme #HeaderContainer {
+  background: url('../assets/backgrounds/h11_headerimg.jpg') no-repeat scroll 0 0 transparent !important;
+}
+
+body.halloween-theme #Header .Navigation {
+  filter: hue-rotate(180deg) !important;
+}
+
+body.halloween-theme .Navigation .dropdownmainnav {
+  filter: hue-rotate(180deg) !important;
+}
+
+body.halloween-theme .ShadowedStandardBox .Header {
+  filter: hue-rotate(180deg) !important;
+}
+
+body.halloween-theme .ShadowedStandardBox {
+  border-color: #e67e22 !important;
+}

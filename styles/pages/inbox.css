@@ -1,0 +1,353 @@
+.InboxContainer {
+    min-height: 400px;
+    margin: 13px 5px 0 0;
+    padding: 5px;
+}
+
+.inbox-tabs {
+    display: flex;
+    background: transparent;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.inbox-tab {
+    padding: 4px 10px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: normal;
+    cursor: pointer;
+    background: #79a6c752;
+    border: 1px solid #999;
+    border-bottom: none;
+    margin-right: 2px;
+}
+
+.inbox-tab:hover {
+    background: #f0f0f0;
+}
+
+.inbox-tab.active {
+    background: #79A6C7;
+    color: #ffffff;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+}
+
+.inbox-tab[data-tab="sent"],
+.inbox-tab[data-tab="archive"] {
+    display: none;
+}
+
+.inbox-content {
+    padding: 0;
+    background: #fff;
+    border: 1px solid #999;
+    border-top: none;
+}
+
+.inbox-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.inbox-table thead {
+    background: #989898;
+}
+
+.inbox-table th {
+    padding: 5px 8px;
+    text-align: left;
+    font-weight: normal;
+    font-size: 14px;
+    font-family: Verdana, sans-serif;
+    color: #fff;
+    letter-spacing: .1em;
+}
+
+.inbox-table th:nth-child(1) {
+    width: 20px;
+    text-align: center;
+}
+
+.inbox-table th:nth-child(2) {
+    width: 45%;
+}
+
+.inbox-table th:nth-child(3) {
+    width: 28%;
+}
+
+.inbox-table th:nth-child(4) {
+    width: auto;
+}
+
+.inbox-table th:last-child {
+    border-right: none;
+}
+
+.inbox-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.inbox-table tbody tr:nth-child(odd) {
+    background: #fff;
+}
+
+.inbox-table tbody tr:nth-child(even) {
+    background: #f0f0f0;
+}
+
+.inbox-table tbody tr:hover {
+    background: #e8f0f8;
+}
+
+.inbox-table td {
+    padding: 4px 8px;
+    vertical-align: middle;
+}
+
+.inbox-table td:first-child {
+    text-align: center;
+}
+
+.inbox-table input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+.message-row {
+    cursor: pointer;
+}
+
+.message-row.unread .message-subject {
+    font-weight: bold;
+}
+
+.message-row.system-message .message-subject {
+    color: #990000;
+}
+
+.message-row.system-message .message-from {
+    color: #990000;
+}
+
+.message-subject {
+    color: #0055cc;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.message-subject:hover {
+    text-decoration: underline;
+}
+
+.message-from {
+    color: #000;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.message-from a {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.message-from a:hover {
+    text-decoration: underline;
+}
+
+.message-date {
+    color: #000;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.inbox-actions-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: #e8e8e8;
+    border-top: 1px solid #ccc;
+}
+
+.inbox-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.inbox-actions button {
+    padding: 3px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    color: #333;
+}
+
+.inbox-actions button:hover {
+    background: #fff;
+}
+
+.inbox-pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inbox-pagination button {
+    padding: 3px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    color: #333;
+}
+
+.inbox-pagination button:hover:not(:disabled) {
+    background: #fff;
+}
+
+.inbox-pagination button:disabled {
+    color: #999;
+    cursor: default;
+}
+
+#inbox-page-info {
+    font-size: 11px;
+    color: #333;
+}
+
+.private-message-box {
+    background: #fff;
+    border: 1px solid #999;
+    margin: 0;
+}
+
+.pm-header {
+    background: #3a5a7a;
+    padding: 5px 8px;
+    font-weight: bold;
+    font-size: 11px;
+    color: #fff;
+}
+
+.pm-content {
+    display: flex;
+    min-height: 280px;
+}
+
+.pm-sender-col {
+    width: 150px;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    background: #f8f8f8;
+    text-align: center;
+}
+
+.pm-date {
+    font-size: 11px;
+    color: #333;
+}
+
+.pm-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 10px;
+    border: 1px solid #999;
+    background: #fff;
+}
+
+.pm-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.pm-sender-name {
+    margin-bottom: 10px;
+}
+
+.pm-sender-name a {
+    color: #0055cc;
+    text-decoration: underline;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.pm-sender-name a:hover {
+    color: #003399;
+}
+
+.pm-subject {
+    font-size: 10px;
+    color: #333;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    text-align: center;
+    font-weight: bold;
+    font-family: Verdana,Helvetica,sans-serif;
+}
+
+.pm-report a {
+    color: #cc6600;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.pm-report a:hover {
+    text-decoration: underline;
+}
+
+.pm-body-col {
+    flex: 1;
+    padding: 15px;
+    overflow: auto;
+    background: #fff;
+}
+
+.pm-body {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #000;
+    font-family: Verdana, sans-serif;
+}
+
+.pm-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 8px;
+    background: #e8e8e8;
+    border-top: 1px solid #ccc;
+}
+
+.pm-buttons button {
+    padding: 4px 15px;
+    font-size: 11px;
+    cursor: pointer;
+    background: #f0f0f0;
+    border: 1px solid #999;
+}
+
+.pm-buttons button:hover {
+    background: #fff;
+}
+
+.inbox-empty {
+    text-align: center;
+    padding: 30px 20px;
+    color: #666;
+    font-size: 11px;
+    background: #fff;
+}
+
+.inbox-loading {
+    text-align: center;
+    padding: 30px 20px;
+    color: #666;
+}

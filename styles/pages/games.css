@@ -1,0 +1,436 @@
+#GamesList {
+  overflow: visible !important;
+  width: 100% !important;
+}
+
+.GamesGrid {
+  overflow: visible !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+.GameItem {
+  float: left !important;
+  width: 160px !important;
+  margin: 5px !important;
+  position: relative !important;
+  background: transparent !important;
+  border: none !important;
+  font-family: Verdana, Arial, sans-serif !important;
+  font-size: 11px !important;
+  box-sizing: content-box !important;
+  display: block !important;
+  min-height: 140px !important;
+  z-index: 1;
+}
+
+.GameItem .AlwaysShown {
+  padding: 0 !important;
+  display: block !important;
+  position: relative !important;
+  z-index: 1001 !important;
+}
+
+.GameItem .HoverShown {
+  display: none !important;
+  position: absolute !important;
+  background-color: #fff !important;
+  border: 1px solid #aaa !important;
+  z-index: 1000 !important;
+  font-size: 11px !important;
+  color: #555 !important;
+  box-shadow: 2px 2px 3px rgba(0,0,0,0.2) !important;
+  margin-top: 5px !important;
+}
+
+.GameItem:hover .HoverShown {
+  display: block !important;
+}
+
+.GameItem .GameThumbnail {
+  width: 160px;
+  height: 100px;
+  background: #e8e8e8;
+  border: 1px solid #555;
+  margin: 0 0 2px 0;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.GameItem .GameThumbnail a {
+  display: block;
+  line-height: 0;
+}
+
+.GameItem .GameThumbnail img {
+  width: 160px !important;
+  height: 100px !important;
+  object-fit: cover;
+  border: none;
+  display: block;
+}
+
+.GameItem .GameName {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.GameItem .GameName a {
+  color: #00F;
+  text-decoration: none;
+}
+
+.GameItem .GameName a:hover {
+  text-decoration: underline;
+}
+
+.GameItem .PlayerCount {
+  color: #FF0000;
+  margin-top: -2px;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.GameItem .PlayerCount .GenreIcon {
+  width: 16px;
+  height: 16px;
+  border: none;
+  flex-shrink: 0;
+}
+
+.GameItem .GenreIcons {
+  display: none;
+}
+
+.GameItem .CreatorName {
+  clear: both;
+  font-size: 11px;
+  color: #666;
+  margin-top: 18px;
+  display: none !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.GameItem:hover .CreatorName {
+  display: block !important;
+}
+
+.GameItem .CreatorName a {
+  color: #00f;
+  text-decoration: none;
+}
+
+.GameItem .CreatorName a:hover {
+  text-decoration: underline;
+}
+
+.GameItem .HoverShown .StatsPlayed,
+.GameItem .HoverShown .StatsFavorited,
+.GameItem .HoverShown .StatsUpdated,
+.GameItem .HoverShown .StatsPlaytime {
+  font-size: 11px;
+  line-height: 1.3;
+  color: #888 !important;
+  white-space: nowrap;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.GameItem .HoverShown .StatsPlaytime .playtime-icon {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-right: 4px;
+  margin-top: -2px;
+}
+
+#page-games .Column2e .StandardBoxHeader {
+  position: relative;
+}
+
+#GamesSearchBox {
+  position: absolute;
+  right: -372px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 169px;
+  height: 25px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  padding: 2px 26px 2px 6px;
+  font-size: 13px;
+  background: #fff url('../../images/searchIcon.png') no-repeat right 6px center;
+  background-size: 16px 16px;
+  transition: right 0.4s ease-in-out;
+}
+
+#GamesSearchBox::placeholder {
+  color: #999;
+}
+
+#GamesList {
+  transition: opacity 0.15s ease-out;
+}
+
+#GamesList.games-fading-out {
+  opacity: 0;
+}
+
+#page-games .Column1e,
+#Body .Column1e {
+  transition: transform 0.4s ease-in-out, opacity 0.3s ease-out, margin-left 0.4s ease-in-out;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+#page-games .Column1e.sidebar-hidden,
+#Body .Column1e.sidebar-hidden {
+  transform: translateX(-100%);
+  opacity: 0;
+  margin-left: -175px;
+  pointer-events: none;
+}
+
+#page-games .Column1e.sidebar-hidden.sidebar-peek,
+#Body .Column1e.sidebar-hidden.sidebar-peek {
+  transform: translateX(0) !important;
+  opacity: 1 !important;
+  margin-left: 0 !important;
+  pointer-events: auto;
+  z-index: 100;
+}
+
+#page-games .Column2e.search-mode-expanded.sidebar-peeking,
+#Body .Column2e.search-mode-expanded.sidebar-peeking {
+  width: 740px !important;
+  margin-left: 10px !important;
+}
+
+.Column2e.search-mode-expanded.sidebar-peeking #GamesSearchBox {
+  right: -372px !important;
+}
+
+.search-mode-hover-trigger {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 100%;
+  z-index: 100;
+  cursor: pointer;
+  background: transparent;
+}
+
+.search-mode-hover-trigger::after {
+  content: '◀';
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.search-mode-hover-trigger:hover::after {
+  opacity: 1;
+}
+
+#page-games .Column2e,
+#Body .Column2e {
+  transition: width 0.4s ease-in-out, margin-left 0.4s ease-in-out;
+}
+
+#page-games .Column2e.search-mode-expanded,
+#Body .Column2e.search-mode-expanded {
+  width: calc(100% - 20px) !important;
+  margin-left: 10px !important;
+}
+
+.search-mode-expanded #GamesSearchBox,
+.Column2e.search-mode-expanded #GamesSearchBox {
+  right: -501px;
+}
+
+#page-games #Body.search-mode,
+#Body.search-mode {
+  overflow-x: hidden;
+}
+
+.search-mode-expanded #GamesList .GamesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.search-mode-expanded .GameItem {
+  flex: 0 0 160px;
+}
+
+.search-mode-expanded #GamesList {
+  animation: fadeInResults 0.3s ease-in forwards;
+}
+
+@keyframes fadeInResults {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#GamesSearchBox:focus {
+  outline: none;
+  border-color: #4a90d9;
+  box-shadow: 0 0 3px rgba(74, 144, 217, 0.3);
+}
+
+#CategorySelector {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+#CategorySelector .GamesFilter {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#CategorySelector .GamesFilter.SelectedFilter {
+  color: #000;
+  text-decoration: none;
+  cursor: default;
+  background: url('../../images/gamesPage_filterArrow.png') no-repeat scroll 0 1px transparent;
+}
+
+#CategorySelector .GamesFilter:not(.SelectedFilter) {
+  color: #00f;
+  text-decoration: none;
+}
+
+#CategorySelector .GamesFilter:not(.SelectedFilter):hover {
+  text-decoration: underline;
+}
+
+.category-filters {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.category-filters.fading-out {
+  opacity: 0.5;
+}
+
+#CustomListsContainer .GamesFilter[data-filter="NoLists"] {
+  font-style: italic;
+  color: #999 !important;
+  cursor: default !important;
+}
+
+#CustomListsContainer .GamesFilter[data-filter="NoLists"]:hover {
+  text-decoration: none !important;
+}
+
+.custom-list-item {
+  position: relative;
+}
+
+.custom-list-item .list-info {
+  font-size: 10px;
+  color: #666;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+.custom-list-item .list-count {
+  color: #999;
+  font-size: 10px;
+}
+
+#RecommendedFilters .GameFilter div {
+  color: #333;
+  font-weight: bold;
+}
+
+#FavoritesFilters .GameFilter div {
+  color: #333;
+  font-weight: bold;
+}
+
+#RecentFilters .GameFilter div {
+  color: #333;
+  font-weight: bold;
+}
+
+.category-filters .GameFilter {
+  margin-bottom: 15px;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+}
+
+.category-filters .GameFilter div {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.category-filters .GameFilter ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.category-filters .GameFilter li {
+  margin: 2px 0;
+  padding-left: 10px;
+}
+
+.category-filters .GamesFilter {
+  color: #00f;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.category-filters .GamesFilter:hover {
+  text-decoration: underline;
+}
+
+.category-filters .GamesFilter.SelectedFilter {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: default;
+}
+
+.category-switching #GamesContent {
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.games-display-label {
+  transition: opacity 0.15s ease-out;
+}
+
+.games-display-label.updating {
+  opacity: 0.7;
+}
+
+#RecentSortBy .GameFilter div {
+  color: #333;
+  font-weight: bold;
+}

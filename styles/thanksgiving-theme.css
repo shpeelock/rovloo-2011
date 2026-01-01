@@ -1,0 +1,7 @@
+body.thanksgiving-theme {
+  background: url('../assets/backgrounds/t11_background_5.jpg') top center repeat-x #470801 !important;
+}
+
+body.thanksgiving-theme #HeaderContainer {
+  background: url('../assets/backgrounds/t11_headerimg.jpg') no-repeat scroll 0 0 transparent !important;
+}

@@ -1,0 +1,253 @@
+.local-server-settings {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.local-server-settings h3 {
+    margin: 0 0 10px 0;
+    color: #495057;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.local-server-settings .setting-description {
+    margin: 0 0 20px 0;
+    color: #6c757d;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.local-server-settings .setting-description small {
+    color: #868e96;
+    font-style: italic;
+}
+
+.local-server-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.local-server-controls .btn {
+    min-width: 120px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.local-server-controls .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.local-server-controls .btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.local-server-controls .btn-primary:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+.local-server-controls .btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.local-server-controls .btn-danger:hover:not(:disabled) {
+    background: #c82333;
+}
+
+.local-server-controls .btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.local-server-controls .btn-secondary:hover:not(:disabled) {
+    background: #545b62;
+}
+
+.local-server-controls .btn-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.local-server-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-indicator.online {
+    background: #28a745;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.3);
+}
+
+.status-indicator.offline {
+    background: #6c757d;
+}
+
+.status-text {
+    font-size: 14px;
+    color: #495057;
+    font-weight: 500;
+}
+
+.local-server-stats {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 16px;
+    margin-top: 15px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 14px;
+    color: #495057;
+    font-weight: 600;
+}
+
+.server-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid #dee2e6;
+}
+
+.server-actions .btn {
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.performance-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.warning-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.warning-text {
+    font-size: 13px;
+    color: #856404;
+    line-height: 1.4;
+}
+
+.warning-text strong {
+    font-weight: 600;
+}
+
+.notification {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .local-server-settings {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+
+    .local-server-settings h3 {
+        color: #e2e8f0;
+    }
+
+    .local-server-settings .setting-description {
+        color: #a0aec0;
+    }
+
+    .local-server-stats {
+        background: #1a202c;
+        border-color: #4a5568;
+    }
+
+    .stat-item {
+        background: #2d3748;
+    }
+
+    .stat-label {
+        color: #a0aec0;
+    }
+
+    .stat-value {
+        color: #e2e8f0;
+    }
+
+    .status-text {
+        color: #e2e8f0;
+    }
+
+    .performance-warning {
+        background: #744210;
+        border-color: #975a16;
+    }
+
+    .warning-text {
+        color: #fbd38d;
+    }
+}

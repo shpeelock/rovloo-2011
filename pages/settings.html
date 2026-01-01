@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Rōvloo</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/pages/settings.css">
+    <link rel="stylesheet" href="../styles/components/local-server-settings.css">
+</head>
+<body>
+    <div id="Header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="#home" class="logo-link">
+                    <img src="../graphics/icon64.png" alt="Rōvloo" class="logo">
+                    <span class="logo-text">Rōvloo</span>
+                </a>
+            </div>
+            <div class="header-right">
+                <a href="#home" class="nav-link">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="Container">
+        <div class="settings-page">
+            <div class="settings-header">
+                <h1>Settings</h1>
+                <p>Configure your Rōvloo experience</p>
+            </div>
+
+            <div class="settings-content">
+
+                <div class="setting-section">
+                    <h3>⚙️ General Settings</h3>
+                    <p class="setting-description">Basic application settings</p>
+
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="enableNotifications">
+                            Enable notifications
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="enableAutoUpdates">
+                            Enable automatic updates
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/components/local-server-settings.js"></script>
+    <script>
+        // Initialize settings page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize local server settings
+            if (window.LocalServerSettings) {
+                new LocalServerSettings();
+            }
+        });
+    </script>
+</body>
+</html>

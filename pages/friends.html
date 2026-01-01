@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" id="www-roblox-com">
+<head>
+    <title>Friends - ROBLOX</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/Base/CSS/AllCSS.ashx-v-20110725qrwef-t-RBX2.css"/>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="../images/favicon.ico"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../styles/titlebar.css"/>
+    <link rel="stylesheet" type="text/css" href="../styles/overrides.css"/>
+</head>
+<body>
+
+    <div id="titlebar">
+        <div class="titlebar-drag">
+            <span class="titlebar-title">ROBLOX</span>
+        </div>
+        <div class="titlebar-controls">
+            <button id="btn-minimize" class="titlebar-btn">─</button>
+            <button id="btn-maximize" class="titlebar-btn">□</button>
+            <button id="btn-close" class="titlebar-btn btn-close">✕</button>
+        </div>
+    </div>
+
+    <div id="MasterContainer">
+        <div id="Container">
+            <div id="HeaderContainer">
+                <div id="Header">
+                    <div id="Banner">
+                        <div id="Options">
+                            <div id="Authentication">
+                                <span id="AuthenticationBannerSpan">
+                                    <a href="#login">Login</a>
+                                </span>
+                            </div>
+                            <div id="Settings"></div>
+                        </div>
+                        <a id="Logo" href="#home" style="cursor: pointer; border: none;"></a>
+                        <div style="float: right; width: 203px;">
+                            <a class="SignUpAndPlay" href="#signup" style="display:inline-block;height:40px;width:210px;cursor:pointer;">
+                                <img src="../images/Holiday3Button.png" border="0" alt="Sign Up"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="Navigation">
+                        <ul id="MainMenu">
+                            <li><a href="#home">My ROBLOX</a></li>
+                            <li class="gamesLink"><a id="hlGames" href="#games" title="Games">Games</a></li>
+                            <li><a href="#catalog" title="Catalog">Catalog</a></li>
+                            <li><a href="#people" title="People">People</a></li>
+                            <li><a href="#bc" title="Builders Club">Builders Club</a></li>
+                            <li><a href="#forum" title="Forum">Forum</a></li>
+                            <li><a href="#help" title="Help">Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Body">
+                <div id="FriendsLoading" style="text-align: center; padding: 60px;">
+                    <img src="../images/spinners/spinner100x100.gif" alt="Loading..." style="width:32px;height:32px;"/>
+                    <p>Loading friends...</p>
+                </div>
+
+                <div id="FriendsError" style="display: none; text-align: center; padding: 60px; color: #990000;">
+                    <p>Failed to load friends.</p>
+                </div>
+
+                <div class="MyRobloxContainer" id="FriendsContent" style="display: none; padding: 10px;">
+                    <div class="StandardTabWhite">
+                        <span id="FriendsPageHeader">User's Friends</span>
+                    </div>
+                    <div class="StandardBoxWhite">
+                        <div id="FriendsPagerTop" style="text-align:center; padding: 5px; margin-bottom: 10px;">
+
+                        </div>
+
+                        <div id="FriendsGridContainer">
+                            <div id="NoFriendsMessage" style="display: none; text-align: center; padding: 20px;">
+                                This user has no friends.
+                            </div>
+                            <table id="FriendsTable" cellspacing="0" align="Center" border="0" style="border-collapse:collapse; width: 100%;">
+
+                            </table>
+                        </div>
+
+                        <div id="FriendsPagerBottom" style="text-align:center; padding: 5px; margin-top: 10px;">
+
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div id="Footer">
+                <div class="FooterLinks">
+                    <a href="#help">Help</a> |
+                    <a href="#parents">Parents</a> |
+                    <a href="#terms">Terms</a> |
+                    <a href="#privacy">Privacy</a>
+                </div>
+                <div class="Copyright">
+                    &copy; 2011 ROBLOX Corporation
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/navigation.js"></script>
+    <script src="../scripts/pages/friends.js"></script>
+</body>
+</html>

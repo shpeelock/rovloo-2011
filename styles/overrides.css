@@ -1,0 +1,2025 @@
+body {
+    background-position: center 30px !important;
+}
+
+html {
+    overflow-y: scroll !important;
+}
+
+img.lazy {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+img.lazy-loaded {
+    opacity: 1;
+}
+
+#BadgesList,
+#GroupsList {
+    transition: opacity 0.15s ease-out;
+}
+
+.badge-pager button,
+.group-pager button {
+    padding: 4px 10px;
+    cursor: pointer;
+    border: 1px solid #999;
+    background: #f0f0f0;
+    font-size: 11px;
+}
+
+.badge-pager button:hover:not(:disabled),
+.group-pager button:hover:not(:disabled) {
+    background: #e0e0e0;
+}
+
+.badge-pager button:disabled,
+.group-pager button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+body {
+    padding-top: 30px !important;
+    margin: 0;
+}
+
+#MasterContainer {
+    width: 100%;
+}
+
+#Container {
+    width: 900px;
+    margin: 0 auto;
+}
+
+#Body {
+    margin: 0;
+    padding: 5px;
+    width: 890px;
+    background: url('../images/cssspecific/rbx2/containerBkg_01.png');
+    overflow: hidden;
+}
+
+.page {
+    display: none;
+}
+.page.active {
+    display: block;
+}
+
+.Friend {
+    height: auto !important;
+}
+
+.Friend .Avatar img {
+    border: none !important;
+}
+
+.Navigation ul {
+    text-align: center;
+    width: auto !important;
+}
+
+.Navigation ul li {
+    float: none !important;
+    display: inline-block;
+}
+
+.dropdownnavcontainer {
+    display: none;
+    z-index: 1050;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 14px;
+}
+
+#AdvertisingLeaderboard {
+    display: none;
+}
+
+.AdPanel {
+    display: none;
+}
+
+#Announcement {
+    display: none;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.SystemAlert {
+    text-align: center;
+}
+
+.SystemAlertText {
+    padding: 8px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.SystemAlertText .Exclamation {
+    width: 20px;
+    height: 20px;
+    background: url('../images/icons/exclamation.png') no-repeat center;
+    background-size: contain;
+    display: none;
+}
+
+.OutlineBox {
+    border: 2px solid #6e99c9 !important;
+    background: #fff !important;
+    position: relative;
+    margin-top: 15px;
+}
+
+#FeaturedGameBox {
+    background: #fff !important;
+    position: relative;
+    margin-top: 15px;
+}
+
+.OB_HeaderPositioner {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    z-index: 1;
+}
+
+.OB_Header {
+    background: #6e99c9;
+    color: #fff;
+    padding: 5px 15px;
+    font-weight: bold;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.OB_Content {
+    padding: 15px 10px 10px;
+    overflow: hidden;
+}
+
+.game-card {
+    display: inline-block;
+    width: 140px;
+    margin: 5px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.game-card img {
+    width: 140px;
+    height: 140px;
+    border: 1px solid #ccc;
+}
+
+.game-card .game-title {
+    font-size: 11px;
+    color: #333;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.game-card .game-players {
+    font-size: 10px;
+    color: #666;
+}
+
+.btn-play {
+    background: #5c5;
+    border: 1px solid #4a4;
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 12px;
+    cursor: pointer;
+}
+
+.btn-play:hover {
+    background: #4a4;
+}
+
+.DarkGradientBox {
+    background: transparent;
+    border: none;
+    width: 160px;
+}
+
+.DGB_Header {
+    color: #000;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.DGB_Content {
+    padding: 10px 8px;
+    color: #fff;
+}
+
+.DGB_Label {
+    color: #FFF;
+    font-size: 11px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.DGB_TextBox {
+    border: solid 1px #000;
+    padding: 2px;
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    background: #fff;
+}
+
+.DGB_Button {
+    background: linear-gradient(to bottom, #8ab4d9 0%, #6E99C9 50%, #5a85b5 100%);
+    border: solid 1px #000;
+    color: #FFF !important;
+    font-weight: bold;
+    font-size: 11px;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: Verdana, sans-serif;
+}
+
+.DGB_Button:hover {
+    background: linear-gradient(to bottom, #9cc4e9 0%, #7ea9d9 50%, #6a95c5 100%);
+    text-decoration: none !important;
+}
+
+#LoginViewContainer {
+    width: 164px;
+}
+
+.Column1c {
+    font-family: Verdana, sans-serif;
+    width: 570px;
+    float: left;
+}
+
+.Column2c {
+    font-family: Verdana, sans-serif;
+    width: 310px;
+    float: right;
+}
+
+#page-home .Column1c .ShadowedStandardBox {
+    width: 561px;
+}
+
+#page-home .Column2c .ShadowedStandardBox {
+    width: 310px;
+}
+
+#page-home .PlaceStatLabel {
+    font-size: 10px;
+    color: #333;
+}
+
+#page-home .PlaceStatValue {
+    margin-left: 15px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+#page-home .RandomFactContainer {
+    width: 250px;
+    height: 50px;
+    margin: 5px;
+}
+
+#page-home .RandomFactImageContainer {
+    float: left;
+    width: 32px;
+    height: 32px;
+}
+
+#page-home .RandomFactTextContainer {
+    float: right;
+    width: 200px;
+    text-align: center;
+    font-size: 11px;
+}
+
+#page-home::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.PlayButton {
+    padding: 15px 50px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #00aa00;
+    color: white;
+    border: 2px solid #008800;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.PlayButton:hover {
+    background: #00cc00;
+    transform: scale(1.02);
+}
+
+.ServersTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ServersTable th,
+.ServersTable td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.ServersTable th {
+    background: #f0f0f0;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.JoinServerBtn {
+    background: #5c5;
+    border: 1px solid #4a4;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 5px 15px;
+}
+
+.JoinServerBtn:hover {
+    background: #4a4;
+}
+
+.TabbedInfo .TabList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #006699;
+}
+
+.TabbedInfo .TabList li {
+    display: inline-block;
+    padding: 8px 15px;
+    cursor: pointer;
+    color: white;
+}
+
+.TabbedInfo .TabList li:hover {
+    background: #005588;
+}
+
+.TabbedInfo .TabList li.active {
+    background: #004466;
+}
+
+.TabContent {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 10px;
+}
+
+.BadgeItem {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    margin: 10px;
+    vertical-align: top;
+}
+
+.BadgeItem:hover {
+    transform: scale(1.05);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 3px solid #6e99c9;
+    width: 450px;
+    max-width: 90%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    background: #6e99c9;
+    color: #fff;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #ffcc00;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background: #f5f5f5;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+.modal-footer .btn {
+    margin-left: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.form-group textarea,
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn:hover {
+    background: #e5e5e5;
+}
+
+.btn-primary {
+    background: #6e99c9;
+    border-color: #5a85b5;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #5a85b5;
+}
+
+#AuthenticationBannerSpan.logged-in {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#AuthenticationBannerSpan .user-avatar-small {
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+}
+
+#AuthenticationBannerSpan .logout-link {
+    color: #fff;
+    font-size: 11px;
+    margin-left: 10px;
+}
+
+#BrowseContainer {
+    padding: 0;
+    width: 880px;
+    margin: 0 auto;
+}
+
+#BrowseContainer .StandardBox {
+    margin-bottom: 0;
+}
+
+.SearchBox input {
+    padding: 5px 8px;
+    font-size: 12px;
+    border: 1px solid #999;
+}
+
+.SearchButton input,
+#SearchGroupsButton {
+    padding: 5px 12px;
+    font-size: 12px;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    cursor: pointer;
+}
+
+.SearchButton input:hover,
+#SearchGroupsButton:hover {
+    background: #e0e0e0;
+}
+
+.SearchLinks sup {
+    color: #fff;
+}
+
+.SearchLinks a {
+    position: relative;
+}
+
+.SearchLinks a:hover span {
+    display: block !important;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #999;
+    padding: 10px;
+    width: 300px;
+    right: 0;
+    top: 20px;
+    z-index: 100;
+    color: #333;
+    font-size: 11px;
+    text-align: left;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.UserSearchResult {
+    transition: transform 0.1s;
+}
+
+.UserSearchResult:hover {
+    transform: scale(1.02);
+}
+
+.UserSearchResult a {
+    color: #006699;
+    text-decoration: none;
+}
+
+.UserSearchResult a:hover {
+    text-decoration: underline;
+}
+
+.MyRobloxContainer {
+    margin-top: -10px;
+    overflow: hidden;
+}
+
+#page-profile .Column1d,
+#page-profile .Column2d {
+    margin-top: 10px;
+}
+
+.Column1d .StandardBoxWhite,
+.Column1d .StandardBox {
+    width: 416px;
+    overflow: hidden;
+}
+
+.Column1d .StandardTabWhite {
+    width: auto;
+}
+
+#FavoritesList {
+    width: 100%;
+    text-align: left;
+    font-size: 0;
+}
+
+#FavoritesList .Asset {
+    display: inline-block;
+    width: 125px;
+    margin: 4px;
+    vertical-align: top;
+    font-size: 11px;
+    text-align: left;
+}
+
+#FavoritesList div {
+    text-align: left;
+}
+
+#BadgesList {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.TileBadges {
+    float: none !important;
+    display: inline-block;
+}
+
+#GroupsList {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#ProfileHeader {
+    font-weight: bold;
+}
+
+.UserOnlineMessage {
+    color: #00aa00;
+    font-weight: bold;
+}
+
+.UserOfflineMessage {
+    color: #666;
+}
+
+.UserBlurb {
+    margin: 10px auto;
+    padding: 5px;
+    background-color: #FFF;
+    border: solid 1px #000;
+    font-size: 12px;
+    line-height: 20px;
+    word-wrap: break-word;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 90%;
+}
+
+.statsTable {
+    width: 100%;
+    font-size: 12px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.statsTable td {
+    padding: 2px 5px;
+}
+
+.statsLabel {
+    font-weight: bold;
+    color: #000;
+    text-align: right;
+}
+
+.statsValue {
+    font-weight: normal;
+    color: #000;
+    text-align: left;
+}
+
+.StandardTabWhite {
+
+    background: url(../images/cssspecific/rbx2/tab_white_26h_t1.png) no-repeat left top !important;
+    padding: 0 4px !important;
+    float: none !important;
+    text-align: left !important;
+    border: none !important;
+    margin-top: 15px;
+}
+
+.StandardTabWhite span {
+
+    display: block;
+    width: 100%;
+    height: 26px;
+    padding: 5px 5px 0 9px;
+    background: url(../images/cssspecific/rbx2/tab_white_26h_t2.png) no-repeat right top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000;
+    font-weight: normal;
+}
+
+.StandardTabWhite span a {
+    color: #000;
+}
+
+.StandardBoxWhite {
+    min-height: 50px;
+    padding: 5px !important;
+}
+
+#UserPlaces .AccordionHeader {
+    background-color: #ccc !important;
+    border: solid 1px #000 !important;
+    cursor: pointer !important;
+    font-family: Verdana, sans-serif !important;
+    font-size: 1em !important;
+    font-weight: bold !important;
+    line-height: normal !important;
+    letter-spacing: .1em !important;
+    margin: 1px 0 !important;
+    padding: 1px 1em !important;
+    text-align: left !important;
+}
+
+#UserPlaces .AccordionHeader:hover {
+    background-color: #6e99c9 !important;
+    color: #fff !important;
+}
+
+.AccordionContent {
+    background: #fff;
+}
+
+.Badge {
+    display: inline-block;
+    text-align: center;
+    margin: 10px 10px;
+    vertical-align: top;
+}
+
+.BadgeImage {
+    display: block;
+}
+
+.BadgeImage img {
+    height: 75px;
+    border-width: 0px;
+}
+
+.BadgeLabel {
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.BadgeLabel a {
+    color: #006699;
+    text-decoration: none;
+}
+
+.BadgeLabel a:hover {
+    text-decoration: underline;
+}
+
+#SendMessageLink,
+#AddFriendLink {
+    color: #006699;
+    text-decoration: none;
+}
+
+#SendMessageLink:hover,
+#AddFriendLink:hover {
+    text-decoration: underline;
+}
+
+#BCBadge img {
+    vertical-align: middle;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.Friend {
+    display: inline-block;
+    text-align: center;
+    margin: 0 !important;
+    vertical-align: top;
+    width: 110px;
+}
+
+.Friend .Avatar {
+    margin-bottom: 0;
+}
+
+.Friend .Avatar a {
+    display: inline-block;
+}
+
+.Friend .Avatar img {
+    border: 1px solid #ccc;
+    display: block;
+}
+
+.Friend .Summary {
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Friend .Summary .Name a {
+    color: #006699;
+    text-decoration: none;
+}
+
+.Friend .Summary .Name a:hover {
+    text-decoration: underline;
+}
+
+.Friend .Summary .OnlineStatus img {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+#FriendsList {
+    width: 100%;
+}
+
+#FriendsList td {
+    padding: 0;
+    vertical-align: top;
+}
+
+#UserPlacesPane {
+    min-height: 100px;
+    padding: 5px;
+}
+
+.Column2d .StandardBox,
+.Column2d .StandardBoxWhite {
+    width: 416px;
+}
+
+.Column2d .StandardBoxHeader {
+    width: 416px;
+}
+
+.Place {
+    padding: 0;
+}
+
+.Place .PlayStatus {
+
+}
+
+.Place .PlayOptions {
+    margin-bottom: 5px;
+}
+
+.Place .Statistics {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.Place .Thumbnail {
+    margin-bottom: 5px;
+}
+
+.Place .Thumbnail img {
+    border: 0;
+}
+
+.Place .Description {
+    font-size: 11px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.GreenButton {
+    background: linear-gradient(to bottom, #5cb85c 0%, #449d44 100%);
+    border: 1px solid #398439;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    padding: 6px 15px;
+    display: inline-block;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.GreenButton:hover {
+    background: linear-gradient(to bottom, #449d44 0%, #398439 100%);
+}
+
+#page-profile .StandardBox,
+#page-profile .StandardBoxWhite {
+    margin-bottom: 0;
+}
+
+#page-profile .StandardBoxHeader {
+    margin-top: 0;
+}
+
+.profile-play-btn {
+    display: inline-block;
+    width: 212px;
+    height: 54px;
+    background: url('../assets/ui/btn_play_54h.png') no-repeat 0 0;
+    cursor: pointer;
+}
+
+.profile-play-btn:hover {
+    background-position: 0 -54px;
+}
+
+#Timespan {
+    display: none;
+}
+
+#SubNav {
+    background: url('../images/topNav_black.png') repeat-x;
+    height: 30px;
+    line-height: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 0 10px;
+    width: 880px;
+    margin: 0 auto;
+}
+
+#SubNav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#SubNav ul li {
+    display: inline-block;
+}
+
+#SubNav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 7px;
+    display: block;
+}
+
+#SubNav ul li a:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+#SubNav ul li.active a {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#page-myroblox .Column1c {
+    width: 295px;
+}
+
+#page-myroblox .Column1c .StandardBoxHeader {
+    width: auto;
+}
+
+#page-myroblox .Column1c .StandardBox {
+    width: auto;
+}
+
+#page-myroblox .Column2c {
+    width: 580px;
+}
+
+#page-myroblox .Column2c .StandardBoxHeader {
+    width: 555px;
+}
+
+#page-myroblox .Column2c .StandardBox {
+    width: 555px;
+}
+
+#header-messages-count,
+#header-friends-count,
+#header-robux-count,
+#header-rovloo-score {
+    font-family: Verdana, sans-serif !important;
+    font-weight: bold !important;
+}
+
+#UserContainer {
+    font-family: Verdana, Sans-Serif;
+    clear: both;
+    margin-top: 10px;
+}
+
+#UserAssetsPane {
+    clear: both;
+    margin: 10px 0 0 0;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#UserAssetsPane #UserAssets,
+#UserAssetsPane #UserAssets.StandardBox,
+#UserAssetsPane #StuffUserAssets,
+#UserAssetsPane #StuffUserAssets.StandardBox {
+    padding: 5px;
+    margin-bottom: 8px;
+    background: url('../images/cssspecific/rbx2/standardBox_01_bkg.png') top repeat-x #fff;
+    border: 1px solid #aaa;
+    width: auto !important;
+    overflow: hidden;
+}
+
+#UserAssetsPane .StandardBoxHeader {
+    width: auto;
+}
+
+#AssetsMenu,
+#StuffAssetsMenu {
+    float: left;
+    width: 158px;
+}
+
+#UserAssetsPane .AssetsMenuItem,
+#UserAssetsPane .AssetsMenuItem_Selected {
+    border: solid 1px #777;
+    margin: 15px;
+    padding: 3px 10px;
+    width: 100px;
+    box-sizing: content-box;
+}
+
+#UserAssetsPane .AssetsMenuItem:hover {
+    border-color: #000;
+    cursor: pointer;
+}
+
+#UserAssetsPane .AssetsMenuItem_Selected {
+    background-color: #6e99c9;
+    border-color: #000;
+}
+
+#UserAssetsPane .AssetsMenuButton,
+#UserAssetsPane .AssetsMenuButton_Selected,
+#UserAssetsPane a.AssetsMenuButton,
+#UserAssetsPane a.AssetsMenuButton_Selected {
+    color: #777 !important;
+    font: normal 14px/normal Verdana, sans-serif;
+    text-decoration: none !important;
+}
+
+#UserAssetsPane .AssetsMenuButton:hover,
+#UserAssetsPane a.AssetsMenuButton:hover {
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+#UserAssetsPane .AssetsMenuButton_Selected,
+#UserAssetsPane a.AssetsMenuButton_Selected {
+    color: #fff !important;
+}
+
+#AssetsContent,
+#StuffAssetsContent {
+    float: left;
+    font-family: Verdana, Sans-Serif;
+    margin-left: 10px;
+    min-width: 0;
+    padding-bottom: 10px;
+    position: relative;
+    text-align: left;
+    width: 700px;
+}
+
+#AssetsList,
+#StuffAssetsList {
+    width: 100%;
+}
+
+#AssetsPagination,
+#StuffAssetsPagination {
+    clear: both;
+}
+
+#UserContainer .Asset {
+    margin: 0 10px 15px 10px;
+    vertical-align: top;
+    width: 112px;
+}
+
+#UserContainer .Asset .AssetThumbnail {
+    border: solid 1px #000;
+    height: 110px;
+    position: relative;
+    text-align: center;
+    width: 110px;
+}
+
+#UserContainer .Asset .AssetThumbnail img {
+    max-width: 110px;
+    max-height: 110px;
+}
+
+#UserContainer .Asset .AssetDetails {
+    overflow: hidden;
+    padding: 2px 0 6px 0;
+    text-align: left;
+    width: 110px;
+}
+
+#UserContainer .AssetName a {
+    font-size: .9em;
+    font-weight: bold;
+    line-height: 1.5em;
+    vertical-align: top;
+    color: #00f;
+    text-decoration: none;
+}
+
+#UserContainer .AssetThumbnail {
+    position: relative;
+}
+
+#UserContainer .AssetThumbnail .limited-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+#UserContainer .AssetName a:hover {
+    text-decoration: underline;
+}
+
+#UserContainer .Label,
+#UserContainer .Detail,
+#UserContainer .DetailHighlighted,
+#UserContainer .PriceInRobux,
+#UserContainer .PriceInTickets {
+    font-size: .8em;
+}
+
+#UserContainer .DetailHighlighted {
+    color: Red;
+    font-weight: bold;
+}
+
+#UserContainer .PriceInRobux {
+    color: Green;
+    font-weight: bold;
+}
+
+#UserContainer .PriceInTickets {
+    color: #fbb117;
+    font-weight: bold;
+}
+
+.FooterPager {
+    clear: both;
+    margin: 0 12px 0 10px;
+    padding: 2px 0;
+    text-align: center;
+}
+
+.FooterPager .Label {
+    font-size: 1em;
+    vertical-align: middle;
+}
+
+.FooterPager a {
+    color: #00f;
+    text-decoration: none;
+}
+
+.FooterPager a:hover {
+    text-decoration: underline;
+}
+
+.NavigationIndicators {
+    font-weight: bold;
+}
+
+#page-badge.active {
+    display: flex;
+    justify-content: center;
+}
+
+#page-badge #ItemContainer {
+    width: 700px;
+    margin: 0 auto;
+}
+
+#page-badge #ItemContainer .StandardBoxHeader {
+    width: 99%;
+}
+
+#page-badge #ItemContainer .StandardBox {
+    width: auto;
+    box-sizing: border-box;
+}
+
+#page-badge #Item {
+    padding: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+#page-badge #Item #LeftColumn {
+    flex-shrink: 0;
+}
+
+#page-badge #Item #LeftColumn a {
+    color: #00f;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+#page-badge #Item #LeftColumn img {
+    width: 300px;
+    height: 300px;
+    border: 0;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#page-badge #Item #RightColumn {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+#page-badge #Item #RightColumn h3 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    font-weight: normal;
+    color: #888;
+}
+
+#CreatorThumbnail {
+    margin-bottom: 10px;
+}
+
+#CreatorThumbnail img {
+    max-width: 100px;
+    max-height: 100px;
+    border: 0;
+}
+
+.badge-stats {
+    margin-bottom: 15px;
+    font-size: 12px;
+    color: #000;
+}
+
+.badge-stats .stat-row {
+    margin-bottom: 2px;
+}
+
+.badge-stats .label {
+    color: #888;
+}
+
+.badge-stats a {
+    color: #00f;
+    text-decoration: none;
+}
+
+.badge-stats a:hover {
+    text-decoration: underline;
+}
+
+.badge-section {
+    margin-bottom: 12px;
+}
+
+.badge-section .section-header {
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 3px;
+}
+
+.badge-section .section-box {
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    background: #fff;
+    font-size: 12px;
+    color: #000;
+}
+
+.badge-section .genre-icon {
+    margin-right: 5px;
+}
+
+.badge-section .genre-link {
+    color: #00f;
+    text-decoration: none;
+}
+
+.badge-section .genre-link:hover {
+    text-decoration: underline;
+}
+
+.badge-section .place-box {
+    border: 1px solid #000;
+    padding: 8px;
+    background: #fff;
+}
+
+.badge-section .place-header {
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.badge-section .place-box img {
+    max-width: 200px;
+    max-height: 150px;
+    border: 1px solid #000000;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.badge-section .place-name a {
+    color: #00f;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.badge-section .place-name a:hover {
+    text-decoration: underline;
+}
+
+.report-abuse {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.report-abuse .abuse-link {
+    color: #f99;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.report-abuse .abuse-link:hover {
+    color: #f00;
+    text-decoration: underline;
+}
+
+#page-gamepass.active {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+#page-gamepass #gamepass-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#page-gamepass #gamepass-content #ItemContainer,
+#page-gamepass #ItemContainer {
+    width: 700px !important;
+}
+
+#page-gamepass #ItemContainer .StandardBoxHeader {
+    width: 99% !important;
+}
+
+#page-gamepass #ItemContainer .StandardBox {
+    width: auto !important;
+    box-sizing: border-box;
+    min-height: 350px;
+}
+
+#page-gamepass #Item {
+    padding: 15px !important;
+    overflow: hidden;
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 30px !important;
+}
+
+#page-gamepass #Item #LeftColumn {
+    flex-shrink: 0;
+}
+
+#page-gamepass #Item #LeftColumn a {
+    color: #00f;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+#page-gamepass #Item #LeftColumn img {
+    width: 150px;
+    height: 150px;
+    border: 0;
+    display: block;
+    margin-bottom: 5px;
+    image-rendering: pixelated;
+}
+
+#page-gamepass #Item #RightColumn {
+    flex: 1;
+    min-width: 300px;
+}
+
+#page-gamepass #Item #RightColumn h3 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    font-weight: normal;
+    color: #888;
+}
+
+#page-gamepass #CreatorThumbnail {
+    margin-bottom: 10px;
+}
+
+#page-gamepass #CreatorThumbnail img {
+    max-width: 100px;
+    max-height: 100px;
+    border: 0;
+}
+
+.gamepass-stats {
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.gamepass-stats .stat-row {
+    margin-bottom: 2px;
+}
+
+.gamepass-stats .label {
+    color: #888;
+}
+
+.gamepass-stats a {
+    color: #00f;
+    text-decoration: none;
+}
+
+.gamepass-stats a:hover {
+    text-decoration: underline;
+}
+
+.gamepass-stats .price-robux {
+    color: green;
+    font-weight: bold;
+}
+
+.gamepass-stats .price-free {
+    color: #090;
+    font-weight: bold;
+}
+
+.gamepass-stats .price-offsale {
+    color: #999;
+}
+
+.gamepass-section {
+    margin-bottom: 12px;
+}
+
+.gamepass-section .section-header {
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 3px;
+}
+
+.gamepass-section .section-box {
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    background: #fff;
+    font-size: 12px;
+}
+
+.gamepass-section .place-box {
+    border: 1px solid #000;
+    padding: 8px;
+    background: #f0f0f0;
+}
+
+.gamepass-section .place-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.gamepass-section .place-box img {
+    max-width: 200px;
+    max-height: 150px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.gamepass-section .place-name a {
+    color: #00f;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.gamepass-section .place-name a:hover {
+    text-decoration: underline;
+}
+
+.gamepass-section .buy-button {
+    background: #0a0;
+    color: #fff;
+    border: 1px solid #080;
+    border-radius: 0;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.gamepass-section .buy-button:hover {
+    background: #0c0;
+}
+
+.gamepass-section .owned-label {
+    color: #090;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.gamepass-section .offsale-label {
+    color: #999;
+    font-size: 12px;
+}
+
+#CharacterContainer {
+    width: 880px;
+    margin: 0 auto;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+}
+
+.CharacterRow {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.CharacterColumn {
+    flex: 1;
+}
+
+.CharacterLeft {
+    flex: 0 0 350px;
+    max-width: 350px;
+}
+
+.CharacterRight {
+    flex: 1;
+}
+
+#page-character .CharacterLeft .StandardBoxHeader {
+    width: auto;
+}
+
+#page-character .CharacterRight .StandardBoxHeader {
+    width: auto;
+}
+
+.CharacterBox {
+    background: #e8e8e8;
+    border: 1px solid #999;
+    padding: 15px;
+    min-height: 200px;
+}
+
+#AvatarPreview {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#AvatarPreview img {
+    max-width: 300px;
+    max-height: 300px;
+    border: none;
+}
+
+#AvatarRedraw {
+    font-size: 11px;
+    color: #333;
+    text-align: center;
+}
+
+#AvatarRedraw a {
+    color: #06c;
+    text-decoration: none;
+}
+
+#AvatarRedraw a:hover {
+    text-decoration: underline;
+}
+
+#AvatarTypeSelector {
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+}
+
+.AvatarTypeLabel {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.AvatarTypeButtons {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.AvatarTypeButton {
+    padding: 5px 15px;
+    margin: 0 5px;
+    border: 1px solid #999;
+    background: linear-gradient(to bottom, #fff, #e8e8e8);
+    color: #333;
+    cursor: pointer;
+    font-family: Verdana, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.AvatarTypeButton:hover {
+    background: linear-gradient(to bottom, #f8f8f8, #ddd);
+}
+
+.AvatarTypeButton.active {
+    background: linear-gradient(to bottom, #6c9, #5a8);
+    color: #fff;
+    border-color: #5a8;
+}
+
+#WardrobeTabs {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.TabRow {
+    line-height: 1.8;
+}
+
+.WardrobeTab {
+    color: #00c;
+    text-decoration: none;
+    padding: 2px 4px;
+}
+
+.WardrobeTab:hover {
+    text-decoration: underline;
+}
+
+.WardrobeTab.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.TabSpacer {
+    display: inline-block;
+    width: 30px;
+}
+
+.WardrobeAction {
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.WardrobeAction:hover {
+    text-decoration: underline;
+}
+
+.WardrobeGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.WardrobeItem {
+    width: calc((100% - 24px) / 4);
+    min-width: 100px;
+    max-width: 130px;
+    text-align: center;
+    vertical-align: top;
+    padding: 5px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.WearingGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.WearingItem {
+    width: 120px;
+    text-align: center;
+    vertical-align: top;
+    background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
+    padding: 5px;
+    position: relative;
+}
+
+.ItemAction {
+    text-align: right;
+    margin-bottom: 5px;
+}
+
+.ItemAction a {
+    color: #00c;
+    text-decoration: none;
+    font-size: 11px;
+    border: 1px solid #99c;
+    padding: 2px 6px;
+    background: #fff;
+    display: inline-block;
+}
+
+.ItemAction a:hover {
+    text-decoration: underline;
+}
+
+.WearBtn,
+.RemoveBtn {
+    color: #00c !important;
+}
+
+.ItemThumb {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.ItemThumb img {
+    max-width: 110px;
+    max-height: 110px;
+}
+
+.ItemThumb .limited-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: auto !important;
+    height: auto !important;
+    pointer-events: none;
+}
+
+.ItemName {
+    font-weight: bold;
+    color: #00c;
+    font-size: 12px;
+    margin-bottom: 3px;
+    word-wrap: break-word;
+    line-height: 1.3;
+    text-align: left;
+    cursor: pointer;
+}
+
+.ItemCreator,
+.ItemInfo {
+    font-size: 11px;
+    color: #333;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.ItemCreator a {
+    color: #00c;
+}
+
+.ItemLabel {
+    font-weight: bold;
+}
+
+.NoItems {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-style: italic;
+}
+
+.ItemPagination {
+    text-align: center;
+    margin-top: 15px;
+    padding: 8px;
+    background: #ddd;
+    font-size: 11px;
+}
+
+.ItemPagination a {
+    color: #00c;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.ItemPagination a:hover {
+    text-decoration: underline;
+}
+
+.ItemPagination .CurrentPage {
+    font-weight: bold;
+    color: #000;
+}
+
+.ItemPagination .PageNum {
+    color: #00c;
+    text-decoration: none;
+    margin: 0 2px;
+}
+
+.ItemPagination .PageNum:hover {
+    text-decoration: underline;
+}
+
+.ColorsBox {
+    text-align: center;
+}
+
+.ColorsInstruction {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#BodyPartSelector {
+    position: relative;
+    width: 180px;
+    height: 270px;
+    margin: 10px auto 20px auto;
+}
+
+.BodyPart {
+    position: absolute;
+    background-color: #F5CD30;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.BodyPart:hover {
+    opacity: 0.8;
+}
+
+.BodyPart.selected {
+    outline: 3px solid #00f;
+    outline-offset: -3px;
+}
+
+.BP-Head {
+    width: 44px;
+    height: 44px;
+    top: 0;
+    left: 68px;
+}
+
+.BP-Torso {
+    width: 70px;
+    height: 88px;
+    top: 49px;
+    left: 55px;
+}
+
+.BP-LeftArm {
+    width: 35px;
+    height: 88px;
+    top: 49px;
+    left: 15px;
+}
+
+.BP-RightArm {
+    width: 35px;
+    height: 88px;
+    top: 49px;
+    left: 130px;
+}
+
+.BP-LeftLeg {
+    width: 33px;
+    height: 88px;
+    top: 142px;
+    left: 56px;
+}
+
+.BP-RightLeg {
+    width: 33px;
+    height: 88px;
+    top: 142px;
+    left: 91px;
+}
+
+#ColorPalette {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.PaletteHeader {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#ColorGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: center;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.ColorSwatch {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #666;
+    cursor: pointer;
+}
+
+.ColorSwatch:hover {
+    border: 2px solid #000;
+}
+
+.WearingBox {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#SearchInitial,
+.search-initial-text {
+  color: #666;
+}
+
+#game-detail-content #PlayButton,
+#game-detail-content .MultiplayerVisit {
+    display: inline-block !important;
+    width: 212px !important;
+    height: 54px !important;
+    background: url('../images/cssspecific/rbx2/btn_play_54h.png') no-repeat 0 0 !important;
+    cursor: pointer !important;
+    border: none !important;
+    text-indent: -9999px !important;
+    overflow: hidden !important;
+}
+
+#game-detail-content #PlayButton:hover,
+#game-detail-content .MultiplayerVisit:hover {
+    background-position: 0 -54px !important;
+}
+
+#game-detail-content .StandardBoxHeader {
+    width: 98.3% !important;
+}
+
+#game-detail-content .StandardBoxHeader span span {
+    background: none !important;
+    display: inline !important;
+    height: auto !important;
+    padding: 0 !important;
+}
+
+#game-detail-content #ItemContainer .StandardBox {
+    border-top: none !important;
+}
