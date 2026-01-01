@@ -607,6 +607,26 @@ function initFooterLinks() {
   });
 }
 
+function cleanupBeforeClose() {
+  // Clear performance.js memory cleanup interval
+  if (window.Performance?.cleanup) {
+    window.Performance.cleanup();
+  }
+
+  // Clear home page random facts interval
+  if (window.randomFactsIntervalId) {
+    clearInterval(window.randomFactsIntervalId);
+    window.randomFactsIntervalId = null;
+  }
+
+  // Clear local server settings status check interval
+  if (window.localServerSettingsInstance?.destroy) {
+    window.localServerSettingsInstance.destroy();
+  }
+
+  console.log('All intervals cleared before window close');
+}
+
 function initTitlebar() {
   document.getElementById('btn-minimize')?.addEventListener('click', () => {
     window.RobloxClient.window.minimize();
@@ -617,7 +637,13 @@ function initTitlebar() {
   });
 
   document.getElementById('btn-close')?.addEventListener('click', () => {
+    cleanupBeforeClose();
     window.RobloxClient.window.close();
+  });
+
+  // Also cleanup on beforeunload in case window is closed another way
+  window.addEventListener('beforeunload', () => {
+    cleanupBeforeClose();
   });
 }
 

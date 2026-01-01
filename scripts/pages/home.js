@@ -410,6 +410,7 @@ async function loadCreatorGroupImage(groupId, requestId) {
 }
 
 let randomFactsIntervalId = null;
+window.randomFactsIntervalId = randomFactsIntervalId;
 
 function loadRandomFacts() {
   const facts = [
@@ -431,6 +432,9 @@ function loadRandomFacts() {
   if (randomFactsIntervalId) {
     clearInterval(randomFactsIntervalId);
   }
+  if (window.randomFactsIntervalId) {
+    clearInterval(window.randomFactsIntervalId);
+  }
   
   let factIndex = 0;
   
@@ -450,7 +454,7 @@ function loadRandomFacts() {
 
   let showingFact1 = true;
   
-  randomFactsIntervalId = setInterval(() => {
+  randomFactsIntervalId = window.randomFactsIntervalId = setInterval(() => {
     if (showingFact1) {
       
       fact1El.style.opacity = '0';

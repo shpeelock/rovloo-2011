@@ -233,10 +233,16 @@
     return clearedCount;
   }
 
-  setInterval(runMemoryCleanup, 2 * 60 * 1000);
+  const memoryCleanupInterval = setInterval(runMemoryCleanup, 2 * 60 * 1000);
+
+  function cleanup() {
+    if (memoryCleanupInterval) {
+      clearInterval(memoryCleanupInterval);
+    }
+  }
 
   window.Performance = {
-    
+
     makeLazy,
     observeLazyImages,
     unobserveLazyImages,
@@ -260,7 +266,9 @@
     debounce,
 
     getMemoryUsage,
-    runMemoryCleanup
+    runMemoryCleanup,
+
+    cleanup
   };
 
   window.PerformanceUtils = window.Performance;

@@ -265,15 +265,17 @@ class LocalServerSettings {
     }
 }
 
+let localServerSettingsInstance = null;
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         if (window.location.pathname.includes('settings') || document.querySelector('.settings-content')) {
-            new LocalServerSettings();
+            localServerSettingsInstance = window.localServerSettingsInstance = new LocalServerSettings();
         }
     });
 } else {
     if (window.location.pathname.includes('settings') || document.querySelector('.settings-content')) {
-        new LocalServerSettings();
+        localServerSettingsInstance = window.localServerSettingsInstance = new LocalServerSettings();
     }
 }
 
