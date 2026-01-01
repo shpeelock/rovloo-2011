@@ -608,23 +608,56 @@ function initFooterLinks() {
 }
 
 function cleanupBeforeClose() {
+  console.log('[Cleanup] Starting app cleanup before close...');
+  console.log('[Cleanup] Current page:', window.currentPageName);
+
+  // Clear all timeouts and intervals by getting their IDs
+  // Note: This is a brute force approach to clear any lingering timers
+  const highestTimeoutId = setTimeout(() => {}, 0);
+  for (let i = 0; i < highestTimeoutId; i++) {
+    clearTimeout(i);
+  }
+  console.log('[Cleanup] Cleared all timeouts up to ID:', highestTimeoutId);
+
+  const highestIntervalId = setInterval(() => {}, 999999);
+  for (let i = 0; i < highestIntervalId; i++) {
+    clearInterval(i);
+  }
+  clearInterval(highestIntervalId);
+  console.log('[Cleanup] Cleared all intervals up to ID:', highestIntervalId);
+
   // Clear performance.js memory cleanup interval
   if (window.Performance?.cleanup) {
     window.Performance.cleanup();
+    console.log('[Cleanup] Performance cleanup done');
   }
 
   // Clear home page random facts interval
   if (window.randomFactsIntervalId) {
     clearInterval(window.randomFactsIntervalId);
     window.randomFactsIntervalId = null;
+    console.log('[Cleanup] Random facts interval cleared');
   }
 
   // Clear local server settings status check interval
   if (window.localServerSettingsInstance?.destroy) {
     window.localServerSettingsInstance.destroy();
+    console.log('[Cleanup] Local server settings destroyed');
   }
 
-  console.log('All intervals cleared before window close');
+  // Terminate catalog economy worker
+  if (window.CatalogPage?.reset) {
+    window.CatalogPage.reset();
+    console.log('[Cleanup] Catalog worker terminated');
+  }
+
+  // Clean up current page if any
+  if (window.currentPageName && window.Performance) {
+    window.Performance.cleanupPage(window.currentPageName);
+    console.log('[Cleanup] Current page cleaned up:', window.currentPageName);
+  }
+
+  console.log('[Cleanup] All cleanup tasks completed');
 }
 
 function initTitlebar() {
@@ -636,13 +669,35 @@ function initTitlebar() {
     window.RobloxClient.window.maximize();
   });
 
-  document.getElementById('btn-close')?.addEventListener('click', () => {
+  document.getElementById('btn-close')?.addEventListener('click', async () => {
+    console.log('[Close] Close button clicked');
     cleanupBeforeClose();
-    window.RobloxClient.window.close();
+
+    // Give cleanup a moment to complete before closing
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    console.log('[Close] Calling window.close()');
+    try {
+      // Try to quit the app if the method exists
+      if (window.RobloxClient?.app?.quit) {
+        console.log('[Close] Calling app.quit()');
+        window.RobloxClient.app.quit();
+      } else {
+        console.log('[Close] Calling window.close()');
+        window.RobloxClient.window.close();
+      }
+    } catch (error) {
+      console.error('[Close] Error closing window:', error);
+    }
   });
 
   // Also cleanup on beforeunload in case window is closed another way
   window.addEventListener('beforeunload', () => {
+    cleanupBeforeClose();
+  });
+
+  // Additional cleanup on unload event
+  window.addEventListener('unload', () => {
     cleanupBeforeClose();
   });
 }
@@ -693,6 +748,7 @@ function navigateToPage(pageName, params = {}) {
 }
 
 let currentPageName = null;
+window.currentPageName = currentPageName;
 
 function navigateTo(pageName, params = {}) {
   
@@ -762,7 +818,7 @@ function navigateTo(pageName, params = {}) {
     page.classList.remove('active');
   });
 
-  currentPageName = pageName;
+  currentPageName = window.currentPageName = pageName;
 
   const targetPage = document.getElementById(`page-${pageName}`);
   if (targetPage) {
