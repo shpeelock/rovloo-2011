@@ -1,3 +1,5 @@
+
+
 (function() {
     'use strict';
 
@@ -14,7 +16,7 @@
 
     document.addEventListener('pageChange', function(e) {
         if (e.detail && e.detail.page === 'profile') {
-
+            
             console.log('Profile page activated via SPA');
         }
     });
@@ -27,7 +29,7 @@
     function init() {
         if (isInitialized) return;
         isInitialized = true;
-
+        
         console.log('Profile page initialized');
         loadProfileFromHash();
     }
@@ -48,14 +50,14 @@
             const params = new URLSearchParams(hash.split('?')[1]);
             return params.get('id');
         }
-
+        
         const match = hash.match(/profile\/(\d+)/);
         if (match) return match[1];
         return null;
     }
 
     async function loadProfile(userId) {
-
+        
         if (!document.getElementById('ProfileLoading')) {
             console.log('Profile page elements not found - not on profile page');
             return;
@@ -64,7 +66,7 @@
         showLoading();
 
         try {
-
+            
             const userInfo = await window.roblox.getUserInfo(userId);
             if (!userInfo) {
                 throw new Error('User not found');
@@ -105,7 +107,7 @@
     }
 
     async function renderProfile(user, data) {
-
+        
         const headerEl = document.getElementById('ProfileHeader');
         if (headerEl) headerEl.textContent = `${user.displayName || user.name}'s Profile`;
 
@@ -135,7 +137,7 @@
 
         const avatarContainer = document.getElementById('AvatarImageLink');
         if (avatarContainer && window.RobloxClient && window.RobloxClient.auth) {
-
+            
             const existingOverlay = avatarContainer.querySelector('.obc-overlay');
             if (existingOverlay) {
                 existingOverlay.remove();
@@ -144,18 +146,18 @@
             const isLoggedIn = await window.RobloxClient.auth.isLoggedIn();
 
             if (isLoggedIn) {
-
+                
                 try {
                     const hasPremium = await window.roblox.validatePremiumMembership(user.id);
 
                     if (hasPremium === true) {
                         console.log('Premium user detected:', user.name);
-
-                        const bcType = window.isRandomizeBCEnabled && window.isRandomizeBCEnabled()
-                            ? window.getBCTypeForUser(user.id)
+                        
+                        const bcType = window.isRandomizeBCEnabled && window.isRandomizeBCEnabled() 
+                            ? window.getBCTypeForUser(user.id) 
                             : 'OBC';
-                        const overlayImage = window.getBCOverlayImage
-                            ? window.getBCOverlayImage(bcType)
+                        const overlayImage = window.getBCOverlayImage 
+                            ? window.getBCOverlayImage(bcType) 
                             : 'images/icons/overlay_obcOnly.png';
 
                         const overlay = document.createElement('img');
@@ -166,7 +168,7 @@
                         avatarContainer.appendChild(overlay);
                     }
                 } catch (e) {
-
+                    
                     console.debug('Could not verify premium status (requires login)');
                 }
             }
@@ -238,12 +240,12 @@
         friends.forEach(friend => {
             const div = document.createElement('div');
             div.style.cssText = 'display: inline-block; width: 75px; margin: 0; text-align: center; vertical-align: top;';
-
+            
             const thumb = thumbnails[friend.id] || '../assets/ui/guest.png';
-
+            
             div.innerHTML = `
                 <a href="#profile?id=${friend.id}" style="cursor: pointer;">
-                    <img src="${thumb}" alt="${escapeHtml(friend.name)}"
+                    <img src="${thumb}" alt="${escapeHtml(friend.name)}" 
                          style="width: 60px; height: 60px; border: 1px solid #ccc;"
                          onerror="this.src='../assets/ui/guest.png'"/>
                 </a>
@@ -340,7 +342,7 @@
         const loadingEl = document.getElementById('ProfileLoading');
         const errorEl = document.getElementById('ProfileError');
         const contentEl = document.getElementById('ProfileContent');
-
+        
         if (loadingEl) loadingEl.style.display = 'block';
         if (errorEl) errorEl.style.display = 'none';
         if (contentEl) contentEl.style.display = 'none';
@@ -350,18 +352,18 @@
         const loadingEl = document.getElementById('ProfileLoading');
         const errorEl = document.getElementById('ProfileError');
         const contentEl = document.getElementById('ProfileContent');
-
+        
         if (loadingEl) loadingEl.style.display = 'none';
         if (errorEl) errorEl.style.display = 'none';
         if (contentEl) contentEl.style.display = 'block';
     }
 
     function showError(message) {
-
+        
         if (window.showErrorPage) {
             window.showErrorPage(message, 'profile-content');
         } else {
-
+            
             const loadingEl = document.getElementById('ProfileLoading');
             const errorEl = document.getElementById('ProfileError');
             const contentEl = document.getElementById('ProfileContent');

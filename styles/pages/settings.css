@@ -1,3 +1,5 @@
+
+
 .settings-page {
     max-width: 800px;
     margin: 0 auto;
@@ -120,32 +122,32 @@
         background: #1a202c;
         color: #e2e8f0;
     }
-
+    
     .settings-header {
         border-color: #4a5568;
     }
-
+    
     .settings-header h1 {
         color: #e2e8f0;
     }
-
+    
     .settings-header p {
         color: #a0aec0;
     }
-
+    
     .setting-section {
         background: #2d3748;
         border-color: #4a5568;
     }
-
+    
     .setting-section h3 {
         color: #e2e8f0;
     }
-
+    
     .setting-section .setting-description {
         color: #a0aec0;
     }
-
+    
     .setting-item label {
         color: #e2e8f0;
     }

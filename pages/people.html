@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../styles/overrides.css"/>
 </head>
 <body>
-
+    <!-- Custom Electron Titlebar -->
     <div id="titlebar">
         <div class="titlebar-drag">
             <span class="titlebar-title">ROBLOX</span>
@@ -59,7 +59,7 @@
 
             <div id="Body">
                 <div id="BrowseContainer" style="font-family: Verdana, Sans-Serif; text-align: left">
-
+                    <!-- Search Bar - Authentic 2011 Style -->
                     <div style="width: 876px; height: 28px; clear: both; display: block; background-color: #006699; margin-left: -4px;" class="StandardBox">
                         <table width="876px" border="0">
                             <tr>
@@ -91,26 +91,30 @@
                         </table>
                     </div>
 
+                    <!-- Search Error -->
                     <div class="SearchError" id="SearchError" style="display:none; color: red; padding: 10px;"></div>
 
+                    <!-- Search Results -->
                     <div style="float:left; min-height:600px; width: 100%;">
                         <div id="SearchResultsContainer">
-
+                            <!-- Initial State -->
                             <div id="SearchInitial" style="text-align: center; padding: 60px;">
                                 <p style="font-size: 14px;">Search for users by entering a username above.</p>
                             </div>
 
+                            <!-- Loading State -->
                             <div id="SearchLoading" style="display: none; text-align: center; padding: 60px;">
                                 <img src="../images/spinners/spinner100x100.gif" alt="Loading..." style="width:32px;height:32px;"/>
                                 <p>Searching...</p>
                             </div>
 
+                            <!-- Results List -->
                             <div id="SearchResults" style="display: none;">
                                 <div class="StandardBoxHeader" style="margin-top: 10px;">
                                     <span id="SearchResultsHeader">Search Results</span>
                                 </div>
                                 <div class="StandardBox" id="SearchResultsList" style="padding: 10px;">
-
+                                    <!-- User results will be rendered here -->
                                 </div>
                                 <div id="SearchPagination" style="text-align: center; padding: 10px;">
                                     <a id="SearchPrevPage" href="#" style="margin-right: 20px;">&lt; Previous</a>
@@ -119,6 +123,7 @@
                                 </div>
                             </div>
 
+                            <!-- No Results -->
                             <div id="SearchNoResults" style="display: none; text-align: center; padding: 60px; color: #666;">
                                 <p style="font-size: 14px;">No users found matching your search.</p>
                             </div>
@@ -130,9 +135,9 @@
 
             <div id="Footer">
                 <div class="FooterLinks">
-                    <a href="#help">Help</a> |
-                    <a href="#parents">Parents</a> |
-                    <a href="#terms">Terms</a> |
+                    <a href="#help">Help</a> | 
+                    <a href="#parents">Parents</a> | 
+                    <a href="#terms">Terms</a> | 
                     <a href="#privacy">Privacy</a>
                 </div>
                 <div class="Copyright">

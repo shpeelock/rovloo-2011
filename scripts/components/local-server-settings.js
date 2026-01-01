@@ -1,3 +1,5 @@
+
+
 class LocalServerSettings {
     constructor() {
         this.isRunning = false;
@@ -20,23 +22,23 @@ class LocalServerSettings {
             <div class="setting-section">
                 <h3>🚀 Advanced Server Detection</h3>
                 <p class="setting-description">
-                    Enable local server for RoPro-level server region detection.
+                    Enable local server for RoPro-level server region detection. 
                     Analyzes ALL servers instead of just the first 100.
                     <br><small>Requires a powerful PC. Uses more CPU and network resources.</small>
                 </p>
-
+                
                 <div class="local-server-controls">
                     <button id="localServerToggle" class="btn" disabled>
                         <span class="btn-text">Starting...</span>
                         <span class="btn-spinner" style="display: none;">⟳</span>
                     </button>
-
+                    
                     <div class="local-server-status" id="localServerStatus">
                         <div class="status-indicator offline"></div>
                         <span class="status-text">Checking status...</span>
                     </div>
                 </div>
-
+                
                 <div class="local-server-stats" id="localServerStats" style="display: none;">
                     <div class="stats-grid">
                         <div class="stat-item">
@@ -56,13 +58,13 @@ class LocalServerSettings {
                             <span class="stat-value" id="cacheHits">-</span>
                         </div>
                     </div>
-
+                    
                     <div class="server-actions">
                         <button id="clearCache" class="btn btn-secondary">Clear Cache</button>
                         <button id="viewLogs" class="btn btn-secondary">View Logs</button>
                     </div>
                 </div>
-
+                
                 <div class="performance-warning" style="display: none;" id="performanceWarning">
                     <div class="warning-icon">⚠️</div>
                     <div class="warning-text">
@@ -101,20 +103,20 @@ class LocalServerSettings {
 
         try {
             if (this.isRunning) {
-
+                
                 btnText.textContent = 'Stopping...';
                 const result = await window.RobloxClient?.localServer?.stop();
-
+                
                 if (result?.success) {
                     this.showNotification('Local server stopped', 'success');
                 } else {
                     this.showNotification('Failed to stop server: ' + (result?.error || 'Unknown error'), 'error');
                 }
             } else {
-
+                
                 btnText.textContent = 'Starting...';
                 const result = await window.RobloxClient?.localServer?.start();
-
+                
                 if (result?.success) {
                     this.showNotification(`Local server started on port ${result.port}`, 'success');
                 } else {
@@ -135,12 +137,12 @@ class LocalServerSettings {
     async updateStatus() {
         try {
             const status = await window.RobloxClient?.localServer?.getStatus();
-
+            
             if (status) {
                 this.isRunning = status.isRunning;
                 this.port = status.port;
                 this.stats = status.stats;
-
+                
                 this.updateUI(status);
             }
         } catch (error) {
@@ -159,7 +161,7 @@ class LocalServerSettings {
         if (!toggleBtn || !btnText || !statusIndicator || !statusText) return;
 
         if (status.isRunning) {
-
+            
             btnText.textContent = 'Stop Server';
             toggleBtn.className = 'btn btn-danger';
             statusIndicator.className = 'status-indicator online';
@@ -174,7 +176,7 @@ class LocalServerSettings {
                 performanceWarning.style.display = 'block';
             }
         } else {
-
+            
             btnText.textContent = 'Start Server';
             toggleBtn.className = 'btn btn-primary';
             statusIndicator.className = 'status-indicator offline';
@@ -201,7 +203,7 @@ class LocalServerSettings {
 
     async clearCache() {
         try {
-
+            
             this.showNotification('Cache cleared', 'success');
             await this.updateStatus();
         } catch (error) {
@@ -210,7 +212,7 @@ class LocalServerSettings {
     }
 
     viewLogs() {
-
+        
         if (window.RobloxClient?.window?.openDevTools) {
             window.RobloxClient.window.openDevTools();
         }
@@ -218,7 +220,7 @@ class LocalServerSettings {
     }
 
     startStatusUpdates() {
-
+        
         this.statusCheckInterval = setInterval(async () => {
             if (this.isRunning) {
                 await this.updateStatus();
@@ -227,7 +229,7 @@ class LocalServerSettings {
     }
 
     showNotification(message, type = 'info') {
-
+        
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.textContent = message;
@@ -242,8 +244,8 @@ class LocalServerSettings {
             fontWeight: 'bold',
             zIndex: '10000',
             maxWidth: '300px',
-            backgroundColor: type === 'success' ? '#4CAF50' :
-                           type === 'error' ? '#f44336' :
+            backgroundColor: type === 'success' ? '#4CAF50' : 
+                           type === 'error' ? '#f44336' : 
                            type === 'warning' ? '#ff9800' : '#2196F3'
         });
 

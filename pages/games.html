@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-
+    <!-- Custom Electron Titlebar -->
     <div id="titlebar">
         <div class="titlebar-drag">
             <span class="titlebar-title">ROBLOX</span>
@@ -129,11 +129,11 @@
             </div>
 
             <div id="Body">
-
+                <!-- Game Item Template (hidden) - uses data attributes to prevent loading -->
                 <div id="PlaceTemplate" style="display: none">
                     <div style="float:left;">
                         <div class="GameItem">
-                            <div class="AlwaysShown">
+                            <div class="AlwaysShown"> 
                                 <div class="GameThumbnail">
                                     <a data-href="GAMENAVIGATEURL">
                                         <img data-src="THUMBNAILURL" alt="GAMENAME" style="width:110px;height:110px;"/>
@@ -167,7 +167,7 @@
                         <span>Games</span>
                     </div>
                     <div class="StandardBox" id="GamesLeftColumn" style="padding: 20px 5px;">
-
+                        <!-- Category Selector -->
                         <div id="CategorySelector" class="GameFilter">
                             <div>Category:</div>
                             <ul>
@@ -180,6 +180,7 @@
                             </ul>
                         </div>
 
+                        <!-- Trending Games Filters (default) -->
                         <div id="TrendingFilters" class="category-filters">
                             <div id="Timespan" class="GameFilter">
                                 <div>Time:</div>
@@ -220,6 +221,7 @@
                             </div>
                         </div>
 
+                        <!-- Recommended Games Filters -->
                         <div id="RecommendedFilters" class="category-filters" style="display: none;">
                             <div class="GameFilter" id="RecommendedBasedOn" style="display: none;">
                                 <div>Based on:</div>
@@ -247,6 +249,7 @@
                             </div>
                         </div>
 
+                        <!-- Favorites Filters -->
                         <div id="FavoritesFilters" class="category-filters" style="display: none;">
                             <div class="GameFilter" id="FavoritesSortBy" style="display: none;">
                                 <div>Sort by:</div>
@@ -273,8 +276,9 @@
                             </div>
                         </div>
 
+                        <!-- Recent Games Filters -->
                         <div id="RecentFilters" class="category-filters" style="display: none;">
-
+                            <!-- Sort by dropdown -->
                             <div class="GameFilter" id="RecentSortBy">
                                 <div>Sort by:</div>
                                 <ul>
@@ -283,6 +287,7 @@
                                 </ul>
                             </div>
 
+                            <!-- Time filter hidden - Roblox API doesn't provide play timestamps -->
                             <div class="GameFilter" id="RecentTimeFilter" style="display: none;">
                                 <div>Time:</div>
                                 <ul>
@@ -294,6 +299,7 @@
                             </div>
                         </div>
 
+                        <!-- Rovloo Reviewed Games Filters -->
                         <div id="RovlooFilters" class="category-filters" style="display: none;">
                             <div class="GameFilter" id="RovlooSortBy">
                                 <div>Sort by:</div>
@@ -327,11 +333,12 @@
                             </a>
                         </div>
 
+                        <!-- Custom Lists Filters (for future extension support) -->
                         <div id="CustomFilters" class="category-filters" style="display: none;">
                             <div class="GameFilter">
                                 <div>Lists:</div>
                                 <ul id="CustomListsContainer">
-
+                                    <!-- Custom lists will be populated by extensions -->
                                     <li><a class="GamesFilter" data-filter="NoLists" href="#" style="color: #999; cursor: default;">No custom lists available</a></li>
                                 </ul>
                             </div>
@@ -350,7 +357,7 @@
                             <p>Loading games...</p>
                         </div>
                         <div id="GamesList" style="display: none;">
-
+                            <!-- Games will be rendered here -->
                         </div>
                         <div id="GamesError" style="display: none; text-align: center; padding: 40px; color: #990000;">
                             Failed to load games. Please try again.
@@ -372,9 +379,9 @@
 
             <div id="Footer">
                 <div class="FooterLinks">
-                    <a href="#help">Help</a> |
-                    <a href="#parents">Parents</a> |
-                    <a href="#terms">Terms</a> |
+                    <a href="#help">Help</a> | 
+                    <a href="#parents">Parents</a> | 
+                    <a href="#terms">Terms</a> | 
                     <a href="#privacy">Privacy</a>
                 </div>
                 <div class="Copyright">

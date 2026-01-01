@@ -1,3 +1,5 @@
+
+
 body {
     background-position: center 30px !important;
 }
@@ -89,7 +91,7 @@ body {
 
 .dropdownnavcontainer {
     display: none;
-    z-index: 1050;
+    z-index: 1050; 
 }
 
 .loading {
@@ -108,7 +110,7 @@ body {
 }
 
 #Announcement {
-    display: none;
+    display: none; 
     width: 100%;
     margin-bottom: 5px;
 }
@@ -133,7 +135,7 @@ body {
     height: 20px;
     background: url('../images/icons/exclamation.png') no-repeat center;
     background-size: contain;
-    display: none;
+    display: none; 
 }
 
 .OutlineBox {
@@ -618,7 +620,7 @@ body {
 
 .MyRobloxContainer {
     margin-top: -10px;
-    overflow: hidden;
+    overflow: hidden; 
 }
 
 #page-profile .Column1d,
@@ -639,7 +641,7 @@ body {
 #FavoritesList {
     width: 100%;
     text-align: left;
-    font-size: 0;
+    font-size: 0; 
 }
 
 #FavoritesList .Asset {
@@ -647,7 +649,7 @@ body {
     width: 125px;
     margin: 4px;
     vertical-align: top;
-    font-size: 11px;
+    font-size: 11px; 
     text-align: left;
 }
 
@@ -722,7 +724,7 @@ body {
 }
 
 .StandardTabWhite {
-
+    
     background: url(../images/cssspecific/rbx2/tab_white_26h_t1.png) no-repeat left top !important;
     padding: 0 4px !important;
     float: none !important;
@@ -732,7 +734,7 @@ body {
 }
 
 .StandardTabWhite span {
-
+    
     display: block;
     width: 100%;
     height: 26px;
@@ -897,7 +899,7 @@ body {
 }
 
 .Place .PlayStatus {
-
+    
 }
 
 .Place .PlayOptions {
@@ -1059,7 +1061,7 @@ body {
     background: url('../images/cssspecific/rbx2/standardBox_01_bkg.png') top repeat-x #fff;
     border: 1px solid #aaa;
     width: auto !important;
-    overflow: hidden;
+    overflow: hidden; 
 }
 
 #UserAssetsPane .StandardBoxHeader {
@@ -1735,7 +1737,7 @@ body {
 }
 
 .WardrobeItem {
-    width: calc((100% - 24px) / 4);
+    width: calc((100% - 24px) / 4); 
     min-width: 100px;
     max-width: 130px;
     text-align: center;

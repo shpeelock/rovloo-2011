@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -72,14 +73,14 @@
         'Waist': { categoryFilter: 47 },
         'Gear': { categoryFilter: 19 },
         'Faces': { categoryFilter: 18 },
-        'Packages': { categoryFilter: null, subcategory: 'Bundles' },
+        'Packages': { categoryFilter: null, subcategory: 'Bundles' }, 
         'Heads': { categoryFilter: 17 },
         'T-Shirts': { categoryFilter: 2 },
         'Shirts': { categoryFilter: 11 },
         'Pants': { categoryFilter: 12 },
         'Emotes': { categoryFilter: 61 },
         'Animations': { categoryFilter: null, taxonomy: 'whf6kUVBwk2xdwKUmRYN6G' },
-
+        
         '3D T-Shirts': { categoryFilter: null, taxonomy: 'fLRqNzGqjX7MzcqeMro9hc' },
         '3D Shirts': { categoryFilter: null, taxonomy: 'pJ71PxerdfEuarTNRtSZYs' },
         'Sweaters': { categoryFilter: null, taxonomy: '31M6WgEMmyq9TTfk3pUUpZ' },
@@ -92,15 +93,15 @@
     };
 
     const sortTypeMap = {
-        'Classic': 0,
-        'Featured': 0,
-        'TopFavorites': 1,
-        'BestSelling': 2,
-        'RecentlyUpdated': 3,
-        'ForSale': 4,
-        'PriceHighToLow': 4,
-        'PriceLowToHigh': 5,
-        'PublicDomain': 0
+        'Classic': 0,       
+        'Featured': 0,      
+        'TopFavorites': 1,  
+        'BestSelling': 2,   
+        'RecentlyUpdated': 3, 
+        'ForSale': 4,       
+        'PriceHighToLow': 4, 
+        'PriceLowToHigh': 5, 
+        'PublicDomain': 0   
     };
 
     let filterCreator = '';
@@ -112,13 +113,13 @@
     if (isStandalonePage) {
         document.addEventListener('DOMContentLoaded', initCatalog);
     } else {
-
+        
         document.addEventListener('pageChange', function(e) {
             if (e.detail.page === 'catalog') {
                 if (!catalogLoaded) {
                     loadCatalogPage();
                 } else {
-
+                    
                     initCatalog();
                 }
             }
@@ -139,10 +140,10 @@
             let allItems = [];
 
             if (Array.isArray(data.items)) {
-
+                
                 allItems = data.items;
             } else if (data.items && typeof data.items === 'object') {
-
+                
                 for (const category of Object.keys(data.items)) {
                     const categoryItems = data.items[category];
                     if (Array.isArray(categoryItems)) {
@@ -156,11 +157,11 @@
                 if (facesResponse.ok) {
                     const facesData = await facesResponse.json();
                     if (facesData.faces && Array.isArray(facesData.faces)) {
-
+                        
                         const faceItems = facesData.faces.map(face => ({
                             id: face.id,
                             name: face.name,
-                            filter: 'Faces-ForSale',
+                            filter: 'Faces-ForSale', 
                             category: 'Faces',
                             source: face.source || 'wayback-2011'
                         }));
@@ -176,7 +177,7 @@
                 }
             } catch (facesError) {
                 console.warn('Failed to load 2011 faces:', facesError);
-
+                
             }
 
             classicItemsList = allItems;
@@ -208,7 +209,7 @@
 
             const catalogContainer = doc.getElementById('CatalogContainer');
             if (catalogContainer) {
-
+                
                 let content = catalogContainer.innerHTML;
                 content = content.replace(/\.\.\/images\
                 content = content.replace(/\.\.\/CSS\
@@ -253,7 +254,7 @@
     }
 
     function initCatalog() {
-
+        
         initWorker();
 
         filterCreator = '';
@@ -288,7 +289,7 @@
         updateDisplayLabel();
 
         loadCatalogItems();
-
+        
         console.log('Catalog page initialized with live API');
     }
 
@@ -310,7 +311,7 @@
                 currentPage = 1;
                 currentCursor = '';
                 cursorHistory = [''];
-
+                
                 updateDisplayLabel();
                 loadCatalogItems();
             });
@@ -331,7 +332,7 @@
                 currentPage = 1;
                 currentCursor = '';
                 cursorHistory = [''];
-
+                
                 updateDisplayLabel();
                 loadCatalogItems();
             });
@@ -386,14 +387,14 @@
     let paginationHandlerAttached = false;
 
     function initBrowseModeHandlers() {
-
+        
         if (browseModeHandlerAttached) return;
 
         const browseMode = document.getElementById('BrowseMode');
         if (!browseMode) return;
 
         browseMode.addEventListener('click', function(e) {
-
+            
             const link = e.target.closest('a');
 
             if (link && browseMode.contains(link)) {
@@ -450,7 +451,7 @@
                     <h2>Categories</h2>
                     <ul id="CategoryList">
                         <li class="selected"><h3><a href="#" data-category="All">All Categories</a></h3></li>
-
+                        
                         <li class="category-group">
                             <h3><a href="#" class="category-toggle" data-group="accessories">▶ Accessories</a></h3>
                             <ul class="category-subitems" data-group="accessories" style="display: none;">
@@ -464,7 +465,7 @@
                                 <li><h3><a href="#" data-category="Waist">Waist</a></h3></li>
                             </ul>
                         </li>
-
+                        
                         <li class="category-group">
                             <h3><a href="#" class="category-toggle" data-group="body">▶ Body</a></h3>
                             <ul class="category-subitems" data-group="body" style="display: none;">
@@ -473,7 +474,7 @@
                                 <li><h3><a href="#" data-category="Packages">Packages</a></h3></li>
                             </ul>
                         </li>
-
+                        
                         <li class="category-group">
                             <h3><a href="#" class="category-toggle" data-group="clothing">▶ Clothing</a></h3>
                             <ul class="category-subitems" data-group="clothing" style="display: none;">
@@ -482,7 +483,7 @@
                                 <li><h3><a href="#" data-category="Pants">Pants</a></h3></li>
                             </ul>
                         </li>
-
+                        
                         <li class="category-group">
                             <h3><a href="#" class="category-toggle" data-group="clothing3d">▶ 3D Clothing</a></h3>
                             <ul class="category-subitems" data-group="clothing3d" style="display: none;">
@@ -497,7 +498,7 @@
                                 <li><h3><a href="#" data-category="Shoes">Shoes</a></h3></li>
                             </ul>
                         </li>
-
+                        
                         <li><h3><a href="#" data-category="Gear">Gear</a></h3></li>
                         <li><h3><a href="#" data-category="Emotes">Emotes</a></h3></li>
                         <li><h3><a href="#" data-category="Animations">Animations</a></h3></li>
@@ -538,7 +539,7 @@
         const categoryList = document.getElementById('CategoryList');
         if (categoryList) {
             categoryList.addEventListener('click', function(e) {
-
+                
                 const toggleLink = e.target.closest('a.category-toggle');
                 if (toggleLink) {
                     e.preventDefault();
@@ -547,7 +548,7 @@
                     if (subitems) {
                         const isHidden = subitems.style.display === 'none';
                         subitems.style.display = isHidden ? '' : 'none';
-
+                        
                         toggleLink.textContent = (isHidden ? '▼ ' : '▶ ') + toggleLink.textContent.substring(2);
                     }
                     return;
@@ -565,12 +566,12 @@
     }
 
     function initPaginationHandlers() {
-
+        
         if (paginationHandlerAttached) return;
 
         const catalogContainer = document.getElementById('catalog-content') || document.body;
         catalogContainer.addEventListener('click', function(e) {
-
+            
             const prevBtn = e.target.closest('.catalog-prev-btn');
             if (prevBtn) {
                 e.preventDefault();
@@ -578,9 +579,9 @@
 
                 if (currentPage > 1) {
                     currentPage--;
-
+                    
                     if (currentMode !== 'Classic' && cursorHistory.length > 1) {
-                        cursorHistory.pop();
+                        cursorHistory.pop(); 
                         currentCursor = cursorHistory[cursorHistory.length - 1] || '';
                     }
                     loadCatalogItems();
@@ -608,14 +609,14 @@
     }
 
     function bindPaginationHandlers() {
-
+        
     }
 
     function setMode(mode) {
         currentMode = mode;
         currentPage = 1;
         currentCursor = '';
-        cursorHistory = [''];
+        cursorHistory = ['']; 
 
         const modeItems = document.querySelectorAll('#BrowseMode ul li');
         modeItems.forEach(li => {
@@ -643,7 +644,7 @@
         const isClassicMode = currentMode === 'Classic';
         const isCollectibleMode = currentSalesType === 'Collectible';
         const allowedInClassic = ['All', 'Faces'];
-
+        
         const notAllowedInCollectible = ['T-Shirts', 'Shirts', 'Pants', 'Faces', 'Packages', 'Heads', 'Emotes', 'Animations',
             '3D T-Shirts', '3D Shirts', 'Sweaters', 'Jackets', '3D Pants', 'Shorts', 'Dresses & Skirts', 'Bodysuits', 'Shoes'];
 
@@ -675,9 +676,9 @@
         if (isCollectibleMode && notAllowedInCollectible.includes(currentCategory)) {
             currentCategory = 'All';
             categoryList.querySelectorAll('li').forEach(li => {
-
+                
                 if (li.classList.contains('category-group')) return;
-
+                
                 const link = li.querySelector('a[data-category]');
                 if (link?.dataset.category === 'All') {
                     li.classList.add('selected');
@@ -725,12 +726,12 @@
         currentCategory = category;
         currentPage = 1;
         currentCursor = '';
-        cursorHistory = [''];
+        cursorHistory = ['']; 
 
         document.querySelectorAll('#CategoryList li').forEach(li => {
-
+            
             if (li.classList.contains('category-group')) return;
-
+            
             const link = li.querySelector('a[data-category]');
             if (link?.dataset.category === category) {
                 li.classList.add('selected');
@@ -747,7 +748,7 @@
         currentSalesType = salesType;
         currentPage = 1;
         currentCursor = '';
-        cursorHistory = [''];
+        cursorHistory = ['']; 
 
         document.querySelectorAll('#SortByList li').forEach(li => {
             const link = li.querySelector('a');
@@ -768,7 +769,7 @@
         currentTimeFilter = timeFilter;
         currentPage = 1;
         currentCursor = '';
-        cursorHistory = [''];
+        cursorHistory = ['']; 
 
         document.querySelectorAll('#TimeFilterList li').forEach(li => {
             const link = li.querySelector('a');
@@ -788,7 +789,7 @@
         const timeFilterList = document.getElementById('TimeFilterList');
 
         const showTimeFilter = currentMode === 'TopFavorites' || currentMode === 'BestSelling';
-
+        
         if (timeFilterSection) {
             timeFilterSection.style.display = showTimeFilter ? '' : 'none';
         }
@@ -821,7 +822,7 @@
                 'PriceHighToLow': 'Price (High to Low)',
                 'PriceLowToHigh': 'Price (Low to High)'
             };
-
+            
             let label = modeNames[currentMode] || 'Items';
 
             if ((currentMode === 'TopFavorites' || currentMode === 'BestSelling') && currentTimeFilter !== 'AllTime') {
@@ -849,7 +850,7 @@
                 const maxStr = filterPriceMax !== null ? `R$${filterPriceMax}` : '∞';
                 label += ` (${minStr} - ${maxStr})`;
             }
-
+            
             displayLabel.textContent = label;
         }
     }
@@ -858,7 +859,7 @@
         currentKeyword = query;
         currentPage = 1;
         currentCursor = '';
-        cursorHistory = [''];
+        cursorHistory = ['']; 
         updateDisplayLabel();
         loadCatalogItems();
     }
@@ -877,18 +878,18 @@
         let filteredItems = allItems;
         if (currentKeyword) {
             const keyword = currentKeyword.toLowerCase();
-            filteredItems = allItems.filter(item =>
+            filteredItems = allItems.filter(item => 
                 item.name && item.name.toLowerCase().includes(keyword)
             );
         }
 
         if (currentCategory && currentCategory !== 'All') {
             filteredItems = filteredItems.filter(item => {
-
+                
                 if (item.filter) {
                     return item.filter.toLowerCase().startsWith(currentCategory.toLowerCase());
                 }
-
+                
                 if (item.category) {
                     return item.category.toLowerCase() === currentCategory.toLowerCase();
                 }
@@ -913,7 +914,7 @@
                 }
 
                 if (detailsResponse?.data) {
-
+                    
                     const detailsMap = new Map();
                     detailsResponse.data.forEach(item => {
                         const id = item.id || item.assetId;
@@ -925,7 +926,7 @@
                     const mergedItems = pageItems.map(jsonItem => {
                         const apiItem = detailsMap.get(jsonItem.id);
                         const economyData = economyCache[jsonItem.id];
-
+                        
                         let result;
                         if (apiItem) {
                             result = {
@@ -935,7 +936,7 @@
                                 itemType: apiItem.itemType || 'Asset'
                             };
                         } else {
-
+                            
                             result = {
                                 id: jsonItem.id,
                                 name: jsonItem.name,
@@ -956,7 +957,7 @@
                                 result.lowestResalePrice = economyData.lowestSellerPrice;
                             }
                         }
-
+                        
                         return result;
                     });
 
@@ -989,7 +990,7 @@
                     result.lowestResalePrice = economyData.lowestSellerPrice;
                 }
             }
-
+            
             return result;
         });
     }
@@ -1011,7 +1012,7 @@
 
         if (filterPriceMin !== null || filterPriceMax !== null) {
             filteredItems = filteredItems.filter(item => {
-
+                
                 const price = item.lowestResalePrice || item.price || item.priceInRobux;
 
                 if (price === null || price === undefined) {
@@ -1050,7 +1051,7 @@
     async function loadCatalogItems() {
         if (isLoadingPage) return;
         isLoadingPage = true;
-
+        
         const itemsContainer = document.querySelector('#CatalogContainer .Assets .StandardBox');
         if (!itemsContainer) {
             console.log('Items container not found');
@@ -1068,7 +1069,7 @@
                 </div>
             `;
         } else {
-
+            
             let loadingOverlay = itemsContainer.querySelector('.catalog-loading-overlay');
             if (!loadingOverlay) {
                 loadingOverlay = document.createElement('div');
@@ -1092,7 +1093,7 @@
         });
 
         try {
-
+            
             const hasFilters = filterCreator || filterPriceMin !== null || filterPriceMax !== null;
 
             if (currentMode === 'Classic' && !hasFilters) {
@@ -1111,7 +1112,7 @@
 
             let sortAggregation = null;
             if ((currentMode === 'TopFavorites' || currentMode === 'BestSelling') && currentTimeFilter !== 'AllTime') {
-                sortAggregation = currentTimeFilter === 'PastDay' ? 1 : 3;
+                sortAggregation = currentTimeFilter === 'PastDay' ? 1 : 3; 
             }
 
             const cursorToUse = cursorHistory[currentPage - 1] || '';
@@ -1125,8 +1126,8 @@
                 keyword: currentKeyword,
                 limit: itemsPerPage,
                 cursor: cursorToUse,
-                collectiblesOnly: currentSalesType === 'Collectible',
-
+                collectiblesOnly: currentSalesType === 'Collectible', 
+                
                 creatorName: filterCreator || '',
                 minPrice: filterPriceMin,
                 maxPrice: filterPriceMax
@@ -1150,13 +1151,13 @@
 
                 if (response.nextPageCursor) {
                     currentCursor = response.nextPageCursor;
-
+                    
                     if (cursorHistory.length <= currentPage) {
                         cursorHistory.push(currentCursor);
-
+                        
                         if (cursorHistory.length > 10) {
-                            cursorHistory.shift();
-                            currentPage--;
+                            cursorHistory.shift(); 
+                            currentPage--; 
                         }
                     } else {
                         cursorHistory[currentPage] = currentCursor;
@@ -1238,7 +1239,7 @@
         }
 
         const ITEMS_PER_ROW = 5;
-        const INITIAL_ROWS = 3;
+        const INITIAL_ROWS = 3; 
         const rowCount = Math.ceil(items.length / ITEMS_PER_ROW);
         const initialRowCount = Math.min(rowCount, INITIAL_ROWS);
 
@@ -1259,7 +1260,7 @@
         table.innerHTML = html;
 
         if (rowCount > initialRowCount) {
-
+            
             const loadMoreRows = () => {
                 const fragment = document.createDocumentFragment();
                 for (let row = initialRowCount; row < rowCount; row++) {
@@ -1298,7 +1299,7 @@
     }
 
     async function fetchThumbnails(items) {
-
+        
         const assetItems = items.filter(item => item.itemType !== 'Bundle');
         const bundleItems = items.filter(item => item.itemType === 'Bundle');
 
@@ -1366,9 +1367,9 @@
 
     const ECONOMY_CACHE_KEY = 'classicEconomyCache_v4';
     const ECONOMY_CACHE_PRELOAD_KEY = 'classicEconomyPreloadTimestamp';
-    const ECONOMY_CACHE_TTL = 24 * 60 * 60 * 1000;
-    const ECONOMY_CACHE_MAX_SIZE = 500;
-    const PRELOAD_COOLDOWN = 7 * 24 * 60 * 60 * 1000;
+    const ECONOMY_CACHE_TTL = 24 * 60 * 60 * 1000; 
+    const ECONOMY_CACHE_MAX_SIZE = 500; 
+    const PRELOAD_COOLDOWN = 7 * 24 * 60 * 60 * 1000; 
     let preloadInProgress = false;
 
     function getEconomyCache() {
@@ -1399,10 +1400,10 @@
                     totalSize += localStorage[key].length + key.length;
                 }
             }
-
+            
             const sizeKB = (totalSize / 1024).toFixed(2);
-
-            const quotaWarningThreshold = 4 * 1024 * 1024;
+            
+            const quotaWarningThreshold = 4 * 1024 * 1024; 
 
             if (totalSize > quotaWarningThreshold) {
                 console.warn(`[Catalog] localStorage usage high: ${sizeKB} KB. Consider clearing old data.`);
@@ -1410,19 +1411,19 @@
             }
             return true;
         } catch (e) {
-            return true;
+            return true; 
         }
     }
 
     function setEconomyCache(cache) {
         try {
-
+            
             checkLocalStorageQuota();
 
             const entries = Object.entries(cache);
 
             if (entries.length > ECONOMY_CACHE_MAX_SIZE) {
-
+                
                 entries.sort((a, b) => (a[1].timestamp || 0) - (b[1].timestamp || 0));
 
                 const trimmedCache = {};
@@ -1435,7 +1436,7 @@
                 localStorage.setItem(ECONOMY_CACHE_KEY, JSON.stringify(cache));
             }
         } catch (e) {
-
+            
             console.warn('[Catalog] localStorage quota exceeded, clearing economy cache');
             try {
                 localStorage.removeItem(ECONOMY_CACHE_KEY);
@@ -1479,7 +1480,7 @@
         if (uncachedItems.length === 0 || Object.keys(cache).length >= ECONOMY_CACHE_MAX_SIZE * 0.8) {
             console.log(`[Catalog] Cache sufficiently populated (${Object.keys(cache).length}/${ECONOMY_CACHE_MAX_SIZE}), skipping preload`);
             preloadInProgress = false;
-
+            
             try {
                 localStorage.setItem(ECONOMY_CACHE_PRELOAD_KEY, Date.now().toString());
             } catch (e) {}
@@ -1492,7 +1493,7 @@
         let loaded = 0;
 
         for (let i = 0; i < uncachedItems.length; i += BATCH_SIZE) {
-
+            
             if (currentMode !== 'Classic') {
                 console.log('Preload paused - left Classic mode');
                 preloadInProgress = false;
@@ -1503,11 +1504,11 @@
             const assetIds = batch.map(item => item.id);
 
             try {
-
+                
                 const batchResults = await window.roblox?.getAssetEconomyDetailsBatch(assetIds, BATCH_SIZE);
 
                 if (batchResults) {
-
+                    
                     batchResults.forEach((economyDetails, assetId) => {
                         if (economyDetails) {
                             cache[assetId] = {
@@ -1516,7 +1517,7 @@
                                 lowestSellerPrice: economyDetails.LowestSellerPrice ?? economyDetails.lowestSellerPrice ?? null,
                                 priceInRobux: economyDetails.PriceInRobux ?? economyDetails.priceInRobux ?? null,
                                 isForSale: economyDetails.IsForSale || economyDetails.isForSale || false,
-                                timestamp: Date.now()
+                                timestamp: Date.now() 
                             };
 
                             loaded++;
@@ -1530,7 +1531,7 @@
                 }
             } catch (e) {
                 console.warn(`[Catalog] Error loading batch ${Math.floor(i / BATCH_SIZE) + 1}:`, e);
-
+                
             }
 
             await delay(100);
@@ -1560,15 +1561,15 @@
         console.log('[Economy] Cache has', Object.keys(cache).length, 'entries');
 
         const itemsToFetch = isClassicMode
-            ? items.filter(item => !cache[item.id])
+            ? items.filter(item => !cache[item.id]) 
             : items.filter(item => {
-                const hasLimitedRestriction = item.itemRestrictions?.includes('Limited') ||
+                const hasLimitedRestriction = item.itemRestrictions?.includes('Limited') || 
                     item.itemRestrictions?.includes('LimitedUnique') ||
                     item.itemRestrictions?.includes('Collectible');
                 const isLimited = item.isLimited || item.isLimitedUnique ||
                     item.collectibleItemType === 'Limited' || item.collectibleItemType === 'LimitedUnique' ||
                     hasLimitedRestriction;
-
+                
                 return isLimited && !item.lowestPrice && !cache[item.id];
             });
 
@@ -1577,7 +1578,7 @@
         let cachedApplied = 0;
         for (const item of items) {
             const cached = cache[item.id];
-
+            
             if (cached && !item.lowestPrice) {
                 applyEconomyDataToDOM(item.id, cached, isClassicMode);
                 cachedApplied++;
@@ -1599,7 +1600,7 @@
                         lowestSellerPrice: economyDetails.LowestSellerPrice ?? economyDetails.lowestSellerPrice ?? null,
                         priceInRobux: economyDetails.PriceInRobux ?? economyDetails.priceInRobux ?? null,
                         isForSale: economyDetails.IsForSale || economyDetails.isForSale || false,
-                        timestamp: Date.now()
+                        timestamp: Date.now() 
                     };
                     console.log('[Economy] Parsed data:', data);
 
@@ -1641,27 +1642,27 @@
 
         const priceEl = assetEl.querySelector('.AssetPrice .PriceInRobux');
         const priceContainer = assetEl.querySelector('.AssetPrice');
-
+        
         if (isLimited) {
             console.log('[Economy DOM] Item', itemId, 'is limited, lowestSellerPrice:', data.lowestSellerPrice);
-
+            
             if (priceEl && priceContainer) {
                 if (data.lowestSellerPrice && data.lowestSellerPrice > 0) {
                     priceEl.textContent = `R$: ${data.lowestSellerPrice.toLocaleString()}`;
                     priceContainer.style.display = 'block';
                     console.log('[Economy DOM] Updated price for limited item', itemId);
                 }
-
+                
             }
         } else if (isClassicMode && data.isForSale && data.priceInRobux !== null) {
-
+            
             if (priceEl && priceContainer) {
                 priceEl.textContent = data.priceInRobux === 0 ? 'Free' : `R$: ${data.priceInRobux.toLocaleString()}`;
                 priceContainer.style.display = 'block';
                 console.log('[Economy DOM] Updated price for item', itemId, 'to', data.priceInRobux);
             }
         } else if (isClassicMode && !data.isForSale) {
-
+            
             if (priceEl && priceContainer) {
                 priceEl.textContent = 'Off Sale';
                 priceEl.style.color = '#cc0000';
@@ -1678,27 +1679,27 @@
         const hasLimitedUniqueRestriction = item.itemRestrictions?.includes('LimitedUnique');
         const hasCollectibleRestriction = item.itemRestrictions?.includes('Collectible');
 
-        const isLimitedUnique = item.isLimitedUnique ||
-            item.collectibleItemType === 'LimitedUnique' ||
+        const isLimitedUnique = item.isLimitedUnique || 
+            item.collectibleItemType === 'LimitedUnique' || 
             hasLimitedUniqueRestriction ||
-            hasCollectibleRestriction;
+            hasCollectibleRestriction; 
 
         const isLimited = !isLimitedUnique && (
-            item.isLimited ||
-            item.collectibleItemType === 'Limited' ||
+            item.isLimited || 
+            item.collectibleItemType === 'Limited' || 
             hasLimitedRestriction
         );
 
         if (hasLimitedRestriction || hasLimitedUniqueRestriction || hasCollectibleRestriction) {
-            console.log('[Catalog] Item', id, name, 'restrictions:', item.itemRestrictions,
+            console.log('[Catalog] Item', id, name, 'restrictions:', item.itemRestrictions, 
                 'isLimitedUnique:', isLimitedUnique, 'isLimited:', isLimited);
         }
 
         let displayPrice = null;
         let priceText = '';
-
+        
         if (isLimited || isLimitedUnique) {
-
+            
             if (item.lowestPrice && item.lowestPrice > 0) {
                 displayPrice = item.lowestPrice;
                 priceText = `R$: ${displayPrice.toLocaleString()}`;
@@ -1706,20 +1707,20 @@
                 displayPrice = item.lowestResalePrice;
                 priceText = `R$: ${displayPrice.toLocaleString()}`;
             } else {
-
+                
                 priceText = '';
             }
         } else if (currentMode === 'Classic') {
-
+            
             if (item.isForSale === false) {
                 priceText = 'Off Sale';
             } else if (item.priceInRobux !== undefined && item.priceInRobux !== null) {
                 displayPrice = item.priceInRobux;
                 priceText = displayPrice === 0 ? 'Free' : `R$: ${displayPrice.toLocaleString()}`;
             }
-
+            
         } else {
-
+            
             const price = item.price ?? item.lowestPrice ?? null;
             if (price !== null && price !== undefined) {
                 displayPrice = price;
@@ -1737,7 +1738,7 @@
 
         const creatorHref = creatorType === 'Group' ? `#group?id=${creatorId}` : `#profile?id=${creatorId}`;
 
-        const placeholderImg = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP
+        const placeholderImg = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
         let thumbUrl = item.thumbnailUrl || placeholderImg;
 
@@ -1756,7 +1757,7 @@
         } else if (priceInTickets) {
             priceHtml = `<div class="AssetPrice"><span class="PriceInTickets">Tx: ${priceInTickets.toLocaleString()}</span></div>`;
         } else {
-
+            
             priceHtml = `<div class="AssetPrice" style="display:none;"><span class="PriceInRobux"></span></div>`;
         }
 
@@ -1803,7 +1804,7 @@
     }
 
     function updatePagination() {
-
+        
         const headerPager = document.getElementById('ctl00_cphRoblox_rbxCatalog_HeaderPagerPanel');
         if (headerPager) {
             headerPager.style.display = 'none';
@@ -1820,10 +1821,10 @@
             pagerHtml += `<span id="ctl00_cphRoblox_rbxCatalog_FooterPagerLabel">Page ${currentPage}</span>`;
         }
 
-        const hasMorePages = currentMode === 'Classic'
-            ? currentPage < totalPages
+        const hasMorePages = currentMode === 'Classic' 
+            ? currentPage < totalPages 
             : (currentPage < totalPages || currentCursor);
-
+            
         if (hasMorePages) {
             pagerHtml += ` <a href="#" class="catalog-next-btn" id="footerNextBtn">Next <span class="NavigationIndicators">&gt;&gt;</span></a>`;
         }
@@ -1848,7 +1849,7 @@
     }
 
     function resetCatalogPage() {
-
+        
         if (economyWorker) {
             economyWorker.terminate();
             economyWorker = null;

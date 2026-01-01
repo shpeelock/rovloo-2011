@@ -1,10 +1,12 @@
-function initNavigation() {
 
+
+function initNavigation() {
+    
     document.querySelectorAll('#MainNav a[data-page]').forEach(link => {
         link.addEventListener('click', async (e) => {
             e.preventDefault();
             let page = link.dataset.page;
-
+            
             if (window.clearSubNavActive) window.clearSubNavActive();
 
             if (page === 'home') {
@@ -12,13 +14,13 @@ function initNavigation() {
                     const isLoggedIn = await window.RobloxClient.auth.isLoggedIn();
                     if (isLoggedIn) {
                         page = 'myroblox';
-
+                        
                         setTimeout(() => {
                             if (window.setSubNavActiveByPage) window.setSubNavActiveByPage('myroblox');
                         }, 100);
                     }
                 } catch (e) {
-
+                    
                 }
             }
 
@@ -32,7 +34,7 @@ function initNavigation() {
     const genreDropdown = document.querySelector('.dropdownnavcontainer');
 
     if (gamesToggle && genreDropdown) {
-
+        
         document.addEventListener('click', (e) => {
             if (!genreDropdown.contains(e.target) && e.target !== gamesToggle) {
                 genreDropdown.style.display = 'none';
@@ -74,7 +76,7 @@ function initNavigation() {
 }
 
 function selectGenre(genre) {
-
+    
     const dropdown = document.querySelector('.dropdownnavcontainer');
     const toggle = document.getElementById('gamesMenuToggle');
     if (dropdown) dropdown.style.display = 'none';
@@ -84,7 +86,7 @@ function selectGenre(genre) {
 }
 
 function selectSort(sort) {
-
+    
     const dropdown = document.querySelector('.dropdownnavcontainer');
     const toggle = document.getElementById('gamesMenuToggle');
     if (dropdown) dropdown.style.display = 'none';
@@ -127,7 +129,7 @@ function runArkoseChallenge() {
         onCompleted: function(response) {
             console.log('CAPTCHA completed, token received:', response.token?.substring(0, 50) + '...');
             captchaToken = response.token;
-
+            
             hideCaptchaChallenge();
             retryLoginWithCaptcha();
         },
@@ -146,7 +148,7 @@ function runArkoseChallenge() {
         },
         onSuppress: function() {
             console.log('CAPTCHA suppressed (auto-passed)');
-
+            
             if (arkoseEnforcement.getToken) {
                 captchaToken = arkoseEnforcement.getToken();
                 if (captchaToken) {
@@ -182,7 +184,7 @@ function loadArkoseSdk() {
         script.onload = () => {
             console.log('Arkose SDK script loaded');
             arkoseSdkLoaded = true;
-
+            
             resolve();
         };
 
@@ -209,7 +211,7 @@ async function showCaptchaChallenge(metadata) {
     captchaContainer.style.display = 'block';
 
     try {
-
+        
         await loadArkoseSdk();
 
         if (arkoseEnforcement) {
@@ -260,7 +262,7 @@ async function retryLoginWithCaptcha() {
 
         if (result.success) {
             if (result.requiresTwoStep) {
-
+                
                 twoStepVerificationData = result.twoStepData;
                 document.getElementById('loginFormContainer').style.display = 'none';
                 document.getElementById('twoStepContainer').style.display = 'block';
@@ -268,7 +270,7 @@ async function retryLoginWithCaptcha() {
                 document.getElementById('twoStepBtn').style.display = 'inline-block';
                 document.getElementById('twoStepCode').focus();
             } else {
-
+                
                 const user = await window.RobloxClient.api.getCurrentUser();
                 successEl.textContent = `Logged in as ${user.displayName || user.name}!`;
                 successEl.style.display = 'block';
@@ -288,14 +290,14 @@ async function retryLoginWithCaptcha() {
         errorEl.textContent = 'Login failed. Please try again.';
         errorEl.style.display = 'block';
     } finally {
-
+        
         captchaToken = null;
         captchaMetadata = null;
     }
 }
 
 function showLoginModal() {
-
+    
     if (window.RobloxClient && window.RobloxClient.auth && window.RobloxClient.auth.returnToHub) {
         window.RobloxClient.auth.returnToHub();
     }
@@ -351,7 +353,7 @@ async function doLogin() {
 
         if (result.success) {
             if (result.requiresTwoStep) {
-
+                
                 twoStepVerificationData = result.twoStepData;
                 document.getElementById('loginFormContainer').style.display = 'none';
                 document.getElementById('twoStepContainer').style.display = 'block';
@@ -359,7 +361,7 @@ async function doLogin() {
                 document.getElementById('twoStepBtn').style.display = 'inline-block';
                 document.getElementById('twoStepCode').focus();
             } else {
-
+                
                 const user = await window.RobloxClient.api.getCurrentUser();
                 successEl.textContent = `Logged in as ${user.displayName || user.name}!`;
                 successEl.style.display = 'block';
@@ -372,7 +374,7 @@ async function doLogin() {
                 }, 1500);
             }
         } else if (result.requiresCaptcha) {
-
+            
             console.log('CAPTCHA challenge required - offering browser login');
             errorEl.innerHTML = `
                 <strong>CAPTCHA Required</strong><br>
@@ -469,7 +471,7 @@ async function doBrowserLogin() {
         const result = await window.RobloxClient.auth.browserLogin();
 
         if (result.success) {
-
+            
             const user = await window.RobloxClient.api.getCurrentUser();
             if (user && user.name) {
                 successEl.textContent = `Logged in as ${user.displayName || user.name}!`;
@@ -547,7 +549,7 @@ async function doCookieLogin() {
         console.error('Cookie login failed:', error);
         errorEl.textContent = 'Login failed. Please check your cookie and try again.';
         errorEl.style.display = 'block';
-
+        
     } finally {
         if (cookieLoginBtn) {
             cookieLoginBtn.disabled = false;
@@ -559,7 +561,7 @@ async function doCookieLogin() {
 async function updateAuthUI(user) {
     const authSpan = document.getElementById('AuthenticationBannerSpan');
     if (!authSpan) return;
-
+    
     if (user) {
         authSpan.className = 'logged-in';
         authSpan.innerHTML = `
@@ -569,7 +571,7 @@ async function updateAuthUI(user) {
     } else {
         authSpan.className = '';
         authSpan.innerHTML = '<a href="#" id="LoginLink">Login</a>';
-
+        
         document.getElementById('LoginLink')?.addEventListener('click', (e) => {
             e.preventDefault();
             showLoginModal();
@@ -589,12 +591,12 @@ async function checkLoginState() {
             const user = await window.RobloxClient.api.getCurrentUser();
             if (user && user.name) {
                 updateAuthUI(user);
-
+                
                 updateHeaderStatsBox(user.id, true);
-
+                
             }
         } else {
-
+            
             updateHeaderStatsBox(null, false);
         }
     } catch (error) {
@@ -606,14 +608,14 @@ async function checkLoginState() {
 async function updateHeaderStatsBox(userId, isLoggedIn) {
     const statsBox = document.getElementById('header-stats-box');
     const signupBtn = document.getElementById('signup-button-container');
-
+    
     if (isLoggedIn && userId) {
-
+        
         if (statsBox) statsBox.style.display = 'block';
         if (signupBtn) signupBtn.style.display = 'none';
 
         try {
-
+            
             const friendsCount = await window.roblox.getFriendsCount(userId).catch(() => ({ count: 0 }));
             const friendsEl = document.getElementById('header-friends-count');
             if (friendsEl) friendsEl.innerHTML = `<b>${friendsCount.count || 0}</b>`;
@@ -654,7 +656,7 @@ async function updateHeaderStatsBox(userId, isLoggedIn) {
             console.warn('Failed to load header stats:', e);
         }
     } else {
-
+        
         if (statsBox) statsBox.style.display = 'none';
         if (signupBtn) signupBtn.style.display = 'block';
     }
@@ -672,9 +674,9 @@ async function updateSubNavVisibility(isLoggedIn, currentPage, params = {}) {
     }
 
     let isMyRobloxSection = myRobloxPages.includes(currentPage);
-
+    
     if ((currentPage === 'profile' || currentPage === 'friends') && isLoggedIn) {
-
+        
         try {
             const currentUser = await window.RobloxClient.api.getCurrentUser();
             const viewingUserId = params.userId ? String(params.userId) : null;
@@ -682,10 +684,10 @@ async function updateSubNavVisibility(isLoggedIn, currentPage, params = {}) {
                 isMyRobloxSection = true;
             }
         } catch (e) {
-
+            
         }
     }
-
+    
     if (isLoggedIn && isMyRobloxSection) {
         subNav.style.display = 'block';
     } else {
@@ -719,7 +721,7 @@ window.setSubNavActiveByPage = setSubNavActiveByPage;
 async function refreshHeaderRobux() {
     const robuxEl = document.getElementById('header-robux-count');
     if (!robuxEl) return;
-
+    
     try {
         const user = await window.RobloxClient.api.getCurrentUser();
         if (user && user.id) {
@@ -737,9 +739,9 @@ function initSubNav() {
     if (!subNav) return;
 
     function setSubNavActive(clickedLink) {
-
+        
         subNav.querySelectorAll('li').forEach(li => li.classList.remove('active'));
-
+        
         const parentLi = clickedLink.closest('li');
         if (parentLi) parentLi.classList.add('active');
     }
@@ -753,27 +755,27 @@ function initSubNav() {
 
             switch (page) {
                 case 'myroblox':
-
+                    
                     navigateTo('myroblox');
                     break;
                 case 'character':
-
+                    
                     navigateTo('character');
                     break;
                 case 'account':
-
+                    
                     navigateTo('account');
                     break;
                 case 'inbox':
-
+                    
                     navigateTo('inbox');
                     break;
                 case 'places':
-
+                    
                     window.open('https://www.roblox.com/develop', '_blank');
                     break;
                 case 'stuff':
-
+                    
                     try {
                         const user = await window.RobloxClient.api.getCurrentUser();
                         if (user && user.id) {
@@ -784,15 +786,15 @@ function initSubNav() {
                     }
                     break;
                 case 'groups':
-
+                    
                     navigateTo('groups');
                     break;
                 case 'money':
-
+                    
                     window.open('https://www.roblox.com/transactions', '_blank');
                     break;
                 default:
-
+                    
                     console.log('SubNav page not implemented:', page);
             }
         });
@@ -804,10 +806,10 @@ function initSubNav() {
             const action = link.dataset.subnav;
 
             setSubNavActive(link);
-
+            
             switch (action) {
                 case 'profile':
-
+                    
                     try {
                         const user = await window.RobloxClient.api.getCurrentUser();
                         if (user && user.id) {
@@ -818,7 +820,7 @@ function initSubNav() {
                     }
                     break;
                 case 'friends':
-
+                    
                     try {
                         const user = await window.RobloxClient.api.getCurrentUser();
                         if (user && user.id) {

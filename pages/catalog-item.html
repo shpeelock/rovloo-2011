@@ -1,10 +1,11 @@
+<!-- Catalog Item Detail Page - Authentic 2011 Structure -->
 <div id="ItemContainer">
     <div class="StandardBoxHeader" style="width: 709px;">
         <span><span id="item-fav-star" class="notFavorited"></span> <span id="item-name">Loading...</span></span>
     </div>
     <div id="Item" class="StandardBox" style="width: 709px;">
         <div id="Details">
-
+            <!-- Left side - Thumbnail -->
             <div id="assetContainer" style="float:left; width:420px;">
                 <div id="Thumbnail">
                     <a id="item-thumbnail-link" title="" onclick="return false" style="display:inline-block;height:420px;width:420px;">
@@ -14,10 +15,11 @@
                 <div id="Actions">
                 </div>
             </div>
-
+            
+            <!-- Right side - Summary/Details -->
             <div id="Summary" style="float:right; display:inline; width:235px; padding:7px; box-sizing:border-box;">
                 <h3 id="item-type">ROBLOX Hat</h3>
-
+                
                 <div id="item-robux-panel">
                     <div id="RobuxPurchase">
                         <div id="PriceInRobux">
@@ -45,7 +47,7 @@
                     <div style="color: #cc0000; font-weight: bold; padding: 5px;">This item is not for sale</div>
                 </div>
                 <div class="clear"></div>
-
+                
                 <div id="Creator" class="Creator section">
                     <div class="Avatar">
                         <a id="item-creator-avatar-link" class="tooltip-right" title="" href="#">
@@ -53,7 +55,7 @@
                         </a>
                     </div>
                 </div>
-
+                
                 <div class="item-detail">
                     <div>
                         <span class="label">Creator:</span>
@@ -76,12 +78,12 @@
                         <span id="item-remaining">0</span>
                     </div>
                 </div>
-
+                
                 <div class="box section">
                     <div class="head label">Description:</div>
                     <pre id="item-description" class="Description body" style="max-height:200px; overflow-x: hidden;">No description available.</pre>
                 </div>
-
+                
                 <div class="ReportAbuse">
                     <div id="BlacklistSection"></div>
                     <div class="ReportAbusePanel">
@@ -89,10 +91,11 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="clear"></div>
         </div>
-
+        
+        <!-- Recommendations Section -->
         <div style="margin-top: 10px;">
             <div class="StandardTabWhite"><span>Recommendations</span></div>
             <div class="StandardBoxWhite">
@@ -100,7 +103,8 @@
                 <div id="item-recommendations"></div>
             </div>
         </div>
-
+        
+        <!-- Resellers Section for Limited Items -->
         <div id="item-resellers-section" style="display:none; margin-top:10px;">
             <div class="StandardTabGrayActive"><span>Private Sales</span></div>
             <div class="StandardBoxGray">
@@ -110,6 +114,7 @@
     </div>
 </div>
 
+<!-- Purchase Confirmation Modal -->
 <div id="purchase-modal" onclick="if(event.target === this) closePurchaseModal();" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; cursor:pointer;">
     <div id="purchase-modal-content" onclick="event.stopPropagation();" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border:2px solid #333; padding:20px; min-width:350px; text-align:center; cursor:default;">
         <a href="#" onclick="closePurchaseModal(); return false;" style="position:absolute; top:5px; right:10px; font-size:18px; color:#666; text-decoration:none;">&times;</a>
@@ -122,7 +127,7 @@
         <div id="purchase-modal-balance" style="font-size:12px; color:#666; margin-bottom:15px; font-family: Verdana, Geneva, Tahoma, sans-serif;">Your balance: R$ 0</div>
         <div id="purchase-modal-error" style="display:none; color:#cc0000; margin-bottom:10px;"></div>
         <div id="purchase-modal-success" style="display:none; color:#01a90f; margin-bottom:10px;"></div>
-
+        <!-- CAPTCHA Container - shown when verification is needed -->
         <div id="purchase-captcha-container" style="display:none; margin:15px 0;">
             <div style="font-size:12px; color:#666; margin-bottom:10px;">Please complete the verification below:</div>
             <iframe id="purchase-captcha-iframe" style="width:302px; height:290px; border:none; margin:0 auto; display:block;"></iframe>

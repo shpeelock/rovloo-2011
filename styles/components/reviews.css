@@ -1,3 +1,5 @@
+
+
 .reviews-section {
   margin-top: 20px;
 }
@@ -46,8 +48,8 @@
 }
 
 .review-form .form-header {
-  display: none;
-
+  display: none; 
+  
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;

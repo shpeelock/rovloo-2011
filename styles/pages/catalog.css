@@ -1,3 +1,5 @@
+
+
 #CatalogContainer {
     font-family: Verdana, Sans-Serif;
     min-width: 0;
@@ -48,7 +50,7 @@
     overflow: hidden;
     padding-bottom: 10px;
     padding-left: 0;
-
+    
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -78,7 +80,7 @@
     width: 110px;
     background-color: #FFF;
     position: relative;
-
+    
     transform: translateZ(0);
     will-change: opacity;
     contain: layout style paint;
@@ -89,7 +91,7 @@
     max-height: 110px;
     width: auto;
     height: auto;
-
+    
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     transform: translateZ(0);

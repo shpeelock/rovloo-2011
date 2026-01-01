@@ -1,18 +1,20 @@
+
+
 let groupsInitialized = false;
 let currentSearchCursor = '';
 let currentSearchKeyword = '';
-let searchCursorHistory = [];
+let searchCursorHistory = []; 
 let currentSearchPage = 1;
 let currentGroupId = null;
 let currentRoleId = null;
 let membersCursor = '';
-let membersCursorHistory = [];
+let membersCursorHistory = []; 
 let currentMembersPage = 1;
 let wallCursor = '';
-let wallCursorHistory = [];
+let wallCursorHistory = []; 
 let currentWallPage = 1;
-let wallPostsCache = [];
-let wallHasMore = true;
+let wallPostsCache = []; 
+let wallHasMore = true; 
 let currentUserId = null;
 
 const WALL_POSTS_PER_PAGE = 8;
@@ -24,7 +26,7 @@ document.addEventListener('pageChange', async (e) => {
 });
 
 async function initGroupsPage(params = {}) {
-
+  
   if (!groupsInitialized) {
     setupGroupsEventListeners();
     groupsInitialized = true;
@@ -43,7 +45,7 @@ async function initGroupsPage(params = {}) {
 }
 
 function setupGroupsEventListeners() {
-
+  
   document.getElementById('groups-search-btn')?.addEventListener('click', () => {
     const keyword = document.getElementById('groups-search-input').value.trim();
     if (keyword) {
@@ -72,7 +74,7 @@ function setupGroupsEventListeners() {
     e.preventDefault();
     if (currentSearchPage > 1) {
       currentSearchPage--;
-
+      
       const prevCursor = currentSearchPage === 1 ? '' : searchCursorHistory[currentSearchPage - 2] || '';
       searchGroups(currentSearchKeyword, prevCursor, true);
     }
@@ -81,7 +83,7 @@ function setupGroupsEventListeners() {
   document.getElementById('groups-next-btn')?.addEventListener('click', (e) => {
     e.preventDefault();
     if (currentSearchCursor) {
-
+      
       searchCursorHistory[currentSearchPage - 1] = currentSearchCursor;
       currentSearchPage++;
       searchGroups(currentSearchKeyword, currentSearchCursor);
@@ -141,7 +143,7 @@ function setupGroupsEventListeners() {
       displayWallPage();
     }
   });
-
+  
   document.getElementById('wall-prev-btn')?.addEventListener('click', (e) => {
     e.preventDefault();
     if (currentWallPage > 1 && currentGroupId) {
@@ -154,22 +156,22 @@ function setupGroupsEventListeners() {
 async function loadMyGroups() {
   const container = document.getElementById('my-groups-list');
   if (!container) return;
-
+  
   try {
     const isLoggedIn = await window.RobloxClient.auth.isLoggedIn();
     if (!isLoggedIn) {
       container.innerHTML = '<div style="color: #666; padding: 10px;">Login to see your groups</div>';
       return;
     }
-
+    
     const currentUser = await window.RobloxClient.api.getCurrentUser();
     if (!currentUser) {
       container.innerHTML = '<div style="color: #666; padding: 10px;">Could not load user info</div>';
       return;
     }
-
+    
     const groups = await window.roblox.getUserGroups(currentUser.id);
-
+    
     if (!groups?.data || groups.data.length === 0) {
       container.innerHTML = '<div style="color: #666; padding: 10px;">You are not in any groups</div>';
       return;
@@ -187,19 +189,19 @@ async function loadMyGroups() {
     } catch (e) {
       console.warn('Failed to load group thumbnails:', e);
     }
-
+    
     container.innerHTML = groups.data.map(item => {
       const group = item.group;
       const thumb = thumbnails[group.id] || 'images/spinners/spinner100x100.gif';
       return `
         <div class="my-group-item">
-          <img src="${thumb}" alt="${group.name}" class="my-group-icon"
+          <img src="${thumb}" alt="${group.name}" class="my-group-icon" 
                onclick="loadGroupDetail(${group.id})" style="cursor: pointer;">
           <a href="#" class="my-group-name" onclick="loadGroupDetail(${group.id}); return false;">${group.name}</a>
         </div>
       `;
     }).join('');
-
+    
   } catch (error) {
     console.error('Failed to load my groups:', error);
     if (window.showErrorPage) {
@@ -213,16 +215,16 @@ async function loadMyGroups() {
 async function searchGroups(keyword, cursor = '', isGoingBack = false) {
   const tbody = document.getElementById('groups-results-body');
   const pagination = document.getElementById('groups-search-pagination');
-
+  
   if (!tbody) return;
-
+  
   tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Searching...</td></tr>';
-
+  
   try {
-
+    
     const searchCursor = (isGoingBack && searchCursorHistory.length === 0) ? '' : cursor;
     const results = await window.roblox.searchGroups(keyword, 10, searchCursor);
-
+    
     if (!results?.data || results.data.length === 0) {
       tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px; color: #666;">No groups found</td></tr>';
       pagination.style.display = 'none';
@@ -241,11 +243,11 @@ async function searchGroups(keyword, cursor = '', isGoingBack = false) {
     } catch (e) {
       console.warn('Failed to load group thumbnails:', e);
     }
-
+    
     tbody.innerHTML = results.data.map(group => {
       const thumb = thumbnails[group.id] || 'images/spinners/spinner100x100.gif';
-      const description = group.description ?
-        (group.description.length > 100 ? group.description.substring(0, 100) + '...' : group.description) :
+      const description = group.description ? 
+        (group.description.length > 100 ? group.description.substring(0, 100) + '...' : group.description) : 
         'No description';
       return `
         <tr>
@@ -279,9 +281,9 @@ async function searchGroups(keyword, cursor = '', isGoingBack = false) {
     } else {
       nextBtn.classList.add('disabled');
     }
-
+    
     pagination.style.display = 'block';
-
+    
   } catch (error) {
     console.error('Failed to search groups:', error);
     tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px; color: #cc0000;">Search failed</td></tr>';
@@ -305,11 +307,11 @@ async function loadGroupDetail(groupId) {
   if (wallSection) {
     wallSection.style.display = '';
   }
-
+  
   try {
-
+    
     const group = await window.roblox.getGroup(groupId);
-
+    
     if (!group) {
       document.getElementById('group-detail-name').textContent = 'Group not found';
       return;
@@ -338,7 +340,7 @@ async function loadGroupDetail(groupId) {
       ownerLink.textContent = group.owner.username || group.owner.displayName;
       ownerLink.href = '#';
       ownerLink.onclick = () => {
-
+        
         const ownerId = group.owner.userId || group.owner.id;
         navigateTo('profile', { userId: ownerId });
         return false;
@@ -348,10 +350,10 @@ async function loadGroupDetail(groupId) {
     }
 
     const statusBox = document.getElementById('group-status-box');
-
+    
     if (group.shout && group.shout.body) {
       document.getElementById('group-status-text').textContent = group.shout.body;
-
+      
       const posterLink = document.getElementById('group-status-poster');
       if (group.shout.poster) {
         posterLink.textContent = group.shout.poster.username;
@@ -361,7 +363,7 @@ async function loadGroupDetail(groupId) {
           return false;
         };
       }
-
+      
       const statusDate = document.getElementById('group-status-date');
       if (group.shout.updated) {
         const date = new Date(group.shout.updated);
@@ -370,7 +372,7 @@ async function loadGroupDetail(groupId) {
           hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true
         });
       }
-
+      
       statusBox.style.display = 'block';
     } else {
       statusBox.style.display = 'none';
@@ -400,10 +402,10 @@ window.showGroupsSearch = showGroupsSearch;
 async function loadGroupRoles(groupId) {
   const tabsContainer = document.getElementById('group-role-tabs');
   if (!tabsContainer) return;
-
+  
   try {
     const roles = await window.roblox.getGroupRoles(groupId);
-
+    
     if (!roles?.roles || roles.roles.length === 0) {
       tabsContainer.innerHTML = '';
       await loadGroupMembers(groupId);
@@ -413,8 +415,8 @@ async function loadGroupRoles(groupId) {
     const sortedRoles = roles.roles.sort((a, b) => b.rank - a.rank);
 
     tabsContainer.innerHTML = sortedRoles.map((role, index) => `
-      <input type="button"
-             value="${role.name}"
+      <input type="button" 
+             value="${role.name}" 
              title="${role.name}"
              class="${index === 0 ? 'SelectedRoleSetButton' : 'RoleSetButton'}"
              data-role-id="${role.id}"
@@ -425,13 +427,13 @@ async function loadGroupRoles(groupId) {
 
     if (sortedRoles.length > 0) {
       currentRoleId = sortedRoles[0].id;
-
+      
       document.getElementById('group-role-name').textContent = sortedRoles[0].name;
       document.getElementById('group-role-count').textContent = sortedRoles[0].memberCount || 0;
       document.getElementById('group-role-rank').textContent = sortedRoles[0].rank;
       await loadGroupMembers(groupId, sortedRoles[0].id);
     }
-
+    
   } catch (error) {
     console.error('Failed to load group roles:', error);
     tabsContainer.innerHTML = '';
@@ -440,7 +442,7 @@ async function loadGroupRoles(groupId) {
 }
 
 async function selectRole(groupId, roleId, element) {
-
+  
   document.querySelectorAll('#group-role-tabs input').forEach(btn => {
     btn.className = 'RoleSetButton';
   });
@@ -449,7 +451,7 @@ async function selectRole(groupId, roleId, element) {
   document.getElementById('group-role-name').textContent = element.value;
   document.getElementById('group-role-count').textContent = element.dataset.roleCount || 0;
   document.getElementById('group-role-rank').textContent = element.dataset.roleRank || 1;
-
+  
   currentRoleId = roleId;
   membersCursor = '';
   membersCursorHistory = [];
@@ -462,31 +464,31 @@ window.selectRole = selectRole;
 async function loadGroupMembers(groupId, roleId = null, cursor = '') {
   const container = document.getElementById('group-members-grid');
   const pagination = document.getElementById('group-members-pagination');
-
+  
   if (!container) return;
-
+  
   if (!cursor) {
     container.innerHTML = '<div style="color: #666; text-align: center;">Loading members...</div>';
   }
-
+  
   try {
     let members;
     let useRoleEndpoint = false;
 
     if (roleId) {
       try {
-
+        
         members = await window.roblox.getGroupRoleMembers(groupId, roleId, 10, cursor, 'Desc');
         useRoleEndpoint = true;
       } catch (e) {
         console.warn('Role members endpoint failed, falling back to general members:', e);
-
+        
         members = await window.roblox.getGroupMembers(groupId, 10, cursor, 'Desc');
       }
     } else {
       members = await window.roblox.getGroupMembers(groupId, 10, cursor, 'Desc');
     }
-
+    
     if (!members?.data || members.data.length === 0) {
       container.innerHTML = '<div style="color: #666; text-align: center;">No members found</div>';
       pagination.style.display = 'none';
@@ -508,7 +510,7 @@ async function loadGroupMembers(groupId, roleId = null, cursor = '') {
       const username = m.username || m.user?.username;
       return userId && username;
     });
-
+    
     if (filteredMembers.length === 0) {
       container.innerHTML = '<div style="color: #666; text-align: center;">No valid members found</div>';
       pagination.style.display = 'none';
@@ -535,16 +537,16 @@ async function loadGroupMembers(groupId, roleId = null, cursor = '') {
       html += '<div style="height: 70px; margin-bottom: 5px; overflow: hidden;">';
       for (let j = 0; j < 3 && (i + j) < displayMembers.length; j++) {
         const member = displayMembers[i + j];
-
+        
         const userId = member.userId || member.user?.userId;
         const username = member.username || member.user?.username || 'Unknown';
 
         if (!userId) continue;
-
+        
         const avatar = avatars[userId] || '';
-
+        
         const placeholderAvatar = 'images/spinners/spinner100x100.gif';
-
+        
         const floatStyle = j === 1 ? 'float: right' : 'float: left';
         const widthStyle = j === 1 ? 'width: 33%' : 'width: 33%';
         html += `
@@ -564,7 +566,7 @@ async function loadGroupMembers(groupId, roleId = null, cursor = '') {
       }
       html += '</div>';
     }
-
+    
     container.innerHTML = html;
 
     membersCursor = members.nextPageCursor || '';
@@ -587,9 +589,9 @@ async function loadGroupMembers(groupId, roleId = null, cursor = '') {
     } else {
       document.getElementById('members-next-btn').setAttribute('disabled', 'disabled');
     }
-
+    
     pagination.style.display = 'block';
-
+    
   } catch (error) {
     console.error('Failed to load group members:', error);
     container.innerHTML = '<div style="color: #cc0000; text-align: center;">Failed to load members</div>';
@@ -598,32 +600,32 @@ async function loadGroupMembers(groupId, roleId = null, cursor = '') {
 
 async function loadGroupWall(groupId) {
   const container = document.getElementById('group-wall-container');
-
+  
   if (!container) return;
 
   wallPostsCache = [];
   wallCursor = '';
   wallHasMore = true;
   currentWallPage = 1;
-
+  
   container.innerHTML = '<tr><td colspan="2" style="text-align: center; padding: 20px; color: #666;">Loading wall posts...</td></tr>';
-
+  
   try {
-
+    
     await fetchMoreWallPosts(groupId);
 
     displayWallPage();
-
+    
   } catch (error) {
     console.error('Failed to load group wall:', error);
-
-    const isPermissionError = error?.message?.includes('permission') ||
+    
+    const isPermissionError = error?.message?.includes('permission') || 
                               error?.message?.includes('Permission') ||
                               error?.message?.includes('403');
-
+    
     const wallSection = document.getElementById('group-wall-section');
     if (isPermissionError && wallSection) {
-
+      
       wallSection.style.display = 'none';
     } else {
       container.innerHTML = '<tr><td colspan="2" style="text-align: center; padding: 20px; color: #cc0000;">Failed to load wall</td></tr>';
@@ -633,15 +635,15 @@ async function loadGroupWall(groupId) {
 
 async function fetchMoreWallPosts(groupId) {
   if (!wallHasMore) return;
-
+  
   const wall = await window.roblox.getGroupWall(groupId, 25, wallCursor, 'Desc');
-
+  
   if (wall?.data && wall.data.length > 0) {
-
+    
     const userIds = wall.data
       .filter(p => p.poster?.user?.userId)
       .map(p => p.poster.user.userId);
-
+    
     let avatars = {};
     if (userIds.length > 0) {
       try {
@@ -661,10 +663,10 @@ async function fetchMoreWallPosts(groupId) {
         post._avatarUrl = avatars[post.poster.user.userId] || 'images/spinners/spinner100x100.gif';
       }
     });
-
+    
     wallPostsCache = wallPostsCache.concat(wall.data);
   }
-
+  
   wallCursor = wall?.nextPageCursor || '';
   wallHasMore = !!wallCursor;
 }
@@ -675,9 +677,9 @@ async function displayWallPage() {
   const prevBtn = document.getElementById('wall-prev-btn');
   const nextBtn = document.getElementById('wall-next-btn');
   const pageInfo = document.getElementById('wall-page-info');
-
+  
   if (!container) return;
-
+  
   const startIndex = (currentWallPage - 1) * WALL_POSTS_PER_PAGE;
   const endIndex = startIndex + WALL_POSTS_PER_PAGE;
 
@@ -685,9 +687,9 @@ async function displayWallPage() {
     container.innerHTML = '<tr><td colspan="2" style="text-align: center; padding: 20px; color: #666;">Loading more posts...</td></tr>';
     await fetchMoreWallPosts(currentGroupId);
   }
-
+  
   const postsToShow = wallPostsCache.slice(startIndex, endIndex);
-
+  
   if (postsToShow.length === 0) {
     container.innerHTML = '<tr><td colspan="2" style="text-align: center; padding: 20px; color: #666;">No wall posts</td></tr>';
     if (pagination) pagination.style.display = 'none';
@@ -696,7 +698,7 @@ async function displayWallPage() {
 
   const html = postsToShow.map((post, index) => {
     if (!post.poster?.user) return '';
-
+    
     const userId = post.poster.user.userId;
     const username = post.poster.user.username || post.poster.user.displayName || 'Unknown';
     const avatar = post._avatarUrl || 'images/spinners/spinner100x100.gif';
@@ -705,15 +707,15 @@ async function displayWallPage() {
       hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true
     });
     const rowClass = index % 2 === 0 ? 'AlternatingItemTemplateOdd' : 'AlternatingItemTemplateEven';
-
+    
     const fullText = escapeHtml(post.body);
     const needsTruncate = post.body.length > 35;
     const truncatedText = needsTruncate ? escapeHtml(post.body.substring(0, 35)) + '...' : fullText;
     const postId = `wall-post-${post.id}`;
-
-    const showMoreLink = needsTruncate ?
+    
+    const showMoreLink = needsTruncate ? 
       `<a href="javascript:void(0)" id="${postId}-link" class="show-more-link" onclick="toggleWallPost('${postId}')" style="color:#00f;font-size:10px;font-weight:normal;font-style:normal;">Show More</a>` : '';
-
+    
     return `
       <tr class="${rowClass}">
         <td class="RepeaterImage" style="width: 55px; vertical-align: top; padding: 5px;">
@@ -727,21 +729,21 @@ async function displayWallPage() {
       </tr>
     `;
   }).filter(h => h).join('');
-
+  
   container.innerHTML = html || '<tr><td colspan="2" style="text-align: center; padding: 20px; color: #666;">No wall posts</td></tr>';
 
   const hasNextPage = endIndex < wallPostsCache.length || wallHasMore;
   const hasPrevPage = currentWallPage > 1;
-
+  
   if (pagination) {
     if (pageInfo) {
       pageInfo.textContent = `Page ${currentWallPage}`;
     }
-
+    
     if (prevBtn) {
       prevBtn.style.display = hasPrevPage ? 'inline' : 'none';
     }
-
+    
     if (nextBtn) {
       nextBtn.style.display = hasNextPage ? 'inline' : 'none';
     }
@@ -760,7 +762,7 @@ function toggleWallPost(postId) {
   const shortEl = document.getElementById(`${postId}-short`);
   const fullEl = document.getElementById(`${postId}-full`);
   const link = document.getElementById(`${postId}-link`);
-
+  
   if (fullEl.style.display === 'none') {
     shortEl.style.display = 'none';
     fullEl.style.display = 'inline';
@@ -788,7 +790,7 @@ async function updateGroupMembershipUI(groupId) {
   if (!joinBtn || !leaveBtn || !container) return;
 
   try {
-
+    
     const isLoggedIn = await window.RobloxClient.auth.isLoggedIn();
     if (!isLoggedIn) {
       container.style.display = 'none';
@@ -830,23 +832,23 @@ async function joinGroup(groupId) {
   joinBtn.textContent = 'Joining...';
 
   try {
-
+    
     if (window.roblox?.bat) {
       const initResult = await window.roblox.bat.initialize();
       if (initResult?.success && initResult?.hasKeys) {
         console.log('Using BAT client to join group from Roblox context');
         const url = `https://groups.roblox.com/v1/groups/${groupId}/users`;
         const body = { sessionId: '', redemptionToken: '' };
-
+        
         const result = await window.roblox.bat.makeRequest(url, 'POST', body, null);
         console.log('BAT request result:', result);
-
+        
         if (result?.success) {
           await updateGroupMembershipUI(groupId);
           await loadMyGroups();
           return;
         } else if (result?.challengeId) {
-
+          
           console.log('Challenge required:', result.challengeType);
           await handleGroupChallenge({
             requiresChallenge: true,
@@ -857,7 +859,7 @@ async function joinGroup(groupId) {
           return;
         } else {
           console.log('BAT request failed:', result?.error || result?.data);
-
+          
         }
       }
     }
@@ -871,7 +873,7 @@ async function joinGroup(groupId) {
 
     if (result?.success || result?.groupId) {
       await updateGroupMembershipUI(groupId);
-      await loadMyGroups();
+      await loadMyGroups(); 
     } else {
       throw new Error(result?.message || 'Failed to join group');
     }
@@ -897,22 +899,22 @@ async function leaveGroup(groupId) {
   leaveBtn.textContent = 'Leaving...';
 
   try {
-
+    
     if (window.roblox?.bat) {
       const initResult = await window.roblox.bat.initialize();
       if (initResult?.success && initResult?.hasKeys) {
         console.log('Using BAT client to leave group from Roblox context');
         const url = `https://groups.roblox.com/v1/groups/${groupId}/users/${currentUserId}`;
-
+        
         const result = await window.roblox.bat.makeRequest(url, 'DELETE', null, null);
         console.log('BAT request result:', result);
-
+        
         if (result?.success) {
           await updateGroupMembershipUI(groupId);
           await loadMyGroups();
           return;
         } else if (result?.challengeId) {
-
+          
           console.log('Challenge required:', result.challengeType);
           await handleGroupChallenge({
             requiresChallenge: true,
@@ -923,7 +925,7 @@ async function leaveGroup(groupId) {
           return;
         } else {
           console.log('BAT request failed:', result?.error || result?.data);
-
+          
         }
       }
     }
@@ -937,7 +939,7 @@ async function leaveGroup(groupId) {
 
     if (result?.success || !result?.errors) {
       await updateGroupMembershipUI(groupId);
-      await loadMyGroups();
+      await loadMyGroups(); 
     } else {
       throw new Error(result?.errors?.[0]?.message || 'Failed to leave group');
     }
@@ -965,24 +967,24 @@ async function handleGroupChallenge(challengeResult, groupId, action) {
   if (challengeType === 'twostepverification' || challengeType === 'forcetwostepverification') {
     await showGroupTwoStepVerification(challengeResult, action);
   } else if (challengeType === 'captcha' || challengeResult.challengeMetadata?.dataExchangeBlob) {
-
+    
     await showGroupCaptchaChallenge(challengeResult, groupId, action);
   } else if (challengeType === 'proofofwork') {
-
+    
     await handleProofOfWorkChallenge(challengeResult, groupId, action);
   } else if (challengeType === 'rostile') {
-
+    
     console.log('Rostile puzzle challenge detected:', challengeResult.challengeMetadata);
 
     const showedRostile = await showRostileChallenge(challengeResult, groupId, action);
     if (!showedRostile) {
-
+      
       const actionText = action === 'join' ? 'join' : 'leave';
       const confirmed = confirm(
         `This group requires puzzle verification (Rostile) which cannot be completed in the app.\n\n` +
         `Would you like to open the group page on Roblox.com to ${actionText} this group?`
       );
-
+      
       if (confirmed) {
         const groupUrl = `https://www.roblox.com/communities/${groupId}`;
         if (window.roblox?.openExternal) {
@@ -991,7 +993,7 @@ async function handleGroupChallenge(challengeResult, groupId, action) {
           window.open(groupUrl, '_blank');
         }
       }
-
+      
       resetGroupButtons();
     }
   } else {
@@ -1004,7 +1006,7 @@ async function handleProofOfWorkChallenge(challengeResult, groupId, action) {
   console.log('Handling proof of work challenge...');
 
   try {
-
+    
     const metadata = challengeResult.challengeMetadata;
     console.log('Proof of work metadata:', metadata);
 
@@ -1043,7 +1045,7 @@ async function handleProofOfWorkChallenge(challengeResult, groupId, action) {
     }
 
     if (result?.requiresChallenge) {
-
+      
       const newChallengeType = result.challengeType;
       if (newChallengeType === 'captcha' || result.challengeMetadata?.dataExchangeBlob) {
         console.log('Second attempt returned captcha challenge');
@@ -1075,7 +1077,7 @@ async function showRostileChallenge(challengeResult, groupId, action) {
   if (window.roblox?.bat?.performGroupAction) {
     try {
       const result = await window.roblox.bat.performGroupAction(groupId, action);
-
+      
       if (result?.success) {
         await updateGroupMembershipUI(groupId);
         await loadMyGroups();
@@ -1087,23 +1089,23 @@ async function showRostileChallenge(challengeResult, groupId, action) {
       } else {
         alert('Failed to complete action: ' + (result?.error || 'Unknown error'));
       }
-
+      
       resetGroupButtons();
       return true;
-
+      
     } catch (error) {
       console.error('Failed to perform group action for Rostile:', error);
     }
   }
-
-  return false;
+  
+  return false; 
 }
 
 let currentCaptchaSession = null;
 
 async function showGroupCaptchaChallenge(challengeResult, groupId, action) {
   console.log('Challenge required for group action, trying in-app captcha...');
-
+  
   const actionText = action === 'join' ? 'join' : 'leave';
   const blob = challengeResult.challengeMetadata?.dataExchangeBlob;
 
@@ -1118,16 +1120,16 @@ async function showGroupCaptchaChallenge(challengeResult, groupId, action) {
   if (window.roblox?.funcaptcha && blob) {
     try {
       console.log('Starting in-app FunCaptcha...');
-
+      
       const captchaResult = await window.roblox.funcaptcha.start({
         actionType: 'JoinGroup',
         blob: blob
       });
-
+      
       console.log('FunCaptcha start result:', captchaResult);
-
+      
       if (captchaResult?.success) {
-
+        
         if (captchaResult.suppressed) {
           console.log('Captcha is suppressed, retrying action...');
           pendingGroupChallenge.captchaToken = captchaResult.token;
@@ -1142,7 +1144,7 @@ async function showGroupCaptchaChallenge(challengeResult, groupId, action) {
           groupId: groupId,
           action: action
         };
-
+        
         showCaptchaModal(captchaResult);
         return;
       } else {
@@ -1156,11 +1158,11 @@ async function showGroupCaptchaChallenge(challengeResult, groupId, action) {
   if (window.roblox?.bat?.performGroupAction) {
     try {
       console.log(`Falling back to Roblox window to ${actionText} group ${groupId}...`);
-
+      
       const result = await window.roblox.bat.performGroupAction(groupId, action);
-
+      
       console.log('Group action result:', result);
-
+      
       if (result?.success) {
         await updateGroupMembershipUI(groupId);
         await loadMyGroups();
@@ -1172,10 +1174,10 @@ async function showGroupCaptchaChallenge(challengeResult, groupId, action) {
       } else {
         alert('Failed to complete action: ' + (result?.error || 'Unknown error'));
       }
-
+      
       resetGroupButtons();
       return;
-
+      
     } catch (error) {
       console.error('Failed to perform group action:', error);
     }
@@ -1193,7 +1195,7 @@ function showCaptchaModal(captchaResult) {
   const status = document.getElementById('captcha-status');
   const loading = document.getElementById('captcha-loading');
   const tiles = document.querySelectorAll('.captcha-tile');
-
+  
   if (!modal) {
     console.error('Captcha modal not found');
     return;
@@ -1231,7 +1233,7 @@ async function handleCaptchaTileClick(tileIndex) {
     console.error('No active captcha session');
     return;
   }
-
+  
   const tiles = document.querySelectorAll('.captcha-tile');
   const status = document.getElementById('captcha-status');
   const progress = document.getElementById('captcha-progress');
@@ -1241,17 +1243,17 @@ async function handleCaptchaTileClick(tileIndex) {
     tile.disabled = true;
     tile.style.opacity = '0.5';
   });
-
+  
   status.textContent = 'Checking answer...';
-
+  
   try {
     const result = await window.roblox.funcaptcha.answer(
       currentCaptchaSession.sessionId,
       tileIndex
     );
-
+    
     console.log('Captcha answer result:', result);
-
+    
     if (!result.success) {
       status.textContent = 'Error: ' + (result.error || 'Unknown error');
       tiles.forEach(tile => {
@@ -1260,9 +1262,9 @@ async function handleCaptchaTileClick(tileIndex) {
       });
       return;
     }
-
+    
     if (result.completed) {
-
+      
       if (result.solved) {
         status.textContent = 'Verification successful!';
         pendingGroupChallenge.captchaToken = currentCaptchaSession.token;
@@ -1279,7 +1281,7 @@ async function handleCaptchaTileClick(tileIndex) {
         }, 1500);
       }
     } else {
-
+      
       progress.textContent = `Wave ${result.wave + 1} of ${currentCaptchaSession.info?.waves || 1}`;
       status.textContent = '';
 
@@ -1318,20 +1320,20 @@ async function cancelCaptcha() {
       console.log('Error cancelling captcha:', e);
     }
   }
-
+  
   hideCaptchaModal();
   resetGroupButtons();
 }
 
 function handleGroupCaptchaMessage(event) {
-
+  
   if (event.origin.includes('arkoselabs.com') || event.origin.includes('funcaptcha.com')) {
     console.log('Group CAPTCHA message received:', event.data);
 
     if (event.data && event.data.eventId) {
       if (event.data.eventId === 'challenge-complete' || event.data.eventId === 'challenge-suppressed') {
         console.log('CAPTCHA completed, retrying group action...');
-
+        
         window.removeEventListener('message', handleGroupCaptchaMessage);
         retryGroupActionAfterCaptcha();
       }
@@ -1382,7 +1384,7 @@ async function retryGroupActionAfterCaptcha() {
     captchaIframe.src = '';
 
     if (result?.requiresChallenge) {
-
+      
       await handleGroupChallenge(result, groupId, action);
     } else if (result?.success || result?.groupId || !result?.errors) {
       await updateGroupMembershipUI(groupId);

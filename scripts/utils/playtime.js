@@ -1,15 +1,17 @@
-const PlaytimeTracker = {
 
+
+const PlaytimeTracker = {
+  
   _currentUserId: null,
 
   _playtimeCache: {},
-  _cacheExpiry: 30000,
+  _cacheExpiry: 30000, 
 
   async _getUserId() {
     if (this._currentUserId) {
       return this._currentUserId;
     }
-
+    
     try {
       const user = await window.roblox.getCurrentUser();
       if (user) {
@@ -37,17 +39,17 @@ const PlaytimeTracker = {
     if (seconds < 60) {
       return '< 1m';
     }
-
+    
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-
+    
     if (hours > 0) {
       if (minutes > 0) {
         return `${hours}h ${minutes}m`;
       }
       return `${hours}h`;
     }
-
+    
     return `${minutes}m`;
   },
 
@@ -65,7 +67,7 @@ const PlaytimeTracker = {
       const cacheKey = `${userId}_${placeId}`;
       const cached = this._playtimeCache[cacheKey];
       if (cached && Date.now() - cached.timestamp < this._cacheExpiry) {
-
+        
         if (universeId && !cached.data.universeId) {
           cached.data.universeId = universeId;
         }
@@ -84,7 +86,7 @@ const PlaytimeTracker = {
         data: data,
         timestamp: Date.now()
       };
-
+      
       return data;
     } catch (e) {
       console.error('[PlaytimeTracker] Failed to get playtime data:', e);
@@ -93,7 +95,7 @@ const PlaytimeTracker = {
   },
 
   getPlaytimeData(placeId) {
-
+    
     const userId = this._currentUserId;
     if (userId) {
       const cacheKey = `${userId}_${placeId}`;
@@ -113,7 +115,7 @@ const PlaytimeTracker = {
       totalMinutes: 0,
       currentMinutes: 0,
       formattedPlaytime: '< 1m',
-      source: 'native'
+      source: 'native'  
     };
   },
 
@@ -150,12 +152,12 @@ const PlaytimeTracker = {
         console.warn('[PlaytimeTracker] Cannot mark synced: no user ID');
         return;
       }
-
+      
       await window.roblox.playtime.markSynced(userId, placeId);
 
       const cacheKey = `${userId}_${placeId}`;
       delete this._playtimeCache[cacheKey];
-
+      
       console.log(`[PlaytimeTracker] Marked playtime as synced for place ${placeId}`);
     } catch (e) {
       console.error('[PlaytimeTracker] Failed to mark playtime synced:', e);

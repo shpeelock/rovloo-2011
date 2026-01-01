@@ -1,15 +1,17 @@
+
+
 async function loadGamePassPage(gamePassId) {
   const container = document.getElementById('gamepass-content');
   if (!container) return;
 
   container.innerHTML = '<div class="loading">Loading game pass...</div>';
-
+  
   try {
-
+    
     const gamePass = await window.roblox.getGamePass(gamePassId);
-
+    
     if (!gamePass || !gamePass.gamePassId) {
-
+      
       if (window.showErrorPage) {
         window.showErrorPage('Game Pass not found or has been deleted.', 'gamepass-content');
       } else {
@@ -23,7 +25,7 @@ async function loadGamePassPage(gamePassId) {
     container.innerHTML = html;
 
     populateGamePassData(gamePass);
-
+    
   } catch (error) {
     console.error('Failed to load game pass:', error);
     if (window.showErrorPage) {
@@ -132,7 +134,7 @@ async function populateGamePassData(gamePass) {
 
   const creatorAvatarEl = document.getElementById('gamepass-creator-avatar');
   const creatorAvatarLinkEl = document.getElementById('gamepass-creator-avatar-link');
-
+  
   if (creatorAvatarLinkEl && creatorId) {
     creatorAvatarLinkEl.title = creatorName;
     creatorAvatarLinkEl.href = '#';
@@ -148,7 +150,7 @@ async function populateGamePassData(gamePass) {
       };
     }
   }
-
+  
   if (creatorAvatarEl && creatorId) {
     try {
       if (creatorType === 'User') {
@@ -183,7 +185,7 @@ async function populateGamePassData(gamePass) {
   } catch (e) {
     console.warn('Failed to check ownership:', e);
   }
-
+  
   if (userOwns) {
     if (ownedLabel) ownedLabel.style.display = '';
     if (buyBtn) buyBtn.style.display = 'none';
@@ -206,10 +208,10 @@ async function populateGamePassData(gamePass) {
   const placeImageEl = document.getElementById('gamepass-place-image');
   const placeImageLinkEl = document.getElementById('gamepass-place-image-link');
   const placeNameLinkEl = document.getElementById('gamepass-place-name-link');
-
+  
   if (gamePass.placeId && universeId) {
     if (placeSection) placeSection.style.display = 'block';
-
+    
     if (placeNameLinkEl) {
       placeNameLinkEl.textContent = universeName;
       placeNameLinkEl.href = '#';
@@ -218,7 +220,7 @@ async function populateGamePassData(gamePass) {
         window.location.hash = `#game?id=${gamePass.placeId}`;
       };
     }
-
+    
     if (placeImageLinkEl) {
       placeImageLinkEl.title = universeName;
       placeImageLinkEl.href = '#';
@@ -246,15 +248,15 @@ async function populateGamePassData(gamePass) {
 
 async function purchaseGamePass(gamePassId, price, sellerId) {
   try {
-
+    
     const confirmed = confirm(`Are you sure you want to buy this Game Pass for R$ ${price.toLocaleString()}?`);
     if (!confirmed) return;
-
+    
     const result = await window.roblox.purchaseGamePass(gamePassId, price, 1, sellerId || 0);
-
+    
     if (result?.purchased) {
       alert('Purchase successful! You now own this Game Pass.');
-
+      
       loadGamePassPage(gamePassId);
     } else if (result?.reason) {
       alert('Purchase failed: ' + result.reason);

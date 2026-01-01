@@ -1,7 +1,8 @@
+
 document.addEventListener('DOMContentLoaded', () => {
-
+  
   ensurePagesInBody();
-
+  
   initTitlebar();
   initNavigation();
   initFooterLinks();
@@ -12,11 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const THEME_STORAGE_KEY = 'rovloo_theme';
 const CONDITIONAL_THEMES_KEY = 'rovloo_conditional_themes';
-const CONDITIONAL_THEMES_PREFERENCE_KEY = 'rovloo_conditional_themes_preference';
+const CONDITIONAL_THEMES_PREFERENCE_KEY = 'rovloo_conditional_themes_preference'; 
 const RANDOMIZE_BC_KEY = 'rovloo_randomize_bc';
 
 function initThemeSettings() {
-
+  
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'roblox-2.0';
   applyTheme(savedTheme);
 
@@ -68,22 +69,22 @@ function initConditionalThemesToggle() {
 function updateConditionalThemesToggle() {
   const toggle = document.getElementById('conditional-themes-toggle');
   const label = toggle?.closest('label');
-
+  
   if (!toggle || !label) return;
 
   const isAlternateTheme = isAlternateThemeSelected();
-
+  
   if (isAlternateTheme) {
-
+    
     toggle.disabled = true;
-    toggle.checked = false;
+    toggle.checked = false; 
     label.style.opacity = '0.5';
     label.style.cursor = 'not-allowed';
     label.title = 'Conditional theme overrides are not available when using Outrageous or Rovloo themes';
 
     localStorage.setItem(CONDITIONAL_THEMES_KEY, 'false');
   } else {
-
+    
     toggle.disabled = false;
     label.style.opacity = '1';
     label.style.cursor = 'pointer';
@@ -91,7 +92,7 @@ function updateConditionalThemesToggle() {
 
     const userPreference = localStorage.getItem(CONDITIONAL_THEMES_PREFERENCE_KEY);
     const shouldEnable = userPreference !== null ? userPreference === 'true' : true;
-
+    
     toggle.checked = shouldEnable;
     localStorage.setItem(CONDITIONAL_THEMES_KEY, shouldEnable ? 'true' : 'false');
   }
@@ -123,7 +124,7 @@ window.isRandomizeBCEnabled = isRandomizeBCEnabled;
 
 function getBCTypeForUser(userId) {
   const id = parseInt(userId, 10);
-  if (isNaN(id)) return 'OBC';
+  if (isNaN(id)) return 'OBC'; 
 
   let hash = id;
   hash = ((hash >> 16) ^ hash) * 0x45d9f3b;
@@ -131,7 +132,7 @@ function getBCTypeForUser(userId) {
   hash = (hash >> 16) ^ hash;
 
   const bucket = Math.abs(hash) % 3;
-
+  
   switch (bucket) {
     case 0: return 'BC';
     case 1: return 'TBC';
@@ -146,7 +147,7 @@ function getBCOverlayImage(bcType) {
   switch (bcType) {
     case 'BC': return 'images/icons/overlay_bcOnly.png';
     case 'TBC': return 'images/icons/overlay_tbcOnly.png';
-    case 'OBC':
+    case 'OBC': 
     default: return 'images/icons/overlay_obcOnly.png';
   }
 }
@@ -163,7 +164,7 @@ function applyConditionalRovlooTheme() {
 function removeConditionalRovlooTheme() {
   if (!isRovlooThemeSelected()) {
     document.body.classList.remove('rovloo-theme');
-
+    
     const currentTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'roblox-2.0';
     if (currentTheme === 'roblox-2.0' && areConditionalThemesEnabled()) {
       const seasonalTheme = getCurrentSeasonalTheme();
@@ -187,7 +188,7 @@ async function initGpuAccelerationToggle() {
       const enabled = await window.RobloxClient.settings.getGpuAcceleration();
       toggle.checked = enabled;
     } else {
-
+      
       toggle.checked = true;
     }
   } catch (e) {
@@ -210,7 +211,7 @@ async function initGpuAccelerationToggle() {
 }
 
 function applyTheme(themeName) {
-
+  
   document.body.classList.remove('obc-theme', 'rovloo-theme', 'halloween-theme', 'thanksgiving-theme', 'christmas-theme');
 
   if (themeName === 'outrageous-2.0') {
@@ -224,7 +225,7 @@ function applyTheme(themeName) {
   } else if (themeName === 'christmas') {
     document.body.classList.add('christmas-theme');
   } else if (themeName === 'roblox-2.0') {
-
+    
     if (areConditionalThemesEnabled()) {
       const seasonalTheme = getCurrentSeasonalTheme();
       if (seasonalTheme) {
@@ -236,7 +237,7 @@ function applyTheme(themeName) {
 
 function getCurrentSeasonalTheme() {
   const now = new Date();
-  const month = now.getMonth();
+  const month = now.getMonth(); 
   const day = now.getDate();
 
   if (month === 9 && day >= 22 && day <= 31) {
@@ -281,8 +282,8 @@ function isAlternateThemeSelected() {
   return theme === 'outrageous-2.0' || theme === 'rovloo' || theme === 'halloween' || theme === 'thanksgiving' || theme === 'christmas';
 }
 
-const PREMIUM_CACHE_TTL = 24 * 60 * 60 * 1000;
-const PREMIUM_CACHE_MAX_SIZE = 100;
+const PREMIUM_CACHE_TTL = 24 * 60 * 60 * 1000; 
+const PREMIUM_CACHE_MAX_SIZE = 100; 
 const PREMIUM_STORAGE_KEY = 'rovloo_premium_cache';
 const PREMIUM_RATELIMIT_KEY = 'rovloo_premium_ratelimit';
 
@@ -293,13 +294,13 @@ function loadPremiumCache() {
       const parsed = JSON.parse(stored);
       const entries = [];
       const now = Date.now();
-
+      
       Object.entries(parsed).forEach(([userId, data]) => {
         if (now - data.timestamp < PREMIUM_CACHE_TTL && data.value !== null) {
           entries.push([userId, data]);
         }
       });
-
+      
       entries.sort((a, b) => b[1].timestamp - a[1].timestamp);
       const cache = new Map();
       entries.slice(0, PREMIUM_CACHE_MAX_SIZE).forEach(([k, v]) => cache.set(k, v));
@@ -313,7 +314,7 @@ function loadPremiumCache() {
 
 function savePremiumCache() {
   try {
-
+    
     const entries = Array.from(premiumStatusCache.entries());
     entries.sort((a, b) => b[1].timestamp - a[1].timestamp);
     const obj = {};
@@ -350,13 +351,13 @@ function saveRateLimitState() {
 }
 
 const premiumStatusCache = loadPremiumCache();
-window.premiumStatusCache = premiumStatusCache;
+window.premiumStatusCache = premiumStatusCache; 
 
 let premiumRequestQueue = [];
 let isProcessingQueue = false;
-const PREMIUM_REQUEST_DELAY = 1000;
-const BASE_RATELIMIT_WAIT = 30000;
-const MAX_BACKOFF_MULTIPLIER = 8;
+const PREMIUM_REQUEST_DELAY = 1000; 
+const BASE_RATELIMIT_WAIT = 30000; 
+const MAX_BACKOFF_MULTIPLIER = 8; 
 
 const rateLimitState = loadRateLimitState();
 let premiumRateLimited = rateLimitState.isLimited && rateLimitState.resetTime > Date.now();
@@ -378,7 +379,7 @@ function isPremiumRateLimited() {
   }
   if (premiumRateLimited) {
     premiumRateLimited = false;
-
+    
     rateLimitBackoffMultiplier = Math.max(1, rateLimitBackoffMultiplier / 2);
     saveRateLimitState();
   }
@@ -389,7 +390,7 @@ function getRateLimitResetIn() {
   if (!isPremiumRateLimited()) return 0;
   return Math.max(0, premiumRateLimitResetTime - Date.now());
 }
-window.getPremiumRateLimitResetIn = getRateLimitResetIn;
+window.getPremiumRateLimitResetIn = getRateLimitResetIn; 
 
 async function processPremiumQueue() {
   console.log(`processPremiumQueue called - isProcessing: ${isProcessingQueue}, queueLength: ${premiumRequestQueue.length}`);
@@ -402,7 +403,7 @@ async function processPremiumQueue() {
     setTimeout(processPremiumQueue, waitTime + 100);
     return;
   }
-
+  
   isProcessingQueue = true;
   const { userId, resolve } = premiumRequestQueue.shift();
   console.log(`Processing premium request for userId: ${userId}`);
@@ -412,17 +413,17 @@ async function processPremiumQueue() {
     isProcessingQueue = false;
     resolve(cached.value);
     if (premiumRequestQueue.length > 0) {
-      setTimeout(processPremiumQueue, 10);
+      setTimeout(processPremiumQueue, 10); 
     }
     return;
   }
-
+  
   try {
     console.log(`Making premium API call for userId: ${userId}`);
     const result = await window.roblox.validatePremiumMembership(userId);
     console.log(`Premium API result for ${userId}:`, result);
     premiumStatusCache.set(String(userId), { value: result, timestamp: Date.now() });
-    savePremiumCache();
+    savePremiumCache(); 
     resolve(result);
 
     if (rateLimitBackoffMultiplier > 1) {
@@ -430,10 +431,10 @@ async function processPremiumQueue() {
       saveRateLimitState();
     }
   } catch (e) {
-
+    
     if (e?.message?.includes('429') || e?.status === 429 || e?.response?.status === 429) {
       premiumRateLimited = true;
-
+      
       const waitTime = BASE_RATELIMIT_WAIT * rateLimitBackoffMultiplier;
       premiumRateLimitResetTime = Date.now() + waitTime;
       rateLimitBackoffMultiplier = Math.min(MAX_BACKOFF_MULTIPLIER, rateLimitBackoffMultiplier * 2);
@@ -442,13 +443,13 @@ async function processPremiumQueue() {
       premiumRequestQueue.unshift({ userId, resolve });
       console.warn(`Premium validation rate limited, waiting ${Math.ceil(waitTime/1000)}s (backoff: ${rateLimitBackoffMultiplier}x)`);
     } else {
-
+      
       premiumStatusCache.set(String(userId), { value: false, timestamp: Date.now() - PREMIUM_CACHE_TTL + 60 * 60 * 1000 });
       savePremiumCache();
       resolve(false);
     }
   }
-
+  
   isProcessingQueue = false;
 
   if (premiumRequestQueue.length > 0) {
@@ -472,16 +473,16 @@ async function getPremiumStatus(userId) {
   }
 
   const resetIn = getRateLimitResetIn();
-  if (resetIn > 120000) {
+  if (resetIn > 120000) { 
     console.log(`Skipping premium check for ${userId} - rate limited for ${Math.ceil(resetIn/1000)}s`);
-    return null;
+    return null; 
   }
-
+  
   console.log(`Queuing premium check for ${userId}, rate limit reset in: ${resetIn}ms, queue length: ${premiumRequestQueue.length}`);
 
   const existingRequest = premiumRequestQueue.find(r => String(r.userId) === userIdStr);
   if (existingRequest) {
-
+    
     return new Promise(resolve => {
       const originalResolve = existingRequest.resolve;
       existingRequest.resolve = (value) => {
@@ -496,7 +497,7 @@ async function getPremiumStatus(userId) {
     processPremiumQueue();
   });
 }
-window.getPremiumStatus = getPremiumStatus;
+window.getPremiumStatus = getPremiumStatus; 
 
 async function addObcOverlayIfPremium(container, userId, overlayStyle = {}) {
   if (!container || !userId) return false;
@@ -505,15 +506,15 @@ async function addObcOverlayIfPremium(container, userId, overlayStyle = {}) {
   if (existingOverlay) {
     existingOverlay.remove();
   }
-
+  
   try {
     const hasPremium = await getPremiumStatus(userId);
-
+    
     if (hasPremium === true) {
-
+      
       const bcType = isRandomizeBCEnabled() ? getBCTypeForUser(userId) : 'OBC';
       const overlayImage = getBCOverlayImage(bcType);
-
+      
       const overlay = document.createElement('img');
       overlay.src = overlayImage;
       overlay.alt = bcType;
@@ -528,16 +529,16 @@ async function addObcOverlayIfPremium(container, userId, overlayStyle = {}) {
       } else {
         overlay.style.cssText = defaultStyle;
       }
-
+      
       container.appendChild(overlay);
       return true;
     }
   } catch (e) {
-
+    
   }
   return false;
 }
-window.addObcOverlayIfPremium = addObcOverlayIfPremium;
+window.addObcOverlayIfPremium = addObcOverlayIfPremium; 
 
 function ensurePagesInBody() {
   const body = document.getElementById('Body');
@@ -554,7 +555,7 @@ function ensurePagesInBody() {
   }
 
   if (pageHome) {
-
+    
     let column1c = pageHome.querySelector(':scope > .Column1c') || document.querySelector('.Column1c');
     let column2c = pageHome.querySelector(':scope > .Column2c') || document.querySelector('.Column2c');
 
@@ -583,7 +584,7 @@ function ensurePagesInBody() {
 }
 
 function initFooterLinks() {
-
+  
   document.querySelectorAll('a[data-page]').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -654,7 +655,7 @@ async function updateSubNavForPage(pageName, params = {}) {
         return;
       }
     } catch (e) {
-
+      
     }
   }
 
@@ -668,7 +669,7 @@ function navigateToPage(pageName, params = {}) {
 let currentPageName = null;
 
 function navigateTo(pageName, params = {}) {
-
+  
   if (currentPageName && currentPageName !== pageName && window.Performance) {
     window.Performance.cleanupPage(currentPageName);
   }
@@ -679,12 +680,12 @@ function navigateTo(pageName, params = {}) {
 
   if (pageName !== 'reviews') {
     if (pageName === 'games' && params.category === 'rovloo') {
-
+      
     } else if (pageName !== 'games') {
-
+      
       removeConditionalRovlooTheme();
     } else {
-
+      
       removeConditionalRovlooTheme();
     }
   }
@@ -752,8 +753,8 @@ function navigateTo(pageName, params = {}) {
 
   updateSubNavForPage(pageName, params);
 
-  document.dispatchEvent(new CustomEvent('pageChange', {
-    detail: { page: pageName, params }
+  document.dispatchEvent(new CustomEvent('pageChange', { 
+    detail: { page: pageName, params } 
   }));
 
   switch (pageName) {
@@ -761,76 +762,76 @@ function navigateTo(pageName, params = {}) {
       loadHomePage();
       break;
     case 'games':
-
+      
       break;
     case 'profile':
       loadProfilePage(params.userId);
       break;
     case 'catalog':
-
+      
       break;
     case 'bc':
-
+      
       break;
     case 'people':
       loadPeoplePage();
       break;
     case 'friends':
-
+      
       if (params.userId) {
         window.location.hash = `#friends?id=${params.userId}`;
       }
       loadFriendsPage(params.userId);
       break;
     case 'stuff':
-
+      
       if (params.userId) {
         window.location.hash = `#stuff?id=${params.userId}`;
       }
       loadStuffPage(params.userId);
       break;
     case 'myroblox':
-
+      
       break;
     case 'inbox':
-
+      
       if (typeof loadInboxPage === 'function') {
         loadInboxPage();
       }
       break;
     case 'groups':
-
+      
       break;
     case 'badge':
-
+      
       if (params.badgeId) {
         loadBadgePage(params.badgeId);
       }
       break;
     case 'gamepass':
-
+      
       if (params.id && window.loadGamePassPage) {
         window.loadGamePassPage(params.id);
       }
       break;
     case 'catalog-item':
-
+      
       if (params.id && window.loadCatalogItemPage) {
         window.loadCatalogItemPage(params.id, params.type || 'Asset');
       }
       break;
     case 'character':
-
+      
       loadCharacterPage();
       break;
     case 'account':
-
+      
       if (window.BlacklistMenu && typeof window.BlacklistMenu.initAccountPage === 'function') {
         window.BlacklistMenu.initAccountPage();
       }
       break;
     case 'game-detail':
-
+      
       if (params.id || params.placeId) {
         loadGameDetailPage(params.id || params.placeId, params.universe || params.universeId);
       }
@@ -839,7 +840,7 @@ function navigateTo(pageName, params = {}) {
 }
 
 async function loadGameDetailPage(placeId, universeId = null) {
-
+  
   if (window.GameDetailPage?.load) {
     window.GameDetailPage.load(placeId, universeId);
   } else if (window.loadGameDetailPage) {
@@ -863,11 +864,11 @@ document.addEventListener('click', (e) => {
         navigateTo('profile', { userId });
       }
     } else {
-
+      
       window.location.hash = href;
     }
   }
-
+  
   const friendsLink = e.target.closest('a[href^="#friends"]');
   if (friendsLink) {
     e.preventDefault();
@@ -932,7 +933,7 @@ function handleHashChange() {
       navigateTo('profile', { userId });
     }
   }
-
+  
   else if (hash.startsWith('#game-detail')) {
     const params = new URLSearchParams(hash.split('?')[1] || '');
     const placeId = params.get('id') || params.get('placeId');
@@ -941,7 +942,7 @@ function handleHashChange() {
       navigateTo('game-detail', { id: placeId, universe: universeId });
     }
   }
-
+  
   else if (hash.startsWith('#gamepass')) {
     const params = new URLSearchParams(hash.split('?')[1] || '');
     const gamePassId = params.get('id');
@@ -949,7 +950,7 @@ function handleHashChange() {
       navigateTo('gamepass', { id: gamePassId });
     }
   }
-
+  
   else if (hash.startsWith('#game')) {
     const params = new URLSearchParams(hash.split('?')[1] || '');
     const gameId = params.get('id');
@@ -957,7 +958,7 @@ function handleHashChange() {
       navigateTo('game-detail', { id: gameId });
     }
   }
-
+  
   else if (hash.startsWith('#badge')) {
     const params = new URLSearchParams(hash.split('?')[1] || '');
     const badgeId = params.get('id');
@@ -965,7 +966,7 @@ function handleHashChange() {
       navigateTo('badge', { badgeId });
     }
   }
-
+  
   else if (hash.startsWith('#friends')) {
     const params = new URLSearchParams(hash.split('?')[1] || '');
     const userId = params.get('id');
@@ -973,7 +974,7 @@ function handleHashChange() {
       navigateTo('friends', { userId });
     }
   }
-
+  
   else if (hash.startsWith('#group')) {
     const params = new URLSearchParams(hash.split('?')[1] || '');
     const groupId = params.get('id');
@@ -981,7 +982,7 @@ function handleHashChange() {
       navigateTo('groups', { groupId });
     }
   }
-
+  
   else if (hash.startsWith('#catalog-item')) {
     const params = new URLSearchParams(hash.split('?')[1] || '');
     const itemId = params.get('id');
@@ -990,7 +991,7 @@ function handleHashChange() {
       navigateTo('catalog-item', { id: itemId, type: itemType });
     }
   }
-
+  
   else if (hash.startsWith('#catalog')) {
     navigateTo('catalog');
   }
@@ -1016,7 +1017,7 @@ async function loadCharacterPage() {
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-
+        
         if (window.CharacterPage && window.CharacterPage.init) {
           window.CharacterPage.init();
         }
@@ -1031,7 +1032,7 @@ async function loadCharacterPage() {
 async function loadProfilePage(userId) {
   const container = document.getElementById('profile-content');
   if (!container) return;
-
+  
   if (!userId) {
     container.innerHTML = `
       <div style="text-align: center; padding: 60px; color: #666;">
@@ -1073,21 +1074,21 @@ async function loadProfilePage(userId) {
             </div>
           </div>
         </div>
-
+        
         <!-- ROBLOX Badges -->
         <div class="StandardTabWhite"><span>ROBLOX Badges</span></div>
         <div class="StandardBoxWhite">
           <div id="NoRobloxBadges" style="display: none; text-align: center; color: #666; padding: 10px;">This user has no ROBLOX badges.</div>
           <div id="RobloxBadgesList" style="text-align: center;"></div>
         </div>
-
+        
         <!-- Player Badges -->
         <div class="StandardTabWhite"><span>Player Badges</span></div>
         <div class="StandardBoxWhite">
           <div id="NoBadges" style="display: none; text-align: center; color: #666; padding: 10px;">This user has no badges.</div>
           <div id="BadgesList" style="text-align: center;"></div>
         </div>
-
+        
         <!-- Statistics -->
         <div class="StandardTabWhite"><span>Statistics</span></div>
         <div class="StandardBoxWhite">
@@ -1110,7 +1111,7 @@ async function loadProfilePage(userId) {
             </tr>
           </table>
         </div>
-
+        
         <!-- Groups -->
         <div class="StandardTabWhite"><span>Groups</span></div>
         <div class="StandardBoxWhite">
@@ -1118,7 +1119,7 @@ async function loadProfilePage(userId) {
           <table id="GroupsList" cellspacing="0" align="Center" border="0" style="border-collapse:collapse;"></table>
         </div>
       </div>
-
+      
       <!-- Right Column -->
       <div class="Column2d">
         <!-- Active Places -->
@@ -1131,7 +1132,7 @@ async function loadProfilePage(userId) {
             <div id="PlacesList"></div>
           </div>
         </div>
-
+        
         <!-- Friends -->
         <div class="StandardTabWhite">
           <span id="FriendsHeader">Friends</span>
@@ -1140,7 +1141,7 @@ async function loadProfilePage(userId) {
           <div id="NoFriends" style="display: none; text-align: center; color: #666; padding: 20px;">This user has no friends.</div>
           <table id="FriendsList" cellspacing="0" align="Center" border="0" style="border-collapse:collapse;"></table>
         </div>
-
+        
         <!-- Favorites -->
         <div class="StandardTabWhite">
           <span id="FavoritesHeader">Favorites</span>
@@ -1234,7 +1235,7 @@ async function loadProfilePage(userId) {
 
     document.getElementById('ProfileLoading').style.display = 'none';
     document.getElementById('ProfileContent').style.display = 'block';
-
+    
   } catch (error) {
     console.error('Failed to load profile:', error);
     if (window.showErrorPage) {
@@ -1248,7 +1249,7 @@ async function loadProfilePage(userId) {
 }
 
 async function renderProfileData(user, data) {
-
+  
   console.log('Full user object:', user);
 
   const headerEl = document.getElementById('ProfileHeader');
@@ -1280,7 +1281,7 @@ async function renderProfileData(user, data) {
 
   const avatarContainer = document.getElementById('AvatarImageContainer');
   if (avatarContainer) {
-
+    
     const existingOverlay = avatarContainer.querySelector('.obc-overlay');
     if (existingOverlay) {
       existingOverlay.remove();
@@ -1296,11 +1297,11 @@ async function renderProfileData(user, data) {
         const overlayImage = getBCOverlayImage(bcType);
 
         if (areConditionalThemesEnabled() && bcType === 'OBC') {
-
+          
           document.body.classList.remove('halloween-theme', 'thanksgiving-theme', 'christmas-theme');
           document.body.classList.add('obc-theme');
         } else if (!isOutrageousThemeSelected()) {
-
+          
           document.body.classList.remove('obc-theme');
         }
 
@@ -1311,11 +1312,11 @@ async function renderProfileData(user, data) {
         overlay.style.cssText = 'position: absolute; bottom: 0; left: 0; height: auto; pointer-events: none;';
         avatarContainer.appendChild(overlay);
       } else if (!isOutrageousThemeSelected()) {
-
+        
         document.body.classList.remove('obc-theme');
       }
     } catch (e) {
-
+      
       if (!isOutrageousThemeSelected()) {
         document.body.classList.remove('obc-theme');
       }
@@ -1334,7 +1335,7 @@ async function renderProfileData(user, data) {
         console.log('Could not fetch user description:', e);
       }
     }
-
+    
     if (description && description.trim()) {
       blurbEl.textContent = description;
       blurbEl.style.fontStyle = 'normal';
@@ -1350,7 +1351,7 @@ async function renderProfileData(user, data) {
   const followersCountEl = document.getElementById('FollowersCount');
   const followingCountEl = document.getElementById('FollowingCount');
   const joinDateEl = document.getElementById('JoinDate');
-
+  
   if (friendsCountEl) friendsCountEl.textContent = formatNumber(data.friendsCount);
   if (followersCountEl) followersCountEl.textContent = formatNumber(data.followersCount);
   if (followingCountEl) followingCountEl.textContent = formatNumber(data.followingCount);
@@ -1366,7 +1367,7 @@ async function renderProfileData(user, data) {
         console.log('Could not fetch user created date:', e);
       }
     }
-
+    
     if (created) {
       const joinDate = new Date(created);
       joinDateEl.textContent = joinDate.toLocaleDateString('en-US', {
@@ -1400,24 +1401,24 @@ async function renderProfileFavorites(favorites, username, userId, page = 1) {
   const prevBtn = document.getElementById('FavoritesPrevPage');
   const nextBtn = document.getElementById('FavoritesNextPage');
   const pageInfoEl = document.getElementById('FavoritesPageInfo');
-
+  
   if (!container) return;
 
   if (headerEl) {
     headerEl.textContent = 'Favorites';
   }
-
+  
   if (!favorites || favorites.length === 0) {
     if (noFavoritesEl) noFavoritesEl.style.display = 'block';
     if (paginationEl) paginationEl.style.display = 'none';
     return;
   }
-
+  
   if (noFavoritesEl) noFavoritesEl.style.display = 'none';
   if (paginationEl) paginationEl.style.display = 'block';
-
+  
   container.innerHTML = '';
-
+  
   const itemsPerPage = 6;
   const totalPages = Math.ceil(favorites.length / itemsPerPage);
   const startIndex = (page - 1) * itemsPerPage;
@@ -1434,7 +1435,7 @@ async function renderProfileFavorites(favorites, username, userId, page = 1) {
     const newNextBtn = nextBtn.cloneNode(true);
     prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
     nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
-
+    
     if (page > 1) {
       newPrevBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -1479,7 +1480,7 @@ async function renderProfileFavorites(favorites, username, userId, page = 1) {
 
     const div = document.createElement('div');
     div.className = 'Asset';
-
+    
     div.innerHTML = `
       <div class="AssetThumbnail">
         <a href="#game?id=${game.rootPlaceId || game.id}" title="${escapeHtml(game.name)}" style="display:inline-block;height:110px;width:110px;cursor:pointer;">
@@ -1523,11 +1524,11 @@ async function getAllUserFavoriteGames(userId) {
 function renderRobloxBadges(user, data) {
   const container = document.getElementById('RobloxBadgesList');
   const noBadgesEl = document.getElementById('NoRobloxBadges');
-
+  
   if (!container) return;
 
   const badge2011Images = {
-
+    
     'Veteran': 'images/Badges/Veteran-75x75_v-2.png',
     'Friendship': 'images/Badges/Friendship-75x75_v-2.png',
     'Homestead': 'images/Badges/Homestead-70x75_v-2.png',
@@ -1541,26 +1542,26 @@ function renderRobloxBadges(user, data) {
     'Builders Club': 'images/Badges/BuildersClub-75x75.png',
     'Turbo Builders Club': 'images/Badges/TurboBuildersClub-75x75.png',
     'Outrageous Builders Club': 'images/Badges/obcbadge75x75.png',
-
-    1: 'images/Badges/Administrator-75x75_v-2.png',
-    2: 'images/Badges/Friendship-75x75_v-2.png',
-    3: 'images/Badges/CombatInitiation-75x75_v-2.png',
-    4: 'images/Badges/Warrior-75x75_v-2.png',
-    5: 'images/Badges/Bloxxer-75x75_v-2.png',
-    6: 'images/Badges/Homestead-70x75_v-2.png',
-    7: 'images/Badges/Bricksmith-54x75_v-2.png',
-    11: 'images/Badges/Inviter-75x75_v-2.png',
-    12: 'images/Badges/Veteran-75x75_v-2.png',
-    18: 'images/Badges/BuildersClub-75x75.png'
+    
+    1: 'images/Badges/Administrator-75x75_v-2.png', 
+    2: 'images/Badges/Friendship-75x75_v-2.png', 
+    3: 'images/Badges/CombatInitiation-75x75_v-2.png', 
+    4: 'images/Badges/Warrior-75x75_v-2.png', 
+    5: 'images/Badges/Bloxxer-75x75_v-2.png', 
+    6: 'images/Badges/Homestead-70x75_v-2.png', 
+    7: 'images/Badges/Bricksmith-54x75_v-2.png', 
+    11: 'images/Badges/Inviter-75x75_v-2.png', 
+    12: 'images/Badges/Veteran-75x75_v-2.png', 
+    18: 'images/Badges/BuildersClub-75x75.png' 
   };
 
   const robloxBadges = data.robloxBadges || [];
-
+  
   if (robloxBadges.length === 0) {
     if (noBadgesEl) noBadgesEl.style.display = 'block';
     return;
   }
-
+  
   if (noBadgesEl) noBadgesEl.style.display = 'none';
   container.innerHTML = '';
 
@@ -1569,7 +1570,7 @@ function renderRobloxBadges(user, data) {
   table.align = 'Center';
   table.border = '0';
   table.style.borderCollapse = 'collapse';
-
+  
   let currentRow = null;
   robloxBadges.forEach((badge, index) => {
     if (index % 4 === 0) {
@@ -1579,7 +1580,7 @@ function renderRobloxBadges(user, data) {
 
     const localImage = badge2011Images[badge.name] || badge2011Images[badge.id];
     const imageUrl = localImage || badge.imageUrl || '';
-
+    
     const td = document.createElement('td');
     td.innerHTML = `
       <div class="Badge">
@@ -1595,7 +1596,7 @@ function renderRobloxBadges(user, data) {
     `;
     currentRow.appendChild(td);
   });
-
+  
   container.appendChild(table);
 }
 
@@ -1603,21 +1604,21 @@ async function renderProfileFriends(friends, username, userId) {
   const container = document.getElementById('FriendsList');
   const noFriendsEl = document.getElementById('NoFriends');
   const headerEl = document.getElementById('FriendsHeader');
-
+  
   if (!container) return;
 
   if (headerEl && username) {
     headerEl.innerHTML = `${escapeHtml(username)}'s Friends (<a href="#friends?id=${userId}" style="color:#006699;">See All</a>)`;
   }
-
+  
   if (!friends || friends.length === 0) {
     if (noFriendsEl) noFriendsEl.style.display = 'block';
     return;
   }
-
+  
   if (noFriendsEl) noFriendsEl.style.display = 'none';
   container.innerHTML = '';
-
+  
   const friendIds = friends.map(f => f.id);
 
   let userDetails = {};
@@ -1649,7 +1650,7 @@ async function renderProfileFriends(friends, username, userId) {
     const presenceResult = await window.roblox.getUserPresence(friendIds);
     if (presenceResult?.userPresences) {
       presenceResult.userPresences.forEach(p => {
-        presenceMap[p.userId] = p.userPresenceType;
+        presenceMap[p.userId] = p.userPresenceType; 
       });
     }
   } catch (e) {
@@ -1662,7 +1663,7 @@ async function renderProfileFriends(friends, username, userId) {
       currentRow = document.createElement('tr');
       container.appendChild(currentRow);
     }
-
+    
     const thumb = thumbnails[friend.id] || 'assets/ui/guest.png';
     const presence = presenceMap[friend.id] || 0;
     const isOnline = presence > 0;
@@ -1670,7 +1671,7 @@ async function renderProfileFriends(friends, username, userId) {
 
     const user = userDetails[friend.id] || {};
     const friendName = user.name || user.displayName || friend.name || friend.displayName || 'Unknown';
-
+    
     const td = document.createElement('td');
     td.style.cssText = 'padding: 5px; text-align: center; vertical-align: top;';
     td.innerHTML = `
@@ -1698,25 +1699,25 @@ async function renderProfileFriends(friends, username, userId) {
 async function renderProfileGames(games) {
   const container = document.getElementById('PlacesList');
   const noPlacesEl = document.getElementById('NoPlaces');
-
+  
   if (!container) return;
-
+  
   if (!games || games.length === 0) {
     if (noPlacesEl) noPlacesEl.style.display = 'block';
     return;
   }
-
+  
   if (noPlacesEl) noPlacesEl.style.display = 'none';
   container.innerHTML = '';
 
   const universeIds = games.map(g => g.id);
   let thumbnails = {};
   try {
-
+    
     const thumbResult = await window.roblox.getGameThumbnails(universeIds, '480x270');
     if (thumbResult?.data) {
       thumbResult.data.forEach(t => {
-
+        
         if (t.thumbnails && t.thumbnails.length > 0) {
           thumbnails[t.universeId] = t.thumbnails[0].imageUrl;
         }
@@ -1729,7 +1730,7 @@ async function renderProfileGames(games) {
   games.forEach((game, index) => {
     const thumb = thumbnails[game.id] || '';
     const placeId = game.rootPlaceId || game.id;
-
+    
     const div = document.createElement('div');
     div.innerHTML = `
       <div class="AccordionHeader">
@@ -1760,14 +1761,14 @@ async function renderProfileGames(games) {
     const header = div.querySelector('.AccordionHeader');
     const content = div.querySelector('.AccordionHeader + div');
     header.addEventListener('click', () => {
-
+      
       if (content.style.display === 'none') {
         content.style.display = 'block';
       } else {
         content.style.display = 'none';
       }
     });
-
+    
     container.appendChild(div);
   });
 }
@@ -2030,15 +2031,15 @@ const assetCategories = [
   { id: 32, name: 'Packages' }
 ];
 
-let currentAssetCategory = 8;
+let currentAssetCategory = 8; 
 let currentAssetCursor = '';
 let currentAssetPage = 1;
 let currentInventoryUserId = null;
-let assetCursorHistory = [];
+let assetCursorHistory = []; 
 
 async function renderProfileInventory(userId) {
   currentInventoryUserId = userId;
-  assetCursorHistory = [];
+  assetCursorHistory = []; 
   const menuContainer = document.getElementById('AssetsMenu');
   const assetsContent = document.getElementById('AssetsContent');
   if (!menuContainer) return;
@@ -2050,7 +2051,7 @@ async function renderProfileInventory(userId) {
   } catch (e) {
     console.warn('Could not check inventory visibility:', e);
   }
-
+  
   if (!canView) {
     menuContainer.innerHTML = '';
     if (assetsContent) {
@@ -2088,25 +2089,25 @@ window.selectAssetCategory = async function(categoryId) {
   currentAssetCategory = categoryId;
   currentAssetCursor = '';
   currentAssetPage = 1;
-  assetCursorHistory = [];
+  assetCursorHistory = []; 
 
   const menuContainer = document.getElementById('AssetsMenu');
   if (menuContainer) {
     menuContainer.innerHTML = assetCategories.map(cat => `
       <div class="${cat.id === currentAssetCategory ? 'AssetsMenuItem_Selected' : 'AssetsMenuItem'}">
-        <a href="javascript:void(0)" class="${cat.id === currentAssetCategory ? 'AssetsMenuButton_Selected' : 'AssetsMenuButton'}"
+        <a href="javascript:void(0)" class="${cat.id === currentAssetCategory ? 'AssetsMenuButton_Selected' : 'AssetsMenuButton'}" 
            onclick="selectAssetCategory(${cat.id})">${cat.name}</a>
       </div>
     `).join('');
   }
-
+  
   await loadInventoryCategory(currentInventoryUserId, categoryId);
 };
 
 async function fetchInventoryEconomyDetails(assetIds) {
   const economyDetails = {};
   if (!window.roblox?.getAssetEconomyDetails) return economyDetails;
-
+  
   for (const assetId of assetIds) {
     try {
       const ecoData = await window.roblox.getAssetEconomyDetails(assetId);
@@ -2130,25 +2131,25 @@ function buildInventoryPriceHtml(details, ecoData) {
   const restrictions = details.itemRestrictions || [];
   const isLimited = restrictions.includes('Limited') || restrictions.includes('Collectible') || ecoData?.isLimited;
   const isLimitedUnique = restrictions.includes('LimitedUnique') || ecoData?.isLimitedUnique;
-
+  
   if (isLimited || isLimitedUnique) {
-
+    
     const resalePrice = ecoData?.lowestSellerPrice || details.lowestPrice;
     if (resalePrice && resalePrice > 0) {
       return `<div class="PriceInRobux">R$: ${resalePrice.toLocaleString()}</div>`;
     }
-
+    
     return '';
   } else {
-
+    
     const isForSale = ecoData?.isForSale;
     const price = ecoData?.priceInRobux ?? details.price;
-
+    
     if (isForSale === false) {
-
+      
       return `<div class="PriceInRobux" style="color:#cc0000;">Off Sale</div>`;
     } else if (price !== undefined && price !== null) {
-
+      
       return price === 0 ? `<div class="PriceInRobux">Free</div>` : `<div class="PriceInRobux">R$: ${price.toLocaleString()}</div>`;
     }
     return '';
@@ -2164,7 +2165,7 @@ async function loadInventoryCategory(userId, assetTypeId, cursor = '', isGoingBa
   container.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Loading...</td></tr>';
 
   try {
-
+    
     if (assetTypeId === 21) {
       await loadInventoryBadges(userId, cursor, isGoingBack);
       return;
@@ -2261,27 +2262,27 @@ async function loadInventoryCategory(userId, assetTypeId, cursor = '', isGoingBa
     });
 
     currentAssetCursor = result.nextPageCursor || '';
-
+    
     if (paginationEl) {
       const prevBtn = document.getElementById('AssetsPrevPage');
       const nextBtn = document.getElementById('AssetsNextPage');
       const pageInfo = document.getElementById('AssetsPageInfo');
-
+      
       if (pageInfo) pageInfo.textContent = `Page ${currentAssetPage}`;
-
+      
       if (prevBtn) {
         prevBtn.style.visibility = currentAssetPage > 1 ? 'visible' : 'hidden';
         prevBtn.onclick = () => {
           if (currentAssetPage > 1) {
             currentAssetPage--;
-
+            
             assetCursorHistory.pop();
             const prevCursor = assetCursorHistory.length > 0 ? assetCursorHistory[assetCursorHistory.length - 1] : '';
-            loadInventoryCategory(userId, assetTypeId, prevCursor, true);
+            loadInventoryCategory(userId, assetTypeId, prevCursor, true); 
           }
         };
       }
-
+      
       if (nextBtn) {
         nextBtn.style.visibility = currentAssetCursor ? 'visible' : 'hidden';
         nextBtn.onclick = () => {
@@ -2292,10 +2293,10 @@ async function loadInventoryCategory(userId, assetTypeId, cursor = '', isGoingBa
           }
         };
       }
-
+      
       paginationEl.style.display = (currentAssetPage > 1 || currentAssetCursor) ? 'block' : 'none';
     }
-
+    
   } catch (error) {
     console.error('Failed to load inventory:', error);
     container.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #cc0000; padding: 20px;">Failed to load inventory.</td></tr>';
@@ -2305,12 +2306,12 @@ async function loadInventoryCategory(userId, assetTypeId, cursor = '', isGoingBa
 async function loadInventoryBadges(userId, cursor = '', isGoingBack = false) {
   const container = document.getElementById('AssetsList');
   const paginationEl = document.getElementById('AssetsPagination');
-
+  
   if (!container) return;
-
+  
   try {
     const result = await window.roblox.getUserBadges(userId, 10, cursor);
-
+    
     if (!result?.data || result.data.length === 0) {
       container.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #666; padding: 20px;">No items to display.</td></tr>';
       if (paginationEl) paginationEl.style.display = 'none';
@@ -2337,9 +2338,9 @@ async function loadInventoryBadges(userId, cursor = '', isGoingBack = false) {
         currentRow = document.createElement('tr');
         container.appendChild(currentRow);
       }
-
+      
       const thumb = thumbnails[badge.id] || 'images/spinners/spinner100x100.gif';
-
+      
       const td = document.createElement('td');
       td.className = 'Asset';
       td.setAttribute('valign', 'top');
@@ -2361,14 +2362,14 @@ async function loadInventoryBadges(userId, cursor = '', isGoingBack = false) {
     });
 
     currentAssetCursor = result.nextPageCursor || '';
-
+    
     if (paginationEl) {
       const prevBtn = document.getElementById('AssetsPrevPage');
       const nextBtn = document.getElementById('AssetsNextPage');
       const pageInfo = document.getElementById('AssetsPageInfo');
-
+      
       if (pageInfo) pageInfo.textContent = `Page ${currentAssetPage}`;
-
+      
       if (prevBtn) {
         prevBtn.style.visibility = currentAssetPage > 1 ? 'visible' : 'hidden';
         prevBtn.onclick = () => {
@@ -2380,7 +2381,7 @@ async function loadInventoryBadges(userId, cursor = '', isGoingBack = false) {
           }
         };
       }
-
+      
       if (nextBtn) {
         nextBtn.style.visibility = currentAssetCursor ? 'visible' : 'hidden';
         nextBtn.onclick = () => {
@@ -2391,10 +2392,10 @@ async function loadInventoryBadges(userId, cursor = '', isGoingBack = false) {
           }
         };
       }
-
+      
       paginationEl.style.display = (currentAssetPage > 1 || currentAssetCursor) ? 'block' : 'none';
     }
-
+    
   } catch (error) {
     console.error('Failed to load badges:', error);
     container.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #cc0000; padding: 20px;">Failed to load badges.</td></tr>';
@@ -2415,7 +2416,7 @@ async function loadStuffPage(userId) {
       console.error('Could not get current user:', e);
     }
   }
-
+  
   if (!userId) {
     container.innerHTML = `
       <div style="text-align: center; padding: 60px; color: #666;">
@@ -2431,7 +2432,7 @@ async function loadStuffPage(userId) {
   } catch (e) {
     console.error('Could not get user info:', e);
   }
-
+  
   const username = userInfo?.displayName || userInfo?.name || 'User';
 
   container.innerHTML = `
@@ -2476,15 +2477,15 @@ async function loadStuffPage(userId) {
   }
 }
 
-let stuffCurrentCategory = 8;
+let stuffCurrentCategory = 8; 
 let stuffCurrentCursor = '';
 let stuffCurrentPage = 1;
 let stuffUserId = null;
-let stuffCursorHistory = [];
+let stuffCursorHistory = []; 
 
 async function renderStuffPageInventory(userId) {
   stuffUserId = userId;
-  stuffCursorHistory = [];
+  stuffCursorHistory = []; 
   const menuContainer = document.getElementById('StuffAssetsMenu');
   const assetsContent = document.getElementById('StuffAssetsContent');
   if (!menuContainer) return;
@@ -2496,7 +2497,7 @@ async function renderStuffPageInventory(userId) {
   } catch (e) {
     console.warn('Could not check inventory visibility:', e);
   }
-
+  
   if (!canView) {
     menuContainer.innerHTML = '';
     if (assetsContent) {
@@ -2507,7 +2508,7 @@ async function renderStuffPageInventory(userId) {
 
   menuContainer.innerHTML = assetCategories.map(cat => `
     <div class="${cat.id === stuffCurrentCategory ? 'AssetsMenuItem_Selected' : 'AssetsMenuItem'}">
-      <a href="javascript:void(0)" class="${cat.id === stuffCurrentCategory ? 'AssetsMenuButton_Selected' : 'AssetsMenuButton'}"
+      <a href="javascript:void(0)" class="${cat.id === stuffCurrentCategory ? 'AssetsMenuButton_Selected' : 'AssetsMenuButton'}" 
          onclick="selectStuffCategory(${cat.id})">${cat.name}</a>
     </div>
   `).join('');
@@ -2519,18 +2520,18 @@ window.selectStuffCategory = async function(categoryId) {
   stuffCurrentCategory = categoryId;
   stuffCurrentCursor = '';
   stuffCurrentPage = 1;
-  stuffCursorHistory = [];
+  stuffCursorHistory = []; 
 
   const menuContainer = document.getElementById('StuffAssetsMenu');
   if (menuContainer) {
     menuContainer.innerHTML = assetCategories.map(cat => `
       <div class="${cat.id === stuffCurrentCategory ? 'AssetsMenuItem_Selected' : 'AssetsMenuItem'}">
-        <a href="javascript:void(0)" class="${cat.id === stuffCurrentCategory ? 'AssetsMenuButton_Selected' : 'AssetsMenuButton'}"
+        <a href="javascript:void(0)" class="${cat.id === stuffCurrentCategory ? 'AssetsMenuButton_Selected' : 'AssetsMenuButton'}" 
            onclick="selectStuffCategory(${cat.id})">${cat.name}</a>
       </div>
     `).join('');
   }
-
+  
   await loadStuffCategory(stuffUserId, categoryId);
 };
 
@@ -2543,7 +2544,7 @@ async function loadStuffCategory(userId, assetTypeId, cursor = '', isGoingBack =
   container.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Loading...</td></tr>';
 
   try {
-
+    
     if (assetTypeId === 21) {
       await loadStuffBadges(userId, cursor, isGoingBack);
       return;
@@ -2639,27 +2640,27 @@ async function loadStuffCategory(userId, assetTypeId, cursor = '', isGoingBack =
     });
 
     stuffCurrentCursor = result.nextPageCursor || '';
-
+    
     if (paginationEl) {
       const prevBtn = document.getElementById('StuffAssetsPrevPage');
       const nextBtn = document.getElementById('StuffAssetsNextPage');
       const pageInfo = document.getElementById('StuffAssetsPageInfo');
-
+      
       if (pageInfo) pageInfo.textContent = `Page ${stuffCurrentPage}`;
-
+      
       if (prevBtn) {
         prevBtn.style.visibility = stuffCurrentPage > 1 ? 'visible' : 'hidden';
         prevBtn.onclick = () => {
           if (stuffCurrentPage > 1) {
             stuffCurrentPage--;
-
+            
             stuffCursorHistory.pop();
             const prevCursor = stuffCursorHistory.length > 0 ? stuffCursorHistory[stuffCursorHistory.length - 1] : '';
-            loadStuffCategory(userId, assetTypeId, prevCursor, true);
+            loadStuffCategory(userId, assetTypeId, prevCursor, true); 
           }
         };
       }
-
+      
       if (nextBtn) {
         nextBtn.style.visibility = stuffCurrentCursor ? 'visible' : 'hidden';
         nextBtn.onclick = () => {
@@ -2670,10 +2671,10 @@ async function loadStuffCategory(userId, assetTypeId, cursor = '', isGoingBack =
           }
         };
       }
-
+      
       paginationEl.style.display = (stuffCurrentPage > 1 || stuffCurrentCursor) ? 'block' : 'none';
     }
-
+    
   } catch (error) {
     console.error('Failed to load inventory:', error);
     container.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #cc0000; padding: 20px;">Failed to load inventory.</td></tr>';
@@ -2683,12 +2684,12 @@ async function loadStuffCategory(userId, assetTypeId, cursor = '', isGoingBack =
 async function loadStuffBadges(userId, cursor = '', isGoingBack = false) {
   const container = document.getElementById('StuffAssetsList');
   const paginationEl = document.getElementById('StuffAssetsPagination');
-
+  
   if (!container) return;
-
+  
   try {
     const result = await window.roblox.getUserBadges(userId, 10, cursor);
-
+    
     if (!result?.data || result.data.length === 0) {
       container.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #666; padding: 20px;">No items to display.</td></tr>';
       if (paginationEl) paginationEl.style.display = 'none';
@@ -2715,9 +2716,9 @@ async function loadStuffBadges(userId, cursor = '', isGoingBack = false) {
         currentRow = document.createElement('tr');
         container.appendChild(currentRow);
       }
-
+      
       const thumb = thumbnails[badge.id] || 'images/spinners/spinner100x100.gif';
-
+      
       const td = document.createElement('td');
       td.className = 'Asset';
       td.setAttribute('valign', 'top');
@@ -2739,14 +2740,14 @@ async function loadStuffBadges(userId, cursor = '', isGoingBack = false) {
     });
 
     stuffCurrentCursor = result.nextPageCursor || '';
-
+    
     if (paginationEl) {
       const prevBtn = document.getElementById('StuffAssetsPrevPage');
       const nextBtn = document.getElementById('StuffAssetsNextPage');
       const pageInfo = document.getElementById('StuffAssetsPageInfo');
-
+      
       if (pageInfo) pageInfo.textContent = `Page ${stuffCurrentPage}`;
-
+      
       if (prevBtn) {
         prevBtn.style.visibility = stuffCurrentPage > 1 ? 'visible' : 'hidden';
         prevBtn.onclick = () => {
@@ -2758,7 +2759,7 @@ async function loadStuffBadges(userId, cursor = '', isGoingBack = false) {
           }
         };
       }
-
+      
       if (nextBtn) {
         nextBtn.style.visibility = stuffCurrentCursor ? 'visible' : 'hidden';
         nextBtn.onclick = () => {
@@ -2769,10 +2770,10 @@ async function loadStuffBadges(userId, cursor = '', isGoingBack = false) {
           }
         };
       }
-
+      
       paginationEl.style.display = (stuffCurrentPage > 1 || stuffCurrentCursor) ? 'block' : 'none';
     }
-
+    
   } catch (error) {
     console.error('Failed to load badges:', error);
     container.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #cc0000; padding: 20px;">Failed to load badges.</td></tr>';
@@ -2838,9 +2839,9 @@ async function loadStuffBadges(userId, cursor = '', isGoingBack = false) {
             </tr>
           </table>
         </div>
-
+        
         <div id="peopleSearchError" class="SearchError" style="display:none; color: red; padding: 10px;"></div>
-
+        
         <div id="peopleSearchInitial" class="search-initial-text" style="text-align: center; padding: 60px;">
           <p style="font-size: 14px;">Search for users by entering a username above.</p>
         </div>
@@ -2864,11 +2865,11 @@ async function loadStuffBadges(userId, cursor = '', isGoingBack = false) {
 }
 
 function initPeopleSearch() {
-
+  
   setTimeout(() => {
     const searchBtn = document.getElementById('peopleSearchBtn');
     const searchInput = document.getElementById('peopleSearchInput');
-
+    
     if (searchBtn) {
       searchBtn.onclick = doPeopleSearch;
     }
@@ -2896,12 +2897,12 @@ async function doPeopleSearch() {
   document.getElementById('peopleSearchResults').style.display = 'none';
   document.getElementById('peopleNoResults').style.display = 'none';
   document.getElementById('peopleSearchLoading').style.display = 'block';
-
+  
   try {
     const result = await window.roblox.searchUsers(query, 12);
-
+    
     document.getElementById('peopleSearchLoading').style.display = 'none';
-
+    
     if (!result || !result.data || result.data.length === 0) {
       document.getElementById('peopleNoResults').style.display = 'block';
       return;
@@ -2922,7 +2923,7 @@ async function doPeopleSearch() {
 
     const container = document.getElementById('peopleResultsList');
     container.innerHTML = '';
-
+    
     for (const user of result.data) {
       const thumb = thumbnails[user.id] || 'assets/ui/guest.png';
       const div = document.createElement('div');
@@ -2931,7 +2932,7 @@ async function doPeopleSearch() {
       div.innerHTML = `
         <div class="UserThumbnail" style="margin-bottom: 5px; position: relative; display: inline-block;">
           <a href="#profile?id=${user.id}" style="cursor: pointer;">
-            <img src="${thumb}" alt="${escapeHtml(user.name)}"
+            <img src="${thumb}" alt="${escapeHtml(user.name)}" 
                  style="width: 100px; height: 100px; border: 1px solid #ccc;"
                  onerror="this.src='assets/ui/guest.png'"/>
           </a>
@@ -2950,10 +2951,10 @@ async function doPeopleSearch() {
         addObcOverlayIfPremium(thumbContainer, user.id, { bottom: '3px', left: '1px' });
       }
     }
-
+    
     document.getElementById('peopleResultsHeader').textContent = `Search Results for "${query}"`;
     document.getElementById('peopleSearchResults').style.display = 'block';
-
+    
   } catch (error) {
     console.error('Search error:', error);
     document.getElementById('peopleSearchLoading').style.display = 'none';
@@ -3022,7 +3023,7 @@ function showError(container, message) {
 }
 
 function showErrorPage(errorReason, containerId) {
-
+  
   let container;
   if (containerId) {
     container = document.getElementById(containerId);
@@ -3050,28 +3051,28 @@ function showErrorPage(errorReason, containerId) {
   }
 
   container.innerHTML = '';
-
+  
   const errorDiv = document.createElement('div');
   errorDiv.className = 'error-page';
   errorDiv.style.cssText = 'text-align: center; padding: 40px 20px; font-family: Arial, Helvetica, sans-serif;';
-
+  
   const h1 = document.createElement('h1');
   h1.className = 'error-page-title';
   h1.style.cssText = 'font-size: 24px; font-weight: bold; margin: 0 0 10px 0;';
   h1.textContent = 'Oops - page failure';
-
+  
   const p = document.createElement('p');
   p.className = 'error-page-message';
   p.style.cssText = 'font-size: 18px; font-weight: bold; margin: 0 0 30px 0;';
   p.textContent = 'Error: ' + errorReason;
-
+  
   const img = document.createElement('img');
   img.src = 'images/page_failure.png';
   img.alt = 'Error';
   img.style.cssText = 'margin: 20px 0;';
-
+  
   const br = document.createElement('br');
-
+  
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.style.cssText = 'display: inline-block; background-color: #0066cc; color: #fff; font-weight: bold; font-size: 14px; padding: 8px 20px; text-decoration: none; border: 2px outset #6699cc; cursor: pointer; margin-top: 20px;';
@@ -3081,13 +3082,13 @@ function showErrorPage(errorReason, containerId) {
     e.stopPropagation();
     navigateTo('home');
   });
-
+  
   errorDiv.appendChild(h1);
   errorDiv.appendChild(p);
   errorDiv.appendChild(img);
   errorDiv.appendChild(br);
   errorDiv.appendChild(btn);
-
+  
   container.appendChild(errorDiv);
 }
 
@@ -3103,10 +3104,10 @@ let lastErrorTime = 0;
 const ERROR_DEBOUNCE_MS = 2000;
 
 function showErrorNotification(message) {
-
+  
   const existing = document.getElementById('error-notification');
   if (existing) existing.remove();
-
+  
   const notification = document.createElement('div');
   notification.id = 'error-notification';
   notification.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: #cc0000; color: white; padding: 12px 20px; border-radius: 4px; z-index: 10000; font-family: Arial, sans-serif; font-size: 12px; max-width: 400px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);';
@@ -3117,7 +3118,7 @@ function showErrorNotification(message) {
   closeBtn.style.cssText = 'cursor: pointer; font-weight: bold; margin-left: 10px;';
   closeBtn.onclick = () => notification.remove();
   notification.appendChild(closeBtn);
-
+  
   document.body.appendChild(notification);
 
   setTimeout(() => {
@@ -3127,7 +3128,7 @@ function showErrorNotification(message) {
 window.showErrorNotification = showErrorNotification;
 
 function isCriticalError(error, filename) {
-
+  
   if (filename && /\.(png|gif|jpg|jpeg|svg|ico|css)$/i.test(filename)) {
     return false;
   }
@@ -3144,12 +3145,12 @@ function isCriticalError(error, filename) {
   if (error?.message && criticalPatterns.some(p => error.message.includes(p))) {
     return true;
   }
-
+  
   return false;
 }
 
 function findActiveContentContainer() {
-
+  
   const activePage = document.querySelector('.page.active');
   if (activePage) {
     const contentId = activePage.id.replace('page-', '') + '-content';
@@ -3169,17 +3170,17 @@ window.addEventListener('error', function(event) {
   lastErrorTime = now;
 
   if (!event.error && event.message) {
-    const isSyntaxError = event.message.includes('SyntaxError') ||
+    const isSyntaxError = event.message.includes('SyntaxError') || 
                           event.message.includes('Unexpected token') ||
                           event.message.includes('Unexpected identifier') ||
                           event.message.includes('Unexpected end of input') ||
                           event.message.includes('Invalid or unexpected token');
-
+    
     if (isSyntaxError) {
       const filename = event.filename ? event.filename.split('/').pop() : 'unknown';
       const errorMsg = `Syntax error in ${filename} (line ${event.lineno}): ${event.message}`;
       console.error('Syntax error detected:', errorMsg);
-
+      
       const container = findActiveContentContainer();
       if (container && window.showErrorPage) {
         window.showErrorPage(errorMsg, container.id);
@@ -3189,17 +3190,17 @@ window.addEventListener('error', function(event) {
   }
 
   if (!event.error) return;
-
+  
   const errorMessage = event.error.message || 'Unknown error';
-
+  
   if (isCriticalError(event.error, event.filename)) {
-
+    
     const container = findActiveContentContainer();
     if (container && window.showErrorPage) {
       window.showErrorPage('JavaScript error: ' + errorMessage, container.id);
     }
   } else {
-
+    
     showErrorNotification('Error: ' + errorMessage);
   }
 });
@@ -3210,30 +3211,30 @@ window.addEventListener('unhandledrejection', function(event) {
   const now = Date.now();
   if (now - lastErrorTime < ERROR_DEBOUNCE_MS) return;
   lastErrorTime = now;
-
+  
   const reason = event.reason?.message || String(event.reason);
 
   if (!reason || reason === 'undefined' || reason === '[object Object]') return;
 
-  const isCritical = reason.includes('Failed to fetch') ||
+  const isCritical = reason.includes('Failed to fetch') || 
                      reason.includes('NetworkError') ||
                      reason.includes('net::ERR_') ||
                      reason.includes('ECONNREFUSED');
-
+  
   if (isCritical) {
     const container = findActiveContentContainer();
     if (container && window.showErrorPage) {
       window.showErrorPage('Network error: ' + reason, container.id);
     }
   } else {
-
+    
     showErrorNotification('Error: ' + reason);
   }
 });
 
 window.addEventListener('offline', function() {
   console.warn('Network connection lost');
-
+  
   const notification = document.createElement('div');
   notification.id = 'offline-notification';
   notification.style.cssText = 'position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: #cc0000; color: white; padding: 10px 20px; border-radius: 4px; z-index: 10000; font-family: Arial, sans-serif; font-size: 12px;';
@@ -3256,10 +3257,10 @@ function showGameLaunchOverlay(statusText = 'Starting Roblox...') {
     const overlay = document.getElementById('game-launch-overlay');
     const statusEl = document.getElementById('game-launch-status');
     const cancelBtn = document.getElementById('game-launch-cancel');
-
+    
     if (overlay) {
         if (statusEl) statusEl.textContent = statusText;
-
+        
         overlay.style.display = 'flex';
 
         if (cancelBtn) {
@@ -3280,7 +3281,7 @@ function showGameLaunchOverlay(statusText = 'Starting Roblox...') {
                 } catch (err) {
                     console.error('Error cancelling game launch:', err);
                 }
-
+                
                 hideGameLaunchOverlay();
             };
         }

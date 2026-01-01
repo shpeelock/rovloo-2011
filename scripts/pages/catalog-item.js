@@ -1,3 +1,5 @@
+
+
 const assetTypeMap = {
     1: 'Image',
     2: 'T-Shirt',
@@ -67,7 +69,7 @@ async function loadCatalogItemPage(itemId, itemType = 'Asset') {
     container.innerHTML = '<div class="loading">Loading item...</div>';
 
     try {
-
+        
         const items = [{ itemType: itemType, id: parseInt(itemId) }];
         let details;
 
@@ -87,22 +89,22 @@ async function loadCatalogItemPage(itemId, itemType = 'Asset') {
             try {
                 const economyDetails = await window.roblox.getAssetEconomyDetails(itemId);
                 if (economyDetails) {
-
+                    
                     if (economyDetails.CollectibleItemId) item.collectibleItemId = economyDetails.CollectibleItemId;
                     if (economyDetails.CollectibleProductId) item.collectibleProductId = economyDetails.CollectibleProductId;
                     if (economyDetails.CollectiblesItemDetails) item.collectiblesItemDetails = economyDetails.CollectiblesItemDetails;
                     if (economyDetails.ProductId) item.productId = economyDetails.ProductId;
                     if (economyDetails.IsForSale !== undefined) item.isForSale = economyDetails.IsForSale;
                     if (economyDetails.IsPublicDomain !== undefined) item.isPublicDomain = economyDetails.IsPublicDomain;
-
+                    
                     if (economyDetails.Created) item.created = economyDetails.Created;
                     if (economyDetails.Updated) item.updated = economyDetails.Updated;
-
+                    
                     if (economyDetails.IsLimited !== undefined) item.isLimited = economyDetails.IsLimited;
                     if (economyDetails.IsLimitedUnique !== undefined) item.isLimitedUnique = economyDetails.IsLimitedUnique;
                     if (economyDetails.Remaining !== undefined) item.remaining = economyDetails.Remaining;
                     if (economyDetails.PriceInRobux !== undefined && item.price === undefined) item.price = economyDetails.PriceInRobux;
-
+                    
                     if (economyDetails.LowestSellerPrice !== undefined) item.lowestResalePrice = economyDetails.LowestSellerPrice;
                 }
             } catch (e) {
@@ -115,23 +117,23 @@ async function loadCatalogItemPage(itemId, itemType = 'Asset') {
                 const singleDetails = await window.roblox.getSingleCatalogItemDetails(itemId, 'Bundle');
                 console.log('Single catalog item details response:', singleDetails);
                 if (singleDetails) {
-
+                    
                     if (singleDetails.itemCreatedUtc) item.created = singleDetails.itemCreatedUtc;
                     else if (singleDetails.createdUtc) item.created = singleDetails.createdUtc;
                     else if (singleDetails.created) item.created = singleDetails.created;
 
                     if (singleDetails.bundledItems && singleDetails.bundledItems.length > 0) {
-
+                        
                         const assetIds = singleDetails.bundledItems
                             .filter(bi => bi.type === 'Asset')
                             .map(bi => bi.id);
-
+                        
                         if (assetIds.length > 0 && window.roblox?.getDevelopAssetDetails) {
                             try {
                                 const assetDetails = await window.roblox.getDevelopAssetDetails(assetIds);
                                 console.log('Bundle asset details:', assetDetails);
                                 if (assetDetails?.data && assetDetails.data.length > 0) {
-
+                                    
                                     let mostRecentUpdate = null;
                                     for (const asset of assetDetails.data) {
                                         if (asset.updated) {
@@ -177,7 +179,7 @@ async function loadCatalogItemPage(itemId, itemType = 'Asset') {
 }
 
 async function populateCatalogItemData(item) {
-
+    
     window.currentCatalogItem = item;
 
     const itemId = item.id || item.assetId || item.itemTargetId;
@@ -190,7 +192,7 @@ async function populateCatalogItemData(item) {
     const creatorType = item.creatorType || 'User';
     const isLimited = item.isLimited || item.collectibleItemType === 'Limited';
     const isLimitedUnique = item.isLimitedUnique || item.collectibleItemType === 'LimitedUnique';
-    const isForSale = item.isForSale !== false;
+    const isForSale = item.isForSale !== false; 
     const favoriteCount = item.favoriteCount || 0;
     const remaining = item.unitsAvailableForConsumption;
 
@@ -202,15 +204,15 @@ async function populateCatalogItemData(item) {
             if (currentUser?.id) {
                 const itemType = item.itemType || 'Asset';
                 const ownershipResult = await window.roblox.userOwnsItem(currentUser.id, itemType, itemId);
-
+                
                 userOwnsItem = ownershipResult?.data && ownershipResult.data.length > 0;
 
                 if (itemType === 'Asset' && window.roblox?.getAssetFavoriteStatus) {
                     try {
                         const favoriteResult = await window.roblox.getAssetFavoriteStatus(currentUser.id, itemId);
-                        userFavoritedItem = !!favoriteResult;
+                        userFavoritedItem = !!favoriteResult; 
                     } catch (favErr) {
-
+                        
                         userFavoritedItem = false;
                     }
                 }
@@ -224,7 +226,7 @@ async function populateCatalogItemData(item) {
 
     let assetTypeName = 'Item';
     if (item.assetType) {
-
+        
         if (typeof item.assetType === 'number') {
             assetTypeName = assetTypeMap[item.assetType] || 'Item';
         } else {
@@ -246,7 +248,7 @@ async function populateCatalogItemData(item) {
         try {
             let thumbResult;
             if (item.itemType === 'Bundle') {
-
+                
                 thumbResult = await window.roblox.getBundleThumbnails([itemId], '420x420');
             } else {
                 thumbResult = await window.roblox.getAssetThumbnails([itemId], '420x420');
@@ -263,7 +265,7 @@ async function populateCatalogItemData(item) {
 
     const thumbnailContainer = document.getElementById('Thumbnail');
     if (thumbnailContainer && (isLimited || isLimitedUnique)) {
-
+        
         const existingOverlay = thumbnailContainer.querySelector('.limited-overlay');
         if (existingOverlay) existingOverlay.remove();
 
@@ -280,14 +282,14 @@ async function populateCatalogItemData(item) {
         thumbnailContainer.appendChild(limitedImg);
     }
 
-    const wearableTypes = [2, 8, 11, 12, 17, 18, 19, 41, 42, 43, 44, 45, 46, 47];
+    const wearableTypes = [2, 8, 11, 12, 17, 18, 19, 41, 42, 43, 44, 45, 46, 47]; 
     const assetTypeId = typeof item.assetType === 'number' ? item.assetType : null;
     const isWearable = assetTypeId && wearableTypes.includes(assetTypeId);
-
+    
     const actionsContainer = document.getElementById('Actions');
     if (actionsContainer && isWearable && item.itemType !== 'Bundle') {
         actionsContainer.innerHTML = '';
-
+        
         const tryOnBtn = document.createElement('a');
         tryOnBtn.id = 'try-on-btn';
         tryOnBtn.className = 'Button';
@@ -298,7 +300,7 @@ async function populateCatalogItemData(item) {
             e.preventDefault();
             await tryOnItem(itemId, { id: assetTypeId, name: assetTypeName }, name);
         };
-
+        
         actionsContainer.appendChild(tryOnBtn);
     }
 
@@ -314,11 +316,11 @@ async function populateCatalogItemData(item) {
     let usingResalePrice = false;
     if (isLimited || isLimitedUnique) {
         if (lowestResalePrice > 0) {
-
+            
             displayPrice = lowestResalePrice;
             usingResalePrice = true;
         } else {
-
+            
             displayPrice = null;
         }
     }
@@ -340,7 +342,7 @@ async function populateCatalogItemData(item) {
         if (ownedPanel) ownedPanel.style.display = 'none';
 
     } else if (displayPrice === 0) {
-
+        
         if (robuxPriceEl) robuxPriceEl.textContent = 'Free';
         if (robuxPanel) robuxPanel.style.display = 'block';
         if (offsalePanel) offsalePanel.style.display = 'none';
@@ -400,7 +402,7 @@ async function populateCatalogItemData(item) {
                 if (avatarResult?.data?.[0]?.imageUrl) {
                     creatorAvatarEl.src = avatarResult.data[0].imageUrl;
                 }
-
+                
                 if (creatorAvatarLinkEl && window.addObcOverlayIfPremium) {
                     creatorAvatarLinkEl.style.position = 'relative';
                     creatorAvatarLinkEl.style.display = 'inline-block';
@@ -480,7 +482,7 @@ async function loadItemResellers(item) {
             const resellersData = await window.roblox.getCollectibleResellers(collectibleItemId, 100);
             resellers = resellersData?.data || [];
         }
-
+        
         else if (window.roblox?.getAssetResellers) {
             const resellersData = await window.roblox.getAssetResellers(itemId);
             resellers = resellersData?.data || [];
@@ -492,7 +494,7 @@ async function loadItemResellers(item) {
 
             if (section) section.style.display = 'block';
             if (list) {
-
+                
                 window.currentResellers = resellers;
                 window.currentResellersPage = 1;
                 window.resellersPerPage = 10;
@@ -549,7 +551,7 @@ async function renderResellersPage(resellers, page, itemId) {
             </thead>
             <tbody>
     `;
-
+    
     html += pageResellers.map(r => {
         const sellerId = r.seller?.sellerId || r.seller?.id || 0;
         const sellerName = r.seller?.name || 'Unknown';
@@ -588,7 +590,7 @@ async function renderResellersPage(resellers, page, itemId) {
                 </tr>
         `;
     }).join('');
-
+    
     html += `
             </tbody>
         </table>
@@ -609,7 +611,7 @@ async function renderResellersPage(resellers, page, itemId) {
             </div>
         `;
     }
-
+    
     list.innerHTML = html;
     window.currentResellersPage = page;
 }
@@ -626,10 +628,10 @@ window.goToResellersPage = async function(page) {
     const resellers = window.currentResellers;
     const itemId = window.currentItemId;
     if (!resellers) return;
-
+    
     const totalPages = Math.ceil(resellers.length / (window.resellersPerPage || 10));
     if (page < 1 || page > totalPages) return;
-
+    
     await renderResellersPage(resellers, page, itemId);
 };
 
@@ -638,19 +640,19 @@ async function loadItemRecommendations(item) {
     if (!list) return;
 
     const itemId = item.id || item.assetId || item.itemTargetId;
-    const assetTypeId = item.assetType || item.assetTypeId || item.itemTargetType || 8;
-    const bundleTypeId = item.bundleType || 1;
+    const assetTypeId = item.assetType || item.assetTypeId || item.itemTargetType || 8; 
+    const bundleTypeId = item.bundleType || 1; 
     const isBundle = item.itemType === 'Bundle';
 
     try {
         let recommendations = [];
 
         if (isBundle && window.roblox?.getBundleRecommendations) {
-
+            
             try {
                 const response = await window.roblox.getBundleRecommendations(itemId, bundleTypeId, 7);
                 if (response?.data && response.data.length > 0) {
-
+                    
                     const bundleIds = response.data.filter(id => id !== parseInt(itemId));
                     if (bundleIds.length > 0 && window.roblox?.getCatalogItemDetails) {
                         const items = bundleIds.map(id => ({ itemType: 'Bundle', id: parseInt(id) }));
@@ -664,11 +666,11 @@ async function loadItemRecommendations(item) {
                 console.warn('Bundle recommendations API failed, falling back to search:', e);
             }
         } else if (!isBundle && window.roblox?.getAssetRecommendations) {
-
+            
             try {
                 const response = await window.roblox.getAssetRecommendations(itemId, assetTypeId, 7);
                 if (response?.data && response.data.length > 0) {
-
+                    
                     const assetIds = response.data.filter(id => id !== parseInt(itemId));
                     if (assetIds.length > 0 && window.roblox?.getCatalogItemDetails) {
                         const items = assetIds.map(id => ({ itemType: 'Asset', id: parseInt(id) }));
@@ -697,7 +699,7 @@ async function loadItemRecommendations(item) {
         }
 
         if (recommendations.length > 0) {
-
+                
                 let thumbnails = {};
                 const assetItems = recommendations.filter(r => r.itemType !== 'Bundle');
                 const bundleItems = recommendations.filter(r => r.itemType === 'Bundle');
@@ -738,7 +740,7 @@ async function loadItemRecommendations(item) {
                 const row2 = recommendations.slice(3, 6);
 
                 const buildRow = (items) => items.map(r => {
-
+                    
                     const restrictions = r.itemRestrictions || [];
                     const isLimited = restrictions.includes('Limited');
                     const isLimitedUnique = restrictions.includes('LimitedUnique');
@@ -827,11 +829,11 @@ function escapeItemHtml(text) {
 
 async function toggleItemFavorite(starEl) {
     if (!starEl) return;
-
+    
     const itemId = starEl.dataset.itemId;
     const itemType = starEl.dataset.itemType;
     const isFavorited = starEl.dataset.favorited === 'true';
-
+    
     if (!itemId) return;
 
     let userId = null;
@@ -843,7 +845,7 @@ async function toggleItemFavorite(starEl) {
     } catch (e) {
         console.error('Failed to get current user:', e);
     }
-
+    
     if (!userId) {
         console.warn('Must be logged in to favorite items');
         return;
@@ -862,7 +864,7 @@ async function toggleItemFavorite(starEl) {
         const newCount = newFavorited ? currentCount + 1 : Math.max(0, currentCount - 1);
         favoritesEl.textContent = newCount.toLocaleString() + ' times';
     }
-
+    
     try {
 
         if (window.roblox?.setAssetFavorite) {
@@ -871,7 +873,7 @@ async function toggleItemFavorite(starEl) {
         }
     } catch (error) {
         console.error('Failed to toggle favorite:', error);
-
+        
         starEl.className = isFavorited ? 'favorited' : 'notFavorited';
         starEl.dataset.favorited = isFavorited ? 'true' : 'false';
         starEl.title = isFavorited ? 'Remove from Favorites' : 'Add to Favorites';
@@ -904,7 +906,7 @@ async function tryOnItem(assetId, assetType, assetName) {
     if (!tryOnBtn) return;
 
     if (tryOnBtn.dataset.previewMode === 'true') {
-
+        
         if (thumbEl && thumbEl.dataset.originalSrc) {
             thumbEl.src = thumbEl.dataset.originalSrc;
         }
@@ -912,18 +914,18 @@ async function tryOnItem(assetId, assetType, assetName) {
         tryOnBtn.dataset.previewMode = 'false';
         return;
     }
-
+    
     const originalText = tryOnBtn.textContent;
     tryOnBtn.textContent = 'Trying on...';
     tryOnBtn.style.pointerEvents = 'none';
-
+    
     try {
-
+        
         const currentUser = await window.roblox.getCurrentUser();
         if (!currentUser?.id) {
             throw new Error('Not logged in');
         }
-
+        
         const currentAvatar = await window.roblox.getCurrentAvatarV2();
         if (!currentAvatar) {
             throw new Error('Failed to get current avatar');
@@ -957,7 +959,7 @@ async function tryOnItem(assetId, assetType, assetName) {
             rightLegColor: 'F8F8F8',
             torsoColor: 'F8F8F8'
         };
-
+        
         const scales = currentAvatar.scales || {
             height: 1,
             width: 1,
@@ -966,7 +968,7 @@ async function tryOnItem(assetId, assetType, assetName) {
             proportion: 0,
             bodyType: 0
         };
-
+        
         const playerAvatarType = currentAvatar.playerAvatarType || 'R15';
 
         const result = await window.roblox.renderAvatarWithAssets(
@@ -977,17 +979,17 @@ async function tryOnItem(assetId, assetType, assetName) {
             playerAvatarType,
             '420x420'
         );
-
+        
         if (result?.state === 'Completed' && result?.imageUrl) {
-
+            
             if (thumbEl) {
-
+                
                 if (!thumbEl.dataset.originalSrc) {
                     thumbEl.dataset.originalSrc = thumbEl.src;
                 }
                 thumbEl.src = result.imageUrl;
             }
-
+            
             tryOnBtn.textContent = 'Take Off';
             tryOnBtn.dataset.previewMode = 'true';
             tryOnBtn.style.pointerEvents = 'auto';
@@ -999,7 +1001,7 @@ async function tryOnItem(assetId, assetType, assetName) {
                 tryOnBtn.style.pointerEvents = 'auto';
             }, 2000);
         }
-
+        
     } catch (error) {
         console.error('Try on error:', error);
         tryOnBtn.textContent = 'Error';
@@ -1033,14 +1035,14 @@ async function showPurchaseConfirmation() {
 
     let displayPrice = item.price ?? item.priceInRobux ?? 0;
     let purchaseFromReseller = false;
-
+    
     if ((isLimited || isLimitedUnique) && window.currentResellers && window.currentResellers.length > 0) {
-
-        const lowestReseller = window.currentResellers[0];
+        
+        const lowestReseller = window.currentResellers[0]; 
         if (lowestReseller) {
             displayPrice = lowestReseller.price || item.lowestResalePrice || displayPrice;
             purchaseFromReseller = true;
-
+            
             item._resellerData = lowestReseller;
         }
     } else if ((isLimited || isLimitedUnique) && item.lowestResalePrice) {
@@ -1085,7 +1087,7 @@ async function showPurchaseConfirmation() {
     const cancelBtn = document.getElementById('purchase-cancel-btn');
     const captchaContainer = document.getElementById('purchase-captcha-container');
     const captchaIframe = document.getElementById('purchase-captcha-iframe');
-
+    
     if (errorEl) {
         errorEl.style.display = 'none';
         errorEl.innerHTML = '';
@@ -1153,27 +1155,27 @@ async function confirmPurchase() {
 
     let price, sellerId, sellerType, collectibleProductId, collectibleItemInstanceId;
     const collectibleItemId = item.collectibleItemId || window.collectibleItemId;
-
+    
     if ((isLimited || isLimitedUnique) && item._resellerData) {
-
+        
         const reseller = item._resellerData;
         console.log('Purchasing from reseller:', reseller);
         price = reseller.price;
         sellerId = reseller.seller?.sellerId || reseller.seller?.id;
-        sellerType = 'User';
+        sellerType = 'User'; 
         collectibleProductId = reseller.collectibleProductId;
-        collectibleItemInstanceId = reseller.collectibleItemInstanceId;
+        collectibleItemInstanceId = reseller.collectibleItemInstanceId; 
         console.log('Reseller purchase params:', { price, sellerId, sellerType, collectibleProductId, collectibleItemId, collectibleItemInstanceId });
     } else {
-
+        
         price = item.price ?? item.priceInRobux ?? 0;
         sellerId = item.creatorTargetId || item.creatorId || 1;
         sellerType = item.creatorType === 'Group' ? 'Group' : 'User';
         collectibleProductId = item.collectibleProductId;
-        collectibleItemInstanceId = null;
+        collectibleItemInstanceId = null; 
         console.log('Normal purchase params:', { price, sellerId, sellerType, collectibleProductId, collectibleItemId });
     }
-
+    
     const productId = item.productId;
 
     const errorEl = document.getElementById('purchase-modal-error');
@@ -1202,7 +1204,7 @@ async function confirmPurchase() {
         }
 
         if (collectibleItemId && collectibleProductId) {
-
+            
             if (!window.roblox?.purchaseCollectible) {
                 throw new Error('Collectible purchase API not available');
             }
@@ -1213,13 +1215,13 @@ async function confirmPurchase() {
                 expectedSellerId: sellerId,
                 expectedSellerType: sellerType,
                 collectibleProductId: collectibleProductId,
-                collectibleItemInstanceId: collectibleItemInstanceId
+                collectibleItemInstanceId: collectibleItemInstanceId 
             });
 
             if (result?.requiresChallenge) {
                 console.log('Purchase requires CAPTCHA verification:', result);
                 await showCaptchaChallenge(result, collectibleItemId);
-                return;
+                return; 
             }
         } else if (productId) {
 
@@ -1262,34 +1264,34 @@ async function showCaptchaChallenge(challengeResult, collectibleItemId) {
     };
 
     if (challengeResult.challengeType === 'forcetwostepverification') {
-
+        
         await showTwoStepChallenge(challengeResult);
         return;
     }
-
+    
     if (challengeResult.challengeType === 'twostepverification') {
-
+        
         await showTwoStepVerification(challengeResult);
         return;
     }
 
     try {
-
+        
         const blob = challengeResult.challengeMetadata?.dataExchangeBlob;
-
+        
         if (!window.roblox?.getCaptchaToken) {
             throw new Error('CAPTCHA API not available');
         }
-
+        
         const captchaResult = await window.roblox.getCaptchaToken({
             blob: blob,
             actionType: 'Generic'
         });
-
+        
         if (!captchaResult?.success || !captchaResult?.embedUrl) {
             throw new Error(captchaResult?.error || 'Failed to get CAPTCHA');
         }
-
+        
         console.log('Loading CAPTCHA embed URL:', captchaResult.embedUrl);
 
         pendingChallengeData.captchaToken = captchaResult.token;
@@ -1302,7 +1304,7 @@ async function showCaptchaChallenge(challengeResult, collectibleItemId) {
         confirmBtn.onclick = () => retryCaptchaPurchase();
 
         window.addEventListener('message', handleCaptchaMessage);
-
+        
     } catch (error) {
         console.error('Failed to show CAPTCHA:', error);
         errorEl.textContent = 'Failed to load verification. Please try again or complete purchase on Roblox website.';
@@ -1317,13 +1319,13 @@ async function showTwoStepChallenge(challengeResult) {
     const captchaContainer = document.getElementById('purchase-captcha-container');
     const confirmBtn = document.getElementById('purchase-confirm-btn');
     const buttonsEl = document.getElementById('purchase-modal-buttons');
-
+    
     const metadata = challengeResult.challengeMetadata;
     console.log('2FA Challenge - Full result:', challengeResult);
     console.log('2FA Challenge metadata:', metadata);
 
     const purchaseChallengeId = challengeResult.challengeId;
-
+    
     console.log('Purchase Challenge ID:', purchaseChallengeId);
 
     let userId = null;
@@ -1345,7 +1347,7 @@ async function showTwoStepChallenge(challengeResult) {
                 <strong>If you don't have 2FA:</strong><br>
                 You need to enable it in your Roblox account settings first.
             </div>
-            <input type="text" id="twostep-code-input" placeholder="Enter 6-digit code"
+            <input type="text" id="twostep-code-input" placeholder="Enter 6-digit code" 
                    style="padding:8px; font-size:16px; width:150px; text-align:center; letter-spacing:3px;"
                    maxlength="6" autocomplete="off">
             <div style="margin-top:15px;">
@@ -1384,15 +1386,15 @@ async function showTwoStepChallenge(challengeResult) {
 async function showTwoStepVerification(challengeResult) {
     const captchaContainer = document.getElementById('purchase-captcha-container');
     const confirmBtn = document.getElementById('purchase-confirm-btn');
-
+    
     const metadata = challengeResult.challengeMetadata;
     console.log('2FA Verification - Full result:', challengeResult);
     console.log('2FA Verification metadata:', metadata);
 
-    const headerChallengeId = challengeResult.challengeId;
-    const metadataChallengeId = metadata?.challengeId;
+    const headerChallengeId = challengeResult.challengeId; 
+    const metadataChallengeId = metadata?.challengeId; 
     const userId = metadata?.userId;
-
+    
     console.log('Header Challenge ID:', headerChallengeId);
     console.log('Metadata Challenge ID:', metadataChallengeId);
     console.log('User ID:', userId);
@@ -1401,14 +1403,14 @@ async function showTwoStepVerification(challengeResult) {
     pendingChallengeData.twostepChallengeId = metadataChallengeId;
     pendingChallengeData.userId = userId;
     pendingChallengeData.verificationMethod = 'authenticator';
-
+    
     captchaContainer.innerHTML = `
         <div style="text-align:center; padding:10px;">
             <div style="font-size:14px; font-weight:bold; margin-bottom:10px;">Two-Step Verification</div>
             <div style="font-size:12px; color:#666; margin-bottom:15px;">
                 Enter the 6-digit code from your authenticator app to complete this purchase.
             </div>
-            <input type="text" id="twostep-code-input" placeholder="Enter 6-digit code"
+            <input type="text" id="twostep-code-input" placeholder="Enter 6-digit code" 
                    style="padding:8px; font-size:16px; width:150px; text-align:center; letter-spacing:3px;"
                    maxlength="6" autocomplete="off">
             <div id="twostep-error" style="color:#cc0000; font-size:12px; margin-top:10px; display:none;"></div>
@@ -1428,13 +1430,13 @@ async function showTwoStepVerification(challengeResult) {
 
 async function submitTwoStepVerificationCode() {
     if (!pendingChallengeData) return;
-
+    
     const codeInput = document.getElementById('twostep-code-input');
     const twostepError = document.getElementById('twostep-error');
     const confirmBtn = document.getElementById('purchase-confirm-btn');
-
+    
     const code = codeInput?.value?.trim();
-
+    
     if (!code || code.length !== 6) {
         if (twostepError) {
             twostepError.textContent = 'Please enter a 6-digit code';
@@ -1442,24 +1444,24 @@ async function submitTwoStepVerificationCode() {
         }
         return;
     }
-
+    
     confirmBtn.disabled = true;
     confirmBtn.textContent = 'Verifying...';
     if (twostepError) twostepError.style.display = 'none';
-
+    
     try {
         const { purchaseChallengeId, twostepChallengeId, userId, originalParams, collectibleItemId } = pendingChallengeData;
 
         const challengeIdToUse = twostepChallengeId || purchaseChallengeId;
-
+        
         console.log('Verifying 2FA with challengeId:', challengeIdToUse, 'userId:', userId);
 
         const verifyResult = await window.roblox.verifyTwoStepForChallenge(userId, challengeIdToUse, code, 'authenticator');
-
+        
         if (!verifyResult?.success) {
             throw new Error(verifyResult?.error || 'Verification failed');
         }
-
+        
         console.log('2FA verified, got verificationToken:', verifyResult.verificationToken?.substring(0, 20) + '...');
 
         console.log('Continuing purchase challenge...');
@@ -1468,13 +1470,13 @@ async function submitTwoStepVerificationCode() {
             'twostepverification',
             verifyResult.verificationToken,
             verifyResult.rememberTicket,
-            twostepChallengeId
+            twostepChallengeId 
         );
-
+        
         if (!continueResult?.success) {
             console.warn('Continue challenge response:', continueResult);
         }
-
+        
         console.log('Retrying purchase...');
 
         const result = await window.roblox.purchaseCollectible(collectibleItemId, {
@@ -1484,7 +1486,7 @@ async function submitTwoStepVerificationCode() {
             verificationToken: verifyResult.verificationToken,
             rememberTicket: verifyResult.rememberTicket
         });
-
+        
         if (result?.requiresChallenge) {
             if (twostepError) {
                 twostepError.textContent = 'Verification failed. Please try again.';
@@ -1497,7 +1499,7 @@ async function submitTwoStepVerificationCode() {
         } else {
             throw new Error(result?.errorMessage || 'Purchase failed after verification');
         }
-
+        
     } catch (error) {
         console.error('2FA verification failed:', error);
         if (twostepError) {
@@ -1511,13 +1513,13 @@ async function submitTwoStepVerificationCode() {
 
 async function submitTwoStepCode() {
     if (!pendingChallengeData) return;
-
+    
     const codeInput = document.getElementById('twostep-code-input');
     const twostepError = document.getElementById('twostep-error');
     const confirmBtn = document.getElementById('purchase-confirm-btn');
-
+    
     const code = codeInput?.value?.trim();
-
+    
     if (!code || code.length !== 6) {
         if (twostepError) {
             twostepError.textContent = 'Please enter a 6-digit code';
@@ -1525,14 +1527,14 @@ async function submitTwoStepCode() {
         }
         return;
     }
-
+    
     confirmBtn.disabled = true;
     confirmBtn.textContent = 'Verifying...';
     if (twostepError) twostepError.style.display = 'none';
-
+    
     try {
         const { purchaseChallengeId, userId, verificationMethod, originalParams, collectibleItemId } = pendingChallengeData;
-
+        
         if (!userId) {
             throw new Error('Could not get user ID for verification');
         }
@@ -1540,11 +1542,11 @@ async function submitTwoStepCode() {
         const method = verificationMethod || 'authenticator';
         console.log('Verifying 2FA code with challengeId:', purchaseChallengeId, 'method:', method);
         const verifyResult = await window.roblox.verifyTwoStepForChallenge(userId, purchaseChallengeId, code, method);
-
+        
         if (!verifyResult?.success) {
             throw new Error(verifyResult?.error || 'Verification failed');
         }
-
+        
         console.log('2FA verified, got verificationToken:', verifyResult.verificationToken?.substring(0, 20) + '...');
 
         console.log('Continuing purchase challenge...');
@@ -1554,11 +1556,11 @@ async function submitTwoStepCode() {
             verifyResult.verificationToken,
             verifyResult.rememberTicket
         );
-
+        
         if (!continueResult?.success) {
             console.warn('Continue challenge failed, but trying purchase anyway:', continueResult?.error);
         }
-
+        
         console.log('Retrying purchase...');
 
         const result = await window.roblox.purchaseCollectible(collectibleItemId, {
@@ -1568,7 +1570,7 @@ async function submitTwoStepCode() {
             verificationToken: verifyResult.verificationToken,
             rememberTicket: verifyResult.rememberTicket
         });
-
+        
         if (result?.requiresChallenge) {
             if (twostepError) {
                 twostepError.textContent = 'Verification failed. Please try again.';
@@ -1581,7 +1583,7 @@ async function submitTwoStepCode() {
         } else {
             throw new Error(result?.errorMessage || 'Purchase failed after verification');
         }
-
+        
     } catch (error) {
         console.error('2FA verification failed:', error);
         if (twostepError) {
@@ -1594,14 +1596,14 @@ async function submitTwoStepCode() {
 }
 
 function handleCaptchaMessage(event) {
-
+    
     if (event.origin.includes('arkoselabs.com') || event.origin.includes('funcaptcha.com')) {
         console.log('CAPTCHA message received:', event.data);
 
-        if (event.data && (event.data.eventId === 'challenge-complete' ||
+        if (event.data && (event.data.eventId === 'challenge-complete' || 
                           event.data.eventId === 'challenge-suppressed' ||
                           (typeof event.data === 'string' && event.data.includes('token')))) {
-
+            
             window.removeEventListener('message', handleCaptchaMessage);
             retryCaptchaPurchase();
         }
@@ -1613,15 +1615,15 @@ async function retryCaptchaPurchase() {
         console.error('No pending challenge data');
         return;
     }
-
+    
     const errorEl = document.getElementById('purchase-modal-error');
     const confirmBtn = document.getElementById('purchase-confirm-btn');
     const captchaContainer = document.getElementById('purchase-captcha-container');
-
+    
     confirmBtn.disabled = true;
     confirmBtn.textContent = 'Processing...';
     errorEl.style.display = 'none';
-
+    
     try {
         const { challengeId, challengeMetadata, originalParams, collectibleItemId, captchaToken } = pendingChallengeData;
 
@@ -1633,21 +1635,21 @@ async function retryCaptchaPurchase() {
             captchaToken: captchaToken,
             captchaId: captchaId
         });
-
+        
         if (result?.requiresChallenge) {
-
+            
             errorEl.textContent = 'Verification failed. Please try again.';
             errorEl.style.display = 'block';
             confirmBtn.disabled = false;
             confirmBtn.textContent = 'Try Again';
         } else if (result?.purchased || result?.success) {
-
+            
             captchaContainer.style.display = 'none';
             handlePurchaseSuccess();
         } else {
             throw new Error(result?.errorMessage || result?.purchaseResult || 'Purchase failed');
         }
-
+        
     } catch (error) {
         console.error('Retry purchase failed:', error);
         errorEl.textContent = error.message || 'Purchase failed after verification. Please try again.';
@@ -1663,7 +1665,7 @@ function handlePurchaseSuccess() {
     const successEl = document.getElementById('purchase-modal-success');
     const buttonsEl = document.getElementById('purchase-modal-buttons');
     const captchaContainer = document.getElementById('purchase-captcha-container');
-
+    
     captchaContainer.style.display = 'none';
     successEl.textContent = 'Purchase successful! The item has been added to your inventory.';
     successEl.style.display = 'block';
@@ -1694,7 +1696,7 @@ function handlePurchaseError(error, item) {
         errorEl.style.display = 'block';
         confirmBtn.style.display = 'none';
         cancelBtn.textContent = 'Close';
-
+        
         document.getElementById('open-roblox-link').onclick = (e) => {
             e.preventDefault();
             if (window.roblox?.openExternal) {
@@ -1705,7 +1707,7 @@ function handlePurchaseError(error, item) {
             closePurchaseModal();
         };
     } else if (error.message && error.message.includes('InsufficientBalance')) {
-
+        
         const price = item._resellerData?.price || item.price || item.priceInRobux || 0;
         errorEl.innerHTML = `
             <div style="text-align:center;">
@@ -1717,7 +1719,7 @@ function handlePurchaseError(error, item) {
         errorEl.style.display = 'block';
         confirmBtn.style.display = 'none';
         cancelBtn.textContent = 'Close';
-
+        
         document.getElementById('buy-robux-link').onclick = (e) => {
             e.preventDefault();
             if (window.roblox?.openExternal) {
@@ -1728,7 +1730,7 @@ function handlePurchaseError(error, item) {
         };
         return;
     } else if (error.message && error.message.includes('QuantityLimitExceeded')) {
-
+        
         successEl.textContent = 'You already own this item!';
         successEl.style.display = 'block';
         buttonsEl.style.display = 'none';
@@ -1739,9 +1741,9 @@ function handlePurchaseError(error, item) {
         if (ownedPanel) ownedPanel.style.display = 'block';
 
         setTimeout(() => closePurchaseModal(), 2000);
-        return;
+        return; 
     } else if (error.message && error.message.includes('PriceChanged')) {
-
+        
         errorEl.innerHTML = `
             <div style="text-align:center;">
                 <div style="font-weight:bold; color:#c00; margin-bottom:8px;">Price has changed!</div>
@@ -1752,7 +1754,7 @@ function handlePurchaseError(error, item) {
         confirmBtn.style.display = 'none';
         cancelBtn.textContent = 'Close';
     } else if (error.message && error.message.includes('ItemNotForSale')) {
-
+        
         errorEl.innerHTML = `
             <div style="text-align:center;">
                 <div style="font-weight:bold; color:#c00; margin-bottom:8px;">Item no longer available</div>
@@ -1766,7 +1768,7 @@ function handlePurchaseError(error, item) {
         errorEl.textContent = error.message || 'Purchase failed. Please try again.';
         errorEl.style.display = 'block';
     }
-
+    
     confirmBtn.disabled = false;
     confirmBtn.textContent = 'Buy Now';
     confirmBtn.onclick = () => confirmPurchase();
@@ -1800,16 +1802,16 @@ async function purchaseFromReseller(collectibleItemId, collectibleProductId, col
             expectedSellerId: sellerId,
             expectedSellerType: 'User',
             collectibleProductId: collectibleProductId,
-            collectibleItemInstanceId: collectibleItemInstanceId || null
+            collectibleItemInstanceId: collectibleItemInstanceId || null 
         });
 
         if (result?.purchased) {
             alert('Purchase successful! The item has been added to your inventory.');
-
+            
             if (window.refreshHeaderRobux) {
                 window.refreshHeaderRobux();
             }
-
+            
             const itemId = currentPurchaseItem?.id || currentPurchaseItem?.assetId;
             if (itemId) {
                 window.loadCatalogItemPage(itemId, 'Asset');

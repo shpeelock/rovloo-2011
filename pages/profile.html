@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../styles/overrides.css"/>
 </head>
 <body>
-
+    <!-- Custom Electron Titlebar -->
     <div id="titlebar">
         <div class="titlebar-drag">
             <span class="titlebar-title">ROBLOX</span>
@@ -58,52 +58,60 @@
             </div>
 
             <div id="Body">
-
+                <!-- Loading State -->
                 <div id="ProfileLoading" style="text-align: center; padding: 60px;">
                     <img src="../images/spinners/spinner100x100.gif" alt="Loading..." style="width:32px;height:32px;"/>
                     <p>Loading profile...</p>
                 </div>
 
+                <!-- Error State -->
                 <div id="ProfileError" style="display: none; text-align: center; padding: 60px; color: #990000;">
                     <p>Failed to load user profile.</p>
                 </div>
 
+                <!-- Profile Content (Authentic 2011 Layout) -->
                 <div class="MyRobloxContainer" id="ProfileContent" style="display: none;">
                     <div style="clear: both; margin: 0; padding: 0;"></div>
 
+                    <!-- Left Column - Profile Info -->
                     <div class="Column1d">
                         <div class="StandardBoxHeader">
                             <span id="ProfileHeader">User's Profile</span>
                         </div>
                         <div class="StandardBox" style="position: relative">
                             <div style="width: 100%">
-
+                                <!-- Online Status -->
                                 <div id="onlineStatusRow">
                                     <div style="text-align: center;">
                                         <span id="UserOnlineStatus" class="UserOfflineMessage">[ Offline ]</span>
                                     </div>
                                 </div>
 
+                                <!-- Profile URL -->
                                 <div style="margin-bottom: 10px;">
                                     <span style="font-size: 13px;">
                                         <a id="UserProfileURL" href="#">http://www.roblox.com/User.aspx?ID=0</a>
                                     </span>
                                 </div>
 
+                                <!-- Avatar Image -->
                                 <a id="AvatarImageLink" title="User" style="display:inline-block;height:200px;width:150px;position:relative;">
                                     <img id="AvatarImage" src="../images/guest.png" border="0" alt="User Avatar" style="height:200px;width:150px;"/>
                                 </a>
                                 <br/>
 
+                                <!-- BC Badge -->
                                 <div id="BCBadge" style="display: none; margin: 5px 0;">
                                     <img id="BCBadgeImage" src="../images/Badges/BC-75x75.png" alt="Builders Club" style="height:30px;"/>
                                 </div>
 
+                                <!-- User Blurb -->
                                 <br/>
                                 <div class="UserBlurb" style="overflow-y: auto; max-height: 450px;">
                                     <span id="UserBlurb">No description available.</span>
                                 </div>
 
+                                <!-- Action Links -->
                                 <span style="font-weight:bold; font-size:13px;">
                                     <a id="SendMessageLink" style="display:none;" href="#">Send Message</a>&nbsp;&nbsp;
                                     <a id="AddFriendLink" style="display:none;" href="#">Add Friend</a>&nbsp;&nbsp;
@@ -111,14 +119,16 @@
                             </div>
                         </div>
 
+                        <!-- Roblox Badges Section -->
                         <div class="StandardTabWhite"><span>Roblox Badges</span></div>
                         <div class="StandardBoxWhite">
                             <div id="RobloxBadges" style="text-align: center; padding: 10px;">
-
+                                <!-- Badges will be rendered here -->
                                 <span id="NoBadges" style="color: #666;">No badges to display.</span>
                             </div>
                         </div>
 
+                        <!-- Statistics Section -->
                         <div class="StandardTabWhite"><span>Statistics</span></div>
                         <div class="StandardBoxWhite">
                             <table class="statsTable" style="width: 100%;">
@@ -157,42 +167,45 @@
                             </table>
                         </div>
 
+                        <!-- Friends Section -->
                         <div class="StandardTabWhite"><span>Friends</span></div>
                         <div class="StandardBoxWhite" id="FriendsSection">
                             <div id="FriendsList" style="padding: 10px;">
-
+                                <!-- Friends will be rendered here -->
                                 <span id="NoFriends" style="color: #666;">No friends to display.</span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Right Column - Places -->
                     <div class="Column2d" style="overflow: hidden">
                         <div class="StandardBoxHeader">
                             <span>Active Places</span>
                         </div>
                         <div id="UserPlacesPane" class="StandardBox">
                             <div id="UserPlaces" style="overflow:visible; padding: 10px;">
-
+                                <!-- Places will be rendered here -->
                                 <div id="NoPlaces" style="color: #666; text-align: center; padding: 20px;">
                                     This user has no active places.
                                 </div>
                                 <div id="PlacesList">
-
+                                    <!-- Place items will be rendered here -->
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Favorite Games Section -->
                         <div class="StandardBoxHeader" style="margin-top: 15px;">
                             <span>Favorite Games</span>
                         </div>
                         <div class="StandardBox" id="FavoriteGamesPane">
                             <div id="FavoriteGames" style="padding: 10px;">
-
+                                <!-- Favorite games will be rendered here -->
                                 <div id="NoFavorites" style="color: #666; text-align: center; padding: 20px;">
                                     This user has no favorite games.
                                 </div>
                                 <div id="FavoritesList">
-
+                                    <!-- Favorite items will be rendered here -->
                                 </div>
                                 <div id="FavoritesPagination" style="text-align: left; padding: 10px; display: none;">
                                     <a id="FavoritesPrevPage" href="#" style="margin-right: 20px; display: none;">
@@ -213,9 +226,9 @@
 
             <div id="Footer">
                 <div class="FooterLinks">
-                    <a href="#help">Help</a> |
-                    <a href="#parents">Parents</a> |
-                    <a href="#terms">Terms</a> |
+                    <a href="#help">Help</a> | 
+                    <a href="#parents">Parents</a> | 
+                    <a href="#terms">Terms</a> | 
                     <a href="#privacy">Privacy</a>
                 </div>
                 <div class="Copyright">

@@ -1,7 +1,8 @@
+<!-- Character/Avatar Page - Authentic 2011 Style -->
 <div id="CharacterContainer">
-
+    <!-- Top Row: My Character + My Wardrobe -->
     <div class="CharacterRow">
-
+        <!-- Left Column: My Character -->
         <div class="CharacterColumn CharacterLeft">
             <div class="StandardBoxHeader"><span>My Character</span></div>
             <div class="CharacterBox">
@@ -21,10 +22,11 @@
             </div>
         </div>
 
+        <!-- Right Column: My Wardrobe -->
         <div class="CharacterColumn CharacterRight">
             <div class="StandardBoxHeader"><span>My Wardrobe</span></div>
             <div class="CharacterBox WardrobeBox">
-
+                <!-- Category Tabs -->
                 <div id="WardrobeTabs">
                     <div class="TabRow">
                         <a href="#" class="WardrobeTab" data-category="8">Hats</a> |
@@ -60,10 +62,12 @@
                     </div>
                 </div>
 
+                <!-- Wardrobe Items Grid -->
                 <div id="WardrobeItems">
                     <div class="loading">Loading wardrobe...</div>
                 </div>
 
+                <!-- Wardrobe Pagination -->
                 <div id="WardrobePagination" class="ItemPagination" style="display: none;">
                     <a href="#" id="WardrobeFirst">First</a>
                     <a href="#" id="WardrobePrev">Previous</a>
@@ -75,14 +79,15 @@
         </div>
     </div>
 
+    <!-- Bottom Row: Choose Colors + Currently Wearing -->
     <div class="CharacterRow">
-
+        <!-- Left Column: Choose Colors -->
         <div class="CharacterColumn CharacterLeft">
             <div class="StandardBoxHeader"><span>Choose Colors</span></div>
             <div class="CharacterBox ColorsBox">
                 <div class="ColorsInstruction">Click a body part to change its color:</div>
                 <div id="BodyPartSelector">
-
+                    <!-- Humanoid body part selector - authentic 2011 style -->
                     <div class="BodyPart BP-Head" data-part="head" id="BP_Head" title="Head"></div>
                     <div class="BodyPart BP-LeftArm" data-part="leftArm" id="BP_LeftArm" title="Left Arm"></div>
                     <div class="BodyPart BP-Torso" data-part="torso" id="BP_Torso" title="Torso"></div>
@@ -90,7 +95,7 @@
                     <div class="BodyPart BP-LeftLeg" data-part="leftLeg" id="BP_LeftLeg" title="Left Leg"></div>
                     <div class="BodyPart BP-RightLeg" data-part="rightLeg" id="BP_RightLeg" title="Right Leg"></div>
                 </div>
-
+                <!-- Color Palette (shown when body part is clicked) -->
                 <div id="ColorPalette" style="display: none;">
                     <div class="PaletteHeader">Select a color: <span id="ColorPickerContainer"></span></div>
                     <div id="ColorGrid"></div>
@@ -98,6 +103,7 @@
             </div>
         </div>
 
+        <!-- Right Column: Currently Wearing -->
         <div class="CharacterColumn CharacterRight">
             <div class="StandardBoxHeader"><span>Currently Wearing</span></div>
             <div class="CharacterBox WearingBox">

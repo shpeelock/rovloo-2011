@@ -1,9 +1,10 @@
+
 (function() {
     'use strict';
 
     const PAGE_ID = 'reviews';
 
-    let currentTab = 'reviews';
+    let currentTab = 'reviews'; 
     let searchQuery = '';
     let filterOption = 'all';
     let sortOption = 'quality';
@@ -61,7 +62,7 @@
         `;
 
         try {
-
+            
             const response = await fetch('pages/reviews.html');
             if (!response.ok) throw new Error('Failed to load reviews template');
             const html = await response.text();
@@ -104,7 +105,7 @@
             reviewsContent.style.display = 'block';
             myReviewsContent.style.display = 'none';
             adminPicksContent.style.display = 'none';
-
+            
             initializeReviewComponent();
         });
 
@@ -120,7 +121,7 @@
             myReviewsContent.style.display = 'block';
             reviewsContent.style.display = 'none';
             adminPicksContent.style.display = 'none';
-
+            
             initializeReviewComponent();
         });
 
@@ -132,7 +133,7 @@
             adminPicksContent.style.display = 'block';
             reviewsContent.style.display = 'none';
             myReviewsContent.style.display = 'none';
-
+            
             initializeReviewComponent();
         });
     }
@@ -167,24 +168,24 @@
     }
 
     const CLIENT_SIDE_SORT_OPTIONS = [
-        'quality',
-        'underrated',
-        'trending',
-        'hidden_gems',
-        'highest-voted',
-        'lowest-voted',
-        'most-replies',
-        'least-replies',
-        'most-playtime',
-        'least-playtime',
-        'highest-rated-user',
-        'lowest-rated-user',
-        'oldest',
-        'highest_rated',
-        'lowest_rated',
-        'game',
-        'most_visits',
-        'least_visits'
+        'quality',        
+        'underrated',     
+        'trending',       
+        'hidden_gems',    
+        'highest-voted',  
+        'lowest-voted',   
+        'most-replies',   
+        'least-replies',  
+        'most-playtime',  
+        'least-playtime', 
+        'highest-rated-user', 
+        'lowest-rated-user',  
+        'oldest',         
+        'highest_rated',  
+        'lowest_rated',   
+        'game',           
+        'most_visits',    
+        'least_visits'    
     ];
 
     function requiresClientSideSort(sort) {
@@ -192,7 +193,7 @@
     }
 
     async function initializeReviewComponent() {
-
+        
         if (window.ReviewComponent) {
             window.ReviewComponent.destroy();
         }
@@ -224,10 +225,10 @@
 
     async function updateReviewsTabCount() {
         try {
-
+            
             const allReviews = await window.roblox.reviews.getAllReviews({ limit: 1 });
             const totalCount = allReviews.totalReviews || 0;
-
+            
             const countEl = document.getElementById('totalReviewsCount');
             if (countEl) {
                 countEl.textContent = totalCount.toLocaleString();

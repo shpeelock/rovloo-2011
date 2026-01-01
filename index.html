@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Rōvloo</title>
-
+    <!-- Authentic 2011 CSS -->
     <link rel="stylesheet" type="text/css" href="CSS/Base/CSS/AllCSS.ashx-v-20110725qrwef-t-RBX2.css"/>
-
+    <!-- Custom titlebar styles -->
     <link rel="stylesheet" type="text/css" href="styles/titlebar.css"/>
-
+    <!-- Page-specific styles -->
     <link rel="stylesheet" type="text/css" href="styles/pages/games.css"/>
     <link rel="stylesheet" type="text/css" href="styles/pages/inbox.css"/>
     <link rel="stylesheet" type="text/css" href="styles/pages/groups.css"/>
     <link rel="stylesheet" type="text/css" href="styles/pages/catalog.css"/>
     <link rel="stylesheet" type="text/css" href="styles/pages/catalog-item.css"/>
     <link rel="stylesheet" type="text/css" href="styles/pages/game-detail.css"/>
-
+    <!-- Component styles -->
     <link rel="stylesheet" type="text/css" href="styles/components/reviews.css"/>
     <link rel="stylesheet" type="text/css" href="styles/components/blacklist-menu.css"/>
-
+    <!-- Page styles -->
     <link rel="stylesheet" type="text/css" href="styles/pages/reviews.css"/>
-
+    <!-- Our overrides -->
     <link rel="stylesheet" type="text/css" href="styles/overrides.css"/>
-
+    <!-- OBC Theme (for premium user profiles) -->
     <link rel="stylesheet" type="text/css" href="styles/obc-theme.css"/>
     <link rel="stylesheet" type="text/css" href="styles/rovloo-theme.css"/>
     <link rel="stylesheet" type="text/css" href="styles/halloween-theme.css"/>
@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="styles/christmas-theme.css"/>
 </head>
 <body>
-
+    <!-- Custom Electron Titlebar -->
     <div id="titlebar">
         <div class="titlebar-drag">
             <img src="../../graphics/icon48.png" alt="" class="titlebar-icon">
@@ -57,7 +57,7 @@
                         </div>
                         <a id="Logo" href="#" style="cursor: pointer; border: none;"></a>
                         <div id="header-stats-box" style="position: absolute; right: 0px; top: 17px; display: none;">
-
+                            <!-- Stats box shown when logged in -->
                             <div style="background: url('assets/ui/head_bkg_t1.png') no-repeat; background-size: 100% 100%; padding: 5px 10px; border-radius: 3px;">
                                 <table id="header-stats" style="font-size: 12px; border-spacing: 12px 2px;">
                                     <tr>
@@ -163,6 +163,7 @@
                 </div>
             </div>
 
+            <!-- Secondary Navigation (SubNav) - Shows when logged in, hidden on landing page -->
             <div id="SubNav" style="display: none;">
                 <ul>
                     <li><a href="#" data-page="myroblox">Home</a></li>
@@ -182,6 +183,7 @@
                 </ul>
             </div>
 
+            <!-- System Announcement Bar -->
             <div id="Announcement">
                 <div class="SystemAlert">
                     <div class="SystemAlertText" style="background-color: orange;">
@@ -191,16 +193,17 @@
                 </div>
             </div>
 
+            <!-- Body Content -->
             <div id="Body">
-
+                <!-- Page containers for SPA navigation -->
                 <div id="page-home" class="page active">
-
+                    <!-- Left Column Container - Both sections together -->
                     <div class="Column1c" style="float: left; margin: 13px 0px 0px;">
-
+                        <!-- Login Box + Video Section -->
                         <div class="ShadowedStandardBox">
                             <div class="Content" style="min-height: 252px; padding: 8px;">
                                 <div style="display: flex; flex-direction: row; gap: 5px;">
-
+                                    <!-- Login Box -->
                                     <div style="width: 164px; flex-shrink: 0;">
                                         <div id="LoginViewContainer">
                                             <div class="DarkGradientBox" style="height: 246px; text-align: center;">
@@ -222,26 +225,26 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <!-- Video/Content Area -->
                                     <div style="width: 372px; flex-shrink: 0;">
                                         <div id="videoPlayerContainer" style="width: 372px; height: 250px; background: #000; border: 1px solid #333; position: relative;">
                                             <video id="homeVideo" width="372" height="220" style="display: block; background: #000;" onclick="toggleVideoPlay()">
                                                 <source src="videos/home.mp4" type="video/mp4">
                                             </video>
-
+                                            <!-- Video Controls -->
                                             <div id="videoControls" style="position: absolute; bottom: 0; left: 0; right: 0; height: 30px; background: linear-gradient(to bottom, #444, #222); display: flex; align-items: center; padding: 0 5px; gap: 5px;">
-
+                                                <!-- Play/Pause -->
                                                 <button id="videoPlayBtn" type="button" onclick="toggleVideoPlay()" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 14px; padding: 2px 6px;" title="Play/Pause">▶</button>
-
+                                                <!-- Progress Bar -->
                                                 <div id="videoProgressContainer" onclick="seekVideo(event)" style="flex: 1; height: 6px; background: #555; border-radius: 3px; cursor: pointer; position: relative;">
                                                     <div id="videoProgress" style="height: 100%; background: #6e99c9; border-radius: 3px; width: 0%; pointer-events: none;"></div>
                                                 </div>
-
+                                                <!-- Time Display -->
                                                 <span id="videoTime" style="color: #ccc; font-size: 10px; min-width: 70px; text-align: center;">0:00 / 0:00</span>
-
+                                                <!-- Volume -->
                                                 <button id="videoMuteBtn" type="button" onclick="toggleVideoMute()" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 12px; padding: 2px 4px;" title="Mute/Unmute">🔊</button>
                                                 <input id="videoVolume" type="range" min="0" max="1" step="0.1" value="1" oninput="setVideoVolume(this.value)" style="width: 50px; cursor: pointer;">
-
+                                                <!-- Fullscreen -->
                                                 <button id="videoFullscreenBtn" type="button" onclick="toggleVideoFullscreen()" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 12px; padding: 2px 6px;" title="Fullscreen">⛶</button>
                                             </div>
                                         </div>
@@ -250,19 +253,21 @@
                             </div>
                         </div>
 
+                        <!-- Play Now & Featured Game Section -->
                         <div class="ShadowedStandardBox">
                             <div class="Content" style="height: 459px; padding: 5px;">
-
+                                <!-- Play Now Banner -->
                                 <div style="width: 551px; margin-bottom: 5px;">
                                     <a href="#" data-page="games" style="display: block;">
                                         <img src="images/SalesPitcher/PlayNow3.png" alt="Play Now!" style="border: none; cursor: pointer; width: 551px; height: auto;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                                         <div style="display: none; background: linear-gradient(to bottom, #00b2ff, #0088cc); color: white; padding: 25px; font-size: 20px; font-weight: bold; text-align: center; cursor: pointer;">
-                                            <span style="color: #ff6600;">ROBLOX</span> The FREE online building game.
+                                            <span style="color: #ff6600;">ROBLOX</span> The FREE online building game. 
                                             <span style="background: linear-gradient(to bottom, #5cb85c, #449d44); padding: 10px 30px; border-radius: 5px; margin-left: 20px;">▶ PLAY NOW</span>
                                         </div>
                                     </a>
                                 </div>
 
+                                <!-- Featured Game Section with OutlineBox -->
                                 <div id="FeaturedGameBox" style="border: 2px solid #B6CCE4 !important; background: #fff; position: relative; margin-top: 15px; padding: 0;">
                                     <div style="border: 2px solid #B6CCE4 !important; position: absolute; top: -12px; left: 30px; background: #fff; padding: 0 5px; z-index: 1;">
                                         <span style="font-weight: bold; font-size: 12px; color: #000;">Featured Free Game: </span>
@@ -270,13 +275,13 @@
                                     </div>
                                     <div style="padding: 20px 10px 10px 10px;">
                                         <div style="display: flex;">
-
+                                            <!-- Game Thumbnail -->
                                             <div style="flex-shrink: 0;">
                                                 <a id="featuredGameLink" href="#" style="display: block;">
                                                     <img id="featuredGameImage" alt="Featured Game" style="width: 420px; height: 230px; object-fit: cover; background: #333; display: block; border: 1px solid #999;">
                                                 </a>
                                             </div>
-
+                                            <!-- Game Stats -->
                                             <div style="margin-left: 10px; font-size: 10px; width: 110px;">
                                                 <div style="margin-bottom: 7px;">
                                                     <a id="featuredPlayBtn" href="#" title="Play this free game!">
@@ -304,8 +309,9 @@
                         </div>
                     </div>
 
+                    <!-- Right Column -->
                     <div class="Column2c">
-
+                        <!-- Parents Section -->
                         <div class="ShadowedStandardBox">
                             <div class="Shadow"></div>
                             <div class="Header"><span>Parents</span></div>
@@ -328,6 +334,7 @@
                             </div>
                         </div>
 
+                        <!-- Roblox Stats Section -->
                         <div class="ShadowedStandardBox">
                             <div class="Shadow"></div>
                             <div class="Header"><span>Roblox Stats</span></div>
@@ -355,6 +362,7 @@
                             </div>
                         </div>
 
+                        <!-- Roblox News Section -->
                         <div class="ShadowedStandardBox">
                             <div class="Shadow"></div>
                             <div class="Header"><span>Roblox News</span></div>
@@ -412,6 +420,7 @@
                     </div>
                 </div>
 
+                <!-- Reviews Page (Rovloo Community Reviews) -->
                 <div id="page-reviews" class="page">
                     <div id="reviews-content">
                         <div class="loading">Loading reviews...</div>
@@ -424,42 +433,49 @@
                     </div>
                 </div>
 
+                <!-- Stuff (Inventory) Page -->
                 <div id="page-stuff" class="page">
                     <div id="stuff-content">
                         <div class="loading">Loading inventory...</div>
                     </div>
                 </div>
 
+                <!-- Badge Detail Page -->
                 <div id="page-badge" class="page">
                     <div id="badge-content">
                         <div class="loading">Loading badge...</div>
                     </div>
                 </div>
 
+                <!-- Game Pass Detail Page -->
                 <div id="page-gamepass" class="page">
                     <div id="gamepass-content">
                         <div class="loading">Loading game pass...</div>
                     </div>
                 </div>
 
+                <!-- Catalog Item Detail Page -->
                 <div id="page-catalog-item" class="page">
                     <div id="catalog-item-content">
                         <div class="loading">Loading item...</div>
                     </div>
                 </div>
 
+                <!-- Game Detail Page -->
                 <div id="page-game-detail" class="page">
                     <div id="game-detail-content">
                         <div class="loading">Loading game...</div>
                     </div>
                 </div>
 
+                <!-- Character/Avatar Page -->
                 <div id="page-character" class="page">
                     <div id="character-content">
                         <div class="loading">Loading character...</div>
                     </div>
                 </div>
 
+                <!-- Account Settings Page -->
                 <div id="page-account" class="page">
                     <div id="Body" style="width: 938px; margin: 0 auto;">
                         <div style="width: 600px; margin: 0 auto;">
@@ -488,7 +504,7 @@
                                         </label>
                                     </div>
                                 </fieldset>
-
+                                
                                 <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
                                     <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Theme Options</legend>
                                     <div style="padding: 5px 0;">
@@ -500,7 +516,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-
+                                
                                 <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
                                     <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Builders Club Display</legend>
                                     <div style="padding: 5px 0;">
@@ -512,7 +528,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-
+                                
                                 <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
                                     <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Performance</legend>
                                     <div style="padding: 5px 0;">
@@ -527,7 +543,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-
+                                
                                 <fieldset style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
                                     <legend style="font-weight: bold; padding: 0 5px; font-size: 13px; color: #3272ff;">Hidden Content (Blacklist)</legend>
                                     <div style="padding: 5px 0;">
@@ -545,7 +561,8 @@
                             </div>
                         </div>
                     </div>
-
+                    
+                    <!-- Blacklist Management Modal -->
                     <div id="blacklist-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999;">
                         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 80vh;">
                             <div class="StandardBoxHeader">
@@ -555,13 +572,14 @@
                                 </span>
                             </div>
                             <div class="StandardBox" style="max-height: calc(80vh - 40px); overflow-y: auto;">
-
+                                <!-- Tabs -->
                                 <div style="border-bottom: 1px solid #ccc; margin-bottom: 15px;">
                                     <a href="#" class="blacklist-tab active" data-tab="games" style="display: inline-block; padding: 8px 15px; text-decoration: none; color: #333; border: 1px solid #ccc; border-bottom: none; margin-right: 3px; background: #f0f0f0;">Games</a>
                                     <a href="#" class="blacklist-tab" data-tab="items" style="display: inline-block; padding: 8px 15px; text-decoration: none; color: #333; border: 1px solid #ccc; border-bottom: none; margin-right: 3px; background: #ddd;">Items</a>
                                     <a href="#" class="blacklist-tab" data-tab="creators" style="display: inline-block; padding: 8px 15px; text-decoration: none; color: #333; border: 1px solid #ccc; border-bottom: none; background: #ddd;">Creators</a>
                                 </div>
-
+                                
+                                <!-- Content -->
                                 <div id="blacklist-tab-games" class="blacklist-tab-content">
                                     <div id="blacklist-games-list" style="min-height: 100px;"></div>
                                 </div>
@@ -576,22 +594,25 @@
                     </div>
                 </div>
 
+                <!-- My ROBLOX Home Page (logged in dashboard) -->
                 <div id="page-myroblox" class="page">
                     <div class="MyRobloxContainer">
-
+                        <!-- Left Column -->
                         <div class="Column1c" style="float: left; width: 295px; margin: 13px 5px 0 0;">
-
+                            <!-- Black header bar with greeting - outside the box -->
                             <div class="StandardBoxHeader">
                                 <span id="myroblox-greeting">Hi, User</span>
                             </div>
-
+                            
+                            <!-- User Info Box - with standardBox background -->
                             <div style="border: 1px solid #999; border-top: none; background: url('assets/ui/standardBox_01_bkg.png') repeat-x top #f8f8f8;">
-
+                                <!-- Avatar area -->
                                 <div style="padding: 15px; text-align: center;">
                                     <div id="myroblox-avatar" style="width: 200px; height: 200px; margin: 0 auto 15px; position: relative; overflow: hidden;">
                                         <img src="images/spinners/spinner100x100.gif" alt="Avatar" style="width: 150px; margin-top: -15px; object-fit: contain;"/>
                                     </div>
-
+                                    
+                                    <!-- Stats Row - 2x2 grid in bordered box -->
                                     <div id="myroblox-stats" style="display: grid; grid-template-columns: auto auto; justify-content: center; column-gap: 30px; padding: 10px; border: 1px solid #ccc; background: #fff; font-size: 14px; font-weight: bold; width: fit-content; margin: 0 auto; margin-top: -30px;">
                                         <div style="text-align: left; display: flex; align-items: center; gap: 4px;">
                                             <span style="display: inline-block; width: 20px; height: 20px; background: url('assets/ui/2011_background_23.png') no-repeat 0 0;"></span>
@@ -610,7 +631,8 @@
                                             <span id="myroblox-rovloo-score" style="color: #cc9900;">0</span>
                                         </div>
                                     </div>
-
+                                    
+                                    <!-- System Notifications -->
                                     <div style="margin-top: 12px; text-align: center;">
                                         <div style="display: inline-block; background: #E8E8E8; padding: 5px 30px;">
                                             <a href="#" id="myroblox-notifications" style="color: #687bd1; text-decoration: none; font-size: 13px; font-weight: bold;">
@@ -621,9 +643,10 @@
                                 </div>
                             </div>
                         </div>
-
+                        
+                        <!-- Right Column -->
                         <div class="Column2c" style="float: left; width: 580px; margin-top: 13px;">
-
+                            <!-- Recommended Games Box -->
                             <div class="StandardBoxHeader">
                                 <span>Recommended For You</span>
                             </div>
@@ -632,7 +655,8 @@
                                     <div style="text-align: center; padding: 20px; color: #666;">Loading recommended games...</div>
                                 </div>
                             </div>
-
+                            
+                            <!-- My Feed Box -->
                             <div class="StandardBoxHeader" style="margin-top: 15px;">
                                 <span>My Feed</span>
                             </div>
@@ -642,22 +666,24 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div style="clear: both;"></div>
                     </div>
                 </div>
             </div>
 
+            <!-- Inbox/Messages Page -->
             <div id="page-inbox" class="page">
                 <div class="InboxContainer">
-
+                    <!-- Tabs -->
                     <div class="inbox-tabs">
                         <div class="inbox-tab active" data-tab="inbox">Inbox</div>
                         <div class="inbox-tab" data-tab="sent">Sent</div>
                         <div class="inbox-tab" data-tab="archive">Archive</div>
                         <div class="inbox-tab" data-tab="notifications">Notifications (<span id="inbox-notif-count">0</span>)</div>
                     </div>
-
+                    
+                    <!-- Messages List View -->
                     <div id="inbox-list-view" class="inbox-content">
                         <table class="inbox-table">
                             <thead>
@@ -676,7 +702,8 @@
                                 </tr>
                             </tbody>
                         </table>
-
+                        
+                        <!-- Actions and Pagination -->
                         <div class="inbox-actions-bar">
                             <div class="inbox-actions">
                                 <button id="inbox-mark-read-btn">Mark As Read</button>
@@ -689,12 +716,13 @@
                             </div>
                         </div>
                     </div>
-
+                    
+                    <!-- Message Detail View -->
                     <div id="inbox-detail-view" class="inbox-content" style="display: none;">
                         <div class="private-message-box">
                             <div class="pm-header">Private Message</div>
                             <div class="pm-content">
-
+                                <!-- Left Column - Sender Info -->
                                 <div class="pm-sender-col">
                                     <div class="pm-date" id="pm-date">4/5/2011 2:03:40 PM</div>
                                     <div class="pm-avatar">
@@ -708,7 +736,7 @@
                                         <a href="#" id="pm-report-abuse">Report Abuse</a>
                                     </div>
                                 </div>
-
+                                <!-- Right Column - Message Body -->
                                 <div class="pm-body-col">
                                     <div class="pm-body" id="pm-body">
                                         Message content goes here...
@@ -723,11 +751,12 @@
                 </div>
             </div>
 
+            <!-- Groups Page -->
             <div id="page-groups" class="page">
-
+                <!-- Groups Search View (default) - outside GroupsContainer for no centering -->
                 <div id="groups-search-view">
                     <div class="groups-search-container">
-
+                        <!-- My Groups Section -->
                         <div class="StandardBoxHeader">
                             <span>My Groups</span>
                         </div>
@@ -736,7 +765,8 @@
                                 <div style="color: #666; padding: 10px;">Loading your groups...</div>
                             </div>
                         </div>
-
+                        
+                        <!-- Search Groups Section -->
                         <div class="StandardBoxHeader" style="margin-top: 15px;">
                             <span>Search Groups</span>
                         </div>
@@ -745,7 +775,7 @@
                                 <input type="text" id="groups-search-input" placeholder="Enter group name...">
                                 <button id="groups-search-btn">Search</button>
                             </div>
-
+                            
                             <div id="groups-search-results">
                                 <table class="groups-results-table">
                                     <thead>
@@ -774,9 +804,10 @@
                         </div>
                     </div>
                 </div>
-
+                
+                <!-- Group Detail View -->
                 <div class="GroupsContainer">
-
+                    <!-- Search Bar - outside centered container -->
                     <div id="group-search-controls" style="display: none;">
                         <div id="SearchControls" class="StandardBox" style="width: 876px; height: 28px; clear: both; display: block; background-color: #006699;">
                             <table width="876px" border="0">
@@ -792,12 +823,12 @@
                             </table>
                         </div>
                     </div>
-
+                    
                     <div id="group-detail-view" style="display: none;">
                         <div class="MyRobloxContainer">
-
+                            <!-- Left Column - Description and Wall -->
                             <div class="Column2b">
-
+                                <!-- Group Description Box -->
                                 <div id="description">
                                     <div class="StandardBoxHeader">
                                         <span id="group-detail-name">Group Name</span>
@@ -815,7 +846,7 @@
                                                 <button id="group-join-btn" style="background: #6e99c9; color: #fff; border: none; padding: 8px 16px; cursor: pointer; font-size: 13px; font-weight: bold; border-radius: 3px;">Join Group</button>
                                                 <button id="group-leave-btn" style="background: #dc3545; color: #fff; border: none; padding: 8px 16px; cursor: pointer; font-size: 13px; font-weight: bold; border-radius: 3px; display: none;">Leave Group</button>
                                             </div>
-
+                                            <!-- Custom FunCaptcha UI -->
                                             <div id="group-captcha-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:10000; justify-content:center; align-items:center;">
                                                 <div style="background:#fff; border-radius:8px; padding:20px; max-width:400px; width:90%; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
                                                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
@@ -846,6 +877,7 @@
                                     </div>
                                 </div>
 
+                                <!-- Group Status -->
                                 <br style="clear: both;">
                                 <div id="group-status-box" class="StandardBox" style="display: none;">
                                     <div id="group-status-view">
@@ -854,7 +886,8 @@
                                         <span style="color: #808080; font-size: 8px;"><span id="group-status-date"></span></span>
                                     </div>
                                 </div>
-
+                                
+                                <!-- Group Wall -->
                                 <div id="group-wall-section">
                                     <div class="StandardBoxHeader"><span>Wall</span></div>
                                     <div class="StandardBox">
@@ -873,7 +906,8 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
+                            <!-- Right Column - Members -->
                             <div class="Column3b">
                                 <div id="GroupRoleSetsMembersPane">
                                     <div id="group-members-header" class="StandardBoxHeader" style="width: 176px; float: left; text-align: center; font-size: 14px; vertical-align: middle;">
@@ -896,15 +930,15 @@
                                             </div>
                                         </div>
                                         <div style="float: left; width: 176px;" id="group-role-tabs">
-
+                                            <!-- Role buttons will be populated here -->
                                         </div>
                                     </div>
                                 </div>
                                 <br style="clear: both;">
                             </div>
-
+                            
                             <br style="clear: both;">
-
+                            
                             <div style="margin-top: 15px;">
                                 <button id="group-back-btn" style="padding: 5px 15px; cursor: pointer;">&lt; Back to Groups</button>
                             </div>
@@ -913,6 +947,7 @@
                 </div>
             </div>
 
+            <!-- Footer -->
             <div id="Footer">
                 <div class="FooterNav">
                     <a href="https://www.roblox.com/info/privacy" target="_blank"><b>Privacy Policy</b></a>
@@ -953,6 +988,7 @@
         </div>
     </div>
 
+    <!-- Login Modal -->
     <div id="loginModal" class="modal" style="display: none;">
         <div class="modal-overlay" onclick="hideLoginModal()"></div>
         <div class="modal-content">
@@ -961,7 +997,7 @@
                 <button class="modal-close" onclick="hideLoginModal()">×</button>
             </div>
             <div class="modal-body">
-
+                <!-- Browser Login (Primary) -->
                 <div id="browserLoginContainer">
                     <p style="margin-bottom: 15px; font-size: 12px; color: #333;">
                         Click the button below to securely login with your Roblox account:
@@ -983,6 +1019,7 @@
                     <a href="#" onclick="toggleCookieLogin(); return false;" style="color: #666;">Advanced: Use cookie login</a>
                 </div>
 
+                <!-- Cookie Login (hidden by default) -->
                 <div id="cookieLoginContainer" style="display: none; margin-top: 15px;">
                     <p style="margin-bottom: 10px; color: #666; font-size: 11px;">
                         Paste your .ROBLOSECURITY cookie from the Roblox website:
@@ -999,6 +1036,7 @@
         </div>
     </div>
 
+    <!-- Game Launch Overlay - Must be before scripts so it exists when they run -->
     <div id="game-launch-overlay" style="display: none; position: fixed; top: 30px; left: 0; width: 100%; height: calc(100% - 30px); background: rgba(0, 0, 0, 0.3); z-index: 10000; align-items: center; justify-content: center;">
         <div id="game-launch-dialog" style="background: #fff; border: 1px solid #888; padding: 20px; text-align: center; box-shadow: 2px 2px 8px rgba(0,0,0,0.3); width: 300px;">
             <img src="images/ProgressIndicator3.gif" alt="Loading" id="game-launch-spinner" style="display: block; margin: 0 auto 10px auto; width: 32px; height: 32px;"/>
@@ -1010,12 +1048,12 @@
     <script src="scripts/performance.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/navigation.js"></script>
-
+    <!-- Utilities -->
     <script src="scripts/utils/playtime.js"></script>
-
+    <!-- Components -->
     <script src="scripts/components/reviews.js"></script>
     <script src="scripts/components/blacklist-menu.js"></script>
-
+    <!-- Pages -->
     <script src="scripts/pages/home.js" defer></script>
     <script src="scripts/pages/games.js" defer></script>
     <script src="scripts/pages/catalog.js" defer></script>

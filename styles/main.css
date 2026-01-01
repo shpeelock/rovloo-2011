@@ -1,3 +1,5 @@
+
+
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +14,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  padding-top: 30px;
+  padding-top: 30px; 
   background: url('../assets/ui/bkg.jpg') center 31px repeat-x #000444;
   font-family: Arial, Helvetica, sans-serif;
   color: black;
@@ -442,7 +444,7 @@ a img {
 
 #game-launch-overlay {
     position: fixed;
-    top: 30px;
+    top: 30px; 
     left: 0;
     width: 100%;
     height: calc(100% - 30px);
@@ -450,7 +452,7 @@ a img {
     z-index: 10000;
     align-items: center;
     justify-content: center;
-
+    
 }
 
 #game-launch-dialog {

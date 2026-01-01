@@ -1,11 +1,13 @@
+
+
 (function() {
     'use strict';
 
     let currentUserId = null;
     let allFriends = [];
     let currentPage = 1;
-    let isLoading = false;
-    const friendsPerPage = 30;
+    let isLoading = false; 
+    const friendsPerPage = 30; 
     const isStandalone = window.location.pathname.includes('friends.html');
     const assetPath = isStandalone ? '../images/' : 'images/';
     const uiPath = isStandalone ? '../assets/ui/' : 'assets/ui/';
@@ -62,7 +64,7 @@
         showLoading();
 
         try {
-
+            
             const [userInfo, friendsResult] = await Promise.all([
                 window.roblox.getUserInfo(userId),
                 window.roblox.getFriends(userId)
@@ -90,7 +92,7 @@
         currentPage = page;
         const container = document.getElementById('FriendsTable');
         const noFriendsEl = document.getElementById('NoFriendsMessage');
-
+        
         if (!container) return;
         container.innerHTML = '';
 
@@ -115,7 +117,7 @@
         if (!container) return;
 
         container.innerHTML = '';
-
+        
         const friendIds = friends.map(f => f.id);
 
         renderSkeletonGrid(container, friends.length);
@@ -138,7 +140,7 @@
         const PREMIUM_CACHE_TTL = 24 * 60 * 60 * 1000;
         const cachedPremiumStatus = {};
         const uncachedFriendIds = [];
-
+        
         if (window.premiumStatusCache) {
             friends.forEach(friend => {
                 const cached = window.premiumStatusCache.get(String(friend.id));
@@ -166,7 +168,7 @@
             const presence = presenceMap[friend.id];
             const isOnline = presence && presence.userPresenceType > 0;
             const statusIcon = isOnline ? `${assetPath}online.png` : `${assetPath}offline.png`;
-
+            
             let statusText = isOnline ? `${name} is online` : `${name} is offline`;
             if (presence?.lastLocation) statusText += ` at ${presence.lastLocation}`;
 
@@ -186,7 +188,7 @@
                 </div>
             `;
             currentRow.appendChild(td);
-
+            
             const avatarContainer = td.querySelector('.Avatar');
 
             if (cachedPremiumStatus[friend.id] === true && avatarContainer) {
@@ -197,7 +199,7 @@
         });
 
         if (window.addObcOverlayIfPremium && uncachedFriendIds.length > 0) {
-
+            
             const sortedUncached = uncachedFriendIds.sort((a, b) => {
                 const aOnline = presenceMap[a]?.userPresenceType > 0 ? 1 : 0;
                 const bOnline = presenceMap[b]?.userPresenceType > 0 ? 1 : 0;
@@ -209,7 +211,7 @@
 
             const rateLimitResetIn = window.getPremiumRateLimitResetIn ? window.getPremiumRateLimitResetIn() : 0;
             if (rateLimitResetIn > 30000) {
-
+                
                 console.log(`Skipping premium checks - rate limited for ${Math.ceil(rateLimitResetIn/1000)}s`);
                 return;
             }
@@ -217,7 +219,7 @@
             friendsToCheck.forEach((friendId, index) => {
                 const container = uncachedContainers[friendId];
                 if (container && document.body.contains(container)) {
-
+                    
                     setTimeout(() => {
                         if (document.body.contains(container)) {
                             window.addObcOverlayIfPremium(container, friendId);
@@ -231,13 +233,13 @@
     function renderSkeletonGrid(container, count) {
         container.innerHTML = '';
         let currentRow = null;
-
+        
         for (let i = 0; i < count; i++) {
             if (i % 6 === 0) {
                 currentRow = document.createElement('tr');
                 container.appendChild(currentRow);
             }
-
+            
             const td = document.createElement('td');
             td.style.cssText = 'padding: 10px; text-align: center; vertical-align: top; width: 16.66%;';
             td.innerHTML = `
@@ -259,18 +261,18 @@
         const existing = container.querySelector('.obc-overlay');
         if (existing) existing.remove();
 
-        const bcType = window.isRandomizeBCEnabled && window.isRandomizeBCEnabled()
-            ? window.getBCTypeForUser(userId)
+        const bcType = window.isRandomizeBCEnabled && window.isRandomizeBCEnabled() 
+            ? window.getBCTypeForUser(userId) 
             : 'OBC';
-        const overlayImage = window.getBCOverlayImage
-            ? window.getBCOverlayImage(bcType)
+        const overlayImage = window.getBCOverlayImage 
+            ? window.getBCOverlayImage(bcType) 
             : (isStandalone ? '../images/icons/overlay_obcOnly.png' : 'images/icons/overlay_obcOnly.png');
 
         let finalImage = overlayImage;
         if (isStandalone && !overlayImage.startsWith('../')) {
             finalImage = '../' + overlayImage;
         }
-
+        
         const overlay = document.createElement('img');
         overlay.src = finalImage;
         overlay.alt = bcType;
@@ -282,12 +284,12 @@
     function updatePagers(totalPages) {
         const topPager = document.getElementById('FriendsPagerTop');
         const bottomPager = document.getElementById('FriendsPagerBottom');
-
+        
         const pagerHtml = totalPages <= 1 ? '' : `
             <div class="Pager">
-                Pages:
+                Pages: 
                 ${currentPage > 1 ? `<a href="#" class="prev-page" style="color:#00F; font-weight:bold;">&lt;&lt; Previous</a>` : ''}
-                ${Array.from({length: totalPages}, (_, i) => i + 1).map(p =>
+                ${Array.from({length: totalPages}, (_, i) => i + 1).map(p => 
                     p === currentPage ? `<span>${p}</span>` : `<a href="#" class="goto-page" data-page="${p}" style="color:#00F; margin: 0 5px;">${p}</a>`
                 ).join('')}
                 ${currentPage < totalPages ? `<a href="#" class="next-page" style="color:#00F; font-weight:bold;">Next &gt;&gt;</a>` : ''}
@@ -297,7 +299,7 @@
         [topPager, bottomPager].forEach(pager => {
             if (!pager) return;
             pager.innerHTML = pagerHtml;
-
+            
             pager.querySelectorAll('.prev-page').forEach(el => el.onclick = (e) => {
                 e.preventDefault();
                 renderPage(currentPage - 1);
@@ -326,11 +328,11 @@
     }
 
     function showError(message) {
-
+        
         if (window.showErrorPage) {
             window.showErrorPage(message, 'friends-content');
         } else {
-
+            
             document.getElementById('FriendsLoading').style.display = 'none';
             const errorEl = document.getElementById('FriendsError');
             errorEl.style.display = 'block';

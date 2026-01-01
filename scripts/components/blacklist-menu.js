@@ -1,3 +1,5 @@
+
+
 window.BlacklistMenu = {
     initGameDetailPage: async function(game, container) {
         console.log('[BlacklistMenu] initGameDetailPage called');
@@ -25,13 +27,13 @@ window.BlacklistMenu = {
 
         var section = document.createElement('div');
         section.className = 'blacklist-section';
-
+        
         var html = '<div class="blacklist-label">Hide from lists:</div>';
         html += '<div class="blacklist-actions">';
         html += '<a href="#" class="blacklist-btn ' + (isGameBlacklisted ? 'blacklisted' : '') + '" id="blacklist-game-btn">';
         html += isGameBlacklisted ? '✓ Game Hidden' : 'Hide This Game';
         html += '</a>';
-
+        
         if (creatorId) {
             var truncName = creatorName.length > 20 ? creatorName.substring(0, 20) + '...' : creatorName;
             html += '<a href="#" class="blacklist-btn ' + (isCreatorBlacklisted ? 'blacklisted' : '') + '" id="blacklist-creator-btn">';
@@ -39,7 +41,7 @@ window.BlacklistMenu = {
             html += '</a>';
         }
         html += '</div>';
-
+        
         section.innerHTML = html;
         container.appendChild(section);
 
@@ -86,13 +88,13 @@ window.BlacklistMenu = {
 
         var section = document.createElement('div');
         section.className = 'blacklist-section';
-
+        
         var html = '<div class="blacklist-label">Hide from catalog:</div>';
         html += '<div class="blacklist-actions">';
         html += '<a href="#" class="blacklist-btn ' + (isItemBlacklisted ? 'blacklisted' : '') + '" id="blacklist-item-btn">';
         html += isItemBlacklisted ? '✓ Item Hidden' : 'Hide This Item';
         html += '</a>';
-
+        
         if (creatorId) {
             var truncName = creatorName.length > 20 ? creatorName.substring(0, 20) + '...' : creatorName;
             html += '<a href="#" class="blacklist-btn ' + (isCreatorBlacklisted ? 'blacklisted' : '') + '" id="blacklist-creator-btn">';
@@ -100,7 +102,7 @@ window.BlacklistMenu = {
             html += '</a>';
         }
         html += '</div>';
-
+        
         section.innerHTML = html;
         container.appendChild(section);
 
@@ -197,7 +199,7 @@ window.BlacklistMenu = {
         var manageBtn = document.getElementById('manage-blacklist-btn');
         var modal = document.getElementById('blacklist-modal');
         var closeBtn = document.getElementById('blacklist-modal-close');
-
+        
         if (!summaryEl || !manageBtn || !modal) return;
 
         await this.updateSummary();
@@ -229,21 +231,21 @@ window.BlacklistMenu = {
             });
         });
     },
-
+    
     updateSummary: async function() {
         var summaryEl = document.getElementById('blacklist-summary');
         if (!summaryEl || !window.roblox?.blacklist) {
             if (summaryEl) summaryEl.textContent = 'Blacklist not available';
             return;
         }
-
+        
         try {
             var all = await window.roblox.blacklist.getAll();
             var gamesCount = all.games?.length || 0;
             var itemsCount = all.items?.length || 0;
             var creatorsCount = all.creators?.length || 0;
             var total = gamesCount + itemsCount + creatorsCount;
-
+            
             if (total === 0) {
                 summaryEl.innerHTML = '<span style="color: #666;">No hidden content.</span>';
             } else {
@@ -257,9 +259,9 @@ window.BlacklistMenu = {
             summaryEl.textContent = 'Error loading blacklist';
         }
     },
-
+    
     loadBlacklistTab: async function(tabName) {
-
+        
         var tabs = document.querySelectorAll('.blacklist-tab');
         tabs.forEach(function(tab) {
             if (tab.getAttribute('data-tab') === tabName) {
@@ -286,23 +288,23 @@ window.BlacklistMenu = {
             await this.loadCreatorsList();
         }
     },
-
+    
     loadGamesList: async function() {
         var listEl = document.getElementById('blacklist-games-list');
         if (!listEl) return;
-
+        
         listEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">Loading...</div>';
-
+        
         try {
             var games = await window.roblox.blacklist.getGames();
             if (!games || games.length === 0) {
                 listEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No hidden games.</div>';
                 return;
             }
-
+            
             var html = '<table style="width: 100%; border-collapse: collapse;">';
             html += '<tr style="background: #eee;"><th style="padding: 8px; text-align: left; border-bottom: 1px solid #ccc;">Game</th><th style="padding: 8px; width: 80px; border-bottom: 1px solid #ccc;">Action</th></tr>';
-
+            
             games.forEach(function(game) {
                 html += '<tr data-id="' + game.universeId + '">';
                 html += '<td style="padding: 8px; border-bottom: 1px solid #eee;">';
@@ -312,7 +314,7 @@ window.BlacklistMenu = {
                 html += '<a href="#" class="unhide-game-btn" data-id="' + game.universeId + '" style="color: #cc0000; font-size: 11px;">Unhide</a>';
                 html += '</td></tr>';
             });
-
+            
             html += '</table>';
             listEl.innerHTML = html;
 
@@ -330,23 +332,23 @@ window.BlacklistMenu = {
             listEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #c00;">Error loading games</div>';
         }
     },
-
+    
     loadItemsList: async function() {
         var listEl = document.getElementById('blacklist-items-list');
         if (!listEl) return;
-
+        
         listEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">Loading...</div>';
-
+        
         try {
             var items = await window.roblox.blacklist.getItems();
             if (!items || items.length === 0) {
                 listEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No hidden items.</div>';
                 return;
             }
-
+            
             var html = '<table style="width: 100%; border-collapse: collapse;">';
             html += '<tr style="background: #eee;"><th style="padding: 8px; text-align: left; border-bottom: 1px solid #ccc;">Item</th><th style="padding: 8px; width: 80px; border-bottom: 1px solid #ccc;">Action</th></tr>';
-
+            
             items.forEach(function(item) {
                 html += '<tr data-id="' + item.assetId + '">';
                 html += '<td style="padding: 8px; border-bottom: 1px solid #eee;">';
@@ -356,7 +358,7 @@ window.BlacklistMenu = {
                 html += '<a href="#" class="unhide-item-btn" data-id="' + item.assetId + '" style="color: #cc0000; font-size: 11px;">Unhide</a>';
                 html += '</td></tr>';
             });
-
+            
             html += '</table>';
             listEl.innerHTML = html;
 
@@ -374,23 +376,23 @@ window.BlacklistMenu = {
             listEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #c00;">Error loading items</div>';
         }
     },
-
+    
     loadCreatorsList: async function() {
         var listEl = document.getElementById('blacklist-creators-list');
         if (!listEl) return;
-
+        
         listEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">Loading...</div>';
-
+        
         try {
             var creators = await window.roblox.blacklist.getCreators();
             if (!creators || creators.length === 0) {
                 listEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No hidden creators.</div>';
                 return;
             }
-
+            
             var html = '<table style="width: 100%; border-collapse: collapse;">';
             html += '<tr style="background: #eee;"><th style="padding: 8px; text-align: left; border-bottom: 1px solid #ccc;">Creator</th><th style="padding: 8px; width: 60px; border-bottom: 1px solid #ccc;">Type</th><th style="padding: 8px; width: 80px; border-bottom: 1px solid #ccc;">Action</th></tr>';
-
+            
             creators.forEach(function(creator) {
                 var link = creator.creatorType === 'Group' ? '#group?id=' + creator.creatorId : '#profile?id=' + creator.creatorId;
                 html += '<tr data-id="' + creator.creatorId + '" data-type="' + creator.creatorType + '">';
@@ -402,7 +404,7 @@ window.BlacklistMenu = {
                 html += '<a href="#" class="unhide-creator-btn" data-id="' + creator.creatorId + '" data-type="' + creator.creatorType + '" style="color: #cc0000; font-size: 11px;">Unhide</a>';
                 html += '</td></tr>';
             });
-
+            
             html += '</table>';
             listEl.innerHTML = html;
 

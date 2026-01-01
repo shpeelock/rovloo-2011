@@ -1,3 +1,5 @@
+
+
 (function() {
   'use strict';
 
@@ -16,7 +18,7 @@
       }
     });
   }, {
-    rootMargin: '100px',
+    rootMargin: '100px', 
     threshold: 0.01
   });
 
@@ -24,7 +26,7 @@
     if (!src) return;
     img.dataset.src = src;
     img.classList.add('lazy');
-    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; 
     imageObserver.observe(img);
   }
 
@@ -84,7 +86,7 @@
     }
 
     set(key, value) {
-
+      
       if (this.cache.has(key)) {
         this.cache.delete(key);
       }
@@ -145,7 +147,7 @@
   }
 
   function cleanupPage(pageId) {
-
+    
     const cleanups = pageCleanupFunctions.get(pageId);
     if (cleanups) {
       cleanups.forEach(fn => {
@@ -165,7 +167,7 @@
   }
 
   function clearContainer(container) {
-
+    
     unobserveLazyImages(container);
 
     container.innerHTML = '';
@@ -227,14 +229,14 @@
         pageListeners.delete(pageId);
       }
     }
-
+    
     return clearedCount;
   }
 
   setInterval(runMemoryCleanup, 2 * 60 * 1000);
 
   window.Performance = {
-
+    
     makeLazy,
     observeLazyImages,
     unobserveLazyImages,

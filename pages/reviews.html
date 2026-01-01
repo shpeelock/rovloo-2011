@@ -1,6 +1,7 @@
+<!-- Browse Reviews Page - Rovloo Community Reviews -->
 <div id="reviews-page-content">
     <div class="reviews-container">
-
+        <!-- Tabs -->
         <div style="display: flex; gap: 2px; margin-bottom: -2px;">
             <div id="ReviewsTab" class="StandardTabGrayActive" style="cursor: pointer;">
                 <span>Reviews (<span id="totalReviewsCount" class="tab-count">...</span>)</span>
@@ -13,10 +14,11 @@
             </div>
         </div>
 
+        <!-- Tab Content Container -->
         <div class="StandardBoxGray">
-
+            <!-- Reviews Content -->
             <div id="ReviewsContent">
-
+                <!-- Search and Filter Controls -->
                 <div class="browse-controls">
                     <div class="search-box">
                         <input type="text" id="reviewSearchInput" placeholder="Search by game name..." class="search-input">
@@ -70,6 +72,7 @@
                     </div>
                 </div>
 
+                <!-- Reviews List -->
                 <div id="browseReviewsList" class="browse-reviews-list">
                     <div class="reviews-loading">
                         <img src="images/spinners/spinner100x100.gif" alt="Loading...">
@@ -77,9 +80,11 @@
                     </div>
                 </div>
 
+                <!-- Pagination -->
                 <div id="browseReviewsPagination" class="browse-pagination"></div>
             </div>
 
+            <!-- My Reviews Content -->
             <div id="MyReviewsContent" style="display: none;">
                 <div class="my-reviews-header">
                     <p style="color: #666; font-size: 11px; margin-bottom: 10px;">
@@ -87,6 +92,7 @@
                     </p>
                 </div>
 
+                <!-- My Reviews List -->
                 <div id="myReviewsList" class="browse-reviews-list">
                     <div class="reviews-loading">
                         <img src="images/spinners/spinner100x100.gif" alt="Loading...">
@@ -94,9 +100,11 @@
                     </div>
                 </div>
 
+                <!-- My Reviews Pagination -->
                 <div id="myReviewsPagination" class="browse-pagination"></div>
             </div>
 
+            <!-- Admin Picks Content -->
             <div id="AdminPicksContent" style="display: none;">
                 <div class="admin-picks-header">
                     <p style="color: #666; font-size: 11px; margin-bottom: 10px;">
@@ -104,6 +112,7 @@
                     </p>
                 </div>
 
+                <!-- Admin Picks List -->
                 <div id="adminPicksList" class="browse-reviews-list">
                     <div class="reviews-loading">
                         <img src="images/spinners/spinner100x100.gif" alt="Loading...">
@@ -111,6 +120,7 @@
                     </div>
                 </div>
 
+                <!-- Admin Picks Pagination -->
                 <div id="adminPicksPagination" class="browse-pagination"></div>
             </div>
         </div>

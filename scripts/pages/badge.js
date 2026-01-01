@@ -1,3 +1,5 @@
+
+
 const badgeGenreIconMap = {
   'All': { icon: 'Classic.png', name: 'All Genres' },
   'Adventure': { icon: 'Adventure.png', name: 'Adventure' },
@@ -43,11 +45,11 @@ async function loadBadgePage(badgeId) {
   if (!container) return;
 
   container.innerHTML = '<div class="loading">Loading badge...</div>';
-
+  
   try {
-
+    
     const badge = await window.roblox.getBadge(badgeId);
-
+    
     if (!badge || !badge.id) {
       container.innerHTML = '<div style="text-align: center; padding: 40px; color: #cc0000;">Badge not found.</div>';
       return;
@@ -58,7 +60,7 @@ async function loadBadgePage(badgeId) {
     container.innerHTML = html;
 
     populateBadgeData(badge);
-
+    
   } catch (error) {
     console.error('Failed to load badge:', error);
     if (window.showErrorPage) {
@@ -70,7 +72,7 @@ async function loadBadgePage(badgeId) {
 }
 
 async function populateBadgeData(badge) {
-
+  
   const nameEl = document.getElementById('badge-name');
   if (nameEl) nameEl.textContent = badge.name || 'Unknown Badge';
 
@@ -78,7 +80,7 @@ async function populateBadgeData(badge) {
   const largeImageEl = document.getElementById('badge-large-image');
   if (largeImageEl) {
     try {
-
+      
       const thumbResult = await window.roblox.getBadgeThumbnails([badge.id], '150x150');
       if (thumbResult?.data?.[0]?.imageUrl) {
         largeImageEl.src = thumbResult.data[0].imageUrl;
@@ -124,9 +126,9 @@ async function populateBadgeData(badge) {
         if (game.creator) {
           creatorId = game.creator.id;
           creatorName = game.creator.name || 'Unknown';
-          creatorType = game.creator.type || 'User';
+          creatorType = game.creator.type || 'User'; 
         }
-
+        
         gameGenre = game.genre || 'All';
       }
     } catch (e) {
@@ -158,7 +160,7 @@ async function populateBadgeData(badge) {
 
   const creatorAvatarEl = document.getElementById('badge-creator-avatar');
   const creatorAvatarLinkEl = document.getElementById('badge-creator-avatar-link');
-
+  
   if (creatorAvatarLinkEl && creatorId) {
     creatorAvatarLinkEl.title = creatorName;
     creatorAvatarLinkEl.href = '#';
@@ -174,11 +176,11 @@ async function populateBadgeData(badge) {
       };
     }
   }
-
+  
   if (creatorAvatarEl && creatorId) {
     try {
       if (creatorType === 'User') {
-
+        
         const avatarResult = await window.roblox.getUserThumbnails([creatorId], '150x150');
         if (avatarResult?.data?.[0]?.imageUrl) {
           creatorAvatarEl.src = avatarResult.data[0].imageUrl;
@@ -200,13 +202,13 @@ async function populateBadgeData(badge) {
     const placeImageEl = document.getElementById('badge-place-image');
     const placeImageLinkEl = document.getElementById('badge-place-image-link');
     const placeNameLinkEl = document.getElementById('badge-place-name-link');
-
+    
     const universeId = badge.awardingUniverse.id;
     const universeName = badge.awardingUniverse.name || 'Unknown Game';
     const rootPlaceId = badge.awardingUniverse.rootPlaceId;
-
+    
     if (placeSection) placeSection.style.display = 'block';
-
+    
     if (placeNameLinkEl) {
       placeNameLinkEl.textContent = universeName;
       placeNameLinkEl.href = '#';
@@ -217,7 +219,7 @@ async function populateBadgeData(badge) {
         }
       };
     }
-
+    
     if (placeImageLinkEl) {
       placeImageLinkEl.title = universeName;
       placeImageLinkEl.href = '#';
@@ -231,7 +233,7 @@ async function populateBadgeData(badge) {
 
     if (placeImageEl && universeId) {
       try {
-
+        
         const gameThumbResult = await window.roblox.getGameThumbnails([universeId], '256x144');
         if (gameThumbResult?.data?.[0]?.thumbnails?.[0]?.imageUrl) {
           placeImageEl.src = gameThumbResult.data[0].thumbnails[0].imageUrl;
@@ -260,7 +262,7 @@ function formatRelativeTime(dateString) {
   const now = new Date();
   const diffMs = now - date;
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
+  
   if (diffDays < 1) return 'today';
   if (diffDays === 1) return 'yesterday';
   if (diffDays < 7) return `${diffDays} days ago`;

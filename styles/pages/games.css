@@ -1,3 +1,5 @@
+
+
 #GamesList {
   overflow: visible !important;
   width: 100% !important;
@@ -20,15 +22,15 @@
   font-size: 11px !important;
   box-sizing: content-box !important;
   display: block !important;
-  min-height: 140px !important;
-  z-index: 1;
+  min-height: 140px !important; 
+  z-index: 1; 
 }
 
 .GameItem .AlwaysShown {
   padding: 0 !important;
   display: block !important;
   position: relative !important;
-  z-index: 1001 !important;
+  z-index: 1001 !important; 
 }
 
 .GameItem .HoverShown {
@@ -36,11 +38,11 @@
   position: absolute !important;
   background-color: #fff !important;
   border: 1px solid #aaa !important;
-  z-index: 1000 !important;
+  z-index: 1000 !important; 
   font-size: 11px !important;
   color: #555 !important;
   box-shadow: 2px 2px 3px rgba(0,0,0,0.2) !important;
-  margin-top: 5px !important;
+  margin-top: 5px !important; 
 }
 
 .GameItem:hover .HoverShown {
@@ -107,7 +109,7 @@
 }
 
 .GameItem .GenreIcons {
-  display: none;
+  display: none; 
 }
 
 .GameItem .CreatorName {
@@ -117,7 +119,7 @@
   margin-top: 18px;
   display: none !important;
   font-family: Arial, Helvetica, sans-serif !important;
-
+  
   max-width: 160px;
   white-space: nowrap;
   overflow: hidden;
@@ -199,8 +201,8 @@
 #Body .Column1e.sidebar-hidden {
   transform: translateX(-100%);
   opacity: 0;
-  margin-left: -175px;
-  pointer-events: none;
+  margin-left: -175px; 
+  pointer-events: none; 
 }
 
 #page-games .Column1e.sidebar-hidden.sidebar-peek,
@@ -214,12 +216,12 @@
 
 #page-games .Column2e.search-mode-expanded.sidebar-peeking,
 #Body .Column2e.search-mode-expanded.sidebar-peeking {
-  width: 740px !important;
-  margin-left: 10px !important;
+  width: 740px !important; 
+  margin-left: 10px !important; 
 }
 
 .Column2e.search-mode-expanded.sidebar-peeking #GamesSearchBox {
-  right: -372px !important;
+  right: -372px !important; 
 }
 
 .search-mode-hover-trigger {
@@ -262,12 +264,12 @@
 
 .search-mode-expanded #GamesSearchBox,
 .Column2e.search-mode-expanded #GamesSearchBox {
-  right: -501px;
+  right: -501px; 
 }
 
 #page-games #Body.search-mode,
 #Body.search-mode {
-  overflow-x: hidden;
+  overflow-x: hidden; 
 }
 
 .search-mode-expanded #GamesList .GamesGrid {

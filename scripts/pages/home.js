@@ -1,3 +1,5 @@
+
+
 let currentFeaturedGameRequestId = 0;
 let currentHomeUserAvatarRequestId = 0;
 
@@ -6,7 +8,7 @@ async function loadHomePage() {
   if (!container) return;
 
   try {
-
+    
     initVideoPlayer();
 
     loadFeaturedGame();
@@ -29,7 +31,7 @@ function toggleVideoPlay() {
   const video = document.getElementById('homeVideo');
   const playBtn = document.getElementById('videoPlayBtn');
   if (!video) return;
-
+  
   if (video.paused) {
     video.play().catch(err => console.log('Play error:', err));
     if (playBtn) playBtn.textContent = '⏸';
@@ -43,7 +45,7 @@ function seekVideo(e) {
   const video = document.getElementById('homeVideo');
   const container = document.getElementById('videoProgressContainer');
   if (!video || !container) return;
-
+  
   const rect = container.getBoundingClientRect();
   const percent = (e.clientX - rect.left) / rect.width;
   video.currentTime = percent * video.duration;
@@ -54,7 +56,7 @@ function toggleVideoMute() {
   const muteBtn = document.getElementById('videoMuteBtn');
   const volumeSlider = document.getElementById('videoVolume');
   if (!video) return;
-
+  
   video.muted = !video.muted;
   if (muteBtn) muteBtn.textContent = video.muted ? '🔇' : '🔊';
   if (volumeSlider) volumeSlider.value = video.muted ? 0 : video.volume;
@@ -64,7 +66,7 @@ function setVideoVolume(value) {
   const video = document.getElementById('homeVideo');
   const muteBtn = document.getElementById('videoMuteBtn');
   if (!video) return;
-
+  
   video.volume = value;
   video.muted = value == 0;
   if (muteBtn) muteBtn.textContent = video.muted ? '🔇' : '🔊';
@@ -73,7 +75,7 @@ function setVideoVolume(value) {
 function toggleVideoFullscreen() {
   const container = document.getElementById('videoPlayerContainer');
   if (!container) return;
-
+  
   if (document.fullscreenElement) {
     document.exitFullscreen();
   } else {
@@ -133,7 +135,7 @@ async function loadFeaturedGame() {
   const creatorAvatarEl = document.getElementById('featuredCreatorAvatar');
   const creatorNameEl = document.getElementById('featuredCreatorName');
   if (creatorAvatarEl) {
-    creatorAvatarEl.src = 'images/spinners/spinner100x100.gif';
+    creatorAvatarEl.src = 'images/spinners/spinner100x100.gif'; 
   }
   if (creatorNameEl) {
     creatorNameEl.textContent = 'Loading...';
@@ -148,9 +150,9 @@ async function loadFeaturedGame() {
   if (gameNameEl) {
     gameNameEl.textContent = 'Loading...';
   }
-
+  
   try {
-
+    
     let featuredGame = null;
 
     if (window.robloxAPI && window.robloxAPI.getGameSorts) {
@@ -159,10 +161,10 @@ async function loadFeaturedGame() {
       if (requestId !== currentFeaturedGameRequestId) return;
 
       if (sortsData?.sorts && sortsData.sorts.length > 0) {
-
+        
         for (const sort of sortsData.sorts) {
           if (sort.games && sort.games.length > 0) {
-
+            
             const randomIndex = Math.floor(Math.random() * Math.min(5, sort.games.length));
             featuredGame = sort.games[randomIndex];
             break;
@@ -172,7 +174,7 @@ async function loadFeaturedGame() {
     }
 
     if (featuredGame) {
-
+      
       const nameEl = document.getElementById('featuredGameName');
       const imageEl = document.getElementById('featuredGameImage');
       const linkEl = document.getElementById('featuredGameLink');
@@ -189,10 +191,10 @@ async function loadFeaturedGame() {
       const universeId = featuredGame.universeId;
       if (imageEl && universeId) {
         try {
-
+          
           if (window.roblox && window.roblox.getGameThumbnails) {
             const thumbResult = await window.roblox.getGameThumbnails([universeId], '768x432');
-
+            
             if (requestId !== currentFeaturedGameRequestId) return;
             if (thumbResult?.data && thumbResult.data[0]?.thumbnails?.[0]?.imageUrl) {
               imageEl.src = thumbResult.data[0].thumbnails[0].imageUrl;
@@ -214,12 +216,12 @@ async function loadFeaturedGame() {
 
       const placeId = featuredGame.placeId || featuredGame.rootPlaceId;
       if (placeId) {
-
+        
         if (linkEl) {
           linkEl.href = `#game-detail?placeId=${placeId}`;
-          linkEl.onclick = null;
+          linkEl.onclick = null; 
         }
-
+        
         if (playBtn) {
           playBtn.href = '#';
           playBtn.onclick = () => { launchGame(placeId); return false; };
@@ -229,7 +231,7 @@ async function loadFeaturedGame() {
       if (featuredGame.universeId) {
         try {
           const details = await window.robloxAPI.getGameDetails([featuredGame.universeId]);
-
+          
           if (requestId !== currentFeaturedGameRequestId) return;
           if (details?.data && details.data[0]) {
             const game = details.data[0];
@@ -269,7 +271,7 @@ async function loadFeaturedGame() {
         }
       }
     } else {
-
+      
       const nameEl = document.getElementById('featuredGameName');
       if (nameEl) nameEl.textContent = 'Browse Games to Discover!';
     }
@@ -293,18 +295,18 @@ async function loadCreatorAvatar(userId, requestId) {
       console.log('Creator avatar request cancelled (stale):', userId);
       return;
     }
-
+    
     if (avatarEl && thumbnails?.data && thumbnails.data[0]?.imageUrl) {
       avatarEl.src = thumbnails.data[0].imageUrl;
     }
-
+    
     if (linkEl) {
       linkEl.onclick = () => { viewProfile(userId); return false; };
     }
 
     const clippedContainer = avatarEl?.parentElement?.parentElement;
     if (clippedContainer) {
-
+      
       let overlayWrapper = clippedContainer.parentElement?.querySelector('.creator-overlay-wrapper');
       if (!overlayWrapper) {
         overlayWrapper = document.createElement('div');
@@ -323,7 +325,7 @@ async function loadCreatorAvatar(userId, requestId) {
 
       try {
         let hasPremium = null;
-
+        
         if (window.getPremiumStatus) {
           hasPremium = await window.getPremiumStatus(userId);
         } else if (window.premiumStatusCache) {
@@ -339,16 +341,16 @@ async function loadCreatorAvatar(userId, requestId) {
         if (requestId !== undefined && requestId !== currentFeaturedGameRequestId) {
           return;
         }
-
+        
         if (hasPremium === true) {
-
-          const bcType = window.isRandomizeBCEnabled && window.isRandomizeBCEnabled()
-              ? window.getBCTypeForUser(userId)
+          
+          const bcType = window.isRandomizeBCEnabled && window.isRandomizeBCEnabled() 
+              ? window.getBCTypeForUser(userId) 
               : 'OBC';
-          const overlayImage = window.getBCOverlayImage
-              ? window.getBCOverlayImage(bcType)
+          const overlayImage = window.getBCOverlayImage 
+              ? window.getBCOverlayImage(bcType) 
               : 'images/icons/overlay_obcOnly.png';
-
+          
           const overlay = document.createElement('img');
           overlay.src = overlayImage;
           overlay.alt = bcType;
@@ -376,19 +378,19 @@ async function loadCreatorGroupImage(groupId, requestId) {
       console.log('Creator group image request cancelled (stale):', groupId);
       return;
     }
-
+    
     if (avatarEl && thumbnails?.data && thumbnails.data[0]?.imageUrl) {
       avatarEl.src = thumbnails.data[0].imageUrl;
-
+      
       avatarEl.style.width = '100%';
       avatarEl.style.marginTop = '0';
       avatarEl.style.marginLeft = '0';
     }
-
+    
     if (linkEl) {
-      linkEl.onclick = () => {
-        navigateTo('groups', { groupId: groupId });
-        return false;
+      linkEl.onclick = () => { 
+        navigateTo('groups', { groupId: groupId }); 
+        return false; 
       };
     }
 
@@ -423,15 +425,15 @@ function loadRandomFacts() {
 
   const fact1El = document.getElementById('randomFact1');
   const fact2El = document.getElementById('randomFact2');
-
+  
   if (!fact1El || !fact2El) return;
 
   if (randomFactsIntervalId) {
     clearInterval(randomFactsIntervalId);
   }
-
+  
   let factIndex = 0;
-
+  
   function getNextFact() {
     const fact = facts[factIndex];
     factIndex = (factIndex + 1) % facts.length;
@@ -447,27 +449,27 @@ function loadRandomFacts() {
   fact2El.style.opacity = '1';
 
   let showingFact1 = true;
-
+  
   randomFactsIntervalId = setInterval(() => {
     if (showingFact1) {
-
+      
       fact1El.style.opacity = '0';
-
+      
       setTimeout(() => {
         fact1El.textContent = getNextFact();
         fact1El.style.opacity = '1';
       }, 2000);
     } else {
-
+      
       fact2El.style.opacity = '0';
-
+      
       setTimeout(() => {
         fact2El.textContent = getNextFact();
         fact2El.style.opacity = '1';
       }, 2000);
     }
     showingFact1 = !showingFact1;
-  }, 4000);
+  }, 4000); 
 }
 
 async function updateLoggedInUI() {
@@ -507,7 +509,7 @@ async function loadHomeUserAvatar(userId, requestId) {
     const thumbnails = await window.roblox.getUserThumbnails([userId], '352x352', 'AvatarThumbnail');
 
     if (requestId !== undefined && requestId !== currentHomeUserAvatarRequestId) return;
-
+    
     if (thumbnails?.data && thumbnails.data[0]?.imageUrl) {
       container.innerHTML = `<img src="${thumbnails.data[0].imageUrl}" alt="Avatar" style="width: 120%; height: 120%; object-fit: cover; object-position: top center; margin-left: -10%; margin-top: -14px;">`;
     }
@@ -577,7 +579,7 @@ async function launchGame(placeId) {
       if (window.showGameLaunchOverlay) {
         window.showGameLaunchOverlay('Sign in required to play games. Returning to Rovloo Hub...');
       }
-
+      
       setTimeout(() => {
         if (window.hideGameLaunchOverlay) {
           window.hideGameLaunchOverlay();
@@ -601,15 +603,15 @@ async function launchGame(placeId) {
   if (window.showGameLaunchOverlay) {
     window.showGameLaunchOverlay('Starting Roblox...');
   }
-
+  
   try {
-
+    
     const launchFn = window.roblox?.launchGame || window.robloxAPI?.launchGame;
-
+    
     if (!launchFn) {
       throw new Error('Game launch API not available');
     }
-
+    
     const result = await launchFn(placeId);
     console.log('launchGame result:', result);
 
@@ -620,11 +622,11 @@ async function launchGame(placeId) {
       }
       return;
     }
-
+    
     const launched = result?.success === true || result === undefined;
-
+    
     if (launched) {
-
+      
       if (window.updateGameLaunchStatus) {
         setTimeout(() => {
           if (!window.isGameLaunchCancelled || !window.isGameLaunchCancelled()) {
@@ -641,7 +643,7 @@ async function launchGame(placeId) {
     }
   } catch (error) {
     console.error('Failed to launch game:', error);
-
+    
     if (window.updateGameLaunchStatus) {
       let displayError = error.message || 'Failed to launch game';
       if (displayError.includes('authentication ticket')) {
@@ -651,20 +653,20 @@ async function launchGame(placeId) {
       }
       window.updateGameLaunchStatus(displayError);
     }
-
+    
     setTimeout(() => {
       if (window.hideGameLaunchOverlay) {
         window.hideGameLaunchOverlay();
       }
     }, 3000);
   } finally {
-
+    
     homeLaunchInProgress = false;
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  
   const homePage = document.getElementById('page-home');
   if (homePage && homePage.classList.contains('active')) {
     loadHomePage();

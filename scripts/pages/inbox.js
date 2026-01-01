@@ -1,3 +1,5 @@
+
+
 let currentTab = 'inbox';
 let currentPage = 0;
 let totalPages = 1;
@@ -9,11 +11,11 @@ async function loadInboxPage() {
     console.log('Loading inbox page...');
 
     if (!inboxInitialized) {
-
+        
         initInboxTabs();
 
         initInboxButtons();
-
+        
         inboxInitialized = true;
     }
 
@@ -37,12 +39,12 @@ function initInboxTabs() {
 
             document.querySelectorAll('.inbox-tab').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-
+            
             currentTab = tabName;
             currentPage = 0;
 
             showListView();
-
+            
             if (tabName === 'notifications') {
                 await loadNotifications();
             } else {
@@ -53,14 +55,14 @@ function initInboxTabs() {
 }
 
 function initInboxButtons() {
-
+    
     document.getElementById('inbox-prev-btn')?.addEventListener('click', async () => {
         if (currentPage > 0) {
             currentPage--;
             await loadMessages(currentTab, currentPage);
         }
     });
-
+    
     document.getElementById('inbox-next-btn')?.addEventListener('click', async () => {
         if (currentPage < totalPages - 1) {
             currentPage++;
@@ -91,14 +93,14 @@ async function markSelectedMessages(action) {
     if (checkboxes.length === 0) {
         return;
     }
-
+    
     const messageIds = Array.from(checkboxes)
         .map(cb => cb.dataset.messageId)
         .filter(id => id)
         .map(id => parseInt(id, 10));
-
+    
     if (messageIds.length === 0) return;
-
+    
     try {
         let result;
         if (action === 'read') {
@@ -111,7 +113,7 @@ async function markSelectedMessages(action) {
 
         const selectAll = document.getElementById('inbox-select-all');
         if (selectAll) selectAll.checked = false;
-
+        
     } catch (error) {
         console.error(`Failed to mark messages as ${action}:`, error);
     }
@@ -129,16 +131,16 @@ async function loadMessages(tab, pageNumber) {
             </td>
         </tr>
     `;
-
+    
     try {
         const response = await window.roblox.getMessages(tab, pageNumber, 20);
-
+        
         currentMessages = response.collection || [];
         totalPages = response.totalPages || 1;
-
+        
         updatePagination();
         renderMessages(currentMessages);
-
+        
     } catch (error) {
         console.error('Failed to load messages:', error);
         if (window.showErrorPage) {
@@ -158,7 +160,7 @@ async function loadMessages(tab, pageNumber) {
 function renderMessages(messages) {
     const tbody = document.getElementById('inbox-messages-list');
     if (!tbody) return;
-
+    
     if (!messages || messages.length === 0) {
         tbody.innerHTML = `
             <tr>
@@ -169,24 +171,24 @@ function renderMessages(messages) {
         `;
         return;
     }
-
+    
     tbody.innerHTML = messages.map(msg => {
-
+        
         const isRobloxSender = msg.sender?.id === 1;
         const isUnread = !msg.isRead;
         const date = formatMessageDate(msg.created);
         const senderName = msg.sender?.displayName || msg.sender?.name || 'Unknown';
-
+        
         return `
-            <tr class="message-row ${isRobloxSender ? 'system-message' : ''} ${isUnread ? 'unread' : ''}"
+            <tr class="message-row ${isRobloxSender ? 'system-message' : ''} ${isUnread ? 'unread' : ''}" 
                 data-message-id="${msg.id}">
                 <td><input type="checkbox" class="message-checkbox" data-message-id="${msg.id}"></td>
                 <td>
                     <span class="message-subject">${escapeHtml(msg.subject || '(No Subject)')}</span>
                 </td>
                 <td class="message-from">
-                    ${isRobloxSender ?
-                        'ROBLOX [System Message]' :
+                    ${isRobloxSender ? 
+                        'ROBLOX [System Message]' : 
                         `<a href="#" data-user-id="${msg.sender?.id}">${escapeHtml(senderName)}</a>`
                     }
                 </td>
@@ -197,9 +199,9 @@ function renderMessages(messages) {
 
     tbody.querySelectorAll('.message-row').forEach(row => {
         row.addEventListener('click', (e) => {
-
+            
             if (e.target.type === 'checkbox') return;
-
+            
             const messageId = row.dataset.messageId;
             const message = currentMessages.find(m => String(m.id) === messageId);
             if (message) {
@@ -226,9 +228,9 @@ async function showMessageDetail(message) {
     if (!message.isRead) {
         try {
             await window.roblox.markMessagesRead([message.id]);
-
+            
             message.isRead = true;
-
+            
             const row = document.querySelector(`.message-row[data-message-id="${message.id}"]`);
             if (row) row.classList.remove('unread');
         } catch (e) {
@@ -241,7 +243,7 @@ async function showMessageDetail(message) {
 
     const bodyEl = document.getElementById('pm-body');
     if (bodyEl) {
-
+        
         const cleanBody = sanitizeMessageBody(message.body || '');
         bodyEl.innerHTML = cleanBody;
     }
@@ -284,7 +286,7 @@ function updatePagination() {
     const prevBtn = document.getElementById('inbox-prev-btn');
     const nextBtn = document.getElementById('inbox-next-btn');
     const pageInfo = document.getElementById('inbox-page-info');
-
+    
     if (prevBtn) prevBtn.disabled = currentPage <= 0;
     if (nextBtn) nextBtn.disabled = currentPage >= totalPages - 1;
     if (pageInfo) pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
@@ -305,7 +307,7 @@ async function loadNotificationCount() {
 async function loadNotifications() {
     const tbody = document.getElementById('inbox-messages-list');
     if (!tbody) return;
-
+    
     tbody.innerHTML = `
         <tr>
             <td colspan="4" style="text-align: center; padding: 20px;">
@@ -314,11 +316,11 @@ async function loadNotifications() {
             </td>
         </tr>
     `;
-
+    
     try {
         const response = await window.roblox.getRecentNotifications(20, 0);
         const notifications = response || [];
-
+        
         if (!notifications.length) {
             tbody.innerHTML = `
                 <tr>
@@ -329,11 +331,11 @@ async function loadNotifications() {
             `;
             return;
         }
-
+        
         tbody.innerHTML = notifications.map(notif => {
             const date = formatMessageDate(notif.eventDate);
             const content = notif.content?.states?.default?.visualItems?.textBody?.[0]?.label?.text || 'Notification';
-
+            
             return `
                 <tr class="message-row system-message">
                     <td><input type="checkbox" class="message-checkbox"></td>
@@ -343,7 +345,7 @@ async function loadNotifications() {
                 </tr>
             `;
         }).join('');
-
+        
     } catch (error) {
         console.error('Failed to load notifications:', error);
         tbody.innerHTML = `
@@ -358,12 +360,12 @@ async function loadNotifications() {
 
 function formatMessageDate(dateStr, includeTime = false) {
     if (!dateStr) return '';
-
+    
     const date = new Date(dateStr);
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const year = date.getFullYear();
-
+    
     if (includeTime) {
         let hours = date.getHours();
         const minutes = date.getMinutes().toString().padStart(2, '0');
@@ -372,7 +374,7 @@ function formatMessageDate(dateStr, includeTime = false) {
         hours = hours % 12 || 12;
         return `${month}/${day}/${year} ${hours}:${minutes}:${seconds} ${ampm}`;
     }
-
+    
     let hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -405,6 +407,6 @@ function sanitizeMessageBody(html) {
             }
         });
     });
-
+    
     return temp.innerHTML;
 }

@@ -1,3 +1,5 @@
+
+
 (function() {
     'use strict';
 
@@ -9,26 +11,26 @@
     console.log('[Character] Script loading...');
 
     let currentUserId = null;
-    let currentCategory = 2;
+    let currentCategory = 2; 
     let wardrobePage = 1;
     let wardrobeTotalPages = 1;
-    let wardrobeItems = [];
-
+    let wardrobeItems = []; 
+    
     let wardrobeThumbnails = window.Performance ? new window.Performance.LRUCache(75, 10 * 60 * 1000) : {};
     let isLoading = false;
-    let currentAvatarType = 'R15';
+    let currentAvatarType = 'R15'; 
 
-    const ITEMS_PER_PAGE = 8;
+    const ITEMS_PER_PAGE = 8; 
 
     const categoryNames = {
-
+        
         8: 'Hats',
         41: 'Hair',
         18: 'Faces',
         2: 'T-Shirts',
         11: 'Shirts',
         12: 'Pants',
-
+        
         46: 'Back',
         45: 'Front',
         43: 'Neck',
@@ -36,44 +38,44 @@
         47: 'Waist',
         42: 'Face Acc',
         19: 'Gear',
-
+        
         17: 'Heads',
         27: 'Torsos',
         29: 'Left Arms',
         28: 'Right Arms',
         31: 'Left Legs',
         30: 'Right Legs',
-
+        
         'costumes': 'Costumes',
         'animations': 'Animations'
     };
 
     const outfitCategories = {
         'costumes': [
-            { itemType: 'Outfit', itemSubType: 1 },
-            { itemType: 'Outfit', itemSubType: 5 }
+            { itemType: 'Outfit', itemSubType: 1 },  
+            { itemType: 'Outfit', itemSubType: 5 }   
         ],
         'animations': [
-            { itemType: 'Outfit', itemSubType: 5 }
+            { itemType: 'Outfit', itemSubType: 5 }   
         ]
     };
 
     let bodyColorsPalette = [];
 
     let selectedBodyPart = null;
-
+    
     let currentBodyColors = {
-        headColor3: 'F5CD30',
+        headColor3: 'F5CD30',       
         torsoColor3: 'F5CD30',
         rightArmColor3: 'F5CD30',
         leftArmColor3: 'F5CD30',
         rightLegColor3: 'F5CD30',
         leftLegColor3: 'F5CD30'
     };
-    let currentWearingAssets = [];
+    let currentWearingAssets = []; 
 
     async function initCharacterPage() {
-
+        
         if (window._characterPageInitializing) {
             console.log('[Character] initCharacterPage skipped - already initializing');
             return;
@@ -97,7 +99,7 @@
             wardrobeThumbnails = window.Performance ? new window.Performance.LRUCache(75, 10 * 60 * 1000) : {};
             assetCreators = {};
             assetDetails = {};
-
+            
             document.querySelectorAll('.WardrobeTab').forEach(t => {
                 t.classList.toggle('active', t.dataset.category === '2');
             });
@@ -110,7 +112,7 @@
 
             console.log('[Character] Starting parallel load of avatar and wardrobe...');
             await Promise.all([
-                loadCurrentAvatar(),
+                loadCurrentAvatar(), 
                 loadWardrobeItems()
             ]);
             console.log('[Character] Parallel load complete');
@@ -138,17 +140,17 @@
     function brickColorToHex(brickColorId) {
         const color = bodyColorsPalette.find(c => c.brickColorId === brickColorId);
         if (color && color.hexColor) {
-
+            
             return color.hexColor.replace('#', '');
         }
-        return 'F5CD30';
+        return 'F5CD30'; 
     }
 
     function rgbToHex(rgb) {
         if (!rgb) return 'F5CD30';
-
+        
         if (rgb.startsWith('#')) return rgb.replace('#', '');
-
+        
         const match = rgb.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
         if (match) {
             const r = parseInt(match[1]).toString(16).padStart(2, '0');
@@ -160,7 +162,7 @@
     }
 
     function showError(message) {
-
+        
         if (window.showErrorPage) {
             window.showErrorPage(message, 'character-content');
         } else {
@@ -173,7 +175,7 @@
 
     async function loadCurrentAvatar() {
         console.log('[Character] loadCurrentAvatar started');
-
+        
         const characterContainer = document.getElementById('character-content');
         const wearingContainer = characterContainer?.querySelector('#CurrentlyWearing') || document.getElementById('CurrentlyWearing');
         let avatarImg = characterContainer?.querySelector('#AvatarImage') || document.getElementById('AvatarImage');
@@ -184,7 +186,7 @@
         }
 
         try {
-
+            
             console.log('[Character] Fetching current avatar from API...');
             const avatar = await window.roblox.getCurrentAvatar();
             console.log('[Character] Avatar data received:', avatar);
@@ -195,7 +197,7 @@
             }
 
             if (avatar?.bodyColor3s) {
-
+                
                 currentBodyColors = {
                     headColor3: avatar.bodyColor3s.headColor3 || 'F5CD30',
                     torsoColor3: avatar.bodyColor3s.torsoColor3 || 'F5CD30',
@@ -206,7 +208,7 @@
                 };
                 updateBodyPartColors();
             } else if (avatar?.bodyColors) {
-
+                
                 const bc = avatar.bodyColors;
                 currentBodyColors = {
                     headColor3: brickColorToHex(bc.headColorId),
@@ -226,7 +228,7 @@
             }
             console.log('[Character] About to load thumbnail. avatarImg:', !!avatarImg, 'currentUserId:', currentUserId);
             if (avatarImg && currentUserId) {
-
+                
                 console.log('[Character] Starting background thumbnail load...');
                 loadAvatarThumbnailWithRetry(avatarImg, currentUserId).catch(err => {
                     console.warn('[Character] Avatar thumbnail load failed:', err);
@@ -320,7 +322,7 @@
         if (resetPage) {
             wardrobePage = 1;
             wardrobeItems = [];
-
+            
             wardrobeThumbnails = window.Performance ? new window.Performance.LRUCache(75, 10 * 60 * 1000) : {};
             assetCreators = {};
             assetDetails = {};
@@ -332,7 +334,7 @@
             let allItems = [];
 
             if (outfitCategories[currentCategory]) {
-
+                
                 let pageToken = '';
                 do {
                     const result = await window.roblox.getAvatarInventory({
@@ -348,11 +350,11 @@
                     pageToken = result?.nextPageToken || '';
                 } while (pageToken && allItems.length < 500);
             } else {
-
+                
                 let pageToken = '';
                 do {
                     const result = await window.roblox.getAvatarInventory({
-                        sortOption: '1',
+                        sortOption: '1', 
                         pageLimit: 50,
                         itemSubType: currentCategory,
                         itemType: 'Asset',
@@ -363,7 +365,7 @@
                         allItems = allItems.concat(result.avatarInventoryItems);
                     }
                     pageToken = result?.nextPageToken || '';
-                } while (pageToken && allItems.length < 500);
+                } while (pageToken && allItems.length < 500); 
             }
 
             wardrobeItems = allItems;
@@ -392,14 +394,14 @@
         const itemIds = wardrobeItems.map(item => item.itemId);
 
         if (outfitCategories[currentCategory]) {
-
+            
             for (let i = 0; i < itemIds.length; i += 50) {
                 const batch = itemIds.slice(i, i + 50);
                 try {
                     const thumbResult = await window.roblox.getOutfitThumbnails(batch, '150x150');
                     if (thumbResult?.data) {
                         thumbResult.data.forEach(t => {
-
+                            
                             if (wardrobeThumbnails.set) {
                                 wardrobeThumbnails.set(t.targetId, t.imageUrl);
                             } else {
@@ -412,14 +414,14 @@
                 }
             }
         } else {
-
+            
             for (let i = 0; i < itemIds.length; i += 50) {
                 const batch = itemIds.slice(i, i + 50);
                 try {
                     const thumbResult = await window.roblox.getAssetThumbnails(batch, '110x110');
                     if (thumbResult?.data) {
                         thumbResult.data.forEach(t => {
-
+                            
                             if (wardrobeThumbnails.set) {
                                 wardrobeThumbnails.set(t.targetId, t.imageUrl);
                             } else {
@@ -442,22 +444,22 @@
         if (missingIds.length === 0) return;
 
         try {
-
+            
             const items = missingIds.map(id => ({ itemType: 'Asset', id: parseInt(id) }));
             const result = await window.roblox.getCatalogItemDetails(items);
 
             if (result?.data) {
                 result.data.forEach(item => {
-
+                    
                     assetDetails[item.id] = item;
 
                     if (item.creatorTargetId && item.creatorName) {
                         assetCreators[item.id] = {
                             Id: item.creatorTargetId,
                             Name: item.creatorName,
-                            Type: item.creatorType
+                            Type: item.creatorType 
                         };
-
+                        
                         const creatorEl = document.querySelector(`.ItemCreator[data-asset-id="${item.id}"]`);
                         if (creatorEl) {
                             creatorEl.innerHTML = `Creator: <a href="#" data-creator-id="${item.creatorTargetId}" data-creator-type="${item.creatorType}">${escapeHtml(item.creatorName)}</a>`;
@@ -510,7 +512,7 @@
         pageItems.forEach(item => {
             const assetId = item.itemId;
             const assetName = item.itemName || `Asset ${assetId}`;
-
+            
             const thumb = (wardrobeThumbnails.get ? wardrobeThumbnails.get(assetId) : wardrobeThumbnails[assetId]) || '';
             const creator = assetCreators[assetId];
             const creatorHtml = creator
@@ -600,7 +602,7 @@
             swatch.className = 'ColorSwatch';
             swatch.style.backgroundColor = color.hexColor;
             swatch.title = color.name;
-
+            
             swatch.dataset.hexColor = color.hexColor.replace('#', '');
             swatch.dataset.colorId = color.brickColorId;
             grid.appendChild(swatch);
@@ -618,12 +620,12 @@
         }
 
         document.querySelectorAll('.BodyPart').forEach(part => {
-            part.style.backgroundColor = '#F5CD30';
+            part.style.backgroundColor = '#F5CD30'; 
         });
     }
 
     function setupEventListeners() {
-
+        
         const wardrobeContainer = document.getElementById('WardrobeItems');
         if (wardrobeContainer && wardrobeContainer._listenersAttached) {
             console.log('[Character] Event listeners already attached to this DOM');
@@ -639,11 +641,11 @@
             tab.addEventListener('click', (e) => {
                 e.preventDefault();
                 const categoryStr = tab.dataset.category;
-
+                
                 const category = isNaN(categoryStr) ? categoryStr : parseInt(categoryStr);
                 if (category && category !== currentCategory) {
                     currentCategory = category;
-
+                    
                     document.querySelectorAll('.WardrobeTab').forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
                     loadWardrobeItems(true);
@@ -675,10 +677,10 @@
                 const creatorType = creatorLink.dataset.creatorType;
 
                 if (creatorType === 'User') {
-
+                    
                     navigateToPage('profile', { userId: creatorId });
                 } else if (creatorType === 'Group') {
-
+                    
                     navigateToPage('groups', { groupId: creatorId });
                 }
                 return;
@@ -690,11 +692,11 @@
             if (itemThumb || itemName) {
                 const wardrobeItem = e.target.closest('.WardrobeItem');
                 if (wardrobeItem) {
-
+                    
                     const actionBtn = wardrobeItem.querySelector('.WearBtn, .RemoveBtn');
                     if (actionBtn) {
                         const assetId = actionBtn.dataset.assetId;
-
+                        
                         navigateToPage('catalog-item', { id: assetId });
                     }
                 }
@@ -713,10 +715,10 @@
         document.querySelectorAll('.BodyPart').forEach(part => {
             part.addEventListener('click', () => {
                 selectedBodyPart = part.dataset.part;
-
+                
                 document.querySelectorAll('.BodyPart').forEach(p => p.classList.remove('selected'));
                 part.classList.add('selected');
-
+                
                 document.getElementById('ColorPalette').style.display = 'block';
 
                 const colorPicker = document.getElementById('ColorPickerInput');
@@ -740,14 +742,14 @@
         document.getElementById('ColorGrid')?.addEventListener('click', async (e) => {
             const swatch = e.target.closest('.ColorSwatch');
             if (swatch && selectedBodyPart) {
-
+                
                 let hexColor = swatch.dataset.hexColor;
                 if (!hexColor) {
-
+                    
                     const bgColor = swatch.style.backgroundColor;
                     hexColor = rgbToHex(bgColor);
                 }
-
+                
                 await setBodyColor(selectedBodyPart, hexColor);
             }
         });
@@ -802,7 +804,7 @@
 
     async function wearItem(assetId) {
         try {
-
+            
             const wardrobeItem = wardrobeItems.find(item => item.itemId == assetId);
             if (!wardrobeItem) {
                 console.error('Item not found in wardrobe:', assetId);
@@ -813,7 +815,7 @@
             let updatedAssets;
 
             if (outfitCategories[currentCategory] && wardrobeItem.outfitDetail) {
-
+                
                 const outfitAssets = wardrobeItem.outfitDetail.assets || [];
                 if (outfitAssets.length === 0) {
                     console.warn('Outfit has no assets');
@@ -851,11 +853,11 @@
 
             const result = await window.roblox.setWearingAssets(updatedAssets);
             if (result?.success) {
-
+                
                 await loadCurrentAvatar();
-
+                
                 renderWardrobePage();
-
+                
                 setTimeout(refreshAvatarThumbnail, 1500);
             } else {
                 console.error('Failed to wear item:', result);
@@ -863,7 +865,7 @@
             }
         } catch (e) {
             console.error('Failed to wear item:', e);
-
+            
             const errorMsg = e.message || e.toString();
             if (errorMsg.includes('LimitExceeded')) {
                 alert('Cannot wear this item: You have reached the limit for this item type. Try removing a similar item first.');
@@ -877,16 +879,16 @@
 
     async function removeItem(assetId) {
         try {
-
+            
             const updatedAssets = currentWearingAssets.filter(a => a.id != assetId);
 
             const result = await window.roblox.setWearingAssets(updatedAssets);
             if (result?.success) {
-
+                
                 await loadCurrentAvatar();
-
+                
                 renderWardrobePage();
-
+                
                 setTimeout(refreshAvatarThumbnail, 1500);
             } else {
                 console.error('Failed to remove item:', result);
@@ -900,10 +902,10 @@
 
     let bodyColorTimeout = null;
     let pendingBodyColorUpdate = false;
-
+    
     async function setBodyColor(bodyPart, hexColor) {
         try {
-
+            
             const partToField = {
                 'head': 'headColor3',
                 'torso': 'torsoColor3',
@@ -933,13 +935,13 @@
             if (bodyColorTimeout) {
                 clearTimeout(bodyColorTimeout);
             }
-
+            
             bodyColorTimeout = setTimeout(async () => {
-                if (pendingBodyColorUpdate) return;
+                if (pendingBodyColorUpdate) return; 
                 pendingBodyColorUpdate = true;
-
+                
                 try {
-
+                    
                     await window.roblox.setBodyColors(currentBodyColors);
 
                     setTimeout(redrawAvatar, 500);
@@ -948,27 +950,27 @@
                 } finally {
                     pendingBodyColorUpdate = false;
                 }
-            }, 300);
+            }, 300); 
         } catch (e) {
             console.warn('Failed to set body color:', e);
         }
     }
 
     let lastRedrawTime = 0;
-    const REDRAW_COOLDOWN = 10000;
-
+    const REDRAW_COOLDOWN = 10000; 
+    
     async function redrawAvatar() {
         const now = Date.now();
         const timeSinceLastRedraw = now - lastRedrawTime;
-
+        
         if (timeSinceLastRedraw < REDRAW_COOLDOWN) {
             const remainingSeconds = Math.ceil((REDRAW_COOLDOWN - timeSinceLastRedraw) / 1000);
             console.log(`Redraw on cooldown, ${remainingSeconds}s remaining...`);
-
+            
             await refreshAvatarThumbnail();
             return;
         }
-
+        
         const img = document.getElementById('AvatarImage');
         if (img) {
             img.style.opacity = '0.5';
@@ -976,7 +978,7 @@
         try {
             lastRedrawTime = now;
             await window.roblox.redrawAvatar();
-
+            
             setTimeout(async () => {
                 await refreshAvatarThumbnail();
                 if (img) img.style.opacity = '1';
@@ -984,7 +986,7 @@
         } catch (e) {
             console.warn('Failed to redraw avatar:', e);
             if (img) img.style.opacity = '1';
-
+            
             await refreshAvatarThumbnail();
         }
     }
@@ -992,7 +994,7 @@
     function updateAvatarTypeButtons() {
         const r6Button = document.getElementById('R6Button');
         const r15Button = document.getElementById('R15Button');
-
+        
         if (r6Button && r15Button) {
             r6Button.classList.toggle('active', currentAvatarType === 'R6');
             r15Button.classList.toggle('active', currentAvatarType === 'R15');
@@ -1009,16 +1011,16 @@
             if (r15Button) r15Button.disabled = true;
 
             const result = await window.roblox.setAvatarType(avatarType);
-
+            
             if (result?.success) {
-
+                
                 currentAvatarType = avatarType;
                 updateAvatarTypeButtons();
 
                 setTimeout(async () => {
                     await refreshAvatarThumbnail();
                 }, 1500);
-
+                
                 console.log(`[Character] Avatar type changed to ${avatarType}`);
             } else {
                 console.error('[Character] Failed to set avatar type:', result);
@@ -1028,7 +1030,7 @@
             console.error('[Character] Error setting avatar type:', e);
             alert('Failed to change avatar type. Please try again.');
         } finally {
-
+            
             const r6Button = document.getElementById('R6Button');
             const r15Button = document.getElementById('R15Button');
             if (r6Button) r6Button.disabled = false;
@@ -1048,7 +1050,7 @@
                 const thumbData = result?.data?.[0];
 
                 if (thumbData?.imageUrl) {
-
+                    
                     console.log('[Character] Got valid imageUrl:', thumbData.imageUrl);
 
                     return new Promise((resolve) => {
@@ -1067,18 +1069,18 @@
 
                         const newUrl = thumbData.imageUrl;
                         if (avatarImg.src === newUrl) {
-                            avatarImg.src = '';
+                            avatarImg.src = ''; 
                         }
                         avatarImg.src = newUrl;
                     });
                 } else if (thumbData?.state === 'Pending' || thumbData?.state === 'Blocked') {
-
+                    
                     console.log(`[Character] Avatar thumbnail state: ${thumbData.state}, retry ${attempt + 1}/${maxRetries}...`);
                     await new Promise(resolve => setTimeout(resolve, delay));
-
+                    
                     delay = Math.min(delay * 1.5, 3000);
                 } else {
-
+                    
                     console.warn('[Character] Avatar thumbnail unknown state:', thumbData?.state, thumbData);
                     await new Promise(resolve => setTimeout(resolve, delay));
                 }
@@ -1092,11 +1094,11 @@
     }
 
     async function refreshAvatarThumbnail() {
-
+        
         const characterContainer = document.getElementById('character-content');
         const avatarImg = characterContainer?.querySelector('#AvatarImage') || document.getElementById('AvatarImage');
         if (avatarImg && currentUserId) {
-
+            
             await loadAvatarThumbnailWithRetry(avatarImg, currentUserId, 3, 1500);
         }
     }
@@ -1115,15 +1117,15 @@
         wardrobePage = 1;
         wardrobeTotalPages = 1;
         wardrobeItems = [];
-
+        
         wardrobeThumbnails = window.Performance ? new window.Performance.LRUCache(200, 30 * 60 * 1000) : {};
         assetCreators = {};
         assetDetails = {};
         bodyColorsPalette = [];
         selectedBodyPart = null;
         isLoading = false;
-        currentAvatarType = 'R15';
-        window._characterPageInitializing = false;
+        currentAvatarType = 'R15'; 
+        window._characterPageInitializing = false; 
         currentBodyColors = {
             headColor3: 'F5CD30',
             torsoColor3: 'F5CD30',

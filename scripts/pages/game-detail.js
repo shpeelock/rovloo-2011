@@ -1,16 +1,17 @@
+
 (function() {
     'use strict';
 
     let currentPlaceId = null;
     let currentUniverseId = null;
     let isLoading = false;
-    let currentPlayingCount = 0;
+    let currentPlayingCount = 0; 
 
     const PAGE_ID = 'game-detail';
 
     let allBadges = [];
     let allBadgeThumbnails = {};
-    let userOwnedBadges = new Set();
+    let userOwnedBadges = new Set(); 
     let currentBadgePage = 1;
     const BADGES_PER_PAGE = 5;
 
@@ -23,8 +24,8 @@
     let allPublicServers = [];
     let currentServerPage = 1;
     const serversPerPage = 10;
-    let currentServerRequestId = 0;
-    let isBestConnectionProcessing = false;
+    let currentServerRequestId = 0; 
+    let isBestConnectionProcessing = false; 
 
     function handlePageChange(e) {
         if (e.detail.page === 'game-detail') {
@@ -53,7 +54,7 @@
             const universeId = params.get('universe') || params.get('universeId');
             const genre = params.get('genre');
             if (placeId) {
-
+                
                 if (typeof navigateTo === 'function') {
                     navigateTo('game-detail', { id: placeId, universe: universeId, genre: genre });
                 }
@@ -115,16 +116,16 @@
         `;
 
         try {
-
+            
             const response = await fetch('pages/game-detail.html');
             if (!response.ok) throw new Error('Failed to load game detail template');
             const html = await response.text();
             container.innerHTML = html;
 
             if (!universeId) {
-
+                
                 try {
-
+                    
                     if (window.roblox?.getPlaceDetails) {
                         const placeDetails = await window.roblox.getPlaceDetails([placeId]);
                         if (placeDetails && placeDetails[0] && placeDetails[0].universeId) {
@@ -146,7 +147,7 @@
                                 universeId = gameDetails.data[0].id;
                             }
                         } catch (e) {
-
+                            
                         }
                     }
                 } catch (e) {
@@ -165,7 +166,7 @@
         } catch (error) {
             console.error('Failed to load game detail page:', error);
             isLoading = false;
-
+            
             if (window.showErrorPage) {
                 window.showErrorPage('Failed to load game: ' + error.message, 'game-detail-content');
             } else {
@@ -181,7 +182,7 @@
 
     async function loadGameData(placeId, universeId, passedGenre = null) {
         try {
-
+            
             const gameDetails = await window.roblox.getGameDetails([universeId]);
             if (!gameDetails?.data?.[0]) {
                 throw new Error('Game not found');
@@ -252,7 +253,7 @@
     }
 
     function updateBasicInfo(game) {
-
+        
         const titleEl = document.getElementById('GameTitle');
         if (titleEl) titleEl.textContent = game.name || 'Unknown Game';
 
@@ -267,7 +268,7 @@
 
         const avatarTypeEl = document.getElementById('AvatarType');
         if (avatarTypeEl) {
-
+            
             avatarTypeEl.textContent = formatAvatarType(game.universeAvatarType);
 
             loadAvatarTypeDetails(game.id, avatarTypeEl);
@@ -299,7 +300,7 @@
         }
 
         const genreIconMap = {
-
+            
             'Shooter': { icon: 'ModernMilitary.png', name: 'Shooter' },
             'Action': { icon: 'Ninja.png', name: 'Action' },
             'Adventure': { icon: 'Adventure.png', name: 'Adventure' },
@@ -315,7 +316,7 @@
             'Survival': { icon: 'Cthulu.png', name: 'Survival' },
             'Entertainment': { icon: 'LOL.png', name: 'Entertainment' },
             'Shopping': { icon: 'City.png', name: 'Shopping' },
-
+            
             'Fighting': { icon: 'Ninja.png', name: 'Fighting' },
             'Horror': { icon: 'Cthulu.png', name: 'Horror' },
             'Comedy': { icon: 'LOL.png', name: 'Comedy' },
@@ -336,9 +337,9 @@
         };
 
         const genreInfo = genreIconMap[genre] || { icon: 'Classic.png', name: genre || 'All Genres' };
-
+        
         if (genreEl) genreEl.textContent = genreInfo.name;
-
+        
         if (genreIconEl) {
             const iconPath = `images/GenreIcons/${genreInfo.icon}`;
             genreIconEl.src = iconPath;
@@ -359,7 +360,7 @@
         const creatorAvatarLink = document.getElementById('CreatorAvatarLink');
         const creatorAvatar = document.getElementById('CreatorAvatar');
 
-        const creatorType = creator.type || 'User';
+        const creatorType = creator.type || 'User'; 
         const creatorId = creator.id;
         const creatorName = creator.name || 'Unknown';
 
@@ -393,7 +394,7 @@
                         await window.addObcOverlayIfPremium(creatorAvatarLink, creatorId, { bottom: '3px', left: '1px' });
                     }
                 } else if (creatorType === 'Group' && window.roblox?.getGroupThumbnails) {
-
+                    
                     const thumbnail = await window.roblox.getGroupThumbnails([creatorId], '150x150');
                     if (thumbnail?.data?.[0]?.imageUrl) {
                         creatorAvatar.src = thumbnail.data[0].imageUrl;
@@ -420,7 +421,7 @@
             }
         } catch (e) {
             console.error('Failed to load game thumbnail:', e);
-
+            
         }
     }
 
@@ -431,12 +432,12 @@
         if (!upVotesEl || !downVotesEl) return;
 
         try {
-
+            
             const [votes, userVote] = await Promise.all([
                 window.roblox?.getGameVotes?.([universeId]),
                 window.roblox?.getUserVote?.(universeId).catch(() => null)
             ]);
-
+            
             if (votes?.data?.[0]) {
                 const upVotes = votes.data[0].upVotes || 0;
                 const downVotes = votes.data[0].downVotes || 0;
@@ -463,7 +464,7 @@
         if (!sectionEl || !receptionEl || !playtimeEl) return;
 
         try {
-
+            
             let currentUserId = null;
             try {
                 const user = await window.roblox.getCurrentUser();
@@ -488,7 +489,7 @@
 
                 let receptionBadge = '';
                 let receptionColor = '';
-
+                
                 if (likePercentage >= 95) {
                     receptionBadge = 'Overwhelmingly Positive';
                     receptionColor = '#0a6e2d';
@@ -518,7 +519,7 @@
                     </div>
                     <div style="font-size: 11px; color: #666; margin-top: 4px;">
                         <img src="images/rovloo/btn-thumbsup.png" alt="Likes" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 2px;">
-                        ${likes.toLocaleString()} /
+                        ${likes.toLocaleString()} / 
                         <img src="images/rovloo/btn-thumbsdown.png" alt="Dislikes" style="width: 14px; height: 14px; vertical-align: middle; margin: 0 2px;">
                         ${dislikes.toLocaleString()} (${stats.totalReviews.toLocaleString()} reviews)
                     </div>
@@ -540,7 +541,7 @@
 
             if (serverMinutes === 0 && currentUserId) {
                 try {
-
+                    
                     const rovlooPlaytime = await window.roblox?.reviews?.getUserPlaytime?.(currentUserId);
                     console.log('[GameDetail] Rovloo server playtime data:', rovlooPlaytime);
 
@@ -555,11 +556,11 @@
                     console.warn('[GameDetail] Failed to fetch Rovloo server playtime:', e);
                 }
             }
-
+            
             console.log('[GameDetail] Server minutes:', serverMinutes);
 
             const localMinutes = localPlaytime?.totalMinutes || 0;
-
+            
             console.log('[GameDetail] Local minutes:', localMinutes);
 
             totalMinutes = serverMinutes + localMinutes;
@@ -578,7 +579,7 @@
                 const hours = Math.floor(totalMinutes / 60);
                 const minutes = totalMinutes % 60;
                 let playtimeText = '';
-
+                
                 if (hours > 0) {
                     playtimeText = `${hours}h ${minutes}m`;
                 } else {
@@ -604,11 +605,11 @@
             console.error('Failed to load Rovloo stats:', e);
         }
     }
-
+    
     function updateVoteButtonStates(userVote) {
         const voteUpBtn = document.getElementById('VoteUpButton');
         const voteDownBtn = document.getElementById('VoteDownButton');
-
+        
         if (!voteUpBtn || !voteDownBtn) return;
 
         voteUpBtn.classList.remove('voted');
@@ -665,7 +666,7 @@
     }
 
     async function loadPlayerAvatarsForServers(servers) {
-
+        
         const playerTokenSet = new Set();
         servers.forEach(server => {
             if (server.playerTokens && Array.isArray(server.playerTokens)) {
@@ -695,7 +696,7 @@
             batchResults.forEach(result => {
                 if (result?.data) {
                     result.data.forEach(item => {
-
+                        
                         const match = item.requestId.match(/AvatarHeadShot::([A-F0-9]+)::/);
                         if (match && item.imageUrl) {
                             const token = match[1];
@@ -721,7 +722,7 @@
     }
 
     async function loadPublicServers(placeId) {
-
+        
         const excludeFullCheckbox = document.getElementById('ExcludeFullServers');
         const sortDropdown = document.getElementById('ServerSortOrder');
         const sortOrderValue = sortDropdown?.value || 'desc';
@@ -755,7 +756,7 @@
 
         try {
             if (window.robloxAPI?.getGameServers) {
-
+                
                 const servers = await window.robloxAPI.getGameServers(placeId, 'Public', 100, '', apiSortOrder, excludeFull);
 
                 if (requestId !== currentServerRequestId) {
@@ -766,7 +767,7 @@
                 if (loadingEl) loadingEl.style.display = 'none';
 
                 if (servers?.data && servers.data.length > 0) {
-
+                    
                     await loadPlayerAvatarsForServers(servers.data);
 
                     if (requestId !== currentServerRequestId) {
@@ -789,15 +790,15 @@
 
                         if (loadingEl) loadingEl.style.display = 'block';
                         updateLoadingStatus('Detecting your best region...');
-
+                        
                         try {
-
+                            
                             let localServerStatus = await window.RobloxClient?.localServer?.getStatus();
 
                             if (!localServerStatus?.isRunning && sortedServers.length > 50) {
                                 console.log('Auto-starting local server for better performance...');
                                 updateLoadingStatus('Starting advanced detection engine...');
-
+                                
                                 try {
                                     const startResult = await window.RobloxClient?.localServer?.start();
                                     if (startResult?.success) {
@@ -810,16 +811,16 @@
                                     console.warn('Could not start local server:', startError);
                                 }
                             }
-
+                            
                             const useLocalServer = localServerStatus?.isRunning && sortedServers.length > 50;
-
+                            
                             if (useLocalServer) {
                                 console.log('Using local server for advanced server region detection...');
                                 updateLoadingStatus('Using advanced detection (local server)...');
 
                                 await processServersWithLocalServer(sortedServers, placeId, updateLoadingStatus);
                             } else {
-
+                                
                                 console.log('Using client-side server region detection...');
                                 await processServersClientSide(sortedServers, placeId, updateLoadingStatus);
                             }
@@ -830,7 +831,7 @@
 
                             let serversToResolve;
                             if (sortedServers.length <= 100) {
-
+                                
                                 serversToResolve = sortedServers;
                             } else {
 
@@ -846,13 +847,13 @@
                                 for (let i = 0; i < weightedRemaining.length && randomSample.length < sampleSize; i += step) {
                                     randomSample.push(weightedRemaining[i]);
                                 }
-
+                                
                                 serversToResolve = [...firstBatch, ...randomSample];
                                 console.log(`Large server list (${sortedServers.length}): analyzing ${serversToResolve.length} strategically sampled servers`);
                             }
                             let resolvedCount = 0;
                             let errorCount = 0;
-
+                            
                             console.log(`Resolving regions for ${serversToResolve.length} servers...`);
                             updateLoadingStatus(`Detecting server regions (0/${serversToResolve.length})...`);
 
@@ -863,7 +864,7 @@
                                 const cached = localStorage.getItem(cacheKey);
                                 if (cached) {
                                     cachedRegions = JSON.parse(cached);
-
+                                    
                                     const oneHourAgo = Date.now() - (60 * 60 * 1000);
                                     Object.keys(cachedRegions).forEach(serverId => {
                                         if (cachedRegions[serverId].timestamp < oneHourAgo) {
@@ -878,21 +879,21 @@
                             const batchSize = 10;
                             for (let i = 0; i < serversToResolve.length; i += batchSize) {
                                 const batch = serversToResolve.slice(i, i + batchSize);
-
+                                
                                 await Promise.all(batch.map(async (server) => {
                                     try {
-
+                                        
                                         if (cachedRegions[server.id]) {
                                             const cached = cachedRegions[server.id];
                                             server.regionString = cached.regionString;
                                             server.estimatedLatency = cached.estimatedLatency;
-                                            server.serverIP = cached.serverIP;
+                                            server.serverIP = cached.serverIP; 
                                             resolvedCount++;
                                             return;
                                         }
-
+                                        
                                         const connInfo = await window.robloxAPI.getServerConnectionInfo(placeId, server.id);
-
+                                        
                                         if (!connInfo) {
                                             errorCount++;
                                             return;
@@ -906,22 +907,22 @@
                                         if (resolvedCount === 0 && connInfo.joinScript) {
                                             console.log('Sample server connection info:', JSON.stringify(connInfo).substring(0, 500));
                                         }
-
-                                        const ip = connInfo?.joinScript?.UdmuxEndpoints?.[0]?.Address ||
+                                        
+                                        const ip = connInfo?.joinScript?.UdmuxEndpoints?.[0]?.Address || 
                                                    connInfo?.joinScript?.MachineAddress;
-
+                                        
                                         if (ip) {
-
+                                            
                                             server.serverIP = ip;
-
+                                            
                                             const regionInfo = await window.RobloxClient?.region?.resolveIp(ip);
                                             if (regionInfo) {
-
+                                                
                                                 server.regionString = regionInfo.locationString;
 
                                                 let latencyRegionKey = regionInfo.regionKey;
                                                 if (regionInfo.routedTo) {
-                                                    latencyRegionKey = regionInfo.routedTo;
+                                                    latencyRegionKey = regionInfo.routedTo; 
                                                 }
                                                 const rank = window._regionLatencyRanking?.[latencyRegionKey];
                                                 server.estimatedLatency = rank !== undefined ? window._regionLatencyData[rank]?.latency ?? 9999 : 9999;
@@ -934,7 +935,7 @@
                                                     timestamp: Date.now()
                                                 };
                                             } else {
-
+                                                
                                                 server.regionString = `Unknown`;
                                                 server.estimatedLatency = 9999;
                                                 resolvedCount++;
@@ -947,7 +948,7 @@
                                                 };
                                             }
                                         } else if (connInfo.status && connInfo.status !== 0 && connInfo.status !== 2 && connInfo.status !== 6) {
-
+                                            
                                             console.warn(`Server ${server.id} status: ${connInfo.status} - ${connInfo.message || 'unknown'}`);
                                         }
                                     } catch (e) {
@@ -958,10 +959,10 @@
                                 updateLoadingStatus(`Detecting server regions (${Math.min(i + batchSize, serversToResolve.length)}/${serversToResolve.length})...`);
 
                                 if (i + batchSize < serversToResolve.length) {
-                                    await new Promise(r => setTimeout(r, 150));
+                                    await new Promise(r => setTimeout(r, 150)); 
                                 }
                             }
-
+                            
                             console.log(`Resolved regions for ${resolvedCount}/${serversToResolve.length} servers (${errorCount} errors)`);
 
                             try {
@@ -975,7 +976,7 @@
                             sortServersByLatency(sortedServers);
 
                             isBestConnectionProcessing = false;
-
+                            
                         } catch (e) {
                             console.error('Failed to sort by best connection:', e);
                             if (loadingEl) loadingEl.style.display = 'none';
@@ -989,7 +990,7 @@
                             return idB.localeCompare(idA);
                         });
                     } else if (sortOrderValue === 'oldest') {
-
+                        
                         sortedServers.sort((a, b) => {
                             const idA = a.id || '';
                             const idB = b.id || '';
@@ -1010,7 +1011,7 @@
 
                     setupServerJoinButtons(placeId);
                 } else {
-
+                    
                     if (noServersEl) {
                         noServersEl.style.display = 'block';
                         if (sortOrderValue === 'bestConnection') {
@@ -1069,7 +1070,7 @@
     let nextPageHandler = null;
 
     function cleanupServerPagination() {
-
+        
         if (serverPaginationSetup) {
             const prevBtn = document.getElementById('PrevServersPage');
             const nextBtn = document.getElementById('NextServersPage');
@@ -1124,7 +1125,7 @@
     let refreshClickHandler = null;
 
     function cleanupServerFilters() {
-
+        
         if (serverFiltersSetup) {
             const excludeFullCheckbox = document.getElementById('ExcludeFullServers');
             const sortDropdown = document.getElementById('ServerSortOrder');
@@ -1193,13 +1194,13 @@
 
         try {
             if (window.robloxAPI?.getPrivateServers) {
-
+                
                 const servers = await window.robloxAPI.getPrivateServers(placeId, 50);
 
                 if (loadingEl) loadingEl.style.display = 'none';
 
                 if (servers?.data && servers.data.length > 0) {
-
+                    
                     await loadOwnerAvatarsForPrivateServers(servers.data);
 
                     allPrivateServers = servers.data;
@@ -1283,7 +1284,7 @@
     }
 
     async function loadOwnerAvatarsForPrivateServers(servers) {
-
+        
         const ownerIds = [];
         servers.forEach(server => {
             const ownerId = server.owner?.id || server.ownerId;
@@ -1295,7 +1296,7 @@
         if (ownerIds.length === 0) return;
 
         try {
-
+            
             const avatarResult = await window.roblox.getUserThumbnails(ownerIds, '150x150');
             if (avatarResult?.data) {
                 avatarResult.data.forEach(item => {
@@ -1326,9 +1327,9 @@
             let pingClass = '';
             let pingText = '';
             let pingTitle = '';
-
+            
             if (measuredPing && measuredPing > 0) {
-
+                
                 const pingNum = Math.round(measuredPing);
                 if (pingNum < 80) {
                     pingClass = 'good';
@@ -1346,7 +1347,7 @@
 
                     const cappedPing = Math.min(pingNum, 200);
                     const performancePercent = Math.round(100 - (cappedPing / 200 * 100));
-
+                    
                     if (performancePercent >= 75) {
                         pingClass = 'good';
                     } else if (performancePercent >= 50) {
@@ -1364,7 +1365,7 @@
             const hasPlayerAvatars = playerAvatars && playerAvatars.length > 0;
 
             if (hasPlayerAvatars) {
-
+                
                 const visiblePlayers = Math.min(playerAvatars.length, maxAvatars);
                 const extraPlayers = Math.max(0, playerCount - visiblePlayers);
 
@@ -1377,7 +1378,7 @@
                     avatarsHtml += `<span class="player-count-badge">+${extraPlayers}</span>`;
                 }
             } else {
-
+                
                 const playersToShow = Math.min(playerCount, maxAvatars);
                 const extraPlayers = Math.max(0, playerCount - playersToShow);
 
@@ -1395,10 +1396,10 @@
             let regionHtml = '';
             if (regionString) {
                 const latencyText = estimatedLatency && estimatedLatency < 9999 ? ` (~${estimatedLatency}ms)` : '';
-
+                
                 const isUncertain = regionString === 'Unknown' || (estimatedLatency && estimatedLatency >= 9999);
                 const icon = isUncertain ? '📍' : '📍';
-                const tooltip = isUncertain
+                const tooltip = isUncertain 
                     ? 'Region could not be determined from server IP'
                     : 'Server datacenter location based on IP. Note: Roblox may route your connection through a different path.';
                 regionHtml = `<div class="server-region${isUncertain ? ' uncertain' : ''}" title="${tooltip}">${icon} ${regionString}${latencyText}</div>`;
@@ -1470,7 +1471,7 @@
     }
 
     function setupServerJoinButtons(placeId) {
-
+        
         const serversList = document.getElementById('PublicServersList');
         if (!serversList) return;
 
@@ -1526,13 +1527,13 @@
 
         try {
             if (window.roblox?.getGameBadges) {
-
+                
                 const badges = await window.roblox.getGameBadges(universeId, 100);
 
                 if (loadingEl) loadingEl.style.display = 'none';
 
                 if (badges?.data && badges.data.length > 0) {
-
+                    
                     allBadges = badges.data;
                     currentBadgePage = 1;
                     userOwnedBadges.clear();
@@ -1556,7 +1557,7 @@
                             if (currentUser?.id) {
                                 const awardedDates = await window.robloxAPI.getBadgeAwardedDates(currentUser.id, badgeIds);
                                 if (awardedDates?.data) {
-
+                                    
                                     awardedDates.data.forEach(item => {
                                         if (item.badgeId && item.awardedDate) {
                                             userOwnedBadges.add(item.badgeId);
@@ -1566,7 +1567,7 @@
                             }
                         }
                     } catch (e) {
-
+                        
                         console.warn('Failed to load user badge data:', e);
                     }
 
@@ -1645,7 +1646,7 @@
                 if (page) {
                     currentBadgePage = page;
                     renderBadgesPage();
-
+                    
                     document.getElementById('BadgesSection')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             }
@@ -1718,7 +1719,7 @@
     let allGamepassThumbnails = {};
     let ownedGamepasses = new Set();
     let hideOffsaleGamepasses = true;
-    let gamepassOwnershipFilter = 'all';
+    let gamepassOwnershipFilter = 'all'; 
 
     async function loadGamepasses(universeId) {
         const loadingEl = document.getElementById('GamepassesLoading');
@@ -1730,13 +1731,13 @@
 
         try {
             if (window.robloxAPI?.getGamePasses) {
-
+                
                 const response = await window.robloxAPI.getGamePasses(universeId, 50);
 
                 if (loadingEl) loadingEl.style.display = 'none';
 
                 if (response?.gamePasses && response.gamePasses.length > 0) {
-
+                    
                     allGamepasses = response.gamePasses;
 
                     const gamepassIds = response.gamePasses.map(gp => gp.id);
@@ -1782,19 +1783,19 @@
 
     async function checkGamepassOwnership(gamepassIds) {
         try {
-
+            
             const currentUser = await window.RobloxClient?.api?.getCurrentUser?.();
             if (!currentUser?.id) return;
 
             const checkPromises = gamepassIds.map(async (gpId) => {
                 try {
                     const result = await window.roblox.userOwnsItem(currentUser.id, 'GamePass', gpId);
-
+                    
                     if (result?.data && result.data.length > 0) {
                         ownedGamepasses.add(gpId);
                     }
                 } catch (e) {
-
+                    
                 }
             });
 
@@ -1844,7 +1845,7 @@
         const noGamepassesEl = document.getElementById('NoGamepasses');
         if (!listEl || !allGamepasses.length) return;
 
-        let filteredGamepasses = hideOffsaleGamepasses
+        let filteredGamepasses = hideOffsaleGamepasses 
             ? allGamepasses.filter(gp => gp.isForSale !== false)
             : allGamepasses;
 
@@ -1858,7 +1859,7 @@
             listEl.style.display = 'none';
             if (noGamepassesEl) {
                 noGamepassesEl.style.display = 'block';
-
+                
                 if (gamepassOwnershipFilter === 'owned') {
                     noGamepassesEl.textContent = 'You don\'t own any gamepasses for this game.';
                 } else if (gamepassOwnershipFilter === 'notowned' && hideOffsaleGamepasses) {
@@ -1885,7 +1886,7 @@
             const description = gamepass.displayDescription || gamepass.description || 'No description available.';
             const price = gamepass.price !== null && gamepass.price !== undefined ? gamepass.price : null;
             const isForSale = gamepass.isForSale !== false;
-            const productId = gamepass.productId || gamepass.id;
+            const productId = gamepass.productId || gamepass.id; 
             const sellerId = gamepass.creator?.creatorId || 0;
             const isOwned = ownedGamepasses.has(gamepass.id);
 
@@ -1906,7 +1907,7 @@
                         </div>
                     </div>
                     <div class="gamepass-price" style="flex-shrink: 0; text-align: right; min-width: 120px; font-size: 11px;">
-                        ${isOwned ? '<div style="color: #060; font-size: 12px; font-weight: bold;">✓ Owned</div>' :
+                        ${isOwned ? '<div style="color: #060; font-size: 12px; font-weight: bold;">✓ Owned</div>' : 
                           isForSale && price !== null ? `
                             <div style="font-weight: bold; color: #060; font-size: 13px; margin-bottom: 5px;">
                                 R$ ${price.toLocaleString()}
@@ -1922,6 +1923,7 @@
 
         listEl.innerHTML = html;
 
+        // Add click listeners to buy buttons
         const buyButtons = listEl.querySelectorAll('.gamepass-buy-btn');
         buyButtons.forEach(btn => {
             const clickHandler = function() {
@@ -1941,6 +1943,7 @@
         });
     }
 
+    // Current gamepass being purchased (for modal)
     let currentGamepassPurchase = null;
 
     function showGamepassPurchaseModal(gamepassId, price, sellerId, name, thumbnail) {
@@ -1958,6 +1961,7 @@
 
         if (!modal) return;
 
+        // Reset modal state
         errorEl.style.display = 'none';
         errorEl.textContent = '';
         successEl.style.display = 'none';
@@ -1966,13 +1970,16 @@
         confirmBtn.disabled = false;
         confirmBtn.textContent = 'Buy Now';
 
+        // Set content
         thumbnailEl.src = thumbnail || 'images/spinners/spinner100x100.gif';
         nameEl.textContent = name;
         priceEl.textContent = `R$ ${price.toLocaleString()}`;
         balanceEl.textContent = 'Loading balance...';
 
+        // Load user balance
         loadUserBalanceForModal(balanceEl);
 
+        // Show modal
         modal.style.display = 'block';
     }
 
@@ -2009,6 +2016,7 @@
         const buttonsEl = document.getElementById('gamepass-modal-buttons');
         const confirmBtn = document.getElementById('gamepass-confirm-btn');
 
+        // Disable button and show loading
         confirmBtn.disabled = true;
         confirmBtn.textContent = 'Purchasing...';
         errorEl.style.display = 'none';
@@ -2016,22 +2024,26 @@
         try {
             console.log('Purchasing gamepass:', { gamepassId, price, sellerId, name });
 
+            // Call purchase API
             const result = await window.robloxAPI.purchaseGamePass(gamepassId, price, 1, sellerId);
 
             console.log('Purchase API response:', result);
 
+            // The response is wrapped - actual data is in result.data
             const purchaseData = result?.data || result;
 
             if (purchaseData && purchaseData.purchased) {
-
+                // Success!
                 successEl.textContent = `Successfully purchased ${name}!`;
                 successEl.style.display = 'block';
                 buttonsEl.style.display = 'none';
 
+                // Refresh header Robux count
                 if (window.refreshHeaderRobux) {
                     window.refreshHeaderRobux();
                 }
 
+                // Close modal after delay
                 setTimeout(() => closeGamepassPurchaseModal(), 2000);
             } else {
                 const reason = purchaseData?.reason || purchaseData?.errorMsg || result?.message || 'Unknown error';
@@ -2065,6 +2077,7 @@
         }
     }
 
+    // Setup modal event listeners
     function setupGamepassPurchaseModal() {
         const modal = document.getElementById('gamepass-purchase-modal');
         const closeBtn = document.getElementById('gamepass-modal-close');
@@ -2137,29 +2150,31 @@
         if (!listEl) return;
 
         try {
-
+            // Try to get game-specific recommendations first
             let games = [];
-
+            
             if (window.robloxAPI?.getGameRecommendations) {
                 try {
                     const recs = await window.robloxAPI.getGameRecommendations(universeId, 6);
-
+                    // The API returns { games: [...] } with game objects
                     if (recs?.games && recs.games.length > 0) {
                         games = recs.games.slice(0, 6);
                     }
                 } catch (e) {
-
+                    // Silently fall back
                 }
             }
 
+            // Fall back to omni recommendations if game-specific failed
             if (games.length === 0 && window.robloxAPI?.getOmniRecommendations) {
                 try {
                     const recs = await window.robloxAPI.getOmniRecommendations('Game', null);
 
+                    // Parse the sorts array to extract games
                     if (recs?.sorts && Array.isArray(recs.sorts)) {
                         for (const sort of recs.sorts) {
                             if (sort.topic && sort.topic.id) {
-
+                                // Extract games from contentMetadata using topic IDs
                                 const topicGames = sort.topic.id.map(id => recs.contentMetadata?.Game?.[id]).filter(g => g);
                                 if (topicGames.length > 0) {
                                     games = topicGames.slice(0, 6);
@@ -2172,6 +2187,7 @@
                         }
                     }
 
+                    // Fallback to contentRows structure
                     if (games.length === 0 && recs?.contentRows) {
                         for (const row of recs.contentRows) {
                             if (row.contents && row.contents.length > 0) {
@@ -2200,7 +2216,7 @@
             if (loadingEl) loadingEl.style.display = 'none';
 
             if (games.length > 0) {
-
+                // Load thumbnails for games that have imageToken
                 await loadGameThumbnailsForRecommendations(games);
                 listEl.innerHTML = renderRecommendations(games);
                 listEl.style.display = 'block';
@@ -2217,7 +2233,7 @@
     }
 
     async function loadGameThumbnailsForRecommendations(games) {
-
+        // Get universe IDs from all games
         const universeIds = games.map(g => g.universeId || g.id).filter(id => id);
 
         if (universeIds.length === 0) {
@@ -2226,7 +2242,7 @@
         }
 
         try {
-
+            // Always use the getGameIcons API for proper thumbnails
             if (window.robloxAPI?.getGameIcons) {
                 const icons = await window.robloxAPI.getGameIcons(universeIds, '150x150');
                 if (icons?.data) {
@@ -2239,13 +2255,13 @@
                 }
             }
         } catch (e) {
-
+            // Silently fail
         }
     }
 
     function renderRecommendations(games) {
         let html = '<table style="width:100%; border-collapse:collapse;"><tr>';
-
+        
         games.forEach((game, index) => {
             if (index > 0 && index % 3 === 0) {
                 html += '</tr><tr>';
@@ -2257,10 +2273,12 @@
             const imageUrl = game.imageUrl || game.thumbnailUrl || 'images/spinners/spinner100x100.gif';
             const creatorName = game.creator?.name || game.creatorName || 'Unknown';
             const creatorId = game.creator?.id || game.creatorId || game.creatorTargetId || '';
-
+            
+            // Handle creator type - can be string ('User', 'Group') or number (0 = User, 1 = Group)
             let creatorTypeRaw = game.creator?.type || game.creatorType || 'User';
             const isGroup = creatorTypeRaw === 'Group' || creatorTypeRaw === 1;
 
+            // Build creator link
             let creatorHtml;
             if (creatorId) {
                 const creatorHref = isGroup ? `#group?id=${creatorId}` : `#profile?id=${creatorId}`;
@@ -2294,24 +2312,26 @@
         return html;
     }
 
+    // Track if a launch is in progress to prevent duplicate launches
     let launchInProgress = false;
 
     function setupPlayButton(placeId) {
         const playBtn = document.getElementById('PlayButton');
         if (playBtn) {
-
+            // Remove any existing click handlers by cloning the element
             const newPlayBtn = playBtn.cloneNode(true);
             playBtn.parentNode.replaceChild(newPlayBtn, playBtn);
-
+            
             const handler = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-
+                
+                // Prevent duplicate launches
                 if (launchInProgress) {
                     console.log('Launch already in progress, ignoring click');
                     return;
                 }
-
+                
                 launchGame(placeId);
             };
 
@@ -2325,7 +2345,8 @@
 
     async function launchGame(placeId) {
         console.log('Launching game:', placeId);
-
+        
+        // Check if user is logged in first
         try {
             const isLoggedIn = await window.RobloxClient?.auth?.isLoggedIn?.();
             if (!isLoggedIn) {
@@ -2333,7 +2354,7 @@
                 if (window.showGameLaunchOverlay) {
                     window.showGameLaunchOverlay('Sign in required to play games. Returning to Rovloo Hub...');
                 }
-
+                // Return to hub after a short delay
                 setTimeout(() => {
                     if (window.hideGameLaunchOverlay) {
                         window.hideGameLaunchOverlay();
@@ -2347,13 +2368,15 @@
         } catch (authError) {
             console.error('Auth check failed:', authError);
         }
-
+        
+        // Prevent duplicate launches - but with a shorter timeout
         if (launchInProgress) {
             console.log('Launch already in progress, ignoring');
             return;
         }
         launchInProgress = true;
-
+        
+        // Show the game launch overlay
         if (window.showGameLaunchOverlay) {
             window.showGameLaunchOverlay('Starting Roblox...');
         }
@@ -2362,7 +2385,7 @@
             let launched = false;
             let errorMessage = null;
             let wasCancelled = false;
-
+            
             if (window.roblox?.launchGame) {
                 console.log('Using window.roblox.launchGame...');
                 try {
@@ -2378,7 +2401,8 @@
                     errorMessage = launchError.message || 'Unknown launch error';
                     launched = false;
                 }
-
+                
+                // If cancelled, just hide the overlay and return
                 if (wasCancelled) {
                     console.log('Game launch was cancelled');
                     if (window.hideGameLaunchOverlay) {
@@ -2386,9 +2410,9 @@
                     }
                     return;
                 }
-
+                
                 if (launched) {
-
+                    // Update status after successful launch
                     if (window.updateGameLaunchStatus) {
                         setTimeout(() => {
                             if (!window.isGameLaunchCancelled || !window.isGameLaunchCancelled()) {
@@ -2396,7 +2420,8 @@
                             }
                         }, 2000);
                     }
-
+                    
+                    // Auto-hide after game should have launched
                     if (window.autoHideGameLaunchOverlay) {
                         window.autoHideGameLaunchOverlay(6000);
                     }
@@ -2409,7 +2434,7 @@
                     window.autoHideGameLaunchOverlay(6000);
                 }
             } else {
-
+                // Fallback to roblox-player protocol
                 console.log('Using fallback roblox-player protocol...');
                 const launchUrl = `roblox-player:1+launchmode:play+gameinfo:+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&placeId=${placeId}`;
                 window.location.href = launchUrl;
@@ -2418,16 +2443,16 @@
                     window.autoHideGameLaunchOverlay(6000);
                 }
             }
-
+            
             if (!launched) {
                 throw new Error(errorMessage || 'Failed to launch game. Make sure Roblox is installed.');
             }
         } catch (error) {
             console.error('Failed to launch game:', error);
-
+            // Show error in overlay with more specific message
             if (window.updateGameLaunchStatus) {
                 let displayError = error.message || 'Failed to launch game';
-
+                // Make common errors more user-friendly
                 if (displayError.includes('authentication ticket')) {
                     displayError = 'Login expired. Please log in again.';
                 } else if (displayError.includes('Not logged in')) {
@@ -2435,21 +2460,22 @@
                 }
                 window.updateGameLaunchStatus(displayError);
             }
-
+            // Hide overlay after showing error
             setTimeout(() => {
                 if (window.hideGameLaunchOverlay) {
                     window.hideGameLaunchOverlay();
                 }
             }, 3000);
         } finally {
-
+            // Reset launch flag immediately to allow for quick retry if needed
             launchInProgress = false;
         }
     }
 
     async function joinServer(placeId, jobId) {
         console.log('Joining server:', placeId, jobId);
-
+        
+        // Check if user is logged in first
         try {
             const isLoggedIn = await window.RobloxClient?.auth?.isLoggedIn?.();
             if (!isLoggedIn) {
@@ -2470,13 +2496,15 @@
         } catch (authError) {
             console.error('Auth check failed:', authError);
         }
-
+        
+        // Prevent duplicate launches
         if (launchInProgress) {
             console.log('Launch already in progress, ignoring');
             return;
         }
         launchInProgress = true;
-
+        
+        // Show the game launch overlay
         if (window.showGameLaunchOverlay) {
             window.showGameLaunchOverlay('Starting Roblox...');
         }
@@ -2484,7 +2512,7 @@
         try {
             let launched = false;
             let errorMessage = null;
-
+            
             if (window.roblox?.joinGameInstance) {
                 console.log('Using window.roblox.joinGameInstance...');
                 try {
@@ -2499,9 +2527,9 @@
                     errorMessage = joinError.message || 'Unknown join error';
                     launched = false;
                 }
-
+                
                 if (launched) {
-
+                    // Update status after successful launch
                     if (window.updateGameLaunchStatus) {
                         setTimeout(() => {
                             if (!window.isGameLaunchCancelled || !window.isGameLaunchCancelled()) {
@@ -2509,7 +2537,7 @@
                             }
                         }, 2000);
                     }
-
+                    
                     if (window.autoHideGameLaunchOverlay) {
                         window.autoHideGameLaunchOverlay(6000);
                     }
@@ -2522,7 +2550,7 @@
                     window.autoHideGameLaunchOverlay(6000);
                 }
             } else {
-
+                // Fallback
                 console.log('Using fallback roblox-player protocol for server join...');
                 const launchUrl = `roblox-player:1+launchmode:play+gameinfo:${jobId}+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGameJob&placeId=${placeId}&gameId=${jobId}`;
                 window.location.href = launchUrl;
@@ -2531,7 +2559,7 @@
                     window.autoHideGameLaunchOverlay(6000);
                 }
             }
-
+            
             if (!launched) {
                 throw new Error(errorMessage || 'Failed to join server. Make sure Roblox is installed.');
             }
@@ -2552,14 +2580,15 @@
                 }
             }, 3000);
         } finally {
-
+            // Reset launch flag immediately to allow for quick retry if needed
             launchInProgress = false;
         }
     }
 
     async function joinPrivateServer(placeId, accessCode, vipServerId) {
         console.log('Joining private server:', placeId, accessCode, vipServerId);
-
+        
+        // Check if user is logged in first
         try {
             const isLoggedIn = await window.RobloxClient?.auth?.isLoggedIn?.();
             if (!isLoggedIn) {
@@ -2580,13 +2609,15 @@
         } catch (authError) {
             console.error('Auth check failed:', authError);
         }
-
+        
+        // Prevent duplicate launches
         if (launchInProgress) {
             console.log('Launch already in progress, ignoring');
             return;
         }
         launchInProgress = true;
-
+        
+        // Show the game launch overlay
         if (window.showGameLaunchOverlay) {
             window.showGameLaunchOverlay('Starting Roblox...');
         }
@@ -2594,7 +2625,7 @@
         try {
             let launched = false;
             let errorMessage = null;
-
+            
             if (window.roblox?.joinPrivateServer) {
                 console.log('Using window.roblox.joinPrivateServer...');
                 try {
@@ -2609,7 +2640,7 @@
                     errorMessage = joinError.message || 'Unknown join error';
                     launched = false;
                 }
-
+                
                 if (launched) {
                     if (window.updateGameLaunchStatus) {
                         setTimeout(() => {
@@ -2618,13 +2649,13 @@
                             }
                         }, 2000);
                     }
-
+                    
                     if (window.autoHideGameLaunchOverlay) {
                         window.autoHideGameLaunchOverlay(6000);
                     }
                 }
             } else if (window.roblox?.launchGame) {
-
+                // Fallback - launch with private server parameters
                 console.log('Using window.roblox.launchGame with private server params...');
                 try {
                     const result = await window.roblox.launchGame(placeId, { accessCode, vipServerId });
@@ -2638,12 +2669,12 @@
                     errorMessage = launchError.message || 'Unknown launch error';
                     launched = false;
                 }
-
+                
                 if (launched && window.autoHideGameLaunchOverlay) {
                     window.autoHideGameLaunchOverlay(6000);
                 }
             } else {
-
+                // Fallback to roblox-player protocol with private server
                 console.log('Using fallback roblox-player protocol for private server...');
                 let launchUrl = `roblox-player:1+launchmode:play+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestPrivateGame&placeId=${placeId}`;
                 if (accessCode) {
@@ -2655,7 +2686,7 @@
                     window.autoHideGameLaunchOverlay(6000);
                 }
             }
-
+            
             if (!launched) {
                 throw new Error(errorMessage || 'Failed to join private server. Make sure Roblox is installed.');
             }
@@ -2676,7 +2707,7 @@
                 }
             }, 3000);
         } finally {
-
+            // Reset launch flag immediately to allow for quick retry if needed
             launchInProgress = false;
         }
     }
@@ -2696,6 +2727,7 @@
         const handler = async function(e) {
             e.preventDefault();
 
+            // Check if user is logged in
             let isLoggedIn = false;
             try {
                 const currentUser = await window.roblox?.getCurrentUser();
@@ -2709,7 +2741,7 @@
             const isFavorited = favStar.classList.contains('favorited');
 
             try {
-
+                // Toggle favorite status using setGameFavorite
                 if (isFavorited) {
                     await window.roblox.setGameFavorite(universeId, false);
                     favStar.classList.remove('favorited');
@@ -2724,6 +2756,7 @@
                     if (favText) favText.textContent = 'Favorited';
                 }
 
+                // Update favorites count
                 const favCountEl = document.getElementById('FavoritesCount');
                 if (favCountEl) {
                     const currentCount = parseInt(favCountEl.textContent.replace(/[^\d]/g, '')) || 0;
@@ -2742,21 +2775,23 @@
             favStar.addEventListener('click', handler);
         }
 
+        // Check if user has favorited this game
         checkFavoriteStatus(universeId, favStar);
     }
 
     async function checkFavoriteStatus(universeId, favStar) {
         try {
-
+            // Check if logged in using RobloxClient.auth or getCurrentUser
             let isLoggedIn = false;
             try {
                 const currentUser = await window.roblox?.getCurrentUser();
                 isLoggedIn = !!currentUser?.id;
             } catch (e) {
-
+                // Not logged in
             }
             if (!isLoggedIn) return;
 
+            // Check if game is favorited
             if (window.roblox?.getGameFavoriteStatus) {
                 const status = await window.roblox.getGameFavoriteStatus(universeId);
                 const favText = document.getElementById('FavoriteText');
@@ -2798,7 +2833,7 @@
     }
 
     async function handleVote(universeId, isUpvote) {
-
+        // Check if user is logged in
         let isLoggedIn = false;
         try {
             const currentUser = await window.roblox?.getCurrentUser();
@@ -2810,18 +2845,21 @@
         }
 
         try {
-
+            // Submit vote
             if (window.roblox?.voteGame) {
                 const result = await window.roblox.voteGame(universeId, isUpvote);
 
+                // Check for errors in the response
                 if (result?.errors && result.errors.length > 0) {
                     const errorMsg = result.errors[0]?.message || result.errors[0]?.userFacingMessage || 'Unknown error';
                     alert(errorMsg);
                     return;
                 }
 
+                // Update vote button states immediately
                 updateVoteButtonStates(isUpvote);
 
+                // Reload vote counts and update bar
                 const votes = await window.roblox.getGameVotes([universeId]);
                 if (votes?.data?.[0]) {
                     const upVotesEl = document.getElementById('VoteUpCount');
@@ -2835,22 +2873,26 @@
                         downVotesEl.textContent = formatVoteCount(downVotes);
                     }
 
+                    // Update the ratio bar
                     updateVoteBar(upVotes, downVotes);
                 }
-
+                
+                // Update ReviewComponent's vote state and re-render the review form
+                // This allows the user to write a review immediately after voting
                 if (window.ReviewComponent) {
-                    window.ReviewComponent.userGameVote = isUpvote;
+                    window.ReviewComponent.userGameVote = isUpvote; // true = liked, false = disliked
                     if (window.ReviewComponent.renderReviewForm) {
                         window.ReviewComponent.renderReviewForm();
                     }
-
+                    
+                    // Switch to Reviews tab to show the review form
                     const reviewsTab = document.getElementById('GameDetailReviewsTab');
                     const reviewsContent = document.getElementById('GameDetailReviewsContent');
                     if (reviewsTab && reviewsContent) {
-
+                        // Deactivate all tabs
                         document.querySelectorAll('.game-detail-tab').forEach(t => t.classList.remove('active'));
                         document.querySelectorAll('.game-detail-tab-content').forEach(c => c.classList.remove('active'));
-
+                        // Activate reviews tab
                         reviewsTab.classList.add('active');
                         reviewsContent.classList.add('active');
                     }
@@ -2887,13 +2929,13 @@
         const allContents = [publicServersContent, privateServersContent, reviewsContent, recommendationsContent].filter(Boolean);
 
         const switchToTab = (activeTab, activeContent) => {
-
+            // Deactivate all tabs
             allTabs.forEach(tab => tab.className = 'StandardTabGray');
-
+            // Hide all content
             allContents.forEach(content => { if (content) content.style.display = 'none'; });
-
+            // Activate selected tab
             if (activeTab) activeTab.className = 'StandardTabGrayActive';
-
+            // Show selected content
             if (activeContent) activeContent.style.display = 'block';
         };
 
@@ -2907,7 +2949,7 @@
 
         const reviewsHandler = function() {
             switchToTab(reviewsTab, reviewsContent);
-
+            // Force re-render of reviews if they were rendered while hidden
             if (window.ReviewComponent && window.ReviewComponent.placeId) {
                 setTimeout(() => {
                     if (window.ReviewComponent.renderReviewsList) {
@@ -2921,6 +2963,7 @@
             switchToTab(recommendationsTab, recommendationsContent);
         };
 
+        // Use PerformanceUtils if available, otherwise add listeners directly
         if (window.PerformanceUtils) {
             window.PerformanceUtils.addPageListener(PAGE_ID, publicServersTab, 'click', publicServersHandler);
             window.PerformanceUtils.addPageListener(PAGE_ID, privateServersTab, 'click', privateServersHandler);
@@ -2934,6 +2977,7 @@
         }
     }
 
+    // Utility functions
     function formatNumber(num) {
         if (num >= 1000000000) {
             return (num / 1000000000).toFixed(1) + 'B';
@@ -2945,6 +2989,7 @@
         return num.toLocaleString();
     }
 
+    // Format player count for tab display (100, 500K+, 5M+, 1B+)
     function formatPlayerCountForTab(num) {
         if (num >= 1000000000) {
             return Math.floor(num / 1000000000) + 'B+';
@@ -2956,6 +3001,7 @@
         return num.toLocaleString();
     }
 
+    // Update the Public Servers tab text with player count
     function updatePublicServersTabText(playerCount) {
         const tab = document.getElementById('PublicServersTab');
         if (tab) {
@@ -2963,7 +3009,7 @@
             if (span) {
                 if (playerCount > 0) {
                     span.textContent = `Public Servers (${formatPlayerCountForTab(playerCount)})`;
-
+                    // Add tooltip with full player count
                     span.title = `${playerCount.toLocaleString()} players currently playing`;
                 } else {
                     span.textContent = 'Public Servers';
@@ -2974,20 +3020,21 @@
     }
 
     function formatAvatarType(avatarType, avatarRules = null) {
-
+        // If we have detailed avatar rules, check for Rthro
         if (avatarRules) {
             const maxScales = avatarRules.universeAvatarMaxScales;
-            const isRthroEnabled = maxScales &&
+            const isRthroEnabled = maxScales && 
                 (maxScales.proportion > 0 || maxScales.bodyType > 0);
-
+            
             const baseType = avatarRules.gameAvatarType || avatarType;
-
+            
             if (baseType === 'MorphToR15' && isRthroEnabled) {
                 return 'R15 + Rthro';
             } else if (baseType === 'PlayerChoice' && isRthroEnabled) {
                 return 'R6/R15 + Rthro';
             }
-
+            
+            // Use the detailed gameAvatarType if available
             switch (baseType) {
                 case 'MorphToR6':
                     return 'R6';
@@ -2999,7 +3046,8 @@
                     return baseType || 'Unknown';
             }
         }
-
+        
+        // Fallback to basic type from games API
         switch (avatarType) {
             case 'MorphToR6':
                 return 'R6';
@@ -3022,17 +3070,17 @@
                 element.textContent = formatAvatarType(null, avatarRules);
             }
         } catch (e) {
-
+            // Keep the basic type if detailed fetch fails
             console.warn('Failed to load avatar rules:', e);
         }
     }
 
     function formatDate(dateString) {
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric'
+        return date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'numeric', 
+            day: 'numeric' 
         });
     }
 
@@ -3041,7 +3089,7 @@
         const now = new Date();
         const diffMs = now - date;
         const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
+        
         if (diffDays === 0) {
             const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
             if (diffHours === 0) {
@@ -3062,39 +3110,47 @@
         }
     }
 
+    // Reset function for cleanup when navigating away
     function reset() {
-
+        // Use PerformanceUtils to clean up page-specific resources
         if (window.PerformanceUtils) {
             window.PerformanceUtils.cleanupPage(PAGE_ID);
             window.PerformanceUtils.abortPageRequests(PAGE_ID);
         }
 
+        // Clear references
         currentPlaceId = null;
         currentUniverseId = null;
         isLoading = false;
         currentPlayingCount = 0;
 
+        // Clear badges pagination state
         allBadges = [];
         allBadgeThumbnails = {};
         userOwnedBadges.clear();
         currentBadgePage = 1;
 
+        // Clear player avatar cache
         playerAvatarCache = {};
 
+        // Clear private servers state
         allPrivateServers = [];
         currentPrivateServerPage = 1;
 
+        // Clear public servers state
         allPublicServers = [];
         currentServerPage = 1;
         currentServerRequestId = 0;
         isBestConnectionProcessing = false;
 
+        // Clear any content to help garbage collection
         const container = document.getElementById('game-detail-content');
         if (container) {
             container.innerHTML = '';
         }
     }
 
+    // Expose for external use
     window.GameDetailPage = {
         load: loadGameDetailPage,
         launchGame: launchGame,
@@ -3102,19 +3158,28 @@
         reset: reset
     };
 
+    // Also expose loadGameDetailPage globally for navigation
     window.loadGameDetailPage = loadGameDetailPage;
-
+    
+    // Expose loadRovlooStats for review component to refresh stats after submission
     window.loadRovlooStats = loadRovlooStats;
 })();
 
+    /**
+
+// Helper functions for server region processing
+
+/**
+ * Process servers using local server for comprehensive analysis
+ */
 async function processServersWithLocalServer(sortedServers, placeId, updateLoadingStatus) {
     try {
-
+        // First, measure latency to all Roblox regions (cached after first call)
         if (!window._regionLatencyRanking) {
             console.log('Measuring latency to all Roblox regions...');
             const regionResults = await window.RobloxClient?.ping?.measureAllRegions();
             if (regionResults && regionResults.length > 0) {
-
+                // Create ranking map: region -> rank (0 = fastest)
                 window._regionLatencyRanking = {};
                 window._regionLatencyData = regionResults;
                 regionResults.forEach((r, index) => {
@@ -3125,27 +3190,28 @@ async function processServersWithLocalServer(sortedServers, placeId, updateLoadi
         }
 
         updateLoadingStatus(`Analyzing all ${sortedServers.length} servers...`);
-
+        
+        // Send all servers to local server for processing
         const userRegionRanking = {
             ...window._regionLatencyRanking,
             _data: window._regionLatencyData
         };
-
+        
         const result = await window.RobloxClient?.localServer?.resolveServers(
-            sortedServers,
-            placeId,
+            sortedServers, 
+            placeId, 
             userRegionRanking
         );
-
+        
         if (result?.success && result.results) {
-
+            // Apply results to servers
             const resultMap = new Map();
             result.results.forEach(r => {
                 if (r.regionString) {
                     resultMap.set(r.serverId, r);
                 }
             });
-
+            
             let resolvedCount = 0;
             sortedServers.forEach(server => {
                 const serverResult = resultMap.get(server.id);
@@ -3155,39 +3221,44 @@ async function processServersWithLocalServer(sortedServers, placeId, updateLoadi
                     resolvedCount++;
                 }
             });
-
+            
             console.log(`Local server resolved ${resolvedCount}/${sortedServers.length} servers (${result.stats?.cached || 0} from cache)`);
             updateLoadingStatus(`Resolved ${resolvedCount} server regions`);
-
+            
         } else {
             console.error('Local server processing failed:', result?.error);
             updateLoadingStatus('Local server failed, falling back to client-side...');
-
+            
+            // Fallback to client-side processing
             await processServersClientSide(sortedServers, placeId, updateLoadingStatus);
         }
-
+        
     } catch (error) {
         console.error('Local server processing error:', error);
         updateLoadingStatus('Local server error, falling back to client-side...');
-
+        
+        // Fallback to client-side processing
         await processServersClientSide(sortedServers, placeId, updateLoadingStatus);
     }
 }
 
+/**
+ * Process servers using client-side logic (existing implementation)
+ */
 async function processServersClientSide(sortedServers, placeId, updateLoadingStatus) {
     try {
-
+        // First, measure latency to all Roblox regions (cached after first call)
         if (!window._regionLatencyRanking) {
             console.log('Measuring latency to all Roblox regions...');
             const regionResults = await window.RobloxClient?.ping?.measureAllRegions();
             if (regionResults && regionResults.length > 0) {
-
+                // Create ranking map: region -> rank (0 = fastest)
                 window._regionLatencyRanking = {};
                 window._regionLatencyData = regionResults;
                 regionResults.forEach((r, index) => {
                     window._regionLatencyRanking[r.region] = index;
                 });
-
+                // Log top 5 regions for debugging
                 console.log('Top 5 regions:', regionResults.slice(0, 5).map(r => `${r.region}: ~${r.latency}ms`).join(', '));
                 updateLoadingStatus(`Best region: ${regionResults[0]?.region} (~${regionResults[0]?.latency}ms)`);
             }
@@ -3197,35 +3268,43 @@ async function processServersClientSide(sortedServers, placeId, updateLoadingSta
                 updateLoadingStatus(`Best region: ${bestRegion.region} (~${bestRegion.latency}ms)`);
             }
         }
-
+        
+        // Smart sampling strategy (like RoPro): 
+        // For games with many servers, sample strategically rather than just taking first N
         let serversToResolve;
         if (sortedServers.length <= 100) {
-
+            // Small server list: analyze all
             serversToResolve = sortedServers;
         } else {
-
+            // Large server list: strategic sampling
+            // Take first 50 (likely best by default sort) + random sample of remaining
             const firstBatch = sortedServers.slice(0, 50);
             const remaining = sortedServers.slice(50);
-
+            
+            // Random sample from remaining servers (weighted toward higher player counts)
             const sampleSize = Math.min(50, remaining.length);
             const randomSample = [];
-
+            
+            // Sort remaining by player count for weighted sampling
             const weightedRemaining = remaining.sort((a, b) => (b.playing || 0) - (a.playing || 0));
-
+            
+            // Take every Nth server to get good distribution
             const step = Math.max(1, Math.floor(weightedRemaining.length / sampleSize));
             for (let i = 0; i < weightedRemaining.length && randomSample.length < sampleSize; i += step) {
                 randomSample.push(weightedRemaining[i]);
             }
-
+            
             serversToResolve = [...firstBatch, ...randomSample];
             console.log(`Large server list (${sortedServers.length}): analyzing ${serversToResolve.length} strategically sampled servers`);
         }
         let resolvedCount = 0;
         let errorCount = 0;
-
+        
         console.log(`Resolving regions for ${serversToResolve.length} servers...`);
         updateLoadingStatus(`Detecting server regions (0/${serversToResolve.length})...`);
-
+        
+        // Check for cached server regions first (persistent across sessions)
+        // Version 2: Added WarsawToLondon routing fix
         const REGION_CACHE_VERSION = 2;
         const cacheKey = `serverRegions_v${REGION_CACHE_VERSION}_${placeId}`;
         let cachedRegions = {};
@@ -3233,7 +3312,7 @@ async function processServersClientSide(sortedServers, placeId, updateLoadingSta
             const cached = localStorage.getItem(cacheKey);
             if (cached) {
                 cachedRegions = JSON.parse(cached);
-
+                // Remove entries older than 1 hour
                 const oneHourAgo = Date.now() - (60 * 60 * 1000);
                 Object.keys(cachedRegions).forEach(serverId => {
                     if (cachedRegions[serverId].timestamp < oneHourAgo) {
@@ -3244,14 +3323,15 @@ async function processServersClientSide(sortedServers, placeId, updateLoadingSta
         } catch (e) {
             cachedRegions = {};
         }
-
+        
+        // Process in batches of 10 with shorter delays for better performance
         const batchSize = 10;
         for (let i = 0; i < serversToResolve.length; i += batchSize) {
             const batch = serversToResolve.slice(i, i + batchSize);
-
+            
             await Promise.all(batch.map(async (server) => {
                 try {
-
+                    // Check cache first
                     if (cachedRegions[server.id]) {
                         const cached = cachedRegions[server.id];
                         server.regionString = cached.regionString;
@@ -3259,32 +3339,37 @@ async function processServersClientSide(sortedServers, placeId, updateLoadingSta
                         resolvedCount++;
                         return;
                     }
-
+                    
                     const connInfo = await window.robloxAPI.getServerConnectionInfo(placeId, server.id);
-
+                    
                     if (!connInfo) {
                         errorCount++;
                         return;
                     }
-
+                    
+                    // Status 22 = server full (shouldn't happen with excludeFull=true)
+                    // Status 6 = joining, has IP info
+                    // Status 2 = success, has IP info
                     if (connInfo.status === 22) {
                         console.log(`Server ${server.id} is full (status 22)`);
                         return;
                     }
-
+                    
+                    // Log the response structure for debugging (first successful one)
                     if (resolvedCount === 0 && connInfo.joinScript) {
                         console.log('Sample server connection info:', JSON.stringify(connInfo).substring(0, 500));
                     }
-
-                    const ip = connInfo?.joinScript?.UdmuxEndpoints?.[0]?.Address ||
+                    
+                    const ip = connInfo?.joinScript?.UdmuxEndpoints?.[0]?.Address || 
                                connInfo?.joinScript?.MachineAddress;
-
+                    
                     if (ip) {
                         const regionInfo = await window.RobloxClient?.region?.resolveIp(ip);
                         if (regionInfo) {
-
+                            // Only store what's needed for display and sorting
                             server.regionString = regionInfo.locationString;
-
+                            // Use direct lookup from ranking map (O(1) instead of O(n) find)
+                            // For routed regions (like WarsawToLondon), use the destination region for latency
                             let latencyRegionKey = regionInfo.regionKey;
                             if (regionInfo.routedTo) {
                                 latencyRegionKey = regionInfo.routedTo;
@@ -3292,18 +3377,20 @@ async function processServersClientSide(sortedServers, placeId, updateLoadingSta
                             const rank = window._regionLatencyRanking?.[latencyRegionKey];
                             server.estimatedLatency = rank !== undefined ? window._regionLatencyData[rank]?.latency ?? 9999 : 9999;
                             resolvedCount++;
-
+                            
+                            // Cache the result
                             cachedRegions[server.id] = {
                                 regionString: server.regionString,
                                 estimatedLatency: server.estimatedLatency,
                                 timestamp: Date.now()
                             };
                         } else {
-
+                            // IP found but region unknown
                             server.regionString = `Unknown`;
                             server.estimatedLatency = 9999;
                             resolvedCount++;
-
+                            
+                            // Cache unknown result too (to avoid re-checking)
                             cachedRegions[server.id] = {
                                 regionString: server.regionString,
                                 estimatedLatency: server.estimatedLatency,
@@ -3311,68 +3398,76 @@ async function processServersClientSide(sortedServers, placeId, updateLoadingSta
                             };
                         }
                     } else if (connInfo.status && connInfo.status !== 0 && connInfo.status !== 2 && connInfo.status !== 6) {
-
+                        // Other error status
                         console.warn(`Server ${server.id} status: ${connInfo.status} - ${connInfo.message || 'unknown'}`);
                     }
                 } catch (e) {
                     errorCount++;
                 }
             }));
-
+            
+            // Update status after each batch
             updateLoadingStatus(`Detecting server regions (${Math.min(i + batchSize, serversToResolve.length)}/${serversToResolve.length})...`);
-
+            
+            // Shorter delay between batches - more aggressive but still respectful
             if (i + batchSize < serversToResolve.length) {
-                await new Promise(r => setTimeout(r, 150));
+                await new Promise(r => setTimeout(r, 150)); // Reduced from 300ms to 150ms
             }
         }
-
+        
         console.log(`Resolved regions for ${resolvedCount}/${serversToResolve.length} servers (${errorCount} errors)`);
-
+        
+        // Save updated cache
         try {
             localStorage.setItem(cacheKey, JSON.stringify(cachedRegions));
         } catch (e) {
             console.warn('Failed to save server region cache:', e);
         }
-
+        
+        // Background processing for remaining servers (if any)
         if (serversToResolve.length < sortedServers.length) {
             startBackgroundProcessing(sortedServers, serversToResolve, placeId, cachedRegions);
         }
-
+        
     } catch (error) {
         console.error('Client-side server processing error:', error);
         throw error;
     }
 }
 
+/**
+ * Start background processing for remaining servers
+ */
 function startBackgroundProcessing(sortedServers, serversToResolve, placeId, cachedRegions) {
     const remainingServers = sortedServers.slice(serversToResolve.length);
     console.log(`Starting background processing for ${remainingServers.length} additional servers...`);
-
+    
+    // Process remaining servers in background (lower priority, slower rate)
     setTimeout(async () => {
         try {
             let bgResolvedCount = 0;
-            const bgBatchSize = 3;
-
+            const bgBatchSize = 3; // Smaller batches for background
+            // Version 2: Added WarsawToLondon routing fix
             const REGION_CACHE_VERSION = 2;
             const cacheKey = `serverRegions_v${REGION_CACHE_VERSION}_${placeId}`;
-
-            for (let i = 0; i < remainingServers.length && i < 50; i += bgBatchSize) {
+            
+            for (let i = 0; i < remainingServers.length && i < 50; i += bgBatchSize) { // Limit background to 50 more
                 const bgBatch = remainingServers.slice(i, i + bgBatchSize);
-
+                
                 await Promise.all(bgBatch.map(async (server) => {
                     try {
-                        if (cachedRegions[server.id]) return;
-
+                        if (cachedRegions[server.id]) return; // Skip if already cached
+                        
                         const connInfo = await window.robloxAPI.getServerConnectionInfo(placeId, server.id);
                         if (!connInfo || connInfo.status === 22) return;
-
-                        const ip = connInfo?.joinScript?.UdmuxEndpoints?.[0]?.Address ||
+                        
+                        const ip = connInfo?.joinScript?.UdmuxEndpoints?.[0]?.Address || 
                                    connInfo?.joinScript?.MachineAddress;
-
+                        
                         if (ip) {
                             const regionInfo = await window.RobloxClient?.region?.resolveIp(ip);
                             if (regionInfo) {
-
+                                // For routed regions, use destination for latency lookup
                                 let latencyRegionKey = regionInfo.regionKey;
                                 if (regionInfo.routedTo) {
                                     latencyRegionKey = regionInfo.routedTo;
@@ -3387,45 +3482,54 @@ function startBackgroundProcessing(sortedServers, serversToResolve, placeId, cac
                             }
                         }
                     } catch (e) {
-
+                        // Ignore background errors
                     }
                 }));
-
+                
+                // Longer delay for background processing
                 if (i + bgBatchSize < remainingServers.length) {
                     await new Promise(r => setTimeout(r, 500));
                 }
             }
-
+            
+            // Save background cache updates
             if (bgResolvedCount > 0) {
                 try {
                     localStorage.setItem(cacheKey, JSON.stringify(cachedRegions));
                     console.log(`Background processing: cached ${bgResolvedCount} additional server regions`);
                 } catch (e) {
-
+                    // Ignore cache save errors
                 }
             }
         } catch (e) {
             console.warn('Background server processing failed:', e);
         }
-    }, 2000);
+    }, 2000); // Start background processing after 2 seconds
 }
 
+/**
+ * Sort servers by estimated latency
+ */
 function sortServersByLatency(sortedServers) {
     sortedServers.sort((a, b) => {
         const latencyA = a.estimatedLatency ?? 9999;
         const latencyB = b.estimatedLatency ?? 9999;
-
+        
+        // Primary sort: by estimated region latency
         if (latencyA !== latencyB) return latencyA - latencyB;
-
+        
+        // Secondary sort: by Roblox API ping (lower is better)
         const pingA = a.ping ?? 9999;
         const pingB = b.ping ?? 9999;
         if (pingA !== pingB) return pingA - pingB;
-
+        
+        // Tertiary sort: by player count (more players = more active)
         return (b.playing || 0) - (a.playing || 0);
     });
-
+    
+    // Log the sorted order for debugging
     const resolvedServers = sortedServers.filter(s => s.regionString);
-    console.log('Sorted servers by region:', resolvedServers.slice(0, 10).map(s =>
+    console.log('Sorted servers by region:', resolvedServers.slice(0, 10).map(s => 
         `${s.regionString} (~${s.estimatedLatency}ms, API: ${s.ping}ms)`
     ).join(', '));
 }

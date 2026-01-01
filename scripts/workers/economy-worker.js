@@ -1,3 +1,5 @@
+
+
 self.addEventListener('message', function(e) {
     const { type, data, id } = e.data;
 
@@ -6,27 +8,27 @@ self.addEventListener('message', function(e) {
 
         switch (type) {
             case 'PARSE_ECONOMY_CACHE':
-
+                
                 result = parseEconomyCache(data);
                 break;
 
             case 'FILTER_EXPIRED_ITEMS':
-
+                
                 result = filterExpiredItems(data.cache, data.ttl);
                 break;
 
             case 'SORT_BY_TIMESTAMP':
-
+                
                 result = sortByTimestamp(data);
                 break;
 
             case 'MERGE_ECONOMY_DATA':
-
+                
                 result = mergeEconomyData(data.cache, data.newData, data.maxSize);
                 break;
 
             case 'BATCH_PROCESS_ITEMS':
-
+                
                 result = batchProcessItems(data);
                 break;
 
@@ -41,7 +43,7 @@ self.addEventListener('message', function(e) {
         });
 
     } catch (error) {
-
+        
         self.postMessage({
             id: id,
             success: false,
@@ -88,7 +90,7 @@ function sortByTimestamp(cache) {
 }
 
 function mergeEconomyData(cache, newData, maxSize) {
-
+    
     const merged = { ...cache };
 
     for (const [id, data] of Object.entries(newData)) {
@@ -101,7 +103,7 @@ function mergeEconomyData(cache, newData, maxSize) {
     const entries = Object.entries(merged);
 
     if (entries.length > maxSize) {
-
+        
         entries.sort((a, b) => (a[1].timestamp || 0) - (b[1].timestamp || 0));
 
         const trimmed = {};

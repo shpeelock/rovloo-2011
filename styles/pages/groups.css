@@ -1,3 +1,5 @@
+
+
 #page-groups > #groups-search-view {
   width: 100%;
   margin: 0;
@@ -100,7 +102,7 @@
 
 #group-detail-view .Column3b {
   margin-top: 10px;
-  float: left;
+  float: left; 
 }
 
 #SearchControls {

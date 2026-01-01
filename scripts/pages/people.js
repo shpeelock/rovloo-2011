@@ -1,3 +1,5 @@
+
+
 (function() {
     'use strict';
 
@@ -8,7 +10,7 @@
     const RESULTS_PER_PAGE = 12;
 
     document.addEventListener('DOMContentLoaded', function() {
-
+        
         if (document.getElementById('SearchTextBox')) {
             init();
         }
@@ -28,7 +30,7 @@
     function init() {
         if (isInitialized) return;
         isInitialized = true;
-
+        
         console.log('People page initialized');
 
         const searchBtn = document.getElementById('SearchUsersButton');
@@ -43,7 +45,7 @@
                     performSearch();
                 }
             });
-
+            
             searchBox.focus();
         }
 
@@ -73,9 +75,9 @@
     async function performSearch() {
         const searchBox = document.getElementById('SearchTextBox');
         if (!searchBox) return;
-
+        
         const query = searchBox.value.trim();
-
+        
         if (!query) {
             showError('Please enter a username to search.');
             return;
@@ -92,13 +94,13 @@
 
         try {
             const result = await window.roblox.searchUsers(query, RESULTS_PER_PAGE);
-
+            
             if (!result || !result.data) {
                 throw new Error('Invalid response from API');
             }
 
             totalResults = result.data.length;
-
+            
             if (totalResults === 0) {
                 showNoResults();
             } else {
@@ -115,12 +117,12 @@
     async function renderResults(users) {
         const container = document.getElementById('SearchResultsList');
         if (!container) return;
-
+        
         container.innerHTML = '';
 
         const userIds = users.map(u => u.id);
         let thumbnails = {};
-
+        
         try {
             const thumbResult = await window.roblox.getUserThumbnails(userIds, '150x150', 'Headshot');
             if (thumbResult && thumbResult.data) {
@@ -149,7 +151,7 @@
         div.innerHTML = `
             <div class="UserThumbnail" style="margin-bottom: 5px; position: relative; display: inline-block;">
                 <a href="#profile?id=${user.id}" style="cursor: pointer;">
-                    <img src="${thumb}" alt="${escapeHtml(user.name)}"
+                    <img src="${thumb}" alt="${escapeHtml(user.name)}" 
                          style="width: 100px; height: 100px; border: 1px solid #ccc;"
                          onerror="this.src='${defaultThumb}'"/>
                 </a>
@@ -182,7 +184,7 @@
         const loadingEl = document.getElementById('SearchLoading');
         const resultsEl = document.getElementById('SearchResults');
         const noResultsEl = document.getElementById('SearchNoResults');
-
+        
         if (initialEl) initialEl.style.display = 'none';
         if (loadingEl) loadingEl.style.display = 'block';
         if (resultsEl) resultsEl.style.display = 'none';
@@ -195,7 +197,7 @@
         const resultsEl = document.getElementById('SearchResults');
         const noResultsEl = document.getElementById('SearchNoResults');
         const headerEl = document.getElementById('SearchResultsHeader');
-
+        
         if (initialEl) initialEl.style.display = 'none';
         if (loadingEl) loadingEl.style.display = 'none';
         if (resultsEl) resultsEl.style.display = 'block';
@@ -208,7 +210,7 @@
         const loadingEl = document.getElementById('SearchLoading');
         const resultsEl = document.getElementById('SearchResults');
         const noResultsEl = document.getElementById('SearchNoResults');
-
+        
         if (initialEl) initialEl.style.display = 'none';
         if (loadingEl) loadingEl.style.display = 'none';
         if (resultsEl) resultsEl.style.display = 'none';
@@ -216,14 +218,14 @@
     }
 
     function showError(message) {
-
+        
         if (window.showErrorPage && message.includes('Failed')) {
             window.showErrorPage(message, 'people-content');
         } else {
-
+            
             const errorDiv = document.getElementById('SearchError');
             const loadingEl = document.getElementById('SearchLoading');
-
+            
             if (errorDiv) {
                 errorDiv.textContent = message;
                 errorDiv.style.display = 'block';

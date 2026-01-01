@@ -1,13 +1,15 @@
+<!-- Inbox/Messages Page - 2011 Style -->
 <div id="page-inbox" class="page">
     <div class="InboxContainer" style="margin: 13px 5px 0 0;">
-
+        <!-- Tabs -->
         <div class="inbox-tabs">
             <div class="inbox-tab active" data-tab="inbox">Inbox</div>
             <div class="inbox-tab" data-tab="sent">Sent</div>
             <div class="inbox-tab" data-tab="archive">Archive</div>
             <div class="inbox-tab" data-tab="notifications">Notifications (<span id="inbox-notif-count">0</span>)</div>
         </div>
-
+        
+        <!-- Messages List View -->
         <div id="inbox-list-view" class="inbox-content">
             <table class="inbox-table">
                 <thead>
@@ -26,25 +28,28 @@
                     </tr>
                 </tbody>
             </table>
-
+            
+            <!-- Pagination -->
             <div class="inbox-pagination" id="inbox-pagination">
                 <button id="inbox-prev-btn" disabled>&lt; Previous</button>
                 <span id="inbox-page-info">Page 1 of 1</span>
                 <button id="inbox-next-btn" disabled>Next &gt;</button>
             </div>
-
+            
+            <!-- Action Buttons -->
             <div class="inbox-actions">
                 <button id="inbox-new-message-btn">New Message</button>
                 <button id="inbox-delete-selected-btn">Delete Selected</button>
                 <button id="inbox-archive-selected-btn">Archive Selected</button>
             </div>
         </div>
-
+        
+        <!-- Message Detail View -->
         <div id="inbox-detail-view" class="inbox-content" style="display: none;">
             <div class="private-message-box">
                 <div class="pm-header">Private Message</div>
                 <div class="pm-content">
-
+                    <!-- Left Column - Sender Info -->
                     <div class="pm-sender-col">
                         <div class="pm-date" id="pm-date">4/5/2011 2:03:40 PM</div>
                         <div class="pm-avatar">
@@ -58,7 +63,7 @@
                             <a href="#" id="pm-report-abuse">🛡️ Report Abuse</a>
                         </div>
                     </div>
-
+                    <!-- Right Column - Message Body -->
                     <div class="pm-body-col">
                         <div class="pm-body" id="pm-body">
                             Message content goes here...

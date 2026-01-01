@@ -1,3 +1,5 @@
+
+
 .local-server-settings {
     margin: 20px 0;
     padding: 20px;
@@ -212,41 +214,41 @@
         background: #2d3748;
         border-color: #4a5568;
     }
-
+    
     .local-server-settings h3 {
         color: #e2e8f0;
     }
-
+    
     .local-server-settings .setting-description {
         color: #a0aec0;
     }
-
+    
     .local-server-stats {
         background: #1a202c;
         border-color: #4a5568;
     }
-
+    
     .stat-item {
         background: #2d3748;
     }
-
+    
     .stat-label {
         color: #a0aec0;
     }
-
+    
     .stat-value {
         color: #e2e8f0;
     }
-
+    
     .status-text {
         color: #e2e8f0;
     }
-
+    
     .performance-warning {
         background: #744210;
         border-color: #975a16;
     }
-
+    
     .warning-text {
         color: #fbd38d;
     }

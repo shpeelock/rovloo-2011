@@ -1,3 +1,4 @@
+<!-- Game Detail Page - Authentic 2011 Theme -->
 <div id="ItemContainer">
     <div class="StandardBoxHeader" style="width: 709px;">
         <span class="item-header">
@@ -6,25 +7,26 @@
     </div>
     <div id="Item" class="StandardBox" style="width: 709px; padding: 10px;">
         <div id="Details">
-
+            <!-- Left Column - Thumbnail and Play Button -->
             <div id="placeContainer" style="float: left; width: 420px;">
                 <div id="Thumbnail_Place">
                     <a id="GameThumbnailLink" title="" style="display:inline-block;cursor:pointer;">
                         <img id="GameThumbnail" src="images/spinners/spinner100x100.gif" alt="Game Thumbnail" style="width:420px;height:230px;border:1px solid #999;"/>
                     </a>
                 </div>
-
+                
                 <div id="PlayGames" style="margin-top: 15px; width: 420px; margin-bottom: 15px;">
-
+                    <!-- Top Row: Favorite and Votes -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-
+                        <!-- Favorite Star -->
                         <div style="text-align: left;">
                             <a id="FavoriteStar" class="notFavorited" title="Add to favorites" style="cursor: pointer;"></a>
                             <span id="FavoriteText" style="color: #00007F; font-weight: bold; font-size: 11px; margin-left: 3px;">Add to Favorites</span>
                         </div>
 
+                        <!-- Vote Display with Ratio Bar -->
                         <div class="VoteContainer">
-
+                            <!-- Ratio Bar - Continuous with segment overlay -->
                             <div class="VoteBar">
                                 <div id="VoteBarLikes" class="VoteBarLikes"></div>
                                 <div id="VoteBarDislikes" class="VoteBarDislikes"></div>
@@ -36,7 +38,7 @@
                                     <div class="segment"></div>
                                 </div>
                             </div>
-
+                            <!-- Vote Counts -->
                             <div class="vote-numbers" style="display: flex; align-items: center; justify-content: space-between;">
                                 <div style="display: flex; align-items: center; gap: 3px;">
                                     <a id="VoteUpButton" class="VoteButton VoteUp" title="Like this game"></a>
@@ -50,6 +52,7 @@
                         </div>
                     </div>
 
+                    <!-- Bottom Row: Play Button (on new line) -->
                     <div style="clear: both;"></div>
                     <div style="text-align: center;">
                         <a id="PlayButton" class="MultiplayerVisit" style="cursor: pointer; display: inline-block;"></a>
@@ -58,8 +61,9 @@
                     <div id="PlayStatus" style="margin-top: 10px; color: #666; font-size: 11px; text-align: center;"></div>
                 </div>
 
+                <!-- Badges/Gamepasses Section -->
                 <div id="BadgesGamepassesSection" style="margin-top: 20px;">
-
+                    <!-- Tabs -->
                     <div style="display: flex; gap: 2px; margin-bottom: -2px;">
                         <div id="BadgesTab" class="StandardTabWhiteActive" style="cursor: pointer;">
                             <span>Badges</span>
@@ -69,8 +73,9 @@
                         </div>
                     </div>
 
+                    <!-- Tab Content Container -->
                     <div class="StandardBoxWhite">
-
+                        <!-- Badges Content -->
                         <div id="BadgesContent">
                             <div id="BadgesLoading" style="text-align: center; padding: 10px;">
                                 <img src="images/spinners/spinner16x16.gif" alt="Loading..."/>
@@ -81,6 +86,7 @@
                             </div>
                         </div>
 
+                        <!-- Gamepasses Content -->
                         <div id="GamepassesContent" style="display: none;">
                             <div id="GamepassesFilter" style="display: none; padding: 5px 10px; border-bottom: 1px solid #eee; font-size: 11px;">
                                 <label style="cursor: pointer; margin-right: 15px;">
@@ -106,15 +112,18 @@
                 </div>
             </div>
 
+            <!-- Right Column - Info -->
             <div id="Summary" style="float: right; width: 270px;">
                 <div style="color: #777; font-size: 11px; margin-bottom: 5px;">ROBLOX Place</div>
-
+                
+                <!-- Creator Avatar -->
                 <div id="CreatorAvatarContainer" style="margin-bottom: 10px;">
                     <a id="CreatorAvatarLink" href="#" style="display:inline-block;cursor:pointer; position: relative;">
                         <img id="CreatorAvatar" src="images/spinners/spinner100x100.gif" alt="Creator" style="width:110px;height:110px;border:1px solid #ccc;object-fit:cover;"/>
                     </a>
                 </div>
 
+                <!-- Creator and Stats -->
                 <div class="item-stats" style="font-size: 11px; line-height: 1.6;">
                     <div><span class="stat-label">Creator:</span> <a id="CreatorLink" href="#" style="color: #00F;">Loading...</a></div>
                     <div><span class="stat-label">Created:</span> <span id="CreatedDate">Unknown</span></div>
@@ -124,6 +133,7 @@
                     <div><span class="stat-label">Avatar Type:</span> <span id="AvatarType">Unknown</span></div>
                 </div>
 
+                <!-- Rovloo Review Reception & Playtime -->
                 <div id="RovlooStatsSection" style="margin-top: 15px; display: none;">
                     <div style="font-weight: bold; margin-bottom: 5px;">Reviews:</div>
                     <div style="border: 1px solid #ccc; padding: 8px; background: #fff;">
@@ -132,6 +142,7 @@
                     </div>
                 </div>
 
+                <!-- Genres Section -->
                 <div id="GenresSection" style="margin-top: 15px;">
                     <div style="font-weight: bold; margin-bottom: 5px;">Genres:</div>
                     <div id="GenreBox" style="border: 1px solid #ccc; padding: 5px; background: #fff;">
@@ -140,6 +151,7 @@
                     </div>
                 </div>
 
+                <!-- Description Section -->
                 <div id="DescriptionSection" style="margin-top: 15px;">
                     <div style="font-weight: bold; margin-bottom: 5px;">Description:</div>
                     <div id="DescriptionBox" style="border: 1px solid #ccc; padding: 8px; background: #fff; max-height: 150px; overflow-y: auto; font-size: 11px;">
@@ -147,8 +159,10 @@
                     </div>
                 </div>
 
+                <!-- Blacklist Section (populated by JS) -->
                 <div id="BlacklistSection"></div>
 
+                <!-- Report Abuse -->
                 <div style="margin-top: 10px; text-align: right;">
                     <a href="#" style="color: #CC0000; font-size: 11px;">Report Abuse</a>
                 </div>
@@ -157,8 +171,9 @@
             <div style="clear: both;"></div>
         </div>
 
+        <!-- Tabbed Section: Public Servers / Private Servers / Recommendations / Reviews - Full Width -->
         <div id="TabbedSection" style="margin-top: 20px;">
-
+            <!-- Tabs -->
             <div style="display: flex; gap: 2px; margin-bottom: -2px;">
                 <div id="PublicServersTab" class="StandardTabGrayActive" style="cursor: pointer;">
                     <span>Public Servers</span>
@@ -174,10 +189,11 @@
                 </div>
             </div>
 
+            <!-- Tab Content -->
             <div class="StandardBoxGray">
-
+                <!-- Public Servers Content -->
                 <div id="PublicServersContent" class="tab-content">
-
+                    <!-- Server Controls -->
                     <div class="server-controls" style="display: none; margin-bottom: 10px; padding: 8px; background: #f5f5f5; border: 1px solid #ccc;">
                         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
                             <div style="display: flex; gap: 15px; align-items: center;">
@@ -215,6 +231,7 @@
                     </div>
                 </div>
 
+                <!-- Private Servers Content -->
                 <div id="PrivateServersContent" class="tab-content" style="display: none;">
                     <div id="PrivateServersLoading" style="text-align: center; padding: 20px;">
                         <img src="images/spinners/spinner100x100.gif" alt="Loading private servers..."/>
@@ -230,6 +247,7 @@
                     </div>
                 </div>
 
+                <!-- Recommendations Content -->
                 <div id="RecommendationsContent" class="tab-content" style="display: none;">
                     <div style="font-size: 11px; margin-bottom: 10px; color: #666;">Here are some other games that we think you might like.</div>
                     <div id="RecommendationsLoading" style="text-align: center; padding: 20px;">
@@ -238,6 +256,7 @@
                     <div id="RecommendationsList" style="display: none;"></div>
                 </div>
 
+                <!-- Reviews Content (Rovloo Reviews) -->
                 <div id="GameDetailReviewsContent" class="tab-content" style="display: none;">
                     <div id="ReviewsSection">
                         <div style="text-align: center; padding: 40px; color: #666;">
@@ -251,6 +270,7 @@
     </div>
 </div>
 
+<!-- Gamepass Purchase Confirmation Modal -->
 <div id="gamepass-purchase-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; cursor:pointer;">
     <div id="gamepass-purchase-modal-content" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border:2px solid #333; padding:20px; min-width:350px; text-align:center; cursor:default;">
         <a href="#" id="gamepass-modal-close" style="position:absolute; top:5px; right:10px; font-size:18px; color:#666; text-decoration:none;">&times;</a>

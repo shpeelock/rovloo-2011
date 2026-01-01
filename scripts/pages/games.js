@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -8,7 +9,7 @@
     let currentSort = 'MostPopular';
     let currentTime = 'Now';
     let currentGenre = 'All';
-    let currentCategory = 'trending';
+    let currentCategory = 'trending'; 
     let currentPage = 1;
     const gamesPerPage = 20;
 
@@ -19,7 +20,7 @@
     }
 
     let allGames = [];
-    let unfilteredGames = [];
+    let unfilteredGames = []; 
     let totalPages = 1;
 
     let isSearchMode = false;
@@ -27,16 +28,16 @@
     let searchSessionId = null;
     let searchNextPageToken = '';
     let searchDebounceTimer = null;
-    let unfilteredSearchResults = [];
+    let unfilteredSearchResults = []; 
 
     let isPaginating = false;
     let pendingPage = null;
 
     function applyClientSideFilters() {
-
+        
         if (currentCategory === 'trending') {
             console.log('[ClientFilter] Skipping - trending category uses API filtering');
-            return;
+            return; 
         }
 
         console.log('[ClientFilter] Applying filters - Category:', currentCategory, 'Genre:', currentGenre, 'Sort:', currentSort);
@@ -68,7 +69,7 @@
                 if (gameGenre.includes(' and ') && gameGenre.split(' and ')[0] === filterGenre) {
                     return true;
                 }
-
+                
                 return false;
             });
             console.log('[ClientFilter] After genre filter:', filteredGames.length, 'games');
@@ -91,20 +92,20 @@
 
         switch (currentCategory) {
             case 'recommended':
-
+                
                 switch (currentSort) {
                     case 'PlayHistory':
-
+                        
                         break;
                     case 'Favorites':
-
+                        
                         sortedGames.sort((a, b) => (b.favoritedCount || 0) - (a.favoritedCount || 0));
                         break;
                     case 'Friends':
-
+                        
                         break;
                     case 'Similar':
-
+                        
                         break;
                     default:
                         break;
@@ -112,10 +113,10 @@
                 break;
 
             case 'favorites':
-
+                
                 switch (currentSort) {
                     case 'Recent':
-
+                        
                         break;
                     case 'Alphabetical':
                         sortedGames.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
@@ -129,17 +130,17 @@
                 break;
 
             case 'recent':
-
+                
                 switch (currentSort) {
                     case 'LastPlayed':
-
+                        
                         const getGameDate = (game) => {
                             return new Date(game.lastPlayed || game.updated || game.created || 0);
                         };
                         return sortedGames.sort((a, b) => getGameDate(b) - getGameDate(a));
 
                     case 'MostPlaytime':
-
+                        
                         return sortedGames.sort((a, b) => {
                             const playtimeA = (a.playtime?.totalMinutes || 0);
                             const playtimeB = (b.playtime?.totalMinutes || 0);
@@ -151,7 +152,7 @@
                 }
 
             case 'rovloo':
-
+                
                 return sortRovlooGames(sortedGames);
 
             default:
@@ -166,13 +167,13 @@
     if (isStandalonePage) {
         document.addEventListener('DOMContentLoaded', initGames);
     } else {
-
+        
         document.addEventListener('pageChange', function(e) {
             if (e.detail.page === 'games') {
                 if (!gamesLoaded) {
                     loadGamesPage(e.detail.params);
                 } else {
-
+                    
                     handlePageParams(e.detail.params || {});
                 }
             }
@@ -181,7 +182,7 @@
 
     async function loadGamesPage(params = null) {
         if (isLoading) return;
-
+        
         const container = document.getElementById('games-content');
         if (!container) {
             console.error('Games container not found');
@@ -194,34 +195,34 @@
         try {
             const response = await fetch('pages/games.html');
             if (!response.ok) throw new Error('Failed to fetch games page');
-
+            
             let html = await response.text();
 
             let content = '';
 
             const bodyRegex = /<div id="Body">([\s\S]*?)<div id="Footer">/i;
             const bodyMatch = html.match(bodyRegex);
-
+            
             if (bodyMatch && bodyMatch[1]) {
-
+                 
                  content = bodyMatch[1];
             } else {
-
+                
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 const bodyDiv = doc.getElementById('Body') || doc.body;
-
+                
                 if (bodyDiv) {
-
+                    
                     content = bodyDiv.innerHTML;
                 }
             }
-
+            
             if (content) {
-
+                
                 content = content.replace(/\.\.\/images\
                 content = content.replace(/\.\.\/CSS\
-
+                
                 container.innerHTML = content;
                 gamesLoaded = true;
                 isLoading = false;
@@ -230,7 +231,7 @@
 
                 setTimeout(() => {
                     initGames(params);
-
+                    
                     if (!isSearchMode) {
                         loadGamesFromAPI();
                     }
@@ -256,7 +257,7 @@
     }
 
     function initGames(params = null) {
-
+        
         isSearchMode = false;
         searchQuery = '';
         searchSessionId = null;
@@ -286,7 +287,7 @@
             console.log('Games page params:', params);
             handlePageParams(params);
         } else {
-
+            
             resetToDefaultState();
         }
 
@@ -296,7 +297,7 @@
     }
 
     function parseHashParams() {
-
+        
         const hash = window.location.hash;
         const params = {};
 
@@ -327,7 +328,7 @@
                     performSearch(query);
                 }
             } else if (e.key === 'Escape') {
-
+                
                 searchBox.value = '';
                 if (isSearchMode) {
                     exitSearchMode();
@@ -377,7 +378,7 @@
 
     async function enterSearchMode() {
         isSearchMode = true;
-        currentGenre = 'All';
+        currentGenre = 'All'; 
 
         const gamesList = document.getElementById('GamesList');
         const gamesColumn = document.querySelector('.Column1e');
@@ -412,7 +413,7 @@
         searchQuery = '';
         searchSessionId = null;
         searchNextPageToken = '';
-        currentGenre = 'All';
+        currentGenre = 'All'; 
 
         const gamesList = document.getElementById('GamesList');
         const gamesColumn = document.querySelector('.Column1e');
@@ -477,14 +478,14 @@
             console.log('Search results:', result);
 
             if (result && result.games) {
-
+                
                 unfilteredSearchResults = result.games;
                 allGames = result.games;
                 searchSessionId = result.sessionId;
                 searchNextPageToken = result.nextPageToken || '';
 
                 await enrichGamesWithCreatorInfo(allGames);
-
+                
                 unfilteredSearchResults = [...allGames];
 
                 if (currentGenre !== 'All') {
@@ -523,7 +524,7 @@
 
         if (params.search || params.sort === 'search') {
             enterSearchModeImmediate();
-            return;
+            return; 
         }
 
         let wasInSearchMode = false;
@@ -533,9 +534,9 @@
         }
 
         const hasParams = params && Object.keys(params).length > 0;
-
+        
         if (!hasParams) {
-
+            
             resetToDefaultState();
             loadGamesFromAPI();
             return;
@@ -570,9 +571,9 @@
     }
 
     async function enterSearchModeImmediate() {
-
+        
         isSearchMode = true;
-        currentGenre = 'All';
+        currentGenre = 'All'; 
 
         const gamesList = document.getElementById('GamesList');
         const gamesColumn = document.querySelector('.Column1e');
@@ -618,7 +619,7 @@
     }
 
     function createSearchModeHoverTrigger() {
-
+        
         const existingTrigger = document.querySelector('.search-mode-hover-trigger');
         if (existingTrigger) {
             existingTrigger.remove();
@@ -661,7 +662,7 @@
                 if (mainColumn) {
                     mainColumn.classList.remove('sidebar-peeking');
                 }
-            }, 300);
+            }, 300); 
         };
 
         trigger.addEventListener('mouseenter', showSidebar);
@@ -700,13 +701,13 @@
     }
 
     function initFilterHandlers() {
-
+        
         document.querySelectorAll('#CategorySelector .GamesFilter').forEach(link => {
             const handler = function(e) {
                 e.preventDefault();
                 const category = link.getAttribute('data-category');
                 if (category && category !== currentCategory) {
-
+                    
                     if (isSearchMode) {
                         exitSearchMode();
                     }
@@ -777,7 +778,7 @@
                     currentSort = filter;
                     updateFilterUI('#RecommendedFilters', filter);
                     updateDisplayLabel();
-
+                    
                     applyClientSideFilters();
                 }
             };
@@ -792,13 +793,13 @@
         const recommendedGenreFilters = ['All', 'RPG', 'Action', 'Adventure', 'Shooter', 'Sports', 'Simulation', 'Roleplay', 'Obby', 'Survival'];
         document.querySelectorAll('#RecommendedFilters .GamesFilter').forEach(link => {
             const filter = link.getAttribute('data-filter');
-
+            
             if (filter && recommendedGenreFilters.includes(filter)) {
                 const handler = function(e) {
                     e.preventDefault();
                     if (filter) {
                         currentGenre = filter;
-
+                        
                         document.querySelectorAll('#RecommendedFilters .GamesFilter').forEach(f => {
                             const fFilter = f.getAttribute('data-filter');
                             if (recommendedGenreFilters.includes(fFilter)) {
@@ -827,7 +828,7 @@
                 console.log('[Favorites] Sort filter clicked:', filter);
                 if (filter) {
                     currentSort = filter;
-
+                    
                     document.querySelectorAll('#FavoritesFilters .GamesFilter').forEach(f => {
                         const fFilter = f.getAttribute('data-filter');
                         if (fFilter === 'Recent' || fFilter === 'Alphabetical' || fFilter === 'MostPlayed') {
@@ -851,7 +852,7 @@
         console.log('[Favorites] Found', favGenreLinks.length, 'total filter links for genre check');
         favGenreLinks.forEach(link => {
             const filter = link.getAttribute('data-filter');
-
+            
             if (filter && favoritesGenreFilters.includes(filter)) {
                 console.log('[Favorites] Attaching genre handler for:', filter);
                 const handler = function(e) {
@@ -859,7 +860,7 @@
                     console.log('[Favorites] Genre filter clicked:', filter);
                     if (filter) {
                         currentGenre = filter;
-
+                        
                         document.querySelectorAll('#FavoritesFilters .GamesFilter').forEach(f => {
                             const fFilter = f.getAttribute('data-filter');
                             if (favoritesGenreFilters.includes(fFilter)) {
@@ -887,7 +888,7 @@
                     currentSort = filter;
                     updateFilterUI('#RecentFilters', filter);
                     updateDisplayLabel();
-
+                    
                     applyClientSideFilters();
                 }
             };
@@ -903,7 +904,7 @@
             const filter = link.getAttribute('data-filter');
             const handler = function(e) {
                 e.preventDefault();
-
+                
                 if (currentCategory !== 'rovloo') {
                     console.log('[RovlooSort] Ignoring click - not in Rovloo category');
                     return;
@@ -912,7 +913,7 @@
                     currentSort = filter;
                     updateFilterUI('#RovlooSortBy', filter);
                     updateDisplayLabel();
-
+                    
                     loadGamesFromAPI();
                 }
             };
@@ -928,7 +929,7 @@
             const filter = link.getAttribute('data-filter');
             const handler = function(e) {
                 e.preventDefault();
-
+                
                 if (currentCategory !== 'rovloo') {
                     console.log('[RovlooGenre] Ignoring click - not in Rovloo category');
                     return;
@@ -936,7 +937,7 @@
                 if (filter) {
                     currentGenre = filter;
                     updateFilterUI('#RovlooGenre', filter);
-
+                    
                     applyClientSideFilters();
                 }
             };
@@ -957,7 +958,7 @@
                 console.log('[Recent] Sort filter clicked:', filter);
                 if (filter) {
                     currentSort = filter;
-                    localStorage.setItem('recentGamesSort', filter);
+                    localStorage.setItem('recentGamesSort', filter);  
 
                     document.querySelectorAll('#RecentSortBy .GamesFilter').forEach(f => {
                         const fFilter = f.getAttribute('data-filter');
@@ -1051,11 +1052,11 @@
     }
 
     async function navigateToPage(targetPage) {
-
+        
         if (isPaginating) {
             pendingPage = targetPage;
-            currentPage = targetPage;
-            updatePaginationUI();
+            currentPage = targetPage; 
+            updatePaginationUI(); 
             return;
         }
 
@@ -1096,7 +1097,7 @@
             const result = await window.roblox.searchGames(searchQuery, searchNextPageToken, searchSessionId);
 
             if (result && result.games && result.games.length > 0) {
-
+                
                 await enrichGamesWithCreatorInfo(result.games);
 
                 allGames = allGames.concat(result.games);
@@ -1109,13 +1110,13 @@
 
                 await displayCurrentPage();
             } else {
-
+                
                 searchNextPageToken = '';
                 updatePaginationUI();
             }
         } catch (err) {
             console.error('Failed to load more search results:', err);
-
+            
             updatePaginationUI();
         } finally {
             isLoading = false;
@@ -1124,7 +1125,7 @@
     }
 
     function setTimeFilter(time, refresh = true) {
-
+        
         if (isSearchMode) {
             resetSearchModeUI();
         }
@@ -1135,7 +1136,7 @@
     }
 
     function setSortFilter(sort, refresh = true) {
-
+        
         if (isSearchMode && sort !== 'search') {
             resetSearchModeUI();
         }
@@ -1147,20 +1148,20 @@
     }
 
     function setGenreFilter(genre, refresh = true) {
-
+        
         if (isSearchMode) {
             currentGenre = genre;
             currentPage = 1;
             updateFilterUI('#Genre', genre);
             updateDisplayLabel();
-
+            
             applySearchGenreFilter();
             return;
         }
         currentGenre = genre;
         currentPage = 1;
         updateFilterUI('#Genre', genre);
-        updateSortByState();
+        updateSortByState(); 
         updateDisplayLabel();
         if (refresh) loadGamesFromAPI();
     }
@@ -1179,7 +1180,7 @@
             allGames = unfilteredSearchResults.filter(game => {
                 const gameGenre = (game.genre || game.genre_l1 || '').toLowerCase();
                 const filterGenre = currentGenre.toLowerCase();
-
+                
                 if (!gameGenre || gameGenre === 'all') {
                     return false;
                 }
@@ -1191,11 +1192,11 @@
                 if (gameGenre.startsWith(filterGenre + ' ') || gameGenre.startsWith(filterGenre + '-')) {
                     return true;
                 }
-
+                
                 if (gameGenre.includes(' and ') && gameGenre.split(' and ')[0] === filterGenre) {
                     return true;
                 }
-
+                
                 return false;
             });
         }
@@ -1209,13 +1210,13 @@
 
     function switchCategory(category) {
         if (category === currentCategory) return;
-
+        
         console.log(`Switching to category: ${category}`);
 
         if (category === 'rovloo' && window.applyConditionalRovlooTheme) {
             window.applyConditionalRovlooTheme();
         } else if (currentCategory === 'rovloo' && window.removeConditionalRovlooTheme) {
-
+            
             window.removeConditionalRovlooTheme();
         }
 
@@ -1230,13 +1231,13 @@
 
         const filterMap = {
             'trending': '#TrendingFilters',
-            'recommended': '#RecommendedFilters',
+            'recommended': '#RecommendedFilters', 
             'favorites': '#FavoritesFilters',
             'recent': '#RecentFilters',
             'rovloo': '#RovlooFilters',
             'custom': '#CustomFilters'
         };
-
+        
         const targetFilter = document.querySelector(filterMap[category]);
         if (targetFilter) {
             targetFilter.style.display = 'block';
@@ -1251,13 +1252,13 @@
     function resetCategoryFilters(category) {
 
         unfilteredGames = [];
-
+        
         switch (category) {
             case 'trending':
                 currentSort = 'MostPopular';
                 currentTime = 'Now';
                 currentGenre = 'All';
-
+                
                 updateFilterUI('#Timespan', 'Now');
                 updateFilterUI('#SortBy', 'MostPopular');
                 updateFilterUI('#Genre', 'All');
@@ -1265,40 +1266,40 @@
             case 'recommended':
                 currentSort = 'PlayHistory';
                 currentGenre = 'All';
-
+                
                 updateFilterUI('#RecommendedBasedOn', 'PlayHistory');
                 updateFilterUI('#RecommendedFilters .GameFilter:last-child', 'All');
                 break;
             case 'favorites':
                 currentSort = 'Recent';
                 currentGenre = 'All';
-
+                
                 updateFilterUI('#FavoritesSortBy', 'Recent');
                 updateFilterUI('#FavoritesGenre', 'All');
                 break;
             case 'recent':
-
+                
                 const savedRecentSort = localStorage.getItem('recentGamesSort');
                 currentSort = savedRecentSort || 'LastPlayed';
                 currentGenre = 'All';
-
+                
                 updateFilterUI('#RecentSortBy', currentSort);
                 break;
             case 'rovloo':
                 currentSort = 'balanced_discovery';
                 currentGenre = 'All';
-
+                
                 updateFilterUI('#RovlooSortBy', 'balanced_discovery');
                 updateFilterUI('#RovlooGenre', 'All');
                 break;
             case 'custom':
-
+                
                 break;
         }
     }
 
     function resetToDefaultState() {
-
+        
         if (currentCategory === 'rovloo' && window.removeConditionalRovlooTheme) {
             window.removeConditionalRovlooTheme();
         }
@@ -1313,7 +1314,7 @@
 
         const categorySelector = document.querySelector('#CategorySelector');
         if (categorySelector) {
-
+            
             categorySelector.querySelectorAll('.GamesFilter').forEach(link => {
                 link.classList.remove('SelectedFilter');
             });
@@ -1328,7 +1329,7 @@
         document.querySelectorAll('.category-filters').forEach(filter => {
             filter.style.display = 'none';
         });
-
+        
         const trendingFilters = document.querySelector('#TrendingFilters');
         if (trendingFilters) {
             trendingFilters.style.display = 'block';
@@ -1346,18 +1347,18 @@
         updateFilterUI('#RecentSortBy', 'LastPlayed');
 
         updateDisplayLabel();
-
+        
         console.log('Default state reset complete');
     }
 
     function resetSearchModeUI() {
-
+        
         isSearchMode = false;
         searchQuery = '';
         searchSessionId = null;
         searchNextPageToken = '';
         unfilteredSearchResults = [];
-        currentGenre = 'All';
+        currentGenre = 'All'; 
 
         const searchBox = document.getElementById('GamesSearchBox');
         if (searchBox) {
@@ -1389,7 +1390,7 @@
         if (!container) return;
 
         container.querySelectorAll('.GamesFilter').forEach(link => {
-
+            
             const filter = link.getAttribute('data-filter') || link.getAttribute('data-category');
             if (filter === selectedFilter) {
                 link.classList.add('SelectedFilter');
@@ -1398,22 +1399,22 @@
             }
         });
     }
-
+    
     function updateSortByState() {
         const sortByContainer = document.getElementById('SortBy');
         if (!sortByContainer) return;
-
+        
         const isGenreSelected = currentGenre !== 'All';
-
+        
         sortByContainer.querySelectorAll('.GamesFilter').forEach(link => {
             if (isGenreSelected) {
-
+                
                 link.classList.add('DisabledFilter');
                 link.style.color = '#999';
                 link.style.cursor = 'not-allowed';
                 link.style.pointerEvents = 'none';
             } else {
-
+                
                 link.classList.remove('DisabledFilter');
                 link.style.color = '';
                 link.style.cursor = '';
@@ -1481,7 +1482,7 @@
                 'default': 'Custom Game Lists'
             }
         };
-
+        
         const genreNames = {
             'RPG': 'Trending in RPG',
             'Sports': 'Trending in Sports & Racing',
@@ -1499,19 +1500,19 @@
             'Tycoon': 'Tycoon Games',
             'Building': 'Building Games'
         };
-
+        
         let labelText = 'Games';
 
         if (categoryLabels[currentCategory]) {
             if (currentCategory === 'trending' && currentGenre !== 'All' && genreNames[currentGenre]) {
-
+                
                 labelText = genreNames[currentGenre];
             } else {
-
+                
                 labelText = categoryLabels[currentCategory][currentSort] || categoryLabels[currentCategory]['default'] || 'Games';
             }
         }
-
+        
         label.textContent = labelText;
     }
 
@@ -1529,7 +1530,7 @@
     };
 
     const genreMapping = {
-        'All': null,
+        'All': null, 
         'RPG': ['trending-in-rpg'],
         'Sports': ['trending-in-sports-and-racing'],
         'Shooter': ['trending-in-shooter'],
@@ -1545,7 +1546,7 @@
 
     function getGenreInfo(genre) {
         const genreInfoMap = {
-
+            
             'Shooter': { icon: 'ModernMilitary.png', name: 'Shooter' },
             'Action': { icon: 'Ninja.png', name: 'Action' },
             'Adventure': { icon: 'Adventure.png', name: 'Adventure' },
@@ -1561,7 +1562,7 @@
             'Survival': { icon: 'Cthulu.png', name: 'Survival' },
             'Entertainment': { icon: 'LOL.png', name: 'Entertainment' },
             'Shopping': { icon: 'City.png', name: 'Shopping' },
-
+            
             'Fighting': { icon: 'Ninja.png', name: 'Fighting' },
             'Horror': { icon: 'Cthulu.png', name: 'Horror' },
             'Comedy': { icon: 'LOL.png', name: 'Comedy' },
@@ -1586,7 +1587,7 @@
         if (!games || games.length === 0) return;
 
         try {
-
+            
             const universeIds = games.map(g => g.universeId || g.id).filter(id => id);
 
             if (universeIds.length === 0) {
@@ -1606,7 +1607,7 @@
                     const gameDetails = await window.robloxAPI.getGameDetails(batch);
 
                     if (gameDetails && gameDetails.data) {
-
+                        
                         gameDetails.data.forEach(detail => {
                             detailsMap[detail.id] = detail;
                         });
@@ -1621,7 +1622,7 @@
                 const gameUniverseId = game.universeId || game.id;
                 const detail = detailsMap[gameUniverseId];
                 if (detail) {
-
+                    
                     if (!game.universeId) {
                         game.universeId = gameUniverseId;
                     }
@@ -1634,11 +1635,11 @@
                         game.placeId = detail.rootPlaceId;
                         game.rootPlaceId = detail.rootPlaceId;
                     }
-
+                    
                     game.visits = detail.visits;
                     game.favoritedCount = detail.favoritedCount;
                     game.updated = detail.updated;
-
+                    
                     if (detail.playing !== undefined) {
                         game.playing = detail.playing;
                         game.playerCount = detail.playing;
@@ -1652,7 +1653,7 @@
                             game.genre = detail.genre;
                         }
                     }
-
+                    
                     enrichedCount++;
                 } else {
                     console.log('[Enrich] No details found for game:', gameUniverseId, game.name);
@@ -1662,7 +1663,7 @@
             console.log(`[Enrich] Successfully enriched ${enrichedCount}/${games.length} games`);
         } catch (error) {
             console.warn('Failed to enrich games with creator info:', error);
-
+            
         }
     }
 
@@ -1699,7 +1700,7 @@
     }
 
     async function loadGamesFromAPI() {
-
+        
         const gamesList = document.getElementById('GamesList');
         const loading = document.getElementById('GamesLoading');
         const error = document.getElementById('GamesError');
@@ -1744,7 +1745,7 @@
 
         try {
             let games = [];
-
+            
             console.log('Loading games for category:', currentCategory);
 
             switch (currentCategory) {
@@ -1767,7 +1768,7 @@
                     games = await loadCustomListGames(requestId);
                     break;
                 default:
-                    games = await loadTrendingGames(requestId);
+                    games = await loadTrendingGames(requestId); 
             }
 
             if (requestId !== currentLoadRequestId) {
@@ -1781,10 +1782,10 @@
                 unfilteredGames = [...allGames];
             }
             totalPages = Math.ceil(allGames.length / gamesPerPage);
-
+            
             console.log(`[Games] Request #${requestId} completed: ${allGames.length} games for category: ${currentCategory}`);
             console.log('First few games:', allGames.slice(0, 3));
-
+            
             if (allGames.length === 0) {
                 showNoGamesMessage();
             } else {
@@ -1792,7 +1793,7 @@
             }
 
         } catch (err) {
-
+            
             if (requestId !== currentLoadRequestId) {
                 console.log(`[Games] Request #${requestId} error ignored (stale request)`);
                 return;
@@ -1803,7 +1804,7 @@
                 error.style.display = 'block';
             }
         } finally {
-
+            
             if (requestId === currentLoadRequestId && loading) {
                 loading.style.display = 'none';
             }
@@ -1811,7 +1812,7 @@
     }
 
     async function loadTrendingGames(requestId) {
-
+        
         const loading = document.getElementById('GamesLoading');
 
         let debugInfo = {
@@ -1824,10 +1825,10 @@
             errors: []
         };
 
-        let games = [];
+        let games = []; 
 
         try {
-
+            
             if (window.robloxAPI.getGameSorts) {
                 console.log('Fetching game sorts for filter:', currentSort, 'genre:', currentGenre);
 
@@ -1843,11 +1844,11 @@
                         console.log(`[Trending] Request #${requestId} is stale after API call, aborting`);
                         return [];
                     }
-
+                    
                     console.log('Game sorts response:', sortsData);
-
+                    
                     if (sortsData && sortsData.sorts && Array.isArray(sortsData.sorts)) {
-
+                        
                         debugInfo.availableSorts = sortsData.sorts.map(s => ({
                             sortId: s.sortId || s.id,
                             displayName: s.sortDisplayName,
@@ -1860,11 +1861,11 @@
                             targetSorts = genreMapping[currentGenre];
                             console.log('Using genre-specific sorts:', targetSorts);
                         } else {
-
+                            
                             targetSorts = sortMapping[currentSort] || sortMapping['MostPopular'];
                             console.log('Using sort filter:', targetSorts);
                         }
-
+                        
                         debugInfo.targetSorts = targetSorts;
 
                         let matchedSort = null;
@@ -1879,14 +1880,14 @@
                                 break;
                             }
                         }
-
+                        
                         if (matchedSort && matchedSort.games && matchedSort.games.length > 0) {
                             games = matchedSort.games;
                             console.log('Got', games.length, 'games from sort:', matchedSort.sortDisplayName || matchedSort.sortId);
 
                             await enrichGamesWithCreatorInfo(games);
                         } else {
-
+                            
                             console.log('No exact match found for target sorts');
                             debugInfo.errors.push('No exact match found for target sorts: ' + targetSorts.join(', '));
                         }
@@ -1909,51 +1910,51 @@
             console.error('Failed to load games. Debug info:', debugInfo);
             console.log('API available:', !!window.robloxAPI);
             console.log('getGameSorts available:', !!window.robloxAPI?.getGameSorts);
-
+            
             console.log('Generating placeholder games as fallback...');
             games = generatePlaceholderGames(20);
         }
 
         console.log('loadTrendingGames returning', games.length, 'games');
-        return games;
+        return games; 
     }
-
+    
     function showDetailedError(debugInfo) {
         const gamesList = document.getElementById('GamesList');
         const error = document.getElementById('GamesError');
-
+        
         let errorHtml = `
             <div style="padding: 20px; background: #fff3cd; border: 1px solid #ffc107; margin: 10px; font-family: monospace; font-size: 12px;">
                 <h3 style="color: #856404; margin-top: 0;">⚠️ Failed to Load Games</h3>
-
+                
                 <div style="margin-bottom: 10px;">
                     <strong>Requested:</strong> Sort="${debugInfo.requestedSort}", Genre="${debugInfo.requestedGenre}"
                 </div>
-
+                
                 <div style="margin-bottom: 10px;">
                     <strong>Target Sort IDs:</strong> ${debugInfo.targetSorts.join(', ') || 'None'}
                 </div>
-
+                
                 <div style="margin-bottom: 10px;">
                     <strong>Matched Sort:</strong> ${debugInfo.matchedSort || 'None'}
                 </div>
-
+                
                 <div style="margin-bottom: 10px;">
                     <strong>Fallback Used:</strong> ${debugInfo.fallbackUsed || 'None'}
                 </div>
-
+                
                 <div style="margin-bottom: 10px; color: #721c24;">
                     <strong>Errors:</strong>
                     <ul style="margin: 5px 0; padding-left: 20px;">
                         ${debugInfo.errors.map(e => `<li>${e}</li>`).join('') || '<li>No specific errors</li>'}
                     </ul>
                 </div>
-
+                
                 <details style="margin-top: 10px;">
                     <summary style="cursor: pointer; color: #00F;">Available Sorts from API (${debugInfo.availableSorts.length})</summary>
                     <div style="max-height: 200px; overflow-y: auto; background: #f8f9fa; padding: 10px; margin-top: 5px;">
-                        ${debugInfo.availableSorts.length > 0
-                            ? debugInfo.availableSorts.map(s =>
+                        ${debugInfo.availableSorts.length > 0 
+                            ? debugInfo.availableSorts.map(s => 
                                 `<div style="padding: 2px 0;"><code>${s.sortId}</code> - ${s.displayName} (${s.gameCount} games)</div>`
                             ).join('')
                             : '<div>No sorts available</div>'
@@ -1962,7 +1963,7 @@
                 </details>
             </div>
         `;
-
+        
         if (gamesList) {
             gamesList.innerHTML = errorHtml;
             gamesList.style.display = 'block';
@@ -2010,9 +2011,9 @@
 
         if (renderingPage === currentPage) {
             gamesList.style.display = 'block';
-
+            
             gamesList.classList.remove('games-fading-out');
-
+            
             updatePaginationUI();
         }
     }
@@ -2036,17 +2037,17 @@
 
         if (pageInfo) {
             if (isSearchMode) {
-
+                
                 const startResult = (currentPage - 1) * gamesPerPage + 1;
                 const endResult = Math.min(currentPage * gamesPerPage, allGames.length);
-
+                
                 if (allGames.length === 0) {
                     pageInfo.textContent = 'No results';
                 } else if (searchNextPageToken) {
-
+                    
                     pageInfo.textContent = `${startResult}-${endResult} of ${allGames.length}+ results`;
                 } else {
-
+                    
                     pageInfo.textContent = `${startResult}-${endResult} of ${allGames.length} results`;
                 }
             } else {
@@ -2058,7 +2059,7 @@
             prevBtn.style.visibility = currentPage > 1 ? 'visible' : 'hidden';
         }
         if (nextBtn) {
-
+            
             const hasMorePages = currentPage < totalPages;
             const hasMoreSearchResults = isSearchMode && searchNextPageToken;
             nextBtn.style.visibility = (hasMorePages || hasMoreSearchResults) ? 'visible' : 'hidden';
@@ -2066,7 +2067,7 @@
     }
 
     function generatePlaceholderGames(count = 20) {
-
+        
         const placeholderGames = [];
         const gameNames = [
             'Natural Disaster Survival', 'Work at a Pizza Place', 'Jailbreak',
@@ -2135,9 +2136,9 @@
         };
 
         let html = '<div class="GamesGrid" style="display: block;">';
-
+        
         games.forEach(game => {
-
+            
             const playerCount = game.playerCount || game.playing || game.totalPlaying || 0;
             const gameName = game.name || game.gameName || 'Unknown Game';
             const creatorName = game.creator?.name || game.creatorName || 'Unknown';
@@ -2147,19 +2148,19 @@
             const placeId = game.placeId || game.rootPlaceId || universeId;
 
             const visits = game.visits || game.placeVisits || 0;
-            const favorites = game.favoritedCount || game.totalUpVotes || 0;
+            const favorites = game.favoritedCount || game.totalUpVotes || 0; 
             const updated = game.updated || new Date().toISOString();
 
             let creatorDisplay;
             if (creatorType === 'User' && creatorId) {
                 creatorDisplay = `<a href="#profile?id=${creatorId}">${creatorName}</a>`;
             } else if (creatorType === 0 && creatorId) {
-
+                
                 creatorDisplay = `<a href="#profile?id=${creatorId}">${creatorName}</a>`;
             } else if (creatorType === 'Group' && creatorId) {
                 creatorDisplay = `<a href="#group?id=${creatorId}">${creatorName}</a>`;
             } else if (creatorType === 1 && creatorId) {
-
+                
                 creatorDisplay = `<a href="#group?id=${creatorId}">${creatorName}</a>`;
             } else {
                 creatorDisplay = creatorName;
@@ -2209,7 +2210,7 @@
                 </div>
             `;
         });
-
+        
         html += '<div style="clear:both;"></div></div>';
         gamesList.innerHTML = html;
 
@@ -2231,7 +2232,7 @@
             console.log('Fetching thumbnails for', universeIds.length, 'games');
 
             if (window.roblox && window.roblox.getGameThumbnails) {
-
+                
                 const thumbResult = await window.roblox.getGameThumbnails(universeIds, '256x144');
 
                 if (renderingPage !== null && renderingPage !== currentPage) {
@@ -2241,11 +2242,11 @@
 
                 if (thumbResult?.data) {
                     thumbResult.data.forEach(gameThumb => {
-
+                        
                         if (gameThumb.thumbnails && gameThumb.thumbnails.length > 0) {
                             const imageUrl = gameThumb.thumbnails[0].imageUrl;
                             if (imageUrl) {
-
+                                
                                 const imgs = document.querySelectorAll(`img[data-universeid="${gameThumb.universeId}"]`);
                                 imgs.forEach(img => {
                                     img.src = imageUrl;
@@ -2259,7 +2260,7 @@
             }
         } catch (err) {
             console.warn('Failed to load game thumbnails:', err);
-
+            
         }
     }
 
@@ -2276,7 +2277,7 @@
     }
 
     function resetGamesPage() {
-
+        
         if (currentCategory === 'rovloo' && window.removeConditionalRovlooTheme) {
             window.removeConditionalRovlooTheme();
         }
@@ -2336,27 +2337,27 @@
     };
 
     const RECOMMENDED_GAMES_CACHE_KEY = 'rovloo_games_page_recommended_cache';
-    const RECOMMENDED_GAMES_CACHE_TTL = 5 * 60 * 1000;
+    const RECOMMENDED_GAMES_CACHE_TTL = 5 * 60 * 1000; 
     const RECOMMENDED_GAMES_FETCH_COOLDOWN_KEY = 'rovloo_recommended_fetch_cooldown';
-    const RECOMMENDED_GAMES_FETCH_COOLDOWN = 2 * 60 * 1000;
+    const RECOMMENDED_GAMES_FETCH_COOLDOWN = 2 * 60 * 1000; 
 
     let recommendedGamesMemoryCache = null;
     let recommendedGamesMemoryCacheTimestamp = 0;
 
     const RECENT_GAMES_CACHE_KEY = 'rovloo_games_page_recent_cache';
-    const RECENT_GAMES_CACHE_TTL = 5 * 60 * 1000;
+    const RECENT_GAMES_CACHE_TTL = 5 * 60 * 1000; 
 
     let recentGamesMemoryCache = null;
     let recentGamesMemoryCacheTimestamp = 0;
 
     const ROVLOO_GAMES_CACHE_KEY = 'rovloo_games_page_rovloo_cache';
-    const ROVLOO_GAMES_CACHE_TTL = 5 * 60 * 1000;
+    const ROVLOO_GAMES_CACHE_TTL = 5 * 60 * 1000; 
 
     let rovlooGamesMemoryCache = null;
     let rovlooGamesMemoryCacheTimestamp = 0;
 
     function getRecommendedGamesCache(allowExpired = false) {
-
+        
         if (recommendedGamesMemoryCache && recommendedGamesMemoryCache.length > 0) {
             const isExpired = (Date.now() - recommendedGamesMemoryCacheTimestamp) >= RECOMMENDED_GAMES_CACHE_TTL;
             if (!isExpired || allowExpired) {
@@ -2377,7 +2378,7 @@
                         } else {
                             console.log('[Recommended] Using localStorage cached games data');
                         }
-
+                        
                         recommendedGamesMemoryCache = parsed.data;
                         recommendedGamesMemoryCacheTimestamp = parsed.timestamp;
                         return parsed.data;
@@ -2391,7 +2392,7 @@
     }
 
     function setRecommendedGamesCache(data) {
-
+        
         recommendedGamesMemoryCache = data;
         recommendedGamesMemoryCacheTimestamp = Date.now();
 
@@ -2406,7 +2407,7 @@
     }
 
     function getRecentGamesCache() {
-
+        
         if (recentGamesMemoryCache && recentGamesMemoryCache.length > 0) {
             const isExpired = (Date.now() - recentGamesMemoryCacheTimestamp) >= RECENT_GAMES_CACHE_TTL;
             if (!isExpired) {
@@ -2423,7 +2424,7 @@
                     const isExpired = (Date.now() - parsed.timestamp) >= RECENT_GAMES_CACHE_TTL;
                     if (!isExpired) {
                         console.log('[Recent] Using localStorage cached games data');
-
+                        
                         recentGamesMemoryCache = parsed.data;
                         recentGamesMemoryCacheTimestamp = parsed.timestamp;
                         return parsed.data;
@@ -2437,7 +2438,7 @@
     }
 
     function setRecentGamesCache(data) {
-
+        
         recentGamesMemoryCache = data;
         recentGamesMemoryCacheTimestamp = Date.now();
 
@@ -2452,7 +2453,7 @@
     }
 
     function getRovlooGamesCache() {
-
+        
         if (rovlooGamesMemoryCache && rovlooGamesMemoryCache.length > 0) {
             const isExpired = (Date.now() - rovlooGamesMemoryCacheTimestamp) >= ROVLOO_GAMES_CACHE_TTL;
             if (!isExpired) {
@@ -2469,7 +2470,7 @@
                     const isExpired = (Date.now() - parsed.timestamp) >= ROVLOO_GAMES_CACHE_TTL;
                     if (!isExpired) {
                         console.log('[Rovloo] Using localStorage cached games data');
-
+                        
                         rovlooGamesMemoryCache = parsed.data;
                         rovlooGamesMemoryCacheTimestamp = parsed.timestamp;
                         return parsed.data;
@@ -2483,7 +2484,7 @@
     }
 
     function setRovlooGamesCache(data) {
-
+        
         rovlooGamesMemoryCache = data;
         rovlooGamesMemoryCacheTimestamp = Date.now();
 
@@ -2499,7 +2500,7 @@
 
     async function preloadCachedGamesIntoMemory() {
         try {
-
+            
             const recommendedResult = await window.roblox?.getCachedRecommendedGames?.();
             if (recommendedResult?.cached && recommendedResult?.data?.length > 0) {
                 console.log('[Preload] Loading', recommendedResult.data.length, 'recommended games into client memory');
@@ -2529,14 +2530,14 @@
             const recentResult = await window.roblox?.getCachedRecentGames?.();
             if (recentResult?.cached && recentResult?.data?.length > 0) {
                 console.log('[Preload] Loading', recentResult.data.length, 'recent games into client memory');
-
+                
                 setRecentGamesCache(recentResult.data);
             }
 
             const rovlooResult = await window.roblox?.getCachedRovlooGames?.();
             if (rovlooResult?.cached && rovlooResult?.data?.length > 0) {
                 console.log('[Preload] Loading', rovlooResult.data.length, 'Rovloo games into client memory');
-
+                
                 setRovlooGamesCache(rovlooResult.data);
             }
         } catch (e) {
@@ -2556,7 +2557,7 @@
         }
         return false;
     }
-
+    
     function setRecommendedGamesFetchCooldown() {
         try {
             localStorage.setItem(RECOMMENDED_GAMES_FETCH_COOLDOWN_KEY, Date.now().toString());
@@ -2570,38 +2571,38 @@
         const BATCH_DELAY = 800;
         const RATE_LIMIT_WAIT = 3000;
         const MAX_RATE_LIMITS = 3;
-        const MAX_ROBLOX_ID = 50000000000;
+        const MAX_ROBLOX_ID = 50000000000; 
 
         const validIds = universeIds.filter(id => {
             const numId = typeof id === 'string' ? parseInt(id, 10) : id;
             return numId && !isNaN(numId) && numId > 0 && numId < MAX_ROBLOX_ID;
         });
-
+        
         console.log(`[Client] Filtered ${universeIds.length} IDs to ${validIds.length} valid IDs`);
-
+        
         if (validIds.length === 0) {
             console.warn('[Client] No valid universe IDs to fetch');
             return [];
         }
-
+        
         let gamesData = [];
         let consecutiveRateLimits = 0;
-
+        
         if (!window.roblox?.getGamesProductInfo) {
             console.error('getGamesProductInfo not available');
             return [];
         }
-
+        
         const totalBatches = Math.ceil(validIds.length / BATCH_SIZE);
-
+        
         for (let i = 0; i < validIds.length; i += BATCH_SIZE) {
             const batchNum = Math.floor(i / BATCH_SIZE) + 1;
             const batch = validIds.slice(i, i + BATCH_SIZE);
-
+            
             if (loadingElement) {
                 loadingElement.innerHTML = `Loading games... (${gamesData.length}/${validIds.length})`;
             }
-
+            
             try {
                 console.log(`[Client] Fetching batch ${batchNum}/${totalBatches}: ${batch.length} games`);
                 const gamesInfo = await window.roblox.getGamesProductInfo(batch);
@@ -2609,7 +2610,7 @@
                     gamesData = gamesData.concat(gamesInfo.data);
                     consecutiveRateLimits = 0;
                 }
-
+                
                 if (i + BATCH_SIZE < validIds.length) {
                     await new Promise(resolve => setTimeout(resolve, BATCH_DELAY));
                 }
@@ -2618,16 +2619,16 @@
                 if (e.message?.includes('429') || e.message?.includes('Too many')) {
                     consecutiveRateLimits++;
                     console.log(`[Client] Rate limited (${consecutiveRateLimits}/${MAX_RATE_LIMITS}), waiting...`);
-
+                    
                     if (consecutiveRateLimits >= MAX_RATE_LIMITS) {
                         console.log('[Client] Too many rate limits, stopping. Got', gamesData.length, 'games.');
                         break;
                     }
-
+                    
                     await new Promise(resolve => setTimeout(resolve, RATE_LIMIT_WAIT));
-                    i -= BATCH_SIZE;
+                    i -= BATCH_SIZE; 
                 } else if (e.message?.includes('invalid')) {
-
+                    
                     console.log(`[Client] Invalid IDs in batch, trying individual fetches...`);
                     for (const id of batch) {
                         try {
@@ -2643,11 +2644,11 @@
                 }
             }
         }
-
+        
         console.log(`[Client] Fetched ${gamesData.length} games total`);
         return gamesData;
     }
-
+    
     async function loadRecommendedGames(requestId) {
         console.log('Loading recommended games...');
 
@@ -2669,7 +2670,7 @@
                 console.log(`[Recommended] Request #${requestId} is stale after preload check, aborting`);
                 return [];
             }
-
+            
             if (preloadedResult?.cached && preloadedResult?.data?.length > 0) {
                 console.log('[Recommended] Using', preloadedResult.data.length, 'preloaded games from main process');
 
@@ -2695,7 +2696,7 @@
                 }));
 
                 setRecommendedGamesCache(convertedGames);
-
+                
                 return convertedGames;
             }
         } catch (e) {
@@ -2708,13 +2709,13 @@
             if (expiredCache && expiredCache.length > 0) {
                 return expiredCache;
             }
-
+            
             console.log('[Recommended] No expired cache available, showing empty state');
             return [];
         }
 
         setRecommendedGamesFetchCooldown();
-
+        
         try {
 
             let universeIds = [];
@@ -2743,7 +2744,7 @@
             }
 
             const uniqueUniverseIds = [...new Set(universeIds)];
-
+            
             console.log(`Total unique recommended games: ${uniqueUniverseIds.length}`);
 
             if (uniqueUniverseIds.length === 0) {
@@ -2752,20 +2753,20 @@
             }
 
             const loading = document.getElementById('GamesLoading');
-
+            
             let gamesData = [];
 
             const localServerStatus = await window.RobloxClient?.localServer?.getStatus?.();
-
+            
             if (localServerStatus?.isRunning) {
                 console.log('[Recommended] Using local server for batch game details');
                 if (loading) {
                     loading.innerHTML = `Loading ${uniqueUniverseIds.length} recommended games via local server...`;
                 }
-
+                
                 try {
                     const result = await window.RobloxClient.localServer.batchGameDetails(uniqueUniverseIds);
-
+                    
                     if (result?.success && result?.data) {
                         gamesData = result.data;
                         console.log(`[Recommended] Local server fetched ${gamesData.length} games (${result.stats?.cached || 0} cached, ${result.stats?.apiCalls || 0} API calls)`);
@@ -2775,7 +2776,7 @@
                     }
                 } catch (localServerError) {
                     console.warn('[Recommended] Local server failed, falling back to client-side:', localServerError);
-
+                    
                 }
             }
 
@@ -2794,7 +2795,7 @@
             }
 
             const convertedGames = gamesData.map(game => {
-
+                
                 if (gamesData.indexOf(game) === 0) {
                     console.log('[Recommended] First game raw data:', {
                         name: game.name,
@@ -2808,7 +2809,7 @@
                 if (game.genre && game.genre !== 'All' && !game.isAllGenre) {
                     gameGenre = game.genre;
                 }
-
+                
                 return {
                     universeId: game.id,
                     placeId: game.rootPlaceId,
@@ -2816,13 +2817,13 @@
                     playerCount: game.playing || 0,
                     playing: game.playing || 0,
                     totalPlaying: game.playing || 0,
-
+                    
                     genre: gameGenre,
-
+                    
                     visits: game.visits || 0,
                     favoritedCount: game.favoritedCount || 0,
                     updated: game.updated,
-
+                    
                     creator: {
                         id: game.creator?.id,
                         name: game.creator?.name,
@@ -2838,11 +2839,11 @@
             console.log('[Recommended] First converted game genre:', convertedGames[0]?.genre);
 
             await enrichGamesWithCreatorInfo(convertedGames);
-
+            
             console.log('[Recommended] First game genre after enrichment:', convertedGames[0]?.genre);
 
             setRecommendedGamesCache(convertedGames);
-
+            
             return convertedGames;
 
         } catch (error) {
@@ -2853,23 +2854,23 @@
                 if (window.robloxAPI.getGameSorts) {
                     const sortsData = await window.robloxAPI.getGameSorts();
                     if (sortsData && sortsData.sorts && Array.isArray(sortsData.sorts)) {
-
-                        const recommendedSort = sortsData.sorts.find(s =>
+                        
+                        const recommendedSort = sortsData.sorts.find(s => 
                             (s.sortId || s.id || '').toLowerCase().includes('top-rated') ||
                             (s.sortId || s.id || '').toLowerCase().includes('up-and-coming') ||
                             (s.sortId || s.id || '').toLowerCase().includes('featured')
                         );
-
+                        
                         if (recommendedSort && recommendedSort.games && recommendedSort.games.length > 0) {
                             console.log('Using top-rated/featured games as recommendations fallback');
                             await enrichGamesWithCreatorInfo(recommendedSort.games);
-                            return recommendedSort.games.slice(0, 25);
+                            return recommendedSort.games.slice(0, 25); 
                         }
 
-                        const alternativeSort = sortsData.sorts.find(s =>
+                        const alternativeSort = sortsData.sorts.find(s => 
                             !(s.sortId || s.id || '').toLowerCase().includes('popular')
                         );
-
+                        
                         if (alternativeSort && alternativeSort.games && alternativeSort.games.length > 0) {
                             console.log('Using alternative sort as recommendations fallback:', alternativeSort.sortId || alternativeSort.id);
                             await enrichGamesWithCreatorInfo(alternativeSort.games);
@@ -2888,7 +2889,7 @@
 
     async function loadFavoriteGames(requestId) {
         console.log('Loading favorite games...');
-
+        
         let favorites = [];
 
         if (isRequestStale(requestId)) {
@@ -2903,7 +2904,7 @@
                 console.log(`[Favorites] Request #${requestId} is stale after preload check, aborting`);
                 return [];
             }
-
+            
             if (preloadedResult?.cached && preloadedResult?.data?.length > 0) {
                 console.log('[Favorites] Using', preloadedResult.data.length, 'preloaded games from main process');
                 favorites = preloadedResult.data;
@@ -2914,24 +2915,24 @@
 
         if (favorites.length === 0) {
             try {
-
+                
                 if (isRequestStale(requestId)) {
                     console.log(`[Favorites] Request #${requestId} is stale before API call, aborting`);
                     return [];
                 }
-
+                
                 const currentUser = await window.robloxAPI.getCurrentUser();
                 console.log('Current user for favorites:', currentUser);
                 if (!currentUser?.id) {
                     console.log('User not logged in, cannot load favorites');
-                    return [];
+                    return []; 
                 }
 
                 if (isRequestStale(requestId)) {
                     console.log(`[Favorites] Request #${requestId} is stale after getting user, aborting`);
                     return [];
                 }
-
+                
                 console.log('Fetching user favorites with limit 100...');
                 try {
                     const result = await window.robloxAPI.getUserFavoriteGames(currentUser.id, 100);
@@ -2939,7 +2940,7 @@
                     favorites = result?.data || [];
                 } catch (apiError) {
                     console.warn('API error when fetching favorites:', apiError.message);
-
+                    
                     if (apiError.message.includes('Allowed values')) {
                         console.log('Retrying with limit 50...');
                         try {
@@ -2950,7 +2951,7 @@
                             return [];
                         }
                     } else {
-                        throw apiError;
+                        throw apiError; 
                     }
                 }
             } catch (e) {
@@ -2967,7 +2968,7 @@
         if (favorites.length > 0) {
             await enrichGamesWithCreatorInfo(favorites);
         }
-
+        
         return favorites;
     }
 
@@ -2977,7 +2978,7 @@
         const cachedGames = getRecentGamesCache();
         if (cachedGames && cachedGames.length > 0) {
             console.log('[Recent] Returning', cachedGames.length, 'client-cached games');
-
+            
             await enrichGamesWithPlaytime(cachedGames);
             return cachedGames;
         }
@@ -2994,38 +2995,38 @@
                 console.log(`[Recent] Request #${requestId} is stale after preload check, aborting`);
                 return [];
             }
-
+            
             if (preloadedResult?.cached && preloadedResult?.data?.length > 0) {
                 console.log('[Recent] Using', preloadedResult.data.length, 'preloaded games from main process');
-
+                
                 setRecentGamesCache(preloadedResult.data);
-
+                
                 await enrichGamesWithPlaytime(preloadedResult.data);
                 return preloadedResult.data;
             }
         } catch (e) {
             console.log('[Recent] Preloaded cache not available:', e.message);
         }
-
+        
         try {
-
+            
             if (isRequestStale(requestId)) {
                 console.log(`[Recent] Request #${requestId} is stale before API call, aborting`);
                 return [];
             }
-
+            
             const currentUser = await window.robloxAPI.getCurrentUser();
             console.log('Current user for recent games:', currentUser);
             if (!currentUser?.id) {
                 console.log('User not logged in, cannot load recent games');
-                return [];
+                return []; 
             }
 
             if (isRequestStale(requestId)) {
                 console.log(`[Recent] Request #${requestId} is stale after getting user, aborting`);
                 return [];
             }
-
+            
             console.log('Fetching user recent games from omni recommendations...');
             let recentGames = [];
 
@@ -3037,35 +3038,35 @@
                         console.log(`[Recent] Request #${requestId} is stale after recommendations, aborting`);
                         return [];
                     }
-
+                    
                     console.log('[Recent] Omni recommendations data:', recommendationsData);
-
+                    
                     if (recommendationsData?.sorts && recommendationsData.sorts.length > 0) {
-
+                        
                         console.log('[Recent] Available sorts:', recommendationsData.sorts.map(s => s.topic));
 
                         const recentSort = recommendationsData.sorts.find(sort => {
                             const topic = (sort.topic || '').toLowerCase();
-
+                            
                             return topic.startsWith('continue');
                         });
-
+                        
                         if (recentSort && recentSort.recommendationList && recentSort.recommendationList.length > 0) {
                             console.log('[Recent] Found Continue sort:', recentSort.topic, 'with', recentSort.recommendationList.length, 'games');
 
                             const universeIds = recentSort.recommendationList
                                 .filter(rec => rec.contentType === 'Game' && rec.contentId)
                                 .map(rec => rec.contentId);
-
+                            
                             if (universeIds.length > 0) {
-
+                                
                                 const loading = document.getElementById('GamesLoading');
                                 if (loading) {
                                     loading.innerHTML = `Loading ${universeIds.length} recent games...`;
                                 }
 
                                 const localServerStatus = await window.RobloxClient?.localServer?.getStatus?.();
-
+                                
                                 if (localServerStatus?.isRunning) {
                                     try {
                                         const result = await window.RobloxClient.localServer.batchGameDetails(universeIds);
@@ -3080,7 +3081,7 @@
                                                 visits: game.visits || 0,
                                                 favoritedCount: game.favoritedCount || 0,
                                                 updated: game.updated,
-
+                                                
                                                 creator: {
                                                     id: game.creator?.id,
                                                     name: game.creator?.name,
@@ -3106,7 +3107,7 @@
                                         visits: game.visits || 0,
                                         favoritedCount: game.favoritedCount || 0,
                                         updated: game.updated,
-
+                                        
                                         creator: {
                                             id: game.creator?.id,
                                             name: game.creator?.name,
@@ -3115,7 +3116,7 @@
                                         creatorName: game.creator?.name
                                     }));
                                 }
-
+                                
                                 if (loading) {
                                     loading.innerHTML = 'Loading games...';
                                 }
@@ -3147,7 +3148,7 @@
 
     let genreLookupCache = new Map();
     let genreLookupTimestamp = 0;
-    const GENRE_LOOKUP_TTL = 10 * 60 * 1000;
+    const GENRE_LOOKUP_TTL = 10 * 60 * 1000; 
 
     async function buildGenreLookup() {
         const now = Date.now();
@@ -3158,16 +3159,16 @@
         }
 
         console.log('[GenreLookup] Building genre lookup from game sorts...');
-
+        
         try {
-
+            
             if (!window.robloxAPI?.getGameSorts) {
                 console.warn('[GenreLookup] getGameSorts not available');
                 return genreLookupCache;
             }
 
             const sortsData = await window.robloxAPI.getGameSorts();
-
+            
             if (!sortsData?.sorts || !Array.isArray(sortsData.sorts)) {
                 console.warn('[GenreLookup] Invalid sorts data');
                 return genreLookupCache;
@@ -3190,7 +3191,7 @@
             for (const sort of sortsData.sorts) {
                 const sortId = (sort.sortId || sort.id || '').toLowerCase();
                 const genre = sortToGenre[sortId];
-
+                
                 if (genre && sort.games && Array.isArray(sort.games)) {
                     for (const game of sort.games) {
                         const universeId = game.universeId || game.id;
@@ -3203,7 +3204,7 @@
 
             genreLookupTimestamp = now;
             console.log('[GenreLookup] Built lookup with', genreLookupCache.size, 'entries');
-
+            
         } catch (e) {
             console.warn('[GenreLookup] Failed to build genre lookup:', e.message);
         }
@@ -3215,7 +3216,7 @@
         if (!games || games.length === 0) return;
 
         const gamesNeedingGenre = games.filter(g => !g.genre || g.genre === 'All');
-
+        
         if (gamesNeedingGenre.length === 0) {
             console.log('[GenreLookup] All games already have genre data');
             return;
@@ -3228,27 +3229,27 @@
         console.log(`[GenreLookup] Looking up genres for ${universeIds.length} games`);
 
         const localServerStatus = await window.RobloxClient?.localServer?.getStatus?.();
-
+        
         if (localServerStatus?.isRunning) {
             console.log('[GenreLookup] Using local server for genre lookup');
-
+            
             try {
                 const result = await window.RobloxClient.localServer.batchGenreLookup(universeIds);
-
+                
                 if (result?.success && result?.data) {
                     const genreMap = result.data;
                     let enrichedCount = 0;
-
+                    
                     for (const game of gamesNeedingGenre) {
                         const universeId = game.universeId || game.id;
                         if (universeId && genreMap[universeId]) {
                             game.genre = genreMap[universeId];
-
+                            
                             genreLookupCache.set(universeId, genreMap[universeId]);
                             enrichedCount++;
                         }
                     }
-
+                    
                     console.log(`[GenreLookup] Local server enriched ${enrichedCount}/${gamesNeedingGenre.length} games (${result.stats?.cached || 0} cached, ${result.stats?.apiCalls || 0} API calls)`);
                     return;
                 }
@@ -3258,7 +3259,7 @@
         }
 
         const lookup = await buildGenreLookup();
-
+        
         if (lookup.size === 0) {
             console.log('[GenreLookup] No genre data available from client-side lookup');
             return;
@@ -3282,13 +3283,13 @@
         const cachedGames = getRovlooGamesCache();
         if (cachedGames && cachedGames.length > 0) {
             console.log('[Rovloo] Returning', cachedGames.length, 'client-cached games');
-
+            
             const needsGenreEnrichment = cachedGames.some(g => !g.genre || g.genre === 'All');
             if (needsGenreEnrichment) {
                 await enrichGamesWithGenre(cachedGames);
-
+                
                 setRovlooGamesCache(cachedGames);
-
+                
                 if (window.roblox?.setRovlooGamesCache) {
                     window.roblox.setRovlooGamesCache(cachedGames).catch(e => {
                         console.warn('[Rovloo] Could not update main process cache after genre enrichment:', e.message);
@@ -3303,15 +3304,15 @@
                 const preloaded = await window.roblox.getCachedRovlooGames();
                 if (preloaded?.cached && preloaded?.data?.length > 0) {
                     console.log('[Rovloo] Using preloaded games from main process:', preloaded.data.length);
-
+                    
                     setRovlooGamesCache(preloaded.data);
-
+                    
                     const needsGenreEnrichment = preloaded.data.some(g => !g.genre || g.genre === 'All');
                     if (needsGenreEnrichment) {
                         await enrichGamesWithGenre(preloaded.data);
-
+                        
                         setRovlooGamesCache(preloaded.data);
-
+                        
                         if (window.roblox?.setRovlooGamesCache) {
                             window.roblox.setRovlooGamesCache(preloaded.data).catch(e => {
                                 console.warn('[Rovloo] Could not update main process cache after genre enrichment:', e.message);
@@ -3326,9 +3327,9 @@
                 console.warn('[Rovloo] Could not get preloaded cache:', e.message);
             }
         }
-
+        
         try {
-
+            
             if (!window.roblox?.reviews?.getReviewedGames) {
                 console.warn('[Rovloo] Reviews API not available');
                 return [];
@@ -3341,32 +3342,32 @@
 
             const reviewedGames = await window.roblox.reviews.getReviewedGames({
                 sort: currentSort
-
+                
             });
 
             if (isRequestStale(requestId)) {
                 console.log(`[Rovloo] Request #${requestId} is stale after API call, aborting`);
                 return [];
             }
-
+            
             console.log('[Rovloo] Got reviewed games:', reviewedGames);
-
+            
             if (!reviewedGames || reviewedGames.length === 0) {
                 console.log('[Rovloo] No reviewed games found');
                 return [];
             }
-
+            
             const loading = document.getElementById('GamesLoading');
-
+            
             if (loading && !isRequestStale(requestId)) {
                 loading.innerHTML = `Processing ${reviewedGames.length} games...`;
             }
 
             const gamesWithCompleteData = [];
             const gamesNeedingEnrichment = [];
-
+            
             for (const g of reviewedGames) {
-
+                
                 const hasCompleteData = g.universeId && g.name && g.name !== 'Unknown Game';
                 if (hasCompleteData) {
                     gamesWithCompleteData.push(g);
@@ -3374,12 +3375,12 @@
                     gamesNeedingEnrichment.push(g);
                 }
             }
-
+            
             console.log('[Rovloo] Games with complete data:', gamesWithCompleteData.length, '| Need enrichment:', gamesNeedingEnrichment.length);
 
-            const MIN_VALID_ID = 100000;
-            const MAX_VALID_ID = 99999999999;
-
+            const MIN_VALID_ID = 100000; 
+            const MAX_VALID_ID = 99999999999; 
+            
             const filteredOut = [];
             const validGamesForConversion = gamesNeedingEnrichment.filter(g => {
                 const id = typeof g.gameId === 'string' ? parseInt(g.gameId, 10) : g.gameId;
@@ -3389,7 +3390,7 @@
                 }
                 return isValid;
             });
-
+            
             if (filteredOut.length > 0) {
                 console.log('[Rovloo] Filtered out games (invalid place IDs):', filteredOut);
             }
@@ -3404,8 +3405,8 @@
             const placeToUniverse = new Map();
 
             if (placeIds.length > 0) {
-                const CONCURRENT_REQUESTS = 3;
-                const BATCH_DELAY = 500;
+                const CONCURRENT_REQUESTS = 3; 
+                const BATCH_DELAY = 500; 
 
                 const failedConversions = [];
 
@@ -3428,7 +3429,7 @@
 
                 for (let i = 0; i < placeIds.length; i += CONCURRENT_REQUESTS) {
                     const batch = placeIds.slice(i, Math.min(i + CONCURRENT_REQUESTS, placeIds.length));
-
+                    
                     if (loading) {
                         const percent = Math.round((i / placeIds.length) * 100);
                         loading.innerHTML = `Converting place IDs... ${percent}% (${placeToUniverse.size} found)`;
@@ -3449,7 +3450,7 @@
                         }
                         return null;
                     });
-
+                    
                     const results = await Promise.all(promises);
                     for (const result of results) {
                         if (result) {
@@ -3461,7 +3462,7 @@
                         await new Promise(resolve => setTimeout(resolve, BATCH_DELAY));
                     }
                 }
-
+                
                 console.log('[Rovloo] Converted', placeToUniverse.size, 'place IDs to universe IDs');
                 if (failedConversions.length > 0) {
                     console.log('[Rovloo] Failed to convert', failedConversions.length, 'place IDs:', failedConversions);
@@ -3488,39 +3489,39 @@
                     creator: g.creator ? { name: g.creator } : null,
                     creatorName: g.creatorName || g.creator || 'Unknown',
                     thumbnailUrl: g.thumbnailUrl || '',
-
+                    
                     rovlooReviewCount: g.rovlooReviewCount || g.reviewCount || 0,
                     rovlooLikeRatio: g.rovlooLikeRatio || g.likeRatio || 0,
                     rovlooLikeCount: g.rovlooLikeCount || g.likeCount || 0,
                     rovlooDislikeCount: g.rovlooDislikeCount || g.dislikeCount || 0,
                     newestReviewTimestamp: g.newestReviewTimestamp || 0,
-
+                    
                     isBlacklisted: g.isBlacklisted || false
                 });
             }
-
+            
             console.log(`[Rovloo] Added ${gamesWithCompleteData.length} games with complete data (no API calls)`);
 
             if (placeToUniverse.size > 0) {
                 const universeIds = Array.from(placeToUniverse.values());
-
+                
                 if (loading) {
                     loading.innerHTML = `Loading ${universeIds.length} game details...`;
                 }
-
+                
                 let gameDetailsMap = new Map();
 
                 const localServerStatus = await window.RobloxClient?.localServer?.getStatus?.();
-
+                
                 if (localServerStatus?.isRunning && universeIds.length > 10) {
                     console.log('[Rovloo] Using local server for batch game details');
                     if (loading) {
                         loading.innerHTML = `Loading ${universeIds.length} game details via local server...`;
                     }
-
+                    
                     try {
                         const result = await window.RobloxClient.localServer.batchGameDetails(universeIds);
-
+                        
                         if (result?.success && result?.data) {
                             console.log(`[Rovloo] Local server fetched ${result.data.length} games (${result.stats?.cached || 0} cached)`);
                             for (const game of result.data) {
@@ -3531,13 +3532,13 @@
                         }
                     } catch (localServerError) {
                         console.warn('[Rovloo] Local server failed, falling back to client-side:', localServerError);
-
-                        gameDetailsMap = new Map();
+                        
+                        gameDetailsMap = new Map(); 
                     }
                 }
 
                 if (gameDetailsMap.size === 0 && universeIds.length > 0) {
-
+                    
                     async function fetchWithRetry(batch, retries = 3, baseDelay = 1000) {
                         for (let attempt = 0; attempt < retries; attempt++) {
                             try {
@@ -3546,7 +3547,7 @@
                             } catch (e) {
                                 const isRateLimit = e.message?.includes('Too many requests') || e.message?.includes('429');
                                 if (isRateLimit && attempt < retries - 1) {
-                                    const delay = baseDelay * Math.pow(2, attempt);
+                                    const delay = baseDelay * Math.pow(2, attempt); 
                                     console.log(`[Rovloo] Rate limited, waiting ${delay}ms before retry ${attempt + 1}/${retries - 1}...`);
                                     await new Promise(resolve => setTimeout(resolve, delay));
                                 } else {
@@ -3556,17 +3557,17 @@
                         }
                     }
 
-                    const GAME_BATCH_SIZE = 30;
-                    const BATCH_DELAY = 500;
-
+                    const GAME_BATCH_SIZE = 30; 
+                    const BATCH_DELAY = 500; 
+                    
                     for (let i = 0; i < universeIds.length; i += GAME_BATCH_SIZE) {
                         const batch = universeIds.slice(i, i + GAME_BATCH_SIZE);
-
+                        
                         if (loading) {
                             const percent = Math.round((i / universeIds.length) * 100);
                             loading.innerHTML = `Loading game details... ${percent}% (${gameDetailsMap.size}/${universeIds.length})`;
                         }
-
+                        
                         try {
                             const result = await fetchWithRetry(batch);
                             if (result?.data) {
@@ -3576,21 +3577,21 @@
                             }
                         } catch (e) {
                             console.warn('[Rovloo] Game details batch failed after retries:', e.message);
-
+                            
                         }
 
                         if (i + GAME_BATCH_SIZE < universeIds.length) {
                             await new Promise(resolve => setTimeout(resolve, BATCH_DELAY));
                         }
                     }
-                }
-
+                } 
+                
                 console.log('[Rovloo] Got details for', gameDetailsMap.size, 'games that needed enrichment');
 
                 for (const [placeId, universeId] of placeToUniverse) {
                     const rovlooData = placeIdToRovlooData.get(placeId);
                     const gameData = gameDetailsMap.get(universeId);
-
+                    
                     if (gameData) {
                         formattedGames.push({
                             universeId: gameData.id,
@@ -3608,19 +3609,19 @@
                                 type: gameData.creator?.type
                             },
                             creatorName: gameData.creator?.name || 'Unknown',
-
+                            
                             rovlooReviewCount: rovlooData?.reviewCount || 0,
                             rovlooLikeRatio: rovlooData?.likeRatio || 0,
                             rovlooLikeCount: rovlooData?.likeCount || 0,
                             rovlooDislikeCount: rovlooData?.dislikeCount || 0,
                             newestReviewTimestamp: rovlooData?.newestReviewTimestamp || 0,
-
+                            
                             isBlacklisted: rovlooData?.isBlacklisted || false
                         });
                     }
                 }
-            }
-
+            } 
+            
             console.log('[Rovloo] Final formatted games:', formattedGames.length);
 
             if (formattedGames.length > 0) {
@@ -3644,7 +3645,7 @@
                     console.warn('[Rovloo] Could not update main process cache:', e.message);
                 });
             }
-
+            
             return sortRovlooGames(formattedGames);
         } catch (e) {
             console.error('[Rovloo] Failed to load reviewed games:', e);
@@ -3654,7 +3655,7 @@
 
     function calculateWilsonScore(likes, dislikes) {
         const total = likes + dislikes;
-        if (total < 5) return 0.5;
+        if (total < 5) return 0.5; 
 
         const z = 1.96;
         const phat = likes / total;
@@ -3677,17 +3678,17 @@
 
         let baseScore = 0;
         if (playerCount >= 10 && playerCount <= 99) {
-            baseScore = 100;
+            baseScore = 100; 
         } else if (playerCount >= 100 && playerCount <= 999) {
-            baseScore = 80;
+            baseScore = 80; 
         } else if (playerCount > 0 && playerCount < 10) {
-            baseScore = 60;
+            baseScore = 60; 
         } else if (playerCount === 0 && visits < 10000) {
-            baseScore = 40;
+            baseScore = 40; 
         } else if (playerCount >= 1000 && playerCount < 5000) {
-            baseScore = 30;
+            baseScore = 30; 
         } else {
-            baseScore = 10;
+            baseScore = 10; 
         }
 
         if (baseScore > 0 && visits < 10000) {
@@ -3701,27 +3702,27 @@
         const ratingMultiplier = 0.5 + (wilsonScore * 1.5);
 
         const finalScore = baseScore * reviewMultiplier * ratingMultiplier;
-
+        
         return Math.round(finalScore * 100) / 100;
     }
-
+    
     function sortRovlooGames(games) {
         switch (currentSort) {
             case 'balanced_discovery':
-
+                
                 games.sort((a, b) => {
                     const scoreA = calculateGameDiscoveryScore(a);
                     const scoreB = calculateGameDiscoveryScore(b);
                     if (scoreA !== scoreB) {
                         return scoreB - scoreA;
                     }
-
+                    
                     const wilsonA = calculateWilsonScore(a.rovlooLikeCount, a.rovlooDislikeCount);
                     const wilsonB = calculateWilsonScore(b.rovlooLikeCount, b.rovlooDislikeCount);
                     return wilsonB - wilsonA;
                 });
-                console.log('[Rovloo] Sorted by balanced discovery. Top 5:', games.slice(0, 5).map(g => ({
-                    name: g.name,
+                console.log('[Rovloo] Sorted by balanced discovery. Top 5:', games.slice(0, 5).map(g => ({ 
+                    name: g.name, 
                     discoveryScore: calculateGameDiscoveryScore(g),
                     playing: g.playing,
                     visits: g.visits,
@@ -3730,52 +3731,52 @@
                 })));
                 break;
             case 'highest_rated':
-
+                
                 games.sort((a, b) => {
                     const scoreA = calculateWilsonScore(a.rovlooLikeCount, a.rovlooDislikeCount);
                     const scoreB = calculateWilsonScore(b.rovlooLikeCount, b.rovlooDislikeCount);
                     if (scoreA !== scoreB) {
                         return scoreB - scoreA;
                     }
-
+                    
                     return b.rovlooReviewCount - a.rovlooReviewCount;
                 });
-                console.log('[Rovloo] Sorted by highest rated (Wilson score). Top 5:', games.slice(0, 5).map(g => ({
-                    name: g.name,
+                console.log('[Rovloo] Sorted by highest rated (Wilson score). Top 5:', games.slice(0, 5).map(g => ({ 
+                    name: g.name, 
                     wilsonScore: calculateWilsonScore(g.rovlooLikeCount, g.rovlooDislikeCount).toFixed(3),
-                    likes: g.rovlooLikeCount,
+                    likes: g.rovlooLikeCount, 
                     dislikes: g.rovlooDislikeCount,
                     total: g.rovlooReviewCount
                 })));
                 break;
             case 'lowest_rated':
-
+                
                 games.sort((a, b) => {
                     const scoreA = calculateWilsonScore(a.rovlooLikeCount, a.rovlooDislikeCount);
                     const scoreB = calculateWilsonScore(b.rovlooLikeCount, b.rovlooDislikeCount);
                     if (scoreA !== scoreB) {
                         return scoreA - scoreB;
                     }
-
+                    
                     return b.rovlooReviewCount - a.rovlooReviewCount;
                 });
-                console.log('[Rovloo] Sorted by lowest rated (Wilson score). Top 5:', games.slice(0, 5).map(g => ({
-                    name: g.name,
+                console.log('[Rovloo] Sorted by lowest rated (Wilson score). Top 5:', games.slice(0, 5).map(g => ({ 
+                    name: g.name, 
                     wilsonScore: calculateWilsonScore(g.rovlooLikeCount, g.rovlooDislikeCount).toFixed(3),
-                    likes: g.rovlooLikeCount,
+                    likes: g.rovlooLikeCount, 
                     dislikes: g.rovlooDislikeCount,
                     total: g.rovlooReviewCount
                 })));
                 break;
             case 'newest_reviews':
-
+                
                 games.sort((a, b) => {
                     const timestampA = a.newestReviewTimestamp || 0;
                     const timestampB = b.newestReviewTimestamp || 0;
                     return timestampB - timestampA;
                 });
-                console.log('[Rovloo] Sorted by newest reviews. Top 5:', games.slice(0, 5).map(g => ({
-                    name: g.name,
+                console.log('[Rovloo] Sorted by newest reviews. Top 5:', games.slice(0, 5).map(g => ({ 
+                    name: g.name, 
                     newestReview: g.newestReviewTimestamp ? new Date(g.newestReviewTimestamp).toLocaleDateString() : 'N/A',
                     reviews: g.rovlooReviewCount
                 })));
@@ -3785,7 +3786,7 @@
                 console.log('[Rovloo] Sorted by most reviews. Top 5:', games.slice(0, 5).map(g => ({ name: g.name, reviews: g.rovlooReviewCount })));
                 break;
             default:
-
+                
                 games.sort((a, b) => {
                     const scoreA = calculateGameDiscoveryScore(a);
                     const scoreB = calculateGameDiscoveryScore(b);
@@ -3811,21 +3812,21 @@
         }
 
         if (window.customGameLists && window.customGameLists.length > 0) {
-
+            
             return window.customGameLists[0].games || [];
         }
-
+        
         return [];
     }
 
     function showNoGamesMessage() {
         const gamesList = document.getElementById('GamesList');
         const error = document.getElementById('GamesError');
-
+        
         if (!gamesList || !error) return;
-
+        
         let message = 'No games found.';
-
+        
         switch (currentCategory) {
             case 'recommended':
                 message = 'No personalized recommendations available. Try favoriting some games or playing more games to get better recommendations!';
@@ -3845,7 +3846,7 @@
             default:
                 message = 'No games found for the selected filters.';
         }
-
+        
         error.textContent = message;
         error.style.display = 'block';
         gamesList.style.display = 'none';
@@ -3855,7 +3856,7 @@
         if (!window.customGameLists) {
             window.customGameLists = [];
         }
-
+        
         window.customGameLists.push({
             name: listName,
             games: games,
@@ -3875,7 +3876,7 @@
         if (!container || !window.customGameLists) return;
 
         container.innerHTML = '';
-
+        
         if (window.customGameLists.length === 0) {
             container.innerHTML = '<li><a class="GamesFilter" data-filter="NoLists" href="#" style="color: #999; cursor: default;">No custom lists available</a></li>';
             return;

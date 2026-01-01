@@ -1,4 +1,4 @@
-#partycontainer
+#partycontainer 
 {
     bottom: 110px;
     right: 10px;
@@ -38,7 +38,7 @@
 .partyWindow .title_flash span
 {
     background: transparent url('../../../images/friendsbar/tab_white19h_r2.gif') no-repeat right top;
-    color:#444;
+    color:#444;   
 }
 
 .partyWindow .title strong {
@@ -53,7 +53,7 @@
 .partyWindow .closeparty {
 	width:10px;
 	height:9px;
-
+	/*float:right;*/
 	margin: 5px 9px 0 0;
 	cursor:pointer;
 	position:absolute;
@@ -69,14 +69,14 @@
 	width: 248px;
 	height: auto;
 	margin: 0;
-
+	/*padding: 10px;*/
 	background: #f2f2f2;
 	border: 1px solid #a6a6a6;
 	border-top: 0px none;
 	overflow:auto;
 }
 
-.partyWindow .kickuser
+.partyWindow .kickuser 
 {
     float: right;
     padding-right: 5px;
@@ -99,6 +99,10 @@
 .main #new_party_clear {
 	padding: 40px 0 0 0;
 }
+
+
+
+/* Buttons using sliding doors */
 
 .btn_green21h {
 	float:left;
@@ -163,11 +167,14 @@
 	background:url("../../../images/chat/btn_black21h_over_r.png") no-repeat right top;
 }
 
+/* Party Invite CSS */
+
 .main h1 {
 	padding: 15px 20px 15px 20px;
 	font-size: 130%;
 	text-align:center;
 }
+
 
 .main #invite_status {
 	padding: 10px 0 10px 0;
@@ -189,6 +196,8 @@
 .main #invite_clear {
 	padding: 15px 0 0 0;
 }
+
+/* Party Leader css */
 
 dd {
 }
@@ -298,7 +307,10 @@ dd {
 }
 
 #party_my .main .btn_black21h {
-
+	/*margin: 20px 0 0 73px;*/
 	margin: 15px 70px 0 0;
-
+	/*position:absolute;
+	left:83px;
+	top:402px;
+	*/
 }

@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -14,7 +15,7 @@
         if (!container) return;
 
         try {
-
+            
             const response = await fetch('pages/bc.html');
             if (response.ok) {
                 container.innerHTML = await response.text();
@@ -33,7 +34,7 @@
     }
 
     function initBCHandlers() {
-
+        
         const membershipButtons = document.querySelectorAll('.MembershipButton');
         membershipButtons.forEach(btn => {
             btn.addEventListener('click', function() {

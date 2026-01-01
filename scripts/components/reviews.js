@@ -1,9 +1,11 @@
-const ReviewComponent = {
 
-  placeId: null,
-  universeId: null,
+
+const ReviewComponent = {
+  
+  placeId: null,  
+  universeId: null,  
   containerId: null,
-  container: null,
+  container: null,  
   currentPage: 1,
   totalPages: 1,
   reviewsPerPage: 10,
@@ -17,35 +19,35 @@ const ReviewComponent = {
   filterOption: 'all',
   isLoading: false,
   isSubmitting: false,
-  _pendingReload: false,
-  _requestId: 0,
-  _clickHandler: null,
+  _pendingReload: false,  
+  _requestId: 0,  
+  _clickHandler: null,  
   rovlooAuthenticated: false,
   rovlooUser: null,
-  cachedPlaytimeData: null,
-  replySummary: {},
-  expandedReplies: new Set(),
-  userGameVote: null,
-  userVoteCache: {},
-  userReplyVoteCache: {},
-  donorStatusCache: {},
-  DONOR_ITEM_ID: 86478952287791,
+  cachedPlaytimeData: null,  
+  replySummary: {},  
+  expandedReplies: new Set(),  
+  userGameVote: null,  
+  userVoteCache: {},  
+  userReplyVoteCache: {},  
+  donorStatusCache: {},  
+  DONOR_ITEM_ID: 86478952287791,  
 
-  browseMode: false,
-  searchQuery: '',
-  adminPicksMode: false,
-  myReviewsMode: false,
-  myReviewsUserId: null,
-  clientSideSort: false,
-  allReviewsCache: null,
-  avatarCache: new Map(),
+  browseMode: false,  
+  searchQuery: '',    
+  adminPicksMode: false,  
+  myReviewsMode: false,  
+  myReviewsUserId: null,  
+  clientSideSort: false,  
+  allReviewsCache: null,  
+  avatarCache: new Map(),  
 
   getAvatarUrl(avatarUrl, userId) {
-
+    
     if (userId && this.avatarCache.has(userId)) {
       return this.avatarCache.get(userId);
     }
-
+    
     if (avatarUrl && !avatarUrl.includes('30DAY-AvatarHeadshot')) {
       return avatarUrl;
     }
@@ -59,16 +61,16 @@ const ReviewComponent = {
     const avatarImages = this.container?.querySelectorAll('.author-avatar, .reply-avatar') || [];
     const userIdsToFetch = new Set();
     const imagesByUserId = new Map();
-
+    
     avatarImages.forEach(img => {
-
+      
       const authorLink = img.closest('.author-link');
       if (!authorLink) return;
-
+      
       const href = authorLink.getAttribute('href') || '';
       const match = href.match(/id=(\d+)/);
       if (!match) return;
-
+      
       const userId = parseInt(match[1]);
       if (!userId) return;
 
@@ -81,18 +83,18 @@ const ReviewComponent = {
         imagesByUserId.get(userId).push(img);
       }
     });
-
+    
     if (userIdsToFetch.size === 0) return;
-
+    
     try {
       const userIds = Array.from(userIdsToFetch);
       console.log('[ReviewComponent] Fetching fresh avatars for', userIds.length, 'users');
-
+      
       const result = await window.roblox.getUserThumbnails(userIds, '150x150', 'Headshot');
       if (result?.data) {
         result.data.forEach(item => {
           if (item.imageUrl && item.targetId) {
-
+            
             this.avatarCache.set(item.targetId, item.imageUrl);
 
             const images = imagesByUserId.get(item.targetId);
@@ -116,9 +118,9 @@ const ReviewComponent = {
     if (this.donorStatusCache.hasOwnProperty(userIdStr)) {
       return this.donorStatusCache[userIdStr];
     }
-
+    
     try {
-
+      
       const result = await window.roblox.userOwnsItem(userId, 'Asset', this.DONOR_ITEM_ID);
       const isDonor = result?.data && result.data.length > 0;
 
@@ -135,9 +137,9 @@ const ReviewComponent = {
     if (!userIds || userIds.length === 0) return {};
 
     const uncachedUserIds = userIds.filter(id => !this.donorStatusCache.hasOwnProperty(String(id)));
-
+    
     if (uncachedUserIds.length > 0) {
-
+      
       const batchSize = 10;
       for (let i = 0; i < uncachedUserIds.length; i += batchSize) {
         const batch = uncachedUserIds.slice(i, i + batchSize);
@@ -161,9 +163,9 @@ const ReviewComponent = {
         userIds.add(review.author.userId);
       }
     });
-
+    
     if (userIds.size === 0) return;
-
+    
     console.log('[ReviewComponent] Checking donor status for', userIds.size, 'users');
 
     const donorStatus = await this.batchCheckDonorStatus(Array.from(userIds));
@@ -171,7 +173,7 @@ const ReviewComponent = {
     this.reviews.forEach(review => {
       const userId = review.author?.userId;
       if (!userId) return;
-
+      
       const isDonor = donorStatus[String(userId)];
       if (!isDonor) return;
 
@@ -198,7 +200,7 @@ const ReviewComponent = {
         userIds.add(reply.author.userId);
       }
     });
-
+    
     if (userIds.size === 0) return;
 
     const donorStatus = await this.batchCheckDonorStatus(Array.from(userIds));
@@ -206,7 +208,7 @@ const ReviewComponent = {
     replies.forEach(reply => {
       const userId = reply.author?.userId;
       if (!userId) return;
-
+      
       const isDonor = donorStatus[String(userId)];
       if (!isDonor) return;
 
@@ -232,7 +234,7 @@ const ReviewComponent = {
     console.log('[ReviewComponent] New request ID:', initRequestId);
 
     this.removeEventListeners();
-
+    
     this.placeId = placeId;
     this.universeId = options.universeId || null;
     this.containerId = containerId;
@@ -269,7 +271,7 @@ const ReviewComponent = {
         if (!this.browseMode && this.universeId && window.roblox?.getUserVote) {
           try {
             const voteData = await window.roblox.getUserVote(this.universeId);
-
+            
             this.userGameVote = voteData?.userVote;
             console.log('[ReviewComponent] User game vote:', this.userGameVote);
           } catch (e) {
@@ -318,7 +320,7 @@ const ReviewComponent = {
           console.log('[Reviews] Direct auth failed, user will need to click Connect button');
         }
       }
-
+      
     } catch (e) {
       console.log('[Reviews] Failed to check Rovloo auth:', e);
       this.rovlooAuthenticated = false;
@@ -332,9 +334,9 @@ const ReviewComponent = {
       if (result.success) {
         this.rovlooAuthenticated = true;
         this.rovlooUser = result.user;
-
+        
         this.renderReviewForm();
-
+        
         this.showFormMessage('Successfully logged in to Rovloo!', 'success');
       } else {
         this.showFormError(result.error || 'Failed to login to Rovloo');
@@ -347,9 +349,9 @@ const ReviewComponent = {
 
   renderContainer() {
     const container = document.getElementById(this.containerId);
-    console.log('[ReviewComponent] renderContainer:', {
-      containerId: this.containerId,
-      containerFound: !!container
+    console.log('[ReviewComponent] renderContainer:', { 
+      containerId: this.containerId, 
+      containerFound: !!container 
     });
     if (!container) {
       console.warn('[ReviewComponent] Container not found:', this.containerId);
@@ -373,7 +375,7 @@ const ReviewComponent = {
         </div>
       `;
     } else {
-
+      
       container.innerHTML = `
         <div class="ShadowedStandardBox reviews-section">
           <div class="Header">
@@ -418,7 +420,7 @@ const ReviewComponent = {
 
   setupEventListeners() {
     if (!this.container) return;
-
+    
     const sortSelect = this.container.querySelector('.review-sort-select');
     const filterSelect = this.container.querySelector('.review-filter-select');
 
@@ -444,10 +446,10 @@ const ReviewComponent = {
     console.log('[ReviewComponent] loadReviews called, requestId:', requestId);
 
     const currentRequestId = requestId ?? this._requestId;
-
+    
     if (this.isLoading) {
       console.log('[ReviewComponent] Already loading, queuing reload');
-
+      
       this._pendingReload = true;
       return;
     }
@@ -468,7 +470,7 @@ const ReviewComponent = {
 
       if (this.browseMode) {
         if (this.adminPicksMode) {
-
+          
           console.log('[ReviewComponent] Loading admin picks...');
           const picksData = await window.roblox.reviews.getAdminPicks({
             limit: this.reviewsPerPage,
@@ -478,16 +480,16 @@ const ReviewComponent = {
 
           const picks = picksData.picks || picksData || [];
           if (Array.isArray(picks) && picks.length > 0) {
-
+            
             if (picks[0].review) {
-
+              
               reviewsData = picks.map(pick => ({
                 ...pick.review,
                 adminPick: true,
                 pickReason: pick.reason || pick.pickReason
               }));
             } else {
-
+              
               reviewsData = picks;
             }
           } else {
@@ -496,9 +498,9 @@ const ReviewComponent = {
           this.totalPages = picksData.totalPages || 1;
           console.log('[ReviewComponent] Processed admin picks:', reviewsData.length, 'reviews');
         } else if (this.myReviewsMode) {
-
+          
           console.log('[ReviewComponent] Loading my reviews for user:', this.myReviewsUserId);
-
+          
           if (!this.myReviewsUserId) {
             reviewsData = [];
             this.totalPages = 1;
@@ -510,9 +512,9 @@ const ReviewComponent = {
               limit: this.reviewsPerPage,
               page: this.currentPage
             });
-
+            
             console.log('[ReviewComponent] My reviews response:', response);
-
+            
             if (Array.isArray(response)) {
               reviewsData = response;
               this.totalPages = response.length > 0 ? Math.ceil(response.length / this.reviewsPerPage) : 1;
@@ -523,11 +525,11 @@ const ReviewComponent = {
               reviewsData = [];
               this.totalPages = 1;
             }
-
+            
             console.log('[ReviewComponent] My reviews:', reviewsData.length, 'reviews');
           }
         } else if (this.clientSideSort) {
-
+          
           console.log('[ReviewComponent] Using client-side sorting for:', this.sortOption);
 
           if (!this.allReviewsCache) {
@@ -537,30 +539,30 @@ const ReviewComponent = {
             let page = 1;
             let totalReviews = Infinity;
             let allReviews = [];
-
+            
             while (allReviews.length < totalReviews) {
               const response = await window.roblox.reviews.getAllReviews({
                 search: this.searchQuery,
                 likeStatus: this.filterOption !== 'all' ? this.filterOption : undefined,
-                sort: 'balanced_discovery',
+                sort: 'balanced_discovery', 
                 limit: LIMIT,
                 page: page
               });
-
+              
               let chunk = [];
               if (Array.isArray(response)) {
                 chunk = response;
-
+                
                 if (page === 1) totalReviews = chunk.length < LIMIT ? chunk.length : Infinity;
               } else if (response && typeof response === 'object') {
                 chunk = response.reviews || [];
-
+                
                 if (page === 1) {
                   totalReviews = response.totalReviews || chunk.length;
                   console.log('[ReviewComponent] Server reports', totalReviews, 'total reviews');
                 }
               }
-
+              
               allReviews.push(...chunk);
               console.log('[ReviewComponent] Page', page, ':', chunk.length, 'reviews (total:', allReviews.length, '/', totalReviews, ')');
 
@@ -584,7 +586,7 @@ const ReviewComponent = {
                 console.warn('Failed to fetch reply summary for sorting:', e);
               }
             }
-
+            
             this.allReviewsCache = allReviews;
             console.log('[ReviewComponent] Cached', allReviews.length, 'reviews for client-side sorting');
           }
@@ -597,10 +599,10 @@ const ReviewComponent = {
           const startIndex = (this.currentPage - 1) * this.reviewsPerPage;
           const endIndex = startIndex + this.reviewsPerPage;
           reviewsData = sortedReviews.slice(startIndex, endIndex);
-
+          
           console.log('[ReviewComponent] Client-side sorted:', totalReviews, 'total,', reviewsData.length, 'on page', this.currentPage);
         } else {
-
+          
           console.log('[ReviewComponent] Calling getAllReviews with:', {
             search: this.searchQuery,
             likeStatus: this.filterOption !== 'all' ? this.filterOption : undefined,
@@ -608,7 +610,7 @@ const ReviewComponent = {
             limit: this.reviewsPerPage,
             page: this.currentPage
           });
-
+          
           const response = await window.roblox.reviews.getAllReviews({
             search: this.searchQuery,
             likeStatus: this.filterOption !== 'all' ? this.filterOption : undefined,
@@ -616,31 +618,31 @@ const ReviewComponent = {
             limit: this.reviewsPerPage,
             page: this.currentPage
           });
-
+          
           console.log('[ReviewComponent] getAllReviews raw response:', response);
           console.log('[ReviewComponent] Response type:', typeof response, 'isArray:', Array.isArray(response));
 
           if (Array.isArray(response)) {
-
+            
             reviewsData = response;
             this.totalPages = response.length > 0 ? Math.ceil(response.length / this.reviewsPerPage) : 1;
             console.log('[ReviewComponent] Direct array response with', response.length, 'reviews');
           } else if (response && typeof response === 'object') {
-
+            
             reviewsData = response.reviews || [];
             this.totalPages = response.totalPages || 1;
             console.log('[ReviewComponent] Object response with', reviewsData.length, 'reviews, totalPages:', this.totalPages);
           } else {
-
+            
             console.warn('[ReviewComponent] Unexpected response format:', response);
             reviewsData = [];
             this.totalPages = 1;
           }
-
+          
           console.log('[ReviewComponent] Final reviewsData:', reviewsData.length, 'reviews');
         }
       } else {
-
+        
         [stats, reviewsData] = await Promise.all([
           window.roblox.reviews.getStats(this.placeId).catch(() => null),
           window.roblox.reviews.getReviews(this.placeId, {
@@ -661,7 +663,7 @@ const ReviewComponent = {
 
       if (this.reviews.length > 0) {
         const authorIds = [...new Set(this.reviews.map(r => r.author?.userId).filter(Boolean))];
-        const ratingPromises = authorIds.map(userId =>
+        const ratingPromises = authorIds.map(userId => 
           window.roblox.reviews.getUserRating(userId).catch(() => null)
         );
         const ratings = await Promise.all(ratingPromises);
@@ -695,16 +697,16 @@ const ReviewComponent = {
             console.log('[ReviewComponent] Reply summary response:', summary, 'type:', typeof summary, 'isArray:', Array.isArray(summary));
 
             this.replySummary = {};
-
+            
             if (Array.isArray(summary)) {
-
+              
               summary.forEach(item => {
                 if (item && item.reviewId !== undefined && item.count !== undefined) {
                   this.replySummary[String(item.reviewId)] = { count: item.count };
                 }
               });
             } else if (summary && typeof summary === 'object' && Object.keys(summary).length > 0) {
-
+              
               for (const [reviewId, value] of Object.entries(summary)) {
                 if (typeof value === 'number') {
                   this.replySummary[reviewId] = { count: value };
@@ -713,7 +715,7 @@ const ReviewComponent = {
                 }
               }
             }
-
+            
             console.log('[ReviewComponent] Processed replySummary:', this.replySummary);
 
             if (Object.keys(this.replySummary).length === 0 && reviewIds.length > 0) {
@@ -727,7 +729,7 @@ const ReviewComponent = {
                   return { reviewId, count: 0 };
                 }
               });
-
+              
               const counts = await Promise.all(countPromises);
               counts.forEach(({ reviewId, count }) => {
                 this.replySummary[String(reviewId)] = { count };
@@ -740,7 +742,7 @@ const ReviewComponent = {
           this.replySummary = {};
         }
       } else if (this.reviews.length > 0) {
-
+        
         this.replySummary = {};
         this.reviews.forEach(r => {
           if (r.id && r.replyCount !== undefined) {
@@ -796,7 +798,7 @@ const ReviewComponent = {
       if (this._pendingReload && currentRequestId === this._requestId) {
         console.log('[ReviewComponent] Processing pending reload');
         this._pendingReload = false;
-
+        
         setTimeout(() => this.loadReviews(), 0);
       }
     }
@@ -804,7 +806,7 @@ const ReviewComponent = {
 
   sortReviewsClientSide(reviews, sortOption) {
     console.log('[ReviewComponent] Sorting', reviews.length, 'reviews by:', sortOption);
-
+    
     switch (sortOption) {
       case 'quality':
       case 'balanced_discovery':
@@ -813,70 +815,70 @@ const ReviewComponent = {
           const scoreA = this.calculateEngagementScore(a);
           const scoreB = this.calculateEngagementScore(b);
           if (scoreB !== scoreA) return scoreB - scoreA;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'highest-voted':
 
         return reviews.sort((a, b) => {
           const scoreA = (a.voteStats?.upvotes ?? a.upvotes ?? 0) - (a.voteStats?.downvotes ?? a.downvotes ?? 0);
           const scoreB = (b.voteStats?.upvotes ?? b.upvotes ?? 0) - (b.voteStats?.downvotes ?? b.downvotes ?? 0);
           if (scoreB !== scoreA) return scoreB - scoreA;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'lowest-voted':
-
+        
         return reviews.sort((a, b) => {
           const scoreA = (a.voteStats?.upvotes ?? a.upvotes ?? 0) - (a.voteStats?.downvotes ?? a.downvotes ?? 0);
           const scoreB = (b.voteStats?.upvotes ?? b.upvotes ?? 0) - (b.voteStats?.downvotes ?? b.downvotes ?? 0);
           if (scoreA !== scoreB) return scoreA - scoreB;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'most-replies':
-
+        
         return reviews.sort((a, b) => {
           const repliesA = this.replySummary[String(a.id)]?.count ?? a.replyCount ?? 0;
           const repliesB = this.replySummary[String(b.id)]?.count ?? b.replyCount ?? 0;
           if (repliesB !== repliesA) return repliesB - repliesA;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'least-replies':
-
+        
         return reviews.sort((a, b) => {
           const repliesA = this.replySummary[String(a.id)]?.count ?? a.replyCount ?? 0;
           const repliesB = this.replySummary[String(b.id)]?.count ?? b.replyCount ?? 0;
           if (repliesA !== repliesB) return repliesA - repliesB;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'most-playtime':
-
+        
         return reviews.sort((a, b) => {
           const playtimeA = a.playtimeData?.totalMinutes ?? a.playtimeMinutes ?? 0;
           const playtimeB = b.playtimeData?.totalMinutes ?? b.playtimeMinutes ?? 0;
           if (playtimeB !== playtimeA) return playtimeB - playtimeA;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'least-playtime':
-
+        
         return reviews.sort((a, b) => {
           const playtimeA = a.playtimeData?.totalMinutes ?? a.playtimeMinutes ?? 0;
           const playtimeB = b.playtimeData?.totalMinutes ?? b.playtimeMinutes ?? 0;
           if (playtimeA !== playtimeB) return playtimeA - playtimeB;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'highest_rated':
       case 'lowest_rated':
 
@@ -897,24 +899,24 @@ const ReviewComponent = {
           const reception = gameReviewReception[gameId];
           if (!reception) return 0.5;
           const total = reception.likes + reception.dislikes;
-          if (total < 5) return 0.5;
-
+          if (total < 5) return 0.5; 
+          
           const z = 1.96;
           const phat = reception.likes / total;
           const score = (phat + z * z / (2 * total) - z * Math.sqrt((phat * (1 - phat) + z * z / (4 * total)) / total)) / (1 + z * z / total);
           return score;
         };
-
+        
         return reviews.sort((a, b) => {
-
+          
           const aBlacklisted = a.isBlacklisted === true;
           const bBlacklisted = b.isBlacklisted === true;
           if (aBlacklisted && !bBlacklisted) return 1;
           if (!aBlacklisted && bBlacklisted) return -1;
-
+          
           const scoreA = getReceptionScore(a.gameId);
           const scoreB = getReceptionScore(b.gameId);
-
+          
           if (sortOption === 'highest_rated') {
             if (scoreA !== scoreB) return scoreB - scoreA;
           } else {
@@ -925,7 +927,7 @@ const ReviewComponent = {
           const totalB = (gameReviewReception[b.gameId]?.likes || 0) + (gameReviewReception[b.gameId]?.dislikes || 0);
           return totalB - totalA;
         });
-
+        
       case 'underrated':
 
         return reviews
@@ -934,12 +936,12 @@ const ReviewComponent = {
             return players < 1000;
           })
           .sort((a, b) => {
-
+            
             const scoreA = a.discoveryScore || this.calculateEngagementScore(a);
             const scoreB = b.discoveryScore || this.calculateEngagementScore(b);
             return scoreB - scoreA;
           });
-
+        
       case 'hidden_gems':
 
         return reviews.sort((a, b) => {
@@ -947,12 +949,12 @@ const ReviewComponent = {
           const bIsHidden = (b.game?.visits || 0) < 10000;
           if (aIsHidden && !bIsHidden) return -1;
           if (!aIsHidden && bIsHidden) return 1;
-
+          
           const scoreA = a.discoveryScore || this.calculateEngagementScore(a);
           const scoreB = b.discoveryScore || this.calculateEngagementScore(b);
           return scoreB - scoreA;
         });
-
+        
       case 'trending':
 
         return reviews.sort((a, b) => {
@@ -960,18 +962,18 @@ const ReviewComponent = {
           const bIsRising = (b.game?.visits || 0) >= 1000 && (b.game?.visits || 0) <= 100000;
           if (aIsRising && !bIsRising) return -1;
           if (!aIsRising && bIsRising) return 1;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'oldest':
-
+        
         return reviews.sort((a, b) => {
           const timeA = new Date(a.timestamp || a.createdAt || 0).getTime();
           const timeB = new Date(b.timestamp || b.createdAt || 0).getTime();
           return timeA - timeB;
         });
-
+        
       case 'game':
 
         return reviews.sort((a, b) => {
@@ -979,7 +981,7 @@ const ReviewComponent = {
           const nameB = b.game?.name || '';
           return nameA.localeCompare(nameB);
         });
-
+        
       case 'most_visits':
 
         return reviews.sort((a, b) => {
@@ -987,7 +989,7 @@ const ReviewComponent = {
           const visitsB = b.game?.visits || 0;
           return visitsB - visitsA;
         });
-
+        
       case 'least_visits':
 
         return reviews.sort((a, b) => {
@@ -995,29 +997,29 @@ const ReviewComponent = {
           const visitsB = b.game?.visits || 0;
           return visitsA - visitsB;
         });
-
+        
       case 'highest-rated-user':
 
         return reviews.sort((a, b) => {
           const scoreA = a.author?.rating?.totalScore || 0;
           const scoreB = b.author?.rating?.totalScore || 0;
           if (scoreB !== scoreA) return scoreB - scoreA;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       case 'lowest-rated-user':
 
         return reviews.sort((a, b) => {
           const scoreA = a.author?.rating?.totalScore || 0;
           const scoreB = b.author?.rating?.totalScore || 0;
           if (scoreA !== scoreB) return scoreA - scoreB;
-
+          
           return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
         });
-
+        
       default:
-
+        
         return reviews.sort((a, b) => {
           const timeA = new Date(a.timestamp || a.createdAt || 0).getTime();
           const timeB = new Date(b.timestamp || b.createdAt || 0).getTime();
@@ -1028,7 +1030,7 @@ const ReviewComponent = {
 
   calculateWilsonScore(likes, dislikes) {
     const total = likes + dislikes;
-    if (total < 5) return 0.5;
+    if (total < 5) return 0.5; 
 
     const z = 1.96;
     const phat = likes / total;
@@ -1046,12 +1048,12 @@ const ReviewComponent = {
     const reviewLength = review.text ? review.text.length : 0;
     const lengthMultiplier = Math.min(1 + (reviewLength / 300), 2.0);
 
-    const voteCount = (review.voteStats?.upvotes ?? review.upvotes ?? 0) +
+    const voteCount = (review.voteStats?.upvotes ?? review.upvotes ?? 0) + 
                       (review.voteStats?.downvotes ?? review.downvotes ?? 0);
     const interactionMultiplier = 1 + Math.min(voteCount / 20, 1.5);
 
     const totalVotes = (review.game?.upvotes || 0) + (review.game?.downvotes || 0);
-    const gameRating = totalVotes >= 10
+    const gameRating = totalVotes >= 10 
         ? (review.game?.upvotes || 0) / totalVotes
         : 0.5;
     const qualityMultiplier = 0.5 + (gameRating * 1.5);
@@ -1060,17 +1062,17 @@ const ReviewComponent = {
 
     const varietyBonus = this.getDiscoveryTypeBonus(review);
 
-    const engagementScore = baseScore *
-        lengthMultiplier *
-        interactionMultiplier *
-        qualityMultiplier *
-        freshnessMultiplier *
+    const engagementScore = baseScore * 
+        lengthMultiplier * 
+        interactionMultiplier * 
+        qualityMultiplier * 
+        freshnessMultiplier * 
         varietyBonus;
 
     const reviewId = review.id || `${review.gameId}_${review.timestamp}`;
     const deterministicSeed = String(reviewId).split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
     const deterministicFactor = 0.95 + ((deterministicSeed % 100) / 1000);
-
+    
     return engagementScore * deterministicFactor;
   },
 
@@ -1084,14 +1086,14 @@ const ReviewComponent = {
     const isPositiveReview = review.likeStatus === 'like';
 
     if (hasReliableRating && isPositiveReview && players < 1000 && players > 0 && rating >= 0.7) {
-      return 1.3;
+      return 1.3; 
     } else if (hasReliableRating && isPositiveReview && visits < 10000 && rating >= 0.7) {
-      return 1.2;
+      return 1.2; 
     } else if (hasReliableRating && isPositiveReview && visits >= 1000 && visits <= 50000 && rating >= 0.8) {
-      return 1.15;
+      return 1.15; 
     }
-
-    return 1.0;
+    
+    return 1.0; 
   },
 
   calculateQualityScore(review) {
@@ -1106,9 +1108,9 @@ const ReviewComponent = {
     if (textLength > 300) score += 15;
 
     const playtime = review.playtimeData?.totalMinutes || review.playtimeMinutes || 0;
-    if (playtime > 60) score += 5;
-    if (playtime > 300) score += 10;
-    if (playtime > 600) score += 15;
+    if (playtime > 60) score += 5;  
+    if (playtime > 300) score += 10; 
+    if (playtime > 600) score += 15; 
 
     const authorRating = review.author?.rating?.totalScore || 0;
     score += authorRating * 2;
@@ -1116,7 +1118,7 @@ const ReviewComponent = {
     const ageInDays = (Date.now() - new Date(review.timestamp || review.createdAt || 0).getTime()) / (1000 * 60 * 60 * 24);
     if (ageInDays < 7) score += 10;
     else if (ageInDays < 30) score += 5;
-
+    
     return score;
   },
 
@@ -1127,7 +1129,7 @@ const ReviewComponent = {
   },
 
   updateReviewsTabText(count) {
-
+    
     const tab = document.getElementById('GameDetailReviewsTab') || document.getElementById('ReviewsTab');
     if (tab) {
       const span = tab.querySelector('span');
@@ -1171,7 +1173,7 @@ const ReviewComponent = {
       return;
     }
 
-    const playtimeData = this.cachedPlaytimeData ||
+    const playtimeData = this.cachedPlaytimeData || 
       (window.PlaytimeTracker ? window.PlaytimeTracker.getPlaytimeData(this.placeId) : { totalMinutes: 0, formattedPlaytime: '< 1m' });
 
     if (this.userReview) {
@@ -1207,9 +1209,9 @@ const ReviewComponent = {
     const voteText = likeStatus === 'like' ? 'Recommended' : (likeStatus === 'dislike' ? 'Not Recommended' : 'Not Voted');
 
     this.selectedLikeStatus = likeStatus;
-
+    
     if (!hasVoted) {
-
+      
       formContainer.innerHTML = `
         <div class="review-form new-review">
           <div class="form-header">
@@ -1229,7 +1231,7 @@ const ReviewComponent = {
       `;
       return;
     }
-
+    
     formContainer.innerHTML = `
       <div class="review-form new-review">
         <div class="form-header">
@@ -1286,7 +1288,7 @@ const ReviewComponent = {
     const charCount = document.getElementById(charCountId);
     const showPreviewCheckbox = document.getElementById('showPreview');
     const previewContainer = document.getElementById('reviewPreview');
-
+    
     if (!editable) return;
 
     let isUpdating = false;
@@ -1294,15 +1296,15 @@ const ReviewComponent = {
     const updateInlineFormatting = () => {
       if (isUpdating) return;
       isUpdating = true;
-
+      
       const text = this.getEditableText(editable);
-
+      
       if (charCount) {
         charCount.textContent = text.length;
       }
 
       const cursorPos = this.saveCursorPosition(editable);
-      editable.innerHTML = this.formatMarkdownInline(text) || '<br>';
+      editable.innerHTML = this.formatMarkdownInline(text) || '<br>'; 
       this.restoreCursorPosition(editable, cursorPos);
 
       if (preview && previewContainer && previewContainer.style.display !== 'none') {
@@ -1312,10 +1314,10 @@ const ReviewComponent = {
           preview.innerHTML = '<span class="preview-placeholder">Your formatted review will appear here...</span>';
         }
       }
-
+      
       isUpdating = false;
     };
-
+    
     editable.addEventListener('input', updateInlineFormatting);
 
     editable.addEventListener('paste', (e) => {
@@ -1351,14 +1353,14 @@ const ReviewComponent = {
     editable.focus();
     const selection = window.getSelection();
     if (!selection.rangeCount) return;
-
+    
     const range = selection.getRangeAt(0);
     const selectedText = range.toString();
-
+    
     let newText = '';
     let selectStart = 0;
     let selectEnd = 0;
-
+    
     switch (format) {
       case 'bold':
         newText = `**${selectedText || 'bold text'}**`;
@@ -1404,10 +1406,10 @@ const ReviewComponent = {
     const selectedText = textarea.value.substring(start, end);
     const beforeText = textarea.value.substring(0, start);
     const afterText = textarea.value.substring(end);
-
+    
     let newText = '';
     let cursorOffset = 0;
-
+    
     switch (format) {
       case 'bold':
         newText = `**${selectedText || 'bold text'}**`;
@@ -1428,16 +1430,16 @@ const ReviewComponent = {
       case 'link':
         if (selectedText) {
           newText = `[${selectedText}](url)`;
-          cursorOffset = newText.length - 4;
+          cursorOffset = newText.length - 4; 
         } else {
           newText = '[link text](url)';
-          cursorOffset = 1;
+          cursorOffset = 1; 
         }
         break;
       default:
         return;
     }
-
+    
     textarea.value = beforeText + newText + afterText;
 
     const newCursorPos = start + cursorOffset;
@@ -1448,18 +1450,18 @@ const ReviewComponent = {
   toggleReviewForm() {
     const formContent = document.getElementById('reviewFormContent');
     const toggleBtn = document.getElementById('toggleReviewFormBtn');
-
+    
     if (!formContent || !toggleBtn) return;
-
+    
     const isVisible = formContent.style.display !== 'none';
-
+    
     if (isVisible) {
-
+      
       formContent.style.display = 'none';
       toggleBtn.querySelector('img').src = 'images/rovloo/btn-review.png';
       toggleBtn.querySelector('img').alt = 'Write a Review';
     } else {
-
+      
       formContent.style.display = 'block';
       toggleBtn.querySelector('img').src = 'images/rovloo/btn-review_hide.png';
       toggleBtn.querySelector('img').alt = 'Hide Review Form';
@@ -1468,7 +1470,7 @@ const ReviewComponent = {
 
   selectLikeStatus(status) {
     this.selectedLikeStatus = status;
-
+    
     const likeBtn = document.getElementById('likeBtn');
     const dislikeBtn = document.getElementById('dislikeBtn');
     const submitBtn = document.getElementById('submitReviewBtn');
@@ -1495,13 +1497,13 @@ const ReviewComponent = {
       return;
     }
 
-    const playtimeData = this.cachedPlaytimeData ||
+    const playtimeData = this.cachedPlaytimeData || 
       (window.PlaytimeTracker ? window.PlaytimeTracker.getPlaytimeData(this.placeId) : { totalMinutes: 0, formattedPlaytime: '< 1m' });
 
-    const likeStatus = this.userGameVote === true ? 'like' :
+    const likeStatus = this.userGameVote === true ? 'like' : 
                        (this.userGameVote === false ? 'dislike' : this.userReview.likeStatus);
     const voteText = likeStatus === 'like' ? 'Recommended' : 'Not Recommended';
-
+    
     this.selectedLikeStatus = likeStatus;
 
     formContainer.innerHTML = `
@@ -1546,7 +1548,7 @@ const ReviewComponent = {
     `;
 
     this.setupFormPreview();
-
+    
     console.log('[ReviewComponent] showEditForm complete');
   },
 
@@ -1580,8 +1582,8 @@ const ReviewComponent = {
     }
 
     try {
-
-      const playtimeData = window.PlaytimeTracker ?
+      
+      const playtimeData = window.PlaytimeTracker ? 
         await window.PlaytimeTracker.getPlaytimeDataAsync(this.placeId, this.universeId) : { totalMinutes: 0, source: 'native' };
 
       const author = {
@@ -1621,7 +1623,7 @@ const ReviewComponent = {
       } else {
         this.showFormError(error.message || 'Failed to submit review. Please try again.');
       }
-
+      
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Review';
@@ -1655,12 +1657,12 @@ const ReviewComponent = {
     }
 
     try {
-
-      const playtimeData = window.PlaytimeTracker ?
+      
+      const playtimeData = window.PlaytimeTracker ? 
         await window.PlaytimeTracker.getPlaytimeDataAsync(this.placeId) : { totalMinutes: 0 };
 
       const reviewData = {
-        gameId: this.placeId,
+        gameId: this.placeId, 
         likeStatus: this.selectedLikeStatus || this.userReview.likeStatus,
         text: text || null,
         playtimeData: playtimeData
@@ -1684,7 +1686,7 @@ const ReviewComponent = {
       } else {
         this.showFormError(error.message || 'Failed to update review. Please try again.');
       }
-
+      
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Update Review';
@@ -1703,7 +1705,7 @@ const ReviewComponent = {
     }
 
     const placeId = this.browseMode ? (gameId || this.getReviewGameId(reviewId)) : this.placeId;
-
+    
     if (!placeId || placeId === 'browse') {
       alert('Unable to delete review: game ID not found');
       return;
@@ -1758,7 +1760,7 @@ const ReviewComponent = {
     textDiv.innerHTML = `
       <div class="inline-edit-form">
         <div class="like-buttons-inline">
-          <button type="button" class="like-btn ${review.likeStatus === 'like' ? 'selected' : ''}"
+          <button type="button" class="like-btn ${review.likeStatus === 'like' ? 'selected' : ''}" 
                   onclick="event.stopPropagation(); this.classList.add('selected'); this.nextElementSibling.classList.remove('selected');">
             <img src="images/rovloo/btn-thumbsup.png" alt="Like">
             <span>Recommend</span>
@@ -1810,9 +1812,9 @@ const ReviewComponent = {
     const editable = reviewItem.querySelector('.inline-edit-editable');
     const likeBtn = reviewItem.querySelector('.like-btn');
     const dislikeBtn = reviewItem.querySelector('.dislike-btn');
-
+    
     const text = editable ? this.getEditableText(editable).trim() : '';
-    const likeStatus = likeBtn?.classList.contains('selected') ? 'like' :
+    const likeStatus = likeBtn?.classList.contains('selected') ? 'like' : 
                        dislikeBtn?.classList.contains('selected') ? 'dislike' : review.likeStatus;
 
     if (text.length > 1000) {
@@ -1848,7 +1850,7 @@ const ReviewComponent = {
 
     const textDiv = reviewItem.querySelector('.review-text');
     if (!textDiv || !textDiv.dataset.originalContent) {
-
+      
       this.loadReviews();
       return;
     }
@@ -1938,15 +1940,15 @@ const ReviewComponent = {
 
     const universeIds = [...new Set(Array.from(images).map(img => img.dataset.universeId).filter(Boolean))];
     if (universeIds.length === 0) return;
-
+    
     console.log('[ReviewComponent] Lazy loading thumbnails for', universeIds.length, 'games');
-
+    
     try {
-
+      
       const icons = await window.RobloxClient.api.getGameIcons(universeIds, '150x150');
-
+      
       if (icons?.data) {
-
+        
         const iconMap = {};
         icons.data.forEach(icon => {
           if (icon.targetId && icon.imageUrl) {
@@ -1973,8 +1975,8 @@ const ReviewComponent = {
     const editedTimestamp = review.editedTimestamp ? new Date(review.editedTimestamp).toLocaleDateString() : '';
 
     const playtimeMinutes = review.playtimeData?.totalMinutes || 0;
-    const playtimeFormatted = window.PlaytimeTracker ?
-      window.PlaytimeTracker.formatPlaytime(playtimeMinutes * 60) :
+    const playtimeFormatted = window.PlaytimeTracker ? 
+      window.PlaytimeTracker.formatPlaytime(playtimeMinutes * 60) : 
       `${playtimeMinutes}m`;
 
     const upvotes = review.voteStats?.upvotes || 0;
@@ -1986,8 +1988,8 @@ const ReviewComponent = {
     const cachedVote = this.userVoteCache[reviewIdStr];
     const userVote = cachedVote !== undefined ? cachedVote : (review.userVote || null);
 
-    const replySummaryCount = (this.replySummary && typeof this.replySummary === 'object')
-      ? this.replySummary[reviewIdStr]?.count
+    const replySummaryCount = (this.replySummary && typeof this.replySummary === 'object') 
+      ? this.replySummary[reviewIdStr]?.count 
       : undefined;
     const replyCount = review.replyCount ?? replySummaryCount ?? 0;
 
@@ -2000,8 +2002,8 @@ const ReviewComponent = {
       });
     }
 
-    const isExpanded = (this.expandedReplies instanceof Set)
-      ? this.expandedReplies.has(review.id)
+    const isExpanded = (this.expandedReplies instanceof Set) 
+      ? this.expandedReplies.has(review.id) 
       : false;
 
     const authorRating = review.author?.rating;
@@ -2011,13 +2013,13 @@ const ReviewComponent = {
 
     const authorBadges = review.author?.badges || [];
     const isAdmin = review.author?.isAdmin || authorBadges.some(b => b.id === 'admin');
-
+    
     const authorUserId = review.author?.userId;
-    const isDonor = review.author?.isDonor ||
+    const isDonor = review.author?.isDonor || 
                     authorBadges.some(b => b.id === 'donation') ||
                     (authorUserId && this.donorStatusCache[String(authorUserId)]);
     const isBanned = review.author?.isBanned || false;
-
+    
     let badgesHtml = '';
     if (isDonor) {
       badgesHtml += `<a href="#catalog-item?id=86478952287791" class="author-badge donor-badge" title="Supporter - owns Rovloo's Calling"><img src="images/rovloo/donate128.png" alt="Supporter"></a>`;
@@ -2031,8 +2033,8 @@ const ReviewComponent = {
 
     let reviewTextHtml = '';
     if (review.text) {
-      const MAX_LENGTH = 300;
-
+      const MAX_LENGTH = 300; 
+      
       if (review.text.length > MAX_LENGTH) {
 
         let truncateAt = MAX_LENGTH;
@@ -2043,7 +2045,7 @@ const ReviewComponent = {
 
         const truncatedRawText = review.text.substring(0, truncateAt).replace(/[\s\n]+$/, '');
         let truncatedFormatted = this.formatMarkdown(truncatedRawText);
-
+        
         truncatedFormatted = truncatedFormatted.replace(/(<br\s*\/?>)+$/gi, '');
         const fullFormatted = this.formatMarkdown(review.text);
 
@@ -2063,19 +2065,19 @@ const ReviewComponent = {
 
       let thumbnailUrl = null;
       let needsLazyLoad = false;
-
+      
       if (game.thumbnailUrl && (game.thumbnailUrl.includes('rbxcdn.com') || game.thumbnailUrl.includes('roblox.com'))) {
         thumbnailUrl = game.thumbnailUrl;
       } else {
-
+        
         thumbnailUrl = 'images/spinners/spinner100x100.gif';
         needsLazyLoad = true;
       }
-
+      
       gameContextHtml = `
         <div class="game-info-inline">
           <a href="#game-detail?id=${gameId}" class="game-link-inline">
-            <img src="${thumbnailUrl}" alt="${this.escapeHtml(gameName)}" class="game-thumbnail-inline"
+            <img src="${thumbnailUrl}" alt="${this.escapeHtml(gameName)}" class="game-thumbnail-inline" 
                  ${needsLazyLoad ? `data-universe-id="${universeId}" data-needs-thumbnail="true"` : ''}
                  onerror="this.src='images/spinners/spinner100x100.gif'">
           </a>
@@ -2123,13 +2125,13 @@ const ReviewComponent = {
         ${reviewTextHtml}
         <div class="review-footer">
           <div class="vote-buttons">
-            <button class="vote-btn upvote ${userVote === 'upvote' ? 'voted' : ''} ${isOwnReview ? 'own-review-disabled' : ''}"
+            <button class="vote-btn upvote ${userVote === 'upvote' ? 'voted' : ''} ${isOwnReview ? 'own-review-disabled' : ''}" 
                     onclick="ReviewComponent.handleVote('${review.id}', 'upvote')"
                     ${!this.currentUserId ? 'disabled title="Log in to vote"' : (isOwnReview ? 'disabled title="You cannot vote on your own review"' : '')}>
               <img src="images/rovloo/btn-thumbsup.png" alt="Upvote">
               <span>${upvotes}</span>
             </button>
-            <button class="vote-btn downvote ${userVote === 'downvote' ? 'voted' : ''} ${isOwnReview ? 'own-review-disabled' : ''}"
+            <button class="vote-btn downvote ${userVote === 'downvote' ? 'voted' : ''} ${isOwnReview ? 'own-review-disabled' : ''}" 
                     onclick="ReviewComponent.handleVote('${review.id}', 'downvote')"
                     ${!this.currentUserId ? 'disabled title="Log in to vote"' : (isOwnReview ? 'disabled title="You cannot vote on your own review"' : '')}>
               <img src="images/rovloo/btn-thumbsdown.png" alt="Downvote">
@@ -2138,7 +2140,7 @@ const ReviewComponent = {
             <span class="vote-score ${scoreClass}">Score: ${voteScore > 0 ? '+' : ''}${voteScore}</span>
           </div>
           <div class="reply-section">
-            <button class="reply-toggle-btn ${isExpanded ? 'expanded' : ''}"
+            <button class="reply-toggle-btn ${isExpanded ? 'expanded' : ''}" 
                     onclick="ReviewComponent.toggleReplies('${review.id}')"
                     data-review-id="${review.id}">
               <span class="reply-icon">💬</span>
@@ -2159,27 +2161,27 @@ const ReviewComponent = {
   },
 
   toggleReviewText(reviewId) {
-
+    
     const queryScope = this.container || document;
     const shortText = queryScope.querySelector(`#review-text-short-${reviewId}`);
     const fullText = queryScope.querySelector(`#review-text-full-${reviewId}`);
     const ellipsis = queryScope.querySelector(`#review-ellipsis-${reviewId}`);
     const btn = event.target.closest('.show-more-btn');
-
+    
     if (!shortText || !fullText || !btn) return;
-
+    
     const showMoreText = btn.querySelector('.show-more-text');
     const showLessText = btn.querySelector('.show-less-text');
-
+    
     if (fullText.style.display === 'none') {
-
+      
       shortText.style.display = 'none';
       if (ellipsis) ellipsis.style.display = 'none';
       fullText.style.display = 'inline';
       showMoreText.style.display = 'none';
       showLessText.style.display = 'inline';
     } else {
-
+      
       shortText.style.display = 'inline';
       if (ellipsis) ellipsis.style.display = 'inline';
       fullText.style.display = 'none';
@@ -2192,7 +2194,7 @@ const ReviewComponent = {
     if (!this.currentUserId) return;
 
     if (!this.rovlooAuthenticated) {
-
+      
       const shouldLogin = confirm('You need to login to Rovloo to vote on reviews. Login now?');
       if (shouldLogin) {
         await this.handleRovlooLogin();
@@ -2208,12 +2210,12 @@ const ReviewComponent = {
     }
 
     const reviewIdStr = String(reviewId);
-    const currentVote = this.userVoteCache[reviewIdStr] !== undefined
-      ? this.userVoteCache[reviewIdStr]
+    const currentVote = this.userVoteCache[reviewIdStr] !== undefined 
+      ? this.userVoteCache[reviewIdStr] 
       : (review.userVote || null);
 
     try {
-
+      
       if (currentVote === voteType) {
         await window.roblox.reviews.removeVote(reviewId);
         this.userVoteCache[reviewIdStr] = null;
@@ -2224,7 +2226,7 @@ const ReviewComponent = {
           review.voteStats.downvotes = Math.max(0, review.voteStats.downvotes - 1);
         }
       } else {
-
+        
         if (currentVote) {
           if (currentVote === 'upvote') {
             review.voteStats.upvotes = Math.max(0, review.voteStats.upvotes - 1);
@@ -2272,7 +2274,7 @@ const ReviewComponent = {
     let paginationHtml = '<div class="pagination-controls">';
 
     paginationHtml += `
-      <button class="pagination-btn prev"
+      <button class="pagination-btn prev" 
               onclick="ReviewComponent.goToPage(${this.currentPage - 1})"
               ${this.currentPage === 1 ? 'disabled' : ''}>
         &lt; Prev
@@ -2280,11 +2282,11 @@ const ReviewComponent = {
     `;
 
     paginationHtml += '<div class="page-numbers">';
-
+    
     const maxVisiblePages = 5;
     let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(this.totalPages, startPage + maxVisiblePages - 1);
-
+    
     if (endPage - startPage < maxVisiblePages - 1) {
       startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
@@ -2298,7 +2300,7 @@ const ReviewComponent = {
 
     for (let i = startPage; i <= endPage; i++) {
       paginationHtml += `
-        <button class="pagination-btn page ${i === this.currentPage ? 'current' : ''}"
+        <button class="pagination-btn page ${i === this.currentPage ? 'current' : ''}" 
                 onclick="ReviewComponent.goToPage(${i})"
                 ${i === this.currentPage ? 'disabled' : ''}>
           ${i}
@@ -2316,7 +2318,7 @@ const ReviewComponent = {
     paginationHtml += '</div>';
 
     paginationHtml += `
-      <button class="pagination-btn next"
+      <button class="pagination-btn next" 
               onclick="ReviewComponent.goToPage(${this.currentPage + 1})"
               ${this.currentPage === this.totalPages ? 'disabled' : ''}>
         Next &gt;
@@ -2358,37 +2360,49 @@ const ReviewComponent = {
     let formatted = this.escapeHtml(text);
 
     formatted = formatted.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
-
+    
+    // Bold: **text** or __text__
     formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     formatted = formatted.replace(/__([^_]+)__/g, '<strong>$1</strong>');
-
+    
+    // Italic: *text* or _text_ (but not inside words for underscore)
+    // Be careful not to match ** or __ which are bold
     formatted = formatted.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>');
     formatted = formatted.replace(/(?<!_)_([^_]+)_(?!_)/g, '<em>$1</em>');
-
+    
+    // Strikethrough: ~~text~~
     formatted = formatted.replace(/~~([^~]+)~~/g, '<del>$1</del>');
-
+    
+    // Links: [text](url) - only allow safe URLs (http, https, roblox game links)
     formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, linkText, url) => {
-
+      // Validate URL - only allow http, https, and roblox.com links
       const trimmedUrl = url.trim();
       if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
-
+        // Additional safety: escape the URL
         const safeUrl = this.escapeHtml(trimmedUrl);
         return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="markdown-link">${linkText}</a>`;
       }
-
+      // If URL doesn't match safe patterns, just return the text without link
       return linkText;
     });
-
+    
+    // Line breaks: convert newlines to <br>
     formatted = formatted.replace(/\n/g, '<br>');
-
+    
     return formatted;
   },
 
+  /**
+   * Format markdown inline - keeps symbols visible but applies styling
+   * Used for live editing in contenteditable fields
+   */
   formatMarkdownInline(text) {
     if (!text) return '';
-
+    
+    // First escape HTML to prevent XSS
     let formatted = this.escapeHtml(text);
-
+    
+    // Code blocks (inline) - wrap entire `code` including backticks
     formatted = formatted.replace(/(`[^`]+`)/g, '<span class="md-code">$1</span>');
 
     formatted = formatted.replace(/(\*\*[^*]+\*\*)/g, '<span class="md-bold">$1</span>');
@@ -2400,13 +2414,13 @@ const ReviewComponent = {
     formatted = formatted.replace(/(\[[^\]]+\]\([^)]+\))/g, '<span class="md-link">$1</span>');
 
     formatted = formatted.replace(/\n/g, '<br>');
-
+    
     return formatted;
   },
 
   getEditableText(element) {
     if (!element) return '';
-
+    
     let text = '';
     const walk = (node) => {
       if (node.nodeType === Node.TEXT_NODE) {
@@ -2427,13 +2441,13 @@ const ReviewComponent = {
   saveCursorPosition(element) {
     const selection = window.getSelection();
     if (!selection.rangeCount) return null;
-
+    
     const range = selection.getRangeAt(0);
     const preCaretRange = range.cloneRange();
     preCaretRange.selectNodeContents(element);
     preCaretRange.setEnd(range.startContainer, range.startOffset);
     const start = preCaretRange.toString().length;
-
+    
     return {
       start,
       end: start + range.toString().length
@@ -2442,33 +2456,33 @@ const ReviewComponent = {
 
   restoreCursorPosition(element, pos) {
     if (!pos || !element) return;
-
+    
     const selection = window.getSelection();
     const range = document.createRange();
-
+    
     let charIndex = 0;
     let foundStart = false;
     let foundEnd = false;
     let startNode, startOffset, endNode, endOffset;
-
+    
     const walk = (node) => {
       if (foundEnd) return;
-
+      
       if (node.nodeType === Node.TEXT_NODE) {
         const nextCharIndex = charIndex + node.length;
-
+        
         if (!foundStart && pos.start >= charIndex && pos.start <= nextCharIndex) {
           startNode = node;
           startOffset = pos.start - charIndex;
           foundStart = true;
         }
-
+        
         if (!foundEnd && pos.end >= charIndex && pos.end <= nextCharIndex) {
           endNode = node;
           endOffset = pos.end - charIndex;
           foundEnd = true;
         }
-
+        
         charIndex = nextCharIndex;
       } else {
         for (const child of node.childNodes) {
@@ -2477,9 +2491,9 @@ const ReviewComponent = {
         }
       }
     };
-
+    
     walk(element);
-
+    
     if (foundStart && foundEnd) {
       range.setStart(startNode, startOffset);
       range.setEnd(endNode, endOffset);
@@ -2504,7 +2518,7 @@ const ReviewComponent = {
     const queryScope = this.container || document;
     const threadContainer = queryScope.querySelector(`.replies-thread[data-review-id="${reviewId}"]`);
     const toggleBtn = queryScope.querySelector(`.reply-toggle-btn[data-review-id="${reviewId}"]`);
-
+    
     if (!threadContainer) {
       console.warn('[ReviewComponent] Thread container not found for review:', reviewId);
       return;
@@ -2512,9 +2526,9 @@ const ReviewComponent = {
 
     const isExpanded = this.expandedReplies.has(reviewId);
     console.log('[ReviewComponent] Current expanded state:', isExpanded);
-
+    
     if (isExpanded) {
-
+      
       this.expandedReplies.delete(reviewId);
       threadContainer.style.display = 'none';
       threadContainer.innerHTML = '';
@@ -2523,7 +2537,7 @@ const ReviewComponent = {
         toggleBtn.querySelector('.toggle-arrow').textContent = '▼';
       }
     } else {
-
+      
       this.expandedReplies.add(reviewId);
       threadContainer.style.display = 'block';
       threadContainer.innerHTML = '<div class="replies-loading">Loading replies...</div>';
@@ -2536,7 +2550,7 @@ const ReviewComponent = {
   },
 
   async loadReplies(reviewId) {
-
+    
     const queryScope = this.container || document;
     const threadContainer = queryScope.querySelector(`.replies-thread[data-review-id="${reviewId}"]`);
     if (!threadContainer) return;
@@ -2546,18 +2560,18 @@ const ReviewComponent = {
 
       let replies = [];
       let total = 0;
-
+      
       if (data) {
         if (Array.isArray(data)) {
-
+          
           replies = data;
           total = data.length;
         } else if (Array.isArray(data.items)) {
-
+          
           replies = data.items;
           total = data.total || data.items.length;
         } else if (Array.isArray(data.replies)) {
-
+          
           replies = data.replies;
           total = data.total || data.replies.length;
         }
@@ -2638,16 +2652,16 @@ const ReviewComponent = {
     const previewToggle = container.querySelector('.reply-preview-toggle');
     const previewContainer = container.querySelector('.reply-preview');
     const previewContent = container.querySelector('.reply-preview .preview-content');
-
+    
     if (editable) {
       let isUpdating = false;
 
       const updateReplyFormatting = () => {
         if (isUpdating) return;
         isUpdating = true;
-
+        
         const text = this.getEditableText(editable);
-
+        
         if (charCount) charCount.textContent = text.length;
 
         const cursorPos = this.saveCursorPosition(editable);
@@ -2655,14 +2669,14 @@ const ReviewComponent = {
         this.restoreCursorPosition(editable, cursorPos);
 
         if (previewContent && previewContainer && previewContainer.style.display !== 'none') {
-          previewContent.innerHTML = text.trim()
-            ? this.formatMarkdown(text)
+          previewContent.innerHTML = text.trim() 
+            ? this.formatMarkdown(text) 
             : '<span class="preview-placeholder">Preview...</span>';
         }
-
+        
         isUpdating = false;
       };
-
+      
       editable.addEventListener('input', updateReplyFormatting);
 
       editable.addEventListener('paste', (e) => {
@@ -2707,13 +2721,13 @@ const ReviewComponent = {
 
     const authorBadges = reply.author?.badges || [];
     const isAdmin = reply.author?.isAdmin || authorBadges.some(b => b.id === 'admin');
-
+    
     const authorUserId = reply.author?.userId;
-    const isDonor = reply.author?.isDonor ||
+    const isDonor = reply.author?.isDonor || 
                     authorBadges.some(b => b.id === 'donation') ||
                     (authorUserId && this.donorStatusCache[String(authorUserId)]);
     const isBanned = reply.author?.isBanned || false;
-
+    
     let badgesHtml = '';
     if (isDonor) {
       badgesHtml += `<a href="#catalog-item?id=86478952287791" class="author-badge donor-badge" title="Supporter - owns Rovloo's Calling"><img src="images/rovloo/donate128.png" alt="Supporter"></a>`;
@@ -2743,13 +2757,13 @@ const ReviewComponent = {
         <div class="reply-text">${this.formatMarkdown(reply.text || '')}</div>
         <div class="reply-footer">
           <div class="reply-vote-buttons">
-            <button class="vote-btn upvote ${userVote === 'upvote' ? 'voted' : ''} ${isOwnReply ? 'own-review-disabled' : ''}"
+            <button class="vote-btn upvote ${userVote === 'upvote' ? 'voted' : ''} ${isOwnReply ? 'own-review-disabled' : ''}" 
                     onclick="ReviewComponent.handleReplyVote('${reply.id}', '${reviewId}', 'upvote')"
                     ${!this.currentUserId ? 'disabled' : (isOwnReply ? 'disabled title="You cannot vote on your own reply"' : '')}>
               <img src="images/rovloo/btn-thumbsup.png" alt="Upvote">
               <span>${upvotes}</span>
             </button>
-            <button class="vote-btn downvote ${userVote === 'downvote' ? 'voted' : ''} ${isOwnReply ? 'own-review-disabled' : ''}"
+            <button class="vote-btn downvote ${userVote === 'downvote' ? 'voted' : ''} ${isOwnReply ? 'own-review-disabled' : ''}" 
                     onclick="ReviewComponent.handleReplyVote('${reply.id}', '${reviewId}', 'downvote')"
                     ${!this.currentUserId ? 'disabled' : (isOwnReply ? 'disabled title="You cannot vote on your own reply"' : '')}>
               <img src="images/rovloo/btn-thumbsdown.png" alt="Downvote">
@@ -2778,7 +2792,7 @@ const ReviewComponent = {
     const form = queryScope.querySelector(`.reply-form[data-review-id="${reviewId}"]`);
     const editable = form?.querySelector('.reply-editable');
     const submitBtn = form?.querySelector('.reply-submit-btn');
-
+    
     if (!editable) {
       console.error('[ReviewComponent] Reply editable not found for review:', reviewId);
       return;
@@ -2800,7 +2814,7 @@ const ReviewComponent = {
     }
 
     try {
-
+      
       const gameId = this.getReviewGameId(reviewId);
       console.log('[ReviewComponent] Creating reply for review:', reviewId, 'gameId:', gameId, 'text length:', text.length);
       await window.roblox.reviews.createReply(reviewId, text, gameId);
@@ -2838,7 +2852,7 @@ const ReviewComponent = {
   async saveReplyEdit(replyId, reviewId) {
     const replyItem = document.querySelector(`.reply-item[data-reply-id="${replyId}"]`);
     const textarea = replyItem?.querySelector('.reply-edit-textarea');
-
+    
     if (!textarea) return;
 
     const text = textarea.value.trim();
@@ -2883,16 +2897,16 @@ const ReviewComponent = {
     const currentVote = this.userReplyVoteCache[replyIdStr];
 
     try {
-
+      
       if (currentVote === voteType) {
-
+        
         await window.roblox.reviews.voteReply(replyId, voteType);
         this.userReplyVoteCache[replyIdStr] = null;
       } else {
         await window.roblox.reviews.voteReply(replyId, voteType);
         this.userReplyVoteCache[replyIdStr] = voteType;
       }
-
+      
       await this.loadReplies(reviewId);
     } catch (error) {
       console.error('Failed to vote on reply:', error);
@@ -2928,7 +2942,7 @@ const ReviewComponent = {
     this.clientSideSort = false;
     this.myReviewsMode = false;
     this.myReviewsUserId = null;
-    this.avatarCache = new Map();
+    this.avatarCache = new Map();  
     this._clickHandler = null;
   }
 };
