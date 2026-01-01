@@ -219,9 +219,8 @@
             }
             
             if (content) {
-                
-                content = content.replace(/\.\.\/images\
-                content = content.replace(/\.\.\/CSS\
+                content = content.replace(/\.\.\/images\//g, 'images/');
+                content = content.replace(/\.\.\/CSS\//g, 'CSS/');
                 
                 container.innerHTML = content;
                 gamesLoaded = true;

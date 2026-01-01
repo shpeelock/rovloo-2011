@@ -209,10 +209,9 @@
 
             const catalogContainer = doc.getElementById('CatalogContainer');
             if (catalogContainer) {
-                
                 let content = catalogContainer.innerHTML;
-                content = content.replace(/\.\.\/images\
-                content = content.replace(/\.\.\/CSS\
+                content = content.replace(/\.\.\/images\//g, 'images/');
+                content = content.replace(/\.\.\/CSS\//g, 'CSS/');
 
                 browseModeHandlerAttached = false;
                 categoryHandlerAttached = false;
@@ -225,8 +224,8 @@
                 const bodyDiv = doc.getElementById('Body');
                 if (bodyDiv) {
                     let content = bodyDiv.innerHTML;
-                    content = content.replace(/\.\.\/images\
-                    content = content.replace(/\.\.\/CSS\
+                    content = content.replace(/\.\.\/images\//g, 'images/');
+                    content = content.replace(/\.\.\/CSS\//g, 'CSS/');
 
                     browseModeHandlerAttached = false;
                     categoryHandlerAttached = false;
