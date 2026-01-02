@@ -38,6 +38,8 @@
 
             loadRecommendedGames();
 
+            loadRecentlyPlayedGames();
+
             loadMyFeed();
 
         } catch (error) {
@@ -403,7 +405,7 @@
             const thumbnail = game.thumbnail || 'images/spinners/spinner100x100.gif';
             const isRovloo = game.isRovloo || false;
 
-            const rovlooBadge = isRovloo 
+            const rovlooBadge = isRovloo
                 ? '<img src="images/rovloo/rovloo-ico64.png" alt="Rovloo" title="Recommended by Rovloo community" style="width:14px;height:14px;vertical-align:middle;margin-left:4px;"/>'
                 : '';
 
@@ -413,6 +415,121 @@
                     <div style="font-size: 11px; font-weight: bold; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;" title="${escapeHtml(name)}">${escapeHtml(name)}${rovlooBadge}</div>
                     <div style="font-size: 10px; color: #666; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
                         <img src="assets/ui/online.png" alt="Playing" style="width:8px;height:8px;vertical-align:middle;margin-right:2px;"/> ${playerCount.toLocaleString()} playing
+                    </div>
+                </a>
+            `;
+        }
+
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    async function loadRecentlyPlayedGames() {
+        const gamesContainer = document.getElementById('myroblox-recently-played');
+        if (!gamesContainer) return;
+
+        try {
+            const playtimeData = await window.PlaytimeTracker.getAllPlaytime();
+            console.log('[RecentlyPlayed] Playtime data:', playtimeData);
+
+            if (!playtimeData || Object.keys(playtimeData).length === 0) {
+                gamesContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No recently played games.</div>';
+                return;
+            }
+
+            const sortedGames = Object.entries(playtimeData)
+                .filter(([placeId, data]) => data && data.totalMinutes > 0)
+                .sort((a, b) => {
+                    const lastPlayedA = a[1].lastPlayed || 0;
+                    const lastPlayedB = b[1].lastPlayed || 0;
+                    return lastPlayedB - lastPlayedA;
+                })
+                .slice(0, 2);
+
+            if (sortedGames.length === 0) {
+                gamesContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No recently played games.</div>';
+                return;
+            }
+
+            const placeIds = sortedGames.map(([placeId]) => parseInt(placeId));
+            console.log('[RecentlyPlayed] Loading details for places:', placeIds);
+
+            const gamesInfo = await window.roblox.getMultiPlaceDetails(placeIds);
+            console.log('[RecentlyPlayed] Games info:', gamesInfo);
+
+            if (!gamesInfo || gamesInfo.length === 0) {
+                gamesContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No game details available.</div>';
+                return;
+            }
+
+            const universeIds = gamesInfo.map(g => g.universeId).filter(Boolean);
+            let thumbnailMap = {};
+
+            if (universeIds.length > 0 && window.roblox?.getUniverseThumbnails) {
+                try {
+                    const thumbResult = await window.roblox.getUniverseThumbnails(universeIds, '256x144');
+                    if (thumbResult?.data) {
+                        thumbResult.data.forEach(item => {
+                            if (item.thumbnails && item.thumbnails.length > 0) {
+                                const thumb = item.thumbnails[0];
+                                if (thumb.imageUrl && item.universeId) {
+                                    thumbnailMap[item.universeId] = thumb.imageUrl;
+                                }
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.warn('[RecentlyPlayed] Failed to fetch thumbnails:', e);
+                }
+            }
+
+            const gamesData = gamesInfo.map(game => {
+                const playtimeInfo = playtimeData[game.placeId];
+                return {
+                    placeId: game.placeId,
+                    universeId: game.universeId,
+                    name: game.name,
+                    playerCount: game.playing || 0,
+                    thumbnail: thumbnailMap[game.universeId] || 'images/spinners/spinner100x100.gif',
+                    playtime: playtimeInfo ? window.PlaytimeTracker.formatPlaytimeMinutes(playtimeInfo.totalMinutes) : '< 1m'
+                };
+            });
+
+            renderRecentlyPlayedGames(gamesContainer, gamesData);
+
+        } catch (error) {
+            console.error('[RecentlyPlayed] Failed to load recently played games:', error);
+            gamesContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #c00;">Failed to load recently played games.</div>';
+        }
+    }
+
+    function renderRecentlyPlayedGames(container, gamesData) {
+        if (!container || !gamesData || gamesData.length === 0) {
+            container.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No recently played games.</div>';
+            return;
+        }
+
+        let html = '<div style="display: flex; flex-direction: column; gap: 10px;">';
+
+        for (const game of gamesData) {
+            const placeId = game.placeId;
+            const universeId = game.universeId;
+            const name = game.name || 'Untitled Game';
+            const playerCount = game.playerCount || 0;
+            const thumbnail = game.thumbnail || 'images/spinners/spinner100x100.gif';
+            const playtime = game.playtime || '< 1m';
+
+            html += `
+                <a href="#game-detail?id=${placeId}&universe=${universeId}" style="text-decoration: none; display: flex; align-items: center; background: #fff; padding: 10px; border: 1px solid #ccc; border-radius: 4px; overflow: hidden;">
+                    <img src="${thumbnail}" alt="${escapeHtml(name)}" style="width: 120px; height: 68px; object-fit: cover; border-radius: 3px; margin-right: 12px; flex-shrink: 0;"/>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-size: 12px; font-weight: bold; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(name)}">${escapeHtml(name)}</div>
+                        <div style="font-size: 10px; color: #666; margin-top: 4px;">
+                            <img src="assets/ui/online.png" alt="Playing" style="width:8px;height:8px;vertical-align:middle;margin-right:2px;"/> ${playerCount.toLocaleString()} playing
+                        </div>
+                        <div style="font-size: 10px; color: #666; margin-top: 2px;">
+                            Played: ${playtime}
+                        </div>
                     </div>
                 </a>
             `;
