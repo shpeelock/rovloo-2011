@@ -454,20 +454,45 @@
             const placeIds = sortedGames.map(([placeId]) => parseInt(placeId));
             console.log('[RecentlyPlayed] Loading details for places:', placeIds);
 
-            const gamesInfo = await window.roblox.getMultiPlaceDetails(placeIds);
-            console.log('[RecentlyPlayed] Games info:', gamesInfo);
+            const placeDetailsResult = await window.roblox.getPlaceDetails(placeIds);
+            console.log('[RecentlyPlayed] Place details result:', placeDetailsResult);
 
-            if (!gamesInfo || gamesInfo.length === 0) {
+            if (!placeDetailsResult || placeDetailsResult.length === 0) {
                 gamesContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No game details available.</div>';
                 return;
             }
 
-            const universeIds = gamesInfo.map(g => g.universeId).filter(Boolean);
+            const universeIds = placeDetailsResult.map(p => p.universeId).filter(Boolean);
+
+            let gamesInfo = [];
+            if (universeIds.length > 0) {
+                const gameDetailsResult = await window.roblox.getGameDetails(universeIds);
+                console.log('[RecentlyPlayed] Game details result:', gameDetailsResult);
+
+                if (gameDetailsResult?.data) {
+                    gamesInfo = gameDetailsResult.data.map(gameData => {
+                        const placeData = placeDetailsResult.find(p => p.universeId === gameData.id);
+                        return {
+                            placeId: placeData?.placeId,
+                            universeId: gameData.id,
+                            name: gameData.name,
+                            playing: gameData.playing || 0
+                        };
+                    });
+                }
+            }
+
+            if (gamesInfo.length === 0) {
+                gamesContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No game details available.</div>';
+                return;
+            }
+
+            const finalUniverseIds = gamesInfo.map(g => g.universeId).filter(Boolean);
             let thumbnailMap = {};
 
-            if (universeIds.length > 0 && window.roblox?.getUniverseThumbnails) {
+            if (finalUniverseIds.length > 0 && window.roblox?.getUniverseThumbnails) {
                 try {
-                    const thumbResult = await window.roblox.getUniverseThumbnails(universeIds, '256x144');
+                    const thumbResult = await window.roblox.getUniverseThumbnails(finalUniverseIds, '256x144');
                     if (thumbResult?.data) {
                         thumbResult.data.forEach(item => {
                             if (item.thumbnails && item.thumbnails.length > 0) {
