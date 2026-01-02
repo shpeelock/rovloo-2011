@@ -454,15 +454,26 @@
             const placeIds = sortedGames.map(([placeId]) => parseInt(placeId));
             console.log('[RecentlyPlayed] Loading details for places:', placeIds);
 
-            const placeDetailsResult = await window.roblox.getPlaceDetails(placeIds);
-            console.log('[RecentlyPlayed] Place details result:', placeDetailsResult);
+            const placeDetailsResults = [];
+            for (const placeId of placeIds) {
+                try {
+                    const result = await window.roblox.getPlaceDetails([placeId]);
+                    if (result && result[0]) {
+                        placeDetailsResults.push(result[0]);
+                    }
+                } catch (e) {
+                    console.warn(`[RecentlyPlayed] Failed to get details for place ${placeId}:`, e);
+                }
+            }
 
-            if (!placeDetailsResult || placeDetailsResult.length === 0) {
+            console.log('[RecentlyPlayed] Place details results:', placeDetailsResults);
+
+            if (placeDetailsResults.length === 0) {
                 gamesContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No game details available.</div>';
                 return;
             }
 
-            const universeIds = placeDetailsResult.map(p => p.universeId).filter(Boolean);
+            const universeIds = placeDetailsResults.map(p => p.universeId).filter(Boolean);
 
             let gamesInfo = [];
             if (universeIds.length > 0) {
@@ -471,7 +482,7 @@
 
                 if (gameDetailsResult?.data) {
                     gamesInfo = gameDetailsResult.data.map(gameData => {
-                        const placeData = placeDetailsResult.find(p => p.universeId === gameData.id);
+                        const placeData = placeDetailsResults.find(p => p.universeId === gameData.id);
                         return {
                             placeId: placeData?.placeId,
                             universeId: gameData.id,
