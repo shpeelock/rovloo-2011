@@ -6,7 +6,7 @@
   "author": "shpeelock",
   "entry": "index.html",
   "era": "2011",
-   "preview": "https://raw.githubusercontent.com/shpeelock/rovloo-2011/refs/heads/main/preview.png",
+  "preview": "https://raw.githubusercontent.com/shpeelock/rovloo-2011/refs/heads/main/preview.png",
   "supports": {
     "seasonal": ["default", "halloween", "thanksgiving", "christmas"]
   }

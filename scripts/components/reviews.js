@@ -1559,6 +1559,12 @@ const ReviewComponent = {
       this.showFormError('Please login to Rovloo first');
       return;
     }
+    
+    // Check if user already has a review (prevent duplicates)
+    if (this.userReview) {
+      this.showFormError('You already have a review for this game. Please edit your existing review instead.');
+      return;
+    }
 
     const submitBtn = document.getElementById('submitReviewBtn');
     const errorDiv = document.getElementById('formError');
@@ -1583,8 +1589,8 @@ const ReviewComponent = {
 
     try {
       
-      const playtimeData = window.PlaytimeTracker ? 
-        await window.PlaytimeTracker.getPlaytimeDataAsync(this.placeId, this.universeId) : { totalMinutes: 0, source: 'native' };
+      const playtimeData = window.roblox?.playtime ? 
+        await window.roblox.playtime.getPlaytimeData(this.currentUserId, this.placeId) : { totalMinutes: 0, source: 'native' };
 
       const author = {
         userId: this.currentUserId,
@@ -1601,8 +1607,8 @@ const ReviewComponent = {
 
       await window.roblox.reviews.create(this.placeId, reviewData);
 
-      if (window.PlaytimeTracker && playtimeData.totalMinutes > 0) {
-        await window.PlaytimeTracker.markPlaytimeSynced(this.placeId);
+      if (window.roblox?.playtime && playtimeData.totalMinutes > 0) {
+        await window.roblox.playtime.markSynced(this.currentUserId, this.placeId);
       }
 
       await this.loadReviews();
