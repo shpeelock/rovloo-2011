@@ -565,8 +565,8 @@ async function updateAuthUI(user) {
     if (user) {
         authSpan.className = 'logged-in';
         authSpan.innerHTML = `
-            <span style="color: #000000ff;">Hi, ${user.displayName || user.name}</span>
-            <a href="#" onclick="doLogout(); return false;" style="color: #ffffffff; font-size: 10px; white-space: nowrap; display: inline-block; margin-left: 8px;">Return To Hub</a>
+            <span style="color: #000000ff; display: inline; white-space: nowrap;">Hi, ${user.displayName || user.name}</span>
+            <a href="#" onclick="doLogout(); return false;" style="color: #ffffffff; font-size: 10px; white-space: nowrap; display: inline; margin-left: 6px;">Return To Hub</a>
         `;
     } else {
         authSpan.className = '';
