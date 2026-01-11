@@ -72,3 +72,19 @@
   background: rgba(255,255,255,0.05);
   transform: scale(0.95);
 }
+
+.titlebar-nav-btn {
+  width: 32px;
+  font-size: 12px;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.titlebar-nav-btn:disabled:hover {
+  background: transparent;
+  color: #aaa;
+}

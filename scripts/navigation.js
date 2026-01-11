@@ -566,7 +566,7 @@ async function updateAuthUI(user) {
         authSpan.className = 'logged-in';
         authSpan.innerHTML = `
             <span style="color: #000000ff;">Hi, ${user.displayName || user.name}</span>
-            <a href="#" onclick="doLogout(); return false;" style="color: #ffffffff; font-size: 10px;">Logout</a>
+            <a href="#" onclick="doLogout(); return false;" style="color: #ffffffff; font-size: 10px; white-space: nowrap; display: inline-block; margin-left: 8px;">Return To Hub</a>
         `;
     } else {
         authSpan.className = '';
@@ -833,4 +833,62 @@ function initSubNav() {
             }
         });
     });
+}
+
+
+// Titlebar navigation buttons
+function initTitlebarNavigation() {
+    const btnBack = document.getElementById('btn-back');
+    const btnForward = document.getElementById('btn-forward');
+
+    if (btnBack) {
+        btnBack.addEventListener('click', function() {
+            window.history.back();
+        });
+    }
+
+    if (btnForward) {
+        btnForward.addEventListener('click', function() {
+            window.history.forward();
+        });
+    }
+
+    // Update button states based on history
+    updateNavigationButtonStates();
+    window.addEventListener('load', updateNavigationButtonStates);
+    window.addEventListener('popstate', updateNavigationButtonStates);
+}
+
+function updateNavigationButtonStates() {
+    const btnBack = document.getElementById('btn-back');
+    const btnForward = document.getElementById('btn-forward');
+
+    if (btnBack) {
+        btnBack.disabled = false;
+    }
+
+    if (btnForward) {
+        btnForward.disabled = false;
+    }
+}
+
+// Keyboard shortcuts for navigation
+document.addEventListener('keydown', function(e) {
+    // Alt+Left for back
+    if (e.altKey && e.key === 'ArrowLeft') {
+        e.preventDefault();
+        window.history.back();
+    }
+    // Alt+Right for forward
+    if (e.altKey && e.key === 'ArrowRight') {
+        e.preventDefault();
+        window.history.forward();
+    }
+});
+
+// Initialize titlebar navigation when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTitlebarNavigation);
+} else {
+    initTitlebarNavigation();
 }
