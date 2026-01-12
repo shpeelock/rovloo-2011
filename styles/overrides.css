@@ -529,10 +529,50 @@ body {
     background: #5a85b5;
 }
 
-#AuthenticationBannerSpan.logged-in {
-    display: flex;
+#Banner #Authentication #AuthenticationBannerSpan.logged-in {
+    display: flex !important;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    height: 28px;
+    padding: 0 10px !important;
+    box-sizing: border-box;
+}
+
+#Banner #Authentication #AuthenticationBannerSpan.logged-in .auth-username {
+    color: #000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+
+#Banner #Authentication #AuthenticationBannerSpan.logged-in .auth-hub-btn {
+    display: inline-block !important;
+    height: 18px !important;
+    max-height: 18px !important;
+    line-height: 18px !important;
+    overflow: hidden !important;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 0 5px !important;
+    margin: 0 !important;
+    background: url('../assets/ui/btn_blue18h.png') repeat-x !important;
+    background-position: 0 0 !important;
+    box-sizing: content-box;
+}
+
+#Banner #Authentication #AuthenticationBannerSpan.logged-in .auth-hub-btn:hover {
+    background-position: 0 -18px !important;
+    text-decoration: none;
+}
+
+#Banner #Options {
+    width: auto !important;
+    min-width: 200px;
+    overflow: visible !important;
 }
 
 #AuthenticationBannerSpan .user-avatar-small {
