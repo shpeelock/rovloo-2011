@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   
   ensurePagesInBody();
   
@@ -7,8 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initFooterLinks();
   initThemeSettings();
-  checkLoginState();
-  loadHomePage();
+  
+  const isLoggedIn = await checkLoginState();
+  
+  if (isLoggedIn) {
+    navigateTo('myroblox');
+  } else {
+    loadHomePage();
+  }
 });
 
 const THEME_STORAGE_KEY = 'rovloo_theme';

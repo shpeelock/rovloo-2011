@@ -594,14 +594,17 @@ async function checkLoginState() {
                 
                 updateHeaderStatsBox(user.id, true);
                 
+                return true;
             }
         } else {
             
             updateHeaderStatsBox(null, false);
         }
+        return false;
     } catch (error) {
         console.log('Not logged in or error checking login state');
         updateHeaderStatsBox(null, false);
+        return false;
     }
 }
 
